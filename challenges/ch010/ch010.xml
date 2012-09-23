@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 10</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        Would you like to become an active hacker ?<br /> How about becoming a member of the world's largest hacker group:<br /> The n1nJ4.n4x0rZ.CreW!<br /> <br /> Before you can join though, you 'll have to prove yourself worthy by passing the test that can be found at: <a href="ch010/" target="_blank">http://n1nj4h4x0rzcr3w.com</a><br /> <br /> If you succeed in completing the challenge, you will get a serial  number, which you will use for obtaining the password that will enable  you to join the group.<br /> <br /> Your objective is to bypass the authentication mechanism, find the  serial number and be supplied with your own username and password from  the admin team of the site.
+        ]]>
+    </description>
+</challenge>

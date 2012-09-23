@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 4</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       A hacker informed us that <a href="ch004/index.php" target="_blank">this</a> site suffers from an XSS-like type of  vulnerability. Unfortunately, he lost the notes he had written regarding  how exactly did he exploit the aforementioned vulnerability.<br /> Your objective is to make an alert box appear, bearing the message "<strong>XSS!</strong>". It should be noted, however, that this site has some protection against such attacks.
+        ]]>
+    </description>
+</challenge>

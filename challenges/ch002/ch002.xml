@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 2</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        Your Country needs your help for finding the password of an enemy site  that contains useful information, which if is not acquired on time,  peace in our area will be at stake.<br /> <br />
+        You must therefore succeed in finding the password of this military <a href="ch002/index.php" target="_blank">SITE</a>.<br /> <br /> Good luck!
+        ]]>
+    </description>
+</challenge>

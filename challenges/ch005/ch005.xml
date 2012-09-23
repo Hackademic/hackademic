@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 5</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        You need to get access to the contents of this <a href="ch005/index.php" target="_blank">SITE</a>. In order to achieve  this, however, you must buy the "p0wnBrowser" web browser. Since it is  too expensive, you will have to "fool" the system in some way, so that  it let you read the site's contents.
+        ]]>
+    </description>
+</challenge>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 6</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       In this assignment you must prove your... knightly skills! Real knights  have not disappeared.They still exist, keeping their secrets well  hidden.<br /> Your mission is to infiltrate their <a href="ch006/index.php" target="_blank">SITE</a>. There is a small problem, however... We don't know the password!<br /> Perhaps you could find it?<br /> Let's see!<br /> g00d luck dudes!
+        ]]>
+    </description>
+</challenge>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 9</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       A friend of yours has set up a news blog at <a href="ch009/index.php" target="_blank">slagoff.com</a>.  However, he is kind of worried regarding the security of the news that  gets posted on the blog and has asked you to check how secure it is.<br /> <br /> Your objective is to determine whether any vulnerabilities exist that, if exploited, can grant access to the blog's server.<br /> <br /> Hint: A specially-tailored backdoor shell can be found at "<a href="http://www.really_nasty_hacker.com/shell.txt" target="_blank">http://www.really_nasty_hacker.com/shell.txt</a>".
+        ]]>
+    </description>
+</challenge>

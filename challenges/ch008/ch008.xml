@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 8</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       You have managed, after several tries, to install a backdoor shell (Locus7Shell) to <a href="ch008/" target="_blank">trytohack.gr<br /></a> <br /> The problem is that, in order to execute the majority of the commands  (on the machine running the backdoor) you must have super-user rights  (root).<br /> <br /> Your aim is to obtain root rights.
+        ]]>
+    </description>
+</challenge>

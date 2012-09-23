@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 3</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       XSS permits a malevolent user to inject his own code in vulnerable web  pages. According to the OWASP 2010 Top 10 Application Security Risks,  XSS attacks rank 2nd in the "most dangerous" list.<br /> <br /> Your objective is to make an alert box appear  <a href="ch003/index.php" target="_blank">HERE</a> bearing the message: "<strong>XSS!</strong>".]]>
+    </description>
+</challenge>

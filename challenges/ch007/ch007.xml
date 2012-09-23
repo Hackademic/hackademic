@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 7</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        A good friend of mine studies at Acme University, in the <a href="ch007/index.php" target="_blank">Computer  Science and Telecomms Department</a>. Unfortunately, her grades are not that  good. You are now thinking "This is big news!"... Hmmm, maybe not. What  is big news, however, is this: The network administrator asked for  3,000 euros to change her marks into A's. This is obviously a case of  administrative authority abuse. Hence... a good chance for D-phase and  public exposure...<br /> I need to get into the site as admin and upload an index.htm  file in the web-root directory, that will present all required evidence  for the University's latest "re-marking" practices!<br /> I only need you to find the admin password for me...<br /> <br /> Good Luck!
+        ]]>
+    </description>
+</challenge>

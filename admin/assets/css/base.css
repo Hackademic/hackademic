@@ -1,0 +1,102 @@
+html {height: 100%; background-color:#E6E6E6;}
+body {height:95%;}
+#main {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    width: 95%;
+    min-height: 98%;
+   -webkit-border-radius: 30px;
+   -moz-border-radius: 30px;
+   border-radius: 30px;
+}
+#usermessage {width: 60%; margin: auto;}
+
+.left {float: left;}
+.right {float: right;}
+.center {text-align: center}
+.pad_25 {padding-top: 25px;}
+.pad_top_5 {padding-top:5px;}
+.margin_left_25{margin-left:25px;}
+#logo{height:68px;}
+#orglogo{height:30px;}
+
+#username {
+    margin-top:15px;
+    margin-left: 20px;
+    margin-bottom: -10px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.manager_table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    background: #fff;
+    margin: auto;
+    width: 90%;
+    border-collapse: collapse;
+    text-align: left;
+}
+.manager_table th {
+    font-size: 14px;
+    font-weight: normal;
+    color: #039;
+    padding: 10px 8px;
+    border-bottom: 2px solid #6678b1;
+}
+.manager_table td {
+    border-bottom: 1px solid #ccc;
+    color: #669;
+    padding: 6px 8px;
+}
+
+.main_content {width: 100%; margin: auto; margin-top: -40px; display: block;}
+.header_bar {
+    background-color: #f4f4f4;
+    height: 55px;
+    width: 90%;
+    margin: auto;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.action_button {display: block; margin-right: 10px;}
+.action_image {height: 28px;}
+.submenu_btn {width: 80px;}
+.submenu_btn a {text-decoration: none;}
+.page_title {margin-left: 10px; display: block;}
+
+#paginate_div {margin: auto; text-align: center;}
+#dashboard_table {
+    width: 600px;
+    height:150px;
+    margin: auto;
+    text-align: center;
+}
+#dashboard_table a {
+    color: #000;
+    text-decoration: none;
+}
+#dashboard_table img {
+    width: 90px;
+    height: 90px;
+}
+
+.user_add { width: auto; margin: auto; height: 450px;}
+.user_add tr {margin-bottom: 10px;}
+.user_add .submit_btn {text-align: center;}
+
+.article_main {width:90%; margin: auto; height:850px;}
+#upload_container {width: 90%; margin: auto;}
+.add_form {width:90%; margin: auto;}
+
+.width_auto {width: auto;}
+.width_100 {width: 100;}
+.width_90 {width: 90%;}
+.width_50 {width: 50%;}
+.width_40 {width: 40%;}
+.width_25 {width: 25%;}
+.width_20 {width: 20%;}
+.width_10 {width: 10%;}
