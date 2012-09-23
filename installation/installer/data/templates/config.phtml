@@ -1,0 +1,34 @@
+<div class="header_bar">
+	<div class="page_title"><h3 class="left">{#I-17#}</h3></div>
+</div><br/>
+
+<div id="input_form">
+<form action="{#url#}" method="post" class="user_add">
+<input type="hidden" name="step" value="finish" />
+
+
+<div class="input"><p>{#I-30#}:</p>
+<input size="50" class="text" type="text" name="app_title" value="{#app_title#}" />
+</div>
+
+<div class="input"><p>{#I-18#}:</p>
+<input size="50" class="text" type="text" name="source_root_path" value="{#source_root_path#}" />
+</div>
+
+<div class="input"><p>{#I-19#}:</p>
+<input size="50" class="text" type="text" name="site_root_path" value="{#site_root_path#}" />
+</div>
+
+
+
+<!-- begin buttons -->
+<div class="submit_btn">
+	<p class="submit"><input class="right try_me"  style="margin-left: -220px; position: absolute;" type="submit" value="{#I-25#}" /></p>
+</div>
+<!-- end buttons -->
+</form>
+<form action="{#url#}" method="post" class="user_add">
+<input type="hidden" name="step" value="db" />
+<p class="submit"><input class="left try_me" type="submit" value="{#I-32#}" /></p>
+</form>
+</div>

@@ -1,0 +1,65 @@
+<div class="header_bar">
+	<div class="page_title"><h3 class="left">{#I-26#}</h3></div>
+</div><br/>
+
+<div id="input_form">
+<form action="{#url#}" method="post" onsubmit="return checkForm(this)" class="user_add">
+<input type="hidden" name="step" value="db" />
+
+
+<div class="input"><p>{#I-29#}:</p>
+<input size="50" class="text" type="text" name="email" value="" />
+</div>
+
+<div class="input"><p>{#I-27#}:</p>
+<input size="50" class="text" type="text" name="username" value="{#username#}" />
+</div>
+
+<div class="input"><p>{#I-28#}:</p>
+<input size="50" class="text" type="password" name="password" value="" />
+</div>
+
+
+<!-- begin buttons -->
+<div class="submit_btn">
+	<p class="submit"><input class="left try_me" style="margin-left: -220px; position: absolute;" type="submit" value="{#I-03#}" /></p>
+</div>
+<!-- end buttons -->
+</form>
+<form action="{#url#}" method="post" class="user_add">
+<input type="hidden" name="step" value="index" />
+<p class="submit"><input class="left try_me" type="submit" value="{#I-32#}" /></p>
+</form>
+</div>
+<script type="text/javascript">
+  function checkForm(form){
+   var username=form.username.value;
+   var password=form.password.value;
+   var email=form.email.value;
+   var errors=[];
+   if (email==""){
+   errors.push("Please enter an email id.")
+   }
+   if (username==""){
+   errors.push("Please enter an username.")
+   }
+   if (password==""){
+   errors.push("Please enter a password.")
+   }
+   
+   var str="";
+   if(errors.length > 0){
+   var count=errors.length;
+   for(var i=0;i<count;i++){
+     str +=errors[i] + "\n";
+	}
+	alert(str);
+	return false;
+}
+return true;
+}
+</script>
+	
+   
+   
+   

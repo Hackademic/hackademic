@@ -1,0 +1,12 @@
+
+body, #wrapper .buffer {
+text-align: right;
+direction: rtl;
+font-family: Arial;
+}
+
+#sidebar ul li {
+font-size:1.0em;
+}
+
+#footer p {text-align: right;}

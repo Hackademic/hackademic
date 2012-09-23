@@ -1,0 +1,44 @@
+<div class="header_bar">
+	<div class="page_title"><h3 class="left">{#I-04#}</h3></div>
+</div><br/>
+
+<div id="input_form">
+<form action="{#url#}" method="post" class="user_add">
+<input type="hidden" name="step" value="database" />
+
+
+<div class="input"><p>{#I-05#}:</p>
+<input size="30" class="text" type="text" name="dbname" value="" />
+</div>
+
+<div class="input"><p>{#I-06#}:</p>
+<input size="30" class="text" type="text" name="dbuser" value="" />
+</div>
+
+<div class="input"><p>{#I-07#}:</p>
+<input size="30" class="text" type="password" name="dbpass" value="" />
+</div>
+
+<div class="input"><p>{#I-08#}:</p>
+<input size="30" class="text" type="text" name="dbhost" value="localhost" />
+</div>
+
+<div class="input"><p>{#I-09#}</p>
+<span class="radio">
+<input type="radio" name="create_database" />{#I-11#}
+<input type="radio" name="create_database" checked="checked" />{#I-10#}
+</span>
+</div>
+
+
+<!-- begin buttons -->
+<div class="submit_btn">
+	<p class="submit"><input class="right try_me"  style="margin-left: -220px; position: absolute;" type="submit" value="{#I-03#}" /></p>
+</div>
+<!-- end buttons -->
+</form>
+<form action="{#url#}" method="post" class="user_add">
+<input type="hidden" name="step" value="admin" />
+<p class="submit"><input class="left try_me" type="submit" value="{#I-32#}" /></p>
+</form>
+</div>
