@@ -289,16 +289,38 @@ class Installer
 				'source_root_path' =>$_POST['source_root_path'],
 				'app_title'=>$_POST['app_title']
 			       );
+		//if (!is_writable(ROOT_PATH.'/config.inc.php'))
+		//	die("Config file is not writable please change the files permissions");
+		//if(!is_readable(ROOT_PATH.'/config.inc.php'))
+		//	die("Config file is not readable please change the files permissions");
 
 		$sample=file_get_contents(ROOT_PATH.'/sample.config.inc.php');
-		$sample=str_replace("#YOUR_APP_TITLE_HERE#",$values['app_title'],$sample);
-		$sample=str_replace("#YOUR_SITE_ROOT_PATH#",$values['site_root_path'],$sample);
-		$sample=str_replace("#YOUR_SOURCE_ROOT_PATH#",$values['source_root_path'],$sample);
-		$sample=str_replace("#YOUR_DBHOST#",$values['dbhost'],$sample);
-		$sample=str_replace("#YOUR_DBUSER#",$values['dbuser'],$sample);
-		$sample=str_replace("#YOUR_DBPASS#",$values['dbpass'],$sample);
-		$sample=str_replace("#YOUR_DBNAME#",$values['dbname'],$sample);
-		file_put_contents($path,$sample);
+		if( FALSE == $sample || E_WARNING == $sample )
+			die("sample file not readable or not existent read function returned: $sample" );
+
+		$sample=str_replace("#YOUR_APP_TITLE_HERE#",$values['app_title'],$sample,$count);
+		if($count == 0)
+			die("App Title Not set");
+		$sample=str_replace("#YOUR_SITE_ROOT_PATH#",$values['site_root_path'],$sample,$count);
+		if($count == 0)
+			die("Roote Path not set");
+		$sample=str_replace("#YOUR_SOURCE_ROOT_PATH#",$values['source_root_path'],$sample,$count);
+		if($count == 0)
+			die("Source root path not set");
+		$sample=str_replace("#YOUR_DBHOST#",$values['dbhost'],$sample,$count);
+		if($count == 0)
+			die("DB HOst not set");
+		$sample=str_replace("#YOUR_DBUSER#",$values['dbuser'],$sample,$count);
+		if($count == 0)
+			die("DB user not set");
+		$sample=str_replace("#YOUR_DBPASS#",$values['dbpass'],$sample,$count);
+		if($count == 0)
+			die("db pass not set");
+		$sample=str_replace("#YOUR_DBNAME#",$values['dbname'],$sample,$count);
+		if($count == 0)
+			die("db name not set");
+		if(FALSE === file_put_contents($path, $sample))
+			die("Could not put the contents {$sample} to file {$path}");
 
 		$this->view->vars = array("login_path" => $_POST['source_root_path']);
 		$this->view->render('finish');
