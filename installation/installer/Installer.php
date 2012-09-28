@@ -345,6 +345,10 @@ class Installer
 				'source_root_path' =>$_POST['source_root_path'],
 				'app_title'=>$_POST['app_title']
 			       );
+		//if (!is_writable(ROOT_PATH.'/config.inc.php'))
+		//	die("Config file is not writable please change the files permissions");
+		//if(!is_readable(ROOT_PATH.'/config.inc.php'))
+		//	die("Config file is not readable please change the files permissions");
 
 		$sample=file_get_contents(ROOT_PATH.'/sample.config.inc.php');
 		if( FALSE == $sample || E_WARNING == $sample )
