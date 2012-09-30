@@ -320,7 +320,9 @@ class Installer
 		if($count == 0)
 			die("db name not set");
 		if(FALSE === file_put_contents($path, $sample))
-			die("Could not put the contents {$sample} to file {$path}");
+			echo "Could not put the contents {$sample} to file {$path}";
+			echo "please create a file named config.inc.php and put the appropriate contents as dictated by the sample";
+			die();
 
 		$this->view->vars = array("login_path" => $_POST['source_root_path']);
 		$this->view->render('finish');
