@@ -143,9 +143,16 @@ class ClassChallenges {
 		return $result_array;
 	}
 
+	//Checks if challenge_id is allowed in any of the classes
 	public static function isAllowed($challenge_id, $classes) {
 		global $db;
 		$in_these_classes = '';
+		if (empty($classes) || "" == $challenge_id){
+			if ("dev" ==ENVIRONMENT && TRUE === SHOW_EMPTY_VAR_ERRORS){
+				echo "<p> error: class.ClassChallenges.isAllowed challenge_id == ".$challenge_id. " and classes == ".print_r($classes,true)."</p>";
+				}
+			return false;
+		}
 		$params=array(':challenge_id' => $challenge_id);
 		foreach ($classes as $class) {
 			if ($in_these_classes != '') {
