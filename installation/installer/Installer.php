@@ -296,34 +296,31 @@ class Installer
 
 		$sample=file_get_contents(ROOT_PATH.'/sample.config.inc.php');
 		if( FALSE == $sample || E_WARNING == $sample )
-			die("sample file not readable or not existent read function returned: $sample" );
-
+			$this->addErrorMessage("sample file not readable or not existent read function returned: $sample" );
 		$sample=str_replace("#YOUR_APP_TITLE_HERE#",$values['app_title'],$sample,$count);
 		if($count == 0)
-			die("App Title Not set");
+			$this->addErrorMessage("App Title Not set");
 		$sample=str_replace("#YOUR_SITE_ROOT_PATH#",$values['site_root_path'],$sample,$count);
 		if($count == 0)
-			die("Roote Path not set");
+			$this->addErrorMessage("Roote Path not set");
 		$sample=str_replace("#YOUR_SOURCE_ROOT_PATH#",$values['source_root_path'],$sample,$count);
 		if($count == 0)
-			die("Source root path not set");
+			$this->addErrorMessage("Source root path not set");
 		$sample=str_replace("#YOUR_DBHOST#",$values['dbhost'],$sample,$count);
 		if($count == 0)
-			die("DB HOst not set");
+			$this->addErrorMessage("DB HOst not set");
 		$sample=str_replace("#YOUR_DBUSER#",$values['dbuser'],$sample,$count);
 		if($count == 0)
-			die("DB user not set");
+			$this->addErrorMessage("DB user not set");
 		$sample=str_replace("#YOUR_DBPASS#",$values['dbpass'],$sample,$count);
 		if($count == 0)
-			die("db pass not set");
+			$this->addErrorMessage("db pass not set");
 		$sample=str_replace("#YOUR_DBNAME#",$values['dbname'],$sample,$count);
 		if($count == 0)
-			die("db name not set");
+			$this->addErrorMessage("db name not set");
 		if(FALSE === file_put_contents($path, $sample))
-			echo "Could not put the contents {$sample} to file {$path}";
-			echo "please create a file named config.inc.php and put the appropriate contents as dictated by the sample";
-			die();
-
+			$this->addErrorMessage("<p>Could not put the contents ".$sample." to file".{$path}."please create a file named config.inc.php".
+			 ."and put the appropriate contents as dictated by the sample</p>");
 		$this->view->vars = array("login_path" => $_POST['source_root_path']);
 		$this->view->render('finish');
 		unset($_SESSION);
