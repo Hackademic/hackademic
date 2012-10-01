@@ -12,6 +12,7 @@
 
 /** Load the template class **/
 require_once(INSTALLER_PATH . '/Installer_Template.php');
+require_once("class.Utils.php");
 
 
 /**
@@ -98,7 +99,13 @@ class Installer
 			case "dbAction":
 				$_SESSION['admin_email'] = $_POST['email'];
 				$_SESSION['admin_username'] = $_POST['username'];
-				$_SESSION['admin_password'] = md5($_POST['password']);
+				$hash = Utils::hash($_POST['password']);
+
+				if($hash)
+					$_SESSION['admin_password'] = $hash;
+				else
+				die("incorrect hash");
+
 				$this->dbAction();
 				break;
 			case "configAction":
@@ -317,7 +324,6 @@ class Installer
 		if(FALSE === file_put_contents($path, $sample))
 			$this->addErrorMessage("<p>Could not put the contents ".$sample." to file".{$path}."please create a file named config.inc.php".
 			 ."and put the appropriate contents as dictated by the sample</p>");
-
 		$this->view->vars = array("login_path" => $_POST['source_root_path']);
 		$this->view->render('finish');
 		unset($_SESSION);

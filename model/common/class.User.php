@@ -79,9 +79,8 @@ class User {
 	public static function addUser($username=null, $full_name=null, $email=null, $password=null,
 			$joined=null, $is_activated=null, $type=null, $token=0) {
 		global $db;
-		$pass_sec = Utils::getPassUtil();
-		$password = $pass_sec->hash($password);
-
+		$password = Utils::hash($password);
+		
 		$params = array(
 				':username' => $username,
 				':full_name' => $full_name,
@@ -124,8 +123,7 @@ class User {
 
 	public static function updatePassword($password, $username){
 		global $db;
-		$pass_sec = Utils::getPassUtil();
-		$password = $pass_sec->hash($password);
+		$password = Utils::hash($password);
 		$sql="UPDATE users SET password=:password, token = 0 WHERE username = :username";
 		$params = array(
 				':password' => $password,
@@ -239,7 +237,7 @@ class User {
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " is_activated = :is_activated , type = :type WHERE id = :id";
 		} else {
-			$password = md5($password);
+			$password = Utils::hash($password);
 			$params[':password'] = $password;
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " password=:password, is_activated = :is_activated , type = :type WHERE id = :id";

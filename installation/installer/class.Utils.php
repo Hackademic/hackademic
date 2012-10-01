@@ -31,18 +31,10 @@
  *
  */
 
+
 require_once("PasswordHash.php");
 
 class Utils {
-
-	/**
-	 * Define Constants function. These constants are used to locate files on the server
-	 */
-	public static function defineConstants() {
-		if ( !defined('HACKADEMIC_PATH') ) {
-			define('HACKADEMIC_PATH', str_replace("\\",'/', dirname(dirname(dirname(__FILE__)))).'/');
-		}
-	}
 
 	public function validateEmail($email = '') {
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
@@ -51,11 +43,11 @@ class Utils {
 	}
 	
 	public static function getPassUtil(){
-		return $util =  new PasswordHash(8, true);
+		return $util = new PasswordHash(8, true);
 	}
 
 	public static function hash($password){
-		$util = new PasswordHash(8, true);
+		$util =  new PasswordHash(8, false);
 		$hash = $util->HashPassword($password);
 		if (strlen($hash) <20 ){
 			throw new Exception('Hash length is less than 20 characters');
@@ -65,7 +57,7 @@ class Utils {
 	}
 
 	public static function check($input, $hash){
-		$util = new PasswordHash(8, true);
+		$util = new PasswordHash(8, false);
 		return $check = $util->CheckPassword($input, $hash);
 	}
 }
