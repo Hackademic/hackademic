@@ -54,6 +54,10 @@ class HackademicDB {
 	}
 
 	public function query($sql, $params = NULL) {
+
+		if ("dev" ==ENVIRONMENT && TRUE === SHOW_SQL_QUERIES)
+			echo "<p>sql query == ".$sql."</p>";
+		
 		$statement_handle = $this->connection->prepare($sql);
 		$statement_handle->execute($params);
 		return $statement_handle;
