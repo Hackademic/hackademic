@@ -32,7 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
-require_once(HACKADEMIC_PATH."model/common/class.Bcrypt.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class User {
 	public $id;
@@ -79,8 +79,8 @@ class User {
 	public static function addUser($username=null, $full_name=null, $email=null, $password=null,
 			$joined=null, $is_activated=null, $type=null, $token=0) {
 		global $db;
-		$bcrypt = new Bcrypt(15);
-		$password = $bcrypt->hash($password);
+		$pass_sec = Utils::getPassUtil();
+		$password = $pass_sec->hash($password);
 
 		$params = array(
 				':username' => $username,
@@ -124,8 +124,8 @@ class User {
 
 	public static function updatePassword($password, $username){
 		global $db;
-		$bcrypt = new Bcrypt(15);
-		$password = $bcrypt->hash($password);
+		$pass_sec = Utils::getPassUtil();
+		$password = $pass_sec->hash($password);
 		$sql="UPDATE users SET password=:password, token = 0 WHERE username = :username";
 		$params = array(
 				':password' => $password,
