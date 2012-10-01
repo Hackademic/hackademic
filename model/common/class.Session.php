@@ -80,9 +80,9 @@ class Session {
 	 * @return bool Whether or submitted password matches check
 	 */
 	public function pwdCheck($pwd, $result) {
-		$bcrypt = new Bcrypt(15);
-		$isGood = $bcrypt->verify($pwd, $result);
-		if ($this->sha1pwd($pwd) == $result || $this->md5pwd($pwd) == $result || $isGood) {
+		$pass_sec = Utils::getPassUtil();
+		$isGood = $pass_sec->verify($pwd, $result);
+		if ($isGood) {
 			return true;
 		} else {
 			return false;
@@ -92,7 +92,7 @@ class Session {
 	 *
 	 * @param str $pwd Password
 	 * @return str MD5-hashed password
-	 */
+	 *
 	public function md5pwd($pwd) {
 		return md5($pwd);
 	}
@@ -100,11 +100,11 @@ class Session {
 	/**
 	 * @param str $pwd Password
 	 * @return str SHA1-hashed password
-	 */
+	 *
 	private function sha1pwd($pwd) {
 		return sha1($pwd);
 	}
-
+	*/
 	/**
 	 * @return str Currently logged-in SocialCalc username (email address)
 	 */
