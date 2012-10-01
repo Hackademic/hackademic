@@ -31,7 +31,7 @@
  *
  */
 
-require_once("class.Bcrypt.php");
+require_once("PasswordHash.php");
 
 class Utils {
 
@@ -50,7 +50,22 @@ class Utils {
 		return preg_match($pattern, $email);
 	}
 	
-	public function getPassUtil(){
-	return $bcrypt = new Bcrypt(15);
+	public static function getPassUtil(){
+		return $util =  new PasswordHash(8, true);
+	}
+
+	public static function hash($password){
+		$util = new PasswordHash(8, true);
+		$hash = $util->HashPassword($password);
+		if (strlen($hash) <20 ){
+			throw new Exception('Hash length is less than 20 characters');
+			return false;
+		}
+		return $hash;
+	}
+
+	public static function check($input, $hash){
+		$util = new PasswordHash(8, true);
+		return $check = $util->CheckPassword($input, $hash);
 	}
 }
