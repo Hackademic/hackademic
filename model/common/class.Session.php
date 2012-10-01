@@ -79,11 +79,11 @@ class Session {
 	 * @param str $result Result
 	 * @return bool Whether or submitted password matches check
 	 */
-	public function pwdCheck($pwd, $result) {
-		$pass_sec = Utils::getPassUtil();
-		$isGood = $pass_sec->verify($pwd, $result);
+	public function pwdCheck($pwd, $result) {		
+		$isGood = Utils::check($pwd, $result);
 		if ($isGood) {
 			return true;
+		
 		} else {
 			return false;
 		}
