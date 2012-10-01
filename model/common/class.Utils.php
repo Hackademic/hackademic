@@ -30,6 +30,9 @@
  * @copyright 2012 OWASP
  *
  */
+
+require_once("class.Bcrypt.php");
+
 class Utils {
 
 	/**
@@ -45,5 +48,9 @@ class Utils {
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
 		$pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
 		return preg_match($pattern, $email);
+	}
+	
+	public function getPassUtil(){
+	return $bcrypt = new Bcrypt(15);
 	}
 }
