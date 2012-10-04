@@ -23,21 +23,33 @@ CREATE TABLE articles (
     is_published int(1) DEFAULT 1
 );
 
+/*Argument for the existenceo f both visibility and availability:
+a class might need to know how many challenges lie ahead but they shouldnt solve all of them in one go*/
 CREATE TABLE challenges (
     id int(11) PRIMARY KEY AUTO_INCREMENT,
-    title varchar(255),
-    pkg_name varchar(255) NOT NULL,
+    title varchar(255), /*Challenge title*/
+    pkg_name varchar(255) NOT NULL,/*Name of the folder/package the challenge is located*/
     description text,
     author varchar(255) NOT NULL,
-    category varchar(255) NOT NULL,
+    category varchar(255) NOT NULL,/*Category of the challenge, I guess its only for informative reasons(to appear on the frontend and so far we have only web)*/
     date_posted datetime NOT NULL,
-    visibility varchar(255) DEFAULT 'private',
-    publish int(10) DEFAULT 0,
-    abstract varchar(255) DEFAULT NULL,
-    level varchar(255) DEFAULT NULL,
-    duration time DEFAULT NULL,
-    goal varchar(255) DEFAULT NULL,
-    solution varchar(255)DEFAULT NULL
+    visibility varchar(255) DEFAULT 'private',/*Who can see the existence of this challenge in his frontend Values: one of:
+     private, Only admin can see it
+     public,  Everyone can see it
+     class_private Only people who belong in a class that this challenge is assigned can see it*/
+    publish int(10) DEFAULT 0,/*ADMIN VAR: lists if the admin has made this
+				  challenge available to the rest of the users
+				  binary 0 =no publish, 1=publish*/
+    abstract varchar(255) DEFAULT NULL,/*no clue what it does mean TODO: find about abstract in challenges*/
+    level varchar(255) DEFAULT NULL,/*TODO: find what does that mean and how its used nad what's expected*/
+    duration time DEFAULT NULL,/*TODO:same as above*/
+    goal varchar(255) DEFAULT NULL,/*i guess something along the lines of xss this TODO:same*/
+    solution varchar(255)DEFAULT NULL,/*in order to solve the challenge you have to put this text in that form*/
+    availability varchar(255) DEFAULT 'private',/*Who can take the challenge. Values: one of:
+    private, Nobody can take it
+    public, everybody can take it
+    class_private Only people who belong in a class that this challenge is assigned can take it*/
+    default_points int(11) /*How many points does this challenge grant the solver if the teacher has not modified the value */
 );
 
 CREATE TABLE class_challenges (
