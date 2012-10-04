@@ -205,6 +205,14 @@ class Installer
 
 # Select the DB
 		$db_selected = mysql_select_db($this->_options['dbname'], $link);
+#check if hackademic si already installed in that db
+		if($db_selected){
+		$db = $this->_options['dbname'];
+		$query = "SELECT * FROM $db.challenges, $db.users, $db.classes, $db.articles";
+		$res = mysql_query($query, $link);
+		if($res ||  mysql_num_rows($res) > 0)
+			$this->view->error($this->lang['L-12']);
+		}
 		if(!$db_selected && !$this->_options['create_database'])
 		{
 			$this->view->error($this->lang['L-05']);
