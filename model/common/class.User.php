@@ -237,7 +237,7 @@ class User {
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " is_activated = :is_activated , type = :type WHERE id = :id";
 		} else {
-			$password = md5($password);
+			$password = Utils::hash($password);
 			$params[':password'] = $password;
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " password=:password, is_activated = :is_activated , type = :type WHERE id = :id";
