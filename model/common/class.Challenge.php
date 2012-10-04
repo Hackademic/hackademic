@@ -80,10 +80,24 @@ class Challenge {
 		return $result_array;
 	}
 
+	/*Not used function
+	 * If used it will return all the challenges you can see even those you can't do*/
 	public static function getChallengesFrontend() {
 		global $db;
-		$params=array(':publish' => '1');
-		$sql = "SELECT * FROM challenges WHERE publish=:publish";
+		$params=array(':publish' => '1',':visible'=>'public');
+		$sql = "SELECT challenge_id, challenges.title
+		FROM class_challenges
+		LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
+		WHERE challenges.publish =1 AND (
+		visibility = 'public' OR ( availability = 'class_private' AND
+		class_id IN(
+		SELECT class_memberships.class_id AS class_id
+		FROM class_memberships WHERE
+		class_memberships.user_id =$user_id
+			   )
+					)
+						)
+		ORDER BY challenges.date_posted DESC";
 		$result_array=self::findBySQL($sql,$params);
 		// return !empty($result_array)?array_shift($result_array):false;
 		return $result_array;

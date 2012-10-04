@@ -65,20 +65,30 @@ class ClassChallenges {
 		}
 		return $result_array;
 	}
-	
-	public static function getChallengesOfUser($user_id) {
-	    global $db;
-	    $sql = "SELECT challenge_id, challenges.title FROM class_challenges ";
-	    $sql .= " LEFT join challenges ON challenges.id = class_challenges.challenge_id ";
-	    $sql .= " WHERE challenges.publish = 1 AND class_id IN (SELECT class_memberships.class_id as class_id FROM class_memberships";
-	    $sql .= " WHERE class_memberships.user_id = $user_id) ORDER BY challenges.date_posted DESC;";
-	    $result_array = array();
-	    $query = $db->query($sql);
-	    while ($row = $db->fetchArray($query)) {
-			$result_array[$row['challenge_id']] = $row['title'];
-		}
-	    return $result_array;
+/*@returns: array[0] = [challenge_id,challenge_title,challenge_availability]*/	
+public static function getChallengesOfUser($user_id) {
+	global $db;
+	$sql = "SELECT challenge_id, challenges.title
+		FROM class_challenges
+		LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
+		WHERE challenges.publish =1 AND (
+		visibility = 'public' AND availability = 'public' OR ( visibility = 'class_private' AND
+		class_id IN(
+		SELECT class_memberships.class_id AS class_id
+		FROM class_memberships WHERE
+		class_memberships.user_id =$user_id
+			   )
+					)
+						)
+		ORDER BY challenges.date_posted DESC
+		";
+	$result_array = array();
+	$query = $db->query($sql);
+	while ($row = $db->fetchArray($query)) {
+		$result_array[$row['challenge_id']] = $row['challenge_id'];
 	}
+	    return $result_array;
+}
 
 	public static function doesMembershipExist($challenge_id,$class_id) {
 		global $db;

@@ -66,7 +66,10 @@ class TryChallengeController extends HackademicController {
 	
 	protected static function isAllowed($username, $challenge_id) {
 		$user = User::findByUserName($username);
-		$classes = ClassMemberships::getMembershipsOfUser($user->id);
-		return ClassChallenges::isAllowed($challenge_id, $classes);
+		$dbg_array = ClassChallenges::getChallengesOfUser($user->id);
+		if(in_array($challenge_id, $dbg_array))
+		return true;
+		else
+		return false;
 	}
 }
