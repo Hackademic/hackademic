@@ -26,7 +26,8 @@ $lang = array(
 'L-09' => "DB Queries run. Total <b>%s</b> queries run. And a total of <b>%s</b> queries failed. %s",
 'L-10' => "Configuration file written.",
 'L-11' => "The template <b>%s</b> was not found under %s",
-
+'L-12' => "Hackademic Db exists at the destination,
+	   it is advisable  to keep a backup of the old one and/or drop the tables before proceeding",
 # Other
 'I-01' => "Welcome to the installer",
 'I-02' => "Choose the language you would like to view the installer with",
