@@ -46,4 +46,6 @@ define('MAX_CHALLENGE_SIZE','2097152');
 
 //Debug message selection
 define('SHOW_SQL_QUERIES', '#TRUE OR FALSE');
+define('SHOW_SQL_RESULTS', '#TRUE OR FALSE');
 define("SHOW_EMPTY_VAR_ERRORS", '#TRUE OR FALSE');
+
