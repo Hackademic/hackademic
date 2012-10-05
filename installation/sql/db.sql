@@ -82,6 +82,17 @@ CREATE TABLE challenge_attempts (
     status varchar(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS `challenge_attempt_count` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `challenge_id` int(11) NOT NULL,
+  `tries` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  UNIQUE KEY `challenge_id` (`challenge_id`)
+);
+
+
 INSERT INTO challenges(title,pkg_name,description,author,category,date_posted,publish) VALUES 
 ('Challenge 1','ch001','Our agents (hackers) informed us that there reasonable suspicion 
 that the site of this <a href=\"ch001/\" target=\"_blank\">Logistics Company</a> is a blind 
