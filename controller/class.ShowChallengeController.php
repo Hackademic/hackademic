@@ -50,7 +50,8 @@ class ShowChallengeController extends HackademicController {
 			    $this->addToView('is_allowed', true);
 		    } else {
 			    $this->addErrorMessage('You cannot take the challenge as you are not a member
-					    of any class to which this challenge is assigned.');
+					    of any class to which this challenge is assigned and this challenge
+					    is not publicly available for solving .');
 		    }
 		    $this->generateView();
 		}
