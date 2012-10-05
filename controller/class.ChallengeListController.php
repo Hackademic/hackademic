@@ -34,7 +34,12 @@ require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
 class ChallengeListController extends HackademicController {
 
 	public function go() {
-		$challenges=Challenge::getChallengesFrontend();
+		$username = $this->getLoggedInUser();
+		$user = User::findByUserName($username);
+		if (!$user) {
+		    return;
+		}
+		$challenges=Challenge::getChallengesFrontend($user->id);
 		$menu=array();
 		foreach( $challenges as $challenge){
 			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title, 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
