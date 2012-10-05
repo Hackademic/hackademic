@@ -41,7 +41,7 @@ class ChallengeMenuController {
 		    return;
 		}
 		if (Session::isAdmin() || Session::isTeacher()) {
-		    $challenges=Challenge::getChallengesFrontend();
+		    $challenges=Challenge::getChallengesFrontend($user->id);
 		} else {
 		    $challenges=Challenge::getChallengesAssigned($user->id);
 		}
