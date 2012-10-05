@@ -51,10 +51,23 @@ class ChallengeAttempts {
 		$sql .= "VALUES (:user_id,:challenge_id,:time,:status)";
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {
+			self::increaseChallengeAttemptCount($user_id,$challenge_id);
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public static function increaseChallengeAttemptCount($user_id, $challenge_id){
+		global $db;
+		$params=array(':user_id' => $user_id,
+			      ':challenge_id' => $challenge_id,
+			      ':tries' => 1
+			     );
+		$sql = "INSERT INTO challenge_attempt_count (user_id, challenge_id, tries)
+			VALUES (:user_id, :challenge_id, :tries)
+			ON DUPLICATE KEY UPDATE tries = tries + 1";
+		$query = $db->query($sql, $params);
 	}
 	
 	public static function deleteChallengeAttemptByUser($user_id){
@@ -63,10 +76,19 @@ class ChallengeAttempts {
 		$sql = "DELETE FROM challenge_attempts WHERE user_id=:user_id";
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {
+			self::deleteChallengeAttemptCountByUser($user_id);
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public static function deleteChallengeAttemptCountByUser($user_id){
+		global $db;
+		$params=array(':user_id' => $user_id);
+		$sql = "DELETE FROM challenge_attempt_count WHERE user_id=:user_id";
+		$query = $db->query($sql,$params);
+
 	}
 	
 	public static function deleteChallengeAttemptByChallenge($challenge_id){
@@ -75,10 +97,18 @@ class ChallengeAttempts {
 		$sql = "DELETE FROM challenge_attempts WHERE challenge_id=:challenge_id";
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {
+			self::deleteChallengeAttemptCountByChallenge($challenge_id);
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public static function deleteChallengeAttemptCountByChallenge($challenge_id){
+		global $db;
+		$params=array(':challenge_id' => $challenge_id);
+		$sql = "DELETE FROM challenge_attempt_count WHERE challenge_id=:challenge_id";
+		$query = $db->query($sql,$params);
 	}
 	
 	public static function getChallengeAttemptDetails($user_id) {
