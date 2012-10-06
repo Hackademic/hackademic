@@ -52,7 +52,7 @@ class EditChallengeController extends HackademicBackendController {
 				$this->description=$_POST['description'];
 				$this->visibility=$_POST['visibility'];
 				$this->publish=$_POST['publish'];
-				$this->availability = $_POST['visibility'];
+				$this->availability = $_POST['availability'];
 				ChallengeBackend::updateChallenge($id,$this->title,$this->description,$this->visibility,$this->publish, $this->availability);
 				$this->addSuccessMessage("Challenge details have been updated succesfully");
 			}

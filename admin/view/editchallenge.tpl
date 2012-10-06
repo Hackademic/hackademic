@@ -73,6 +73,19 @@ tinyMCE.init({
 			   </select></td>
 		</tr>
 		<tr>
+		<td><label for="visibility">Availability</label></td>
+		<td><select name="availability">
+			    {if $challenge->availability=="public"}
+               <option value="public" selected="selected">Public</option>
+			   <option value="private" >Private</option>
+			   {else $challenge->availability=="private"}
+               <option value="private" selected="selected">Private</option>
+			   <option value="public" >Public</option>
+			   {/if}
+			   </select></td>
+		
+		</tr>
+		<tr>
 		<td><label for="publish">Published</label></td>
 		<td><select name="publish">
 			    {if $challenge->publish==0}
