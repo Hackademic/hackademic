@@ -42,6 +42,7 @@ class Challenge {
 	public $author;
 	public $category;
 	public $visibility;
+	public $availability;
 	public $publish;
 	public $solution;
 
