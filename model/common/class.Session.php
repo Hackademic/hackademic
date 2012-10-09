@@ -37,7 +37,7 @@ class Session {
 	 * @return bool Is user logged into SocialCalc
 	 */
 	public static function isLoggedIn() {
-		if (isset($_SESSION['hackademic_user'])) {
+		if ((isset($_SESSION['hackademic_user'])) && (($_SESSION['hackademic_last_ip'] === $_SERVER['REMOTE_ADDR']) && ($_SESSION['hackademic_last_browser'] === $_SERVER['HTTP_USER_AGENT']) && ($_SESSION['hackademic_last_OS'] === PHP_OS))) {
 			return true;
 		} else {
 			return false;
@@ -72,6 +72,9 @@ class Session {
 		$_SESSION['hackademic_user'] = $owner->username;
 		$_SESSION['hackademic_user_type'] = $owner->type;
 		$_SESSION['hackademic_path'] = HACKADEMIC_PATH;
+		$_SESSION['hackademic_last_ip'] =  $_SERVER['REMOTE_ADDR'];
+		$_SESSION['hackademic_last_browser'] =  $_SERVER['HTTP_USER_AGENT'];
+		$_SESSION['hackademic_last_OS'] = PHP_OS;
 	}
 	/**
 	 * Check password
