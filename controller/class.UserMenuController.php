@@ -78,15 +78,20 @@ class UserMenuController{
 					$link6,
 					$link7
 				     );
-		} else {
+		} else {$link0 = array ('title'=>'Home', 'url'=>'index.php');
 			$link1 = array ('title'=>'Progress Report', 'url'=>'pages/progress.php');
 			$link2 = array ('title'=>'Ranking', 'url'=>'pages/ranking.php');
 			$link3 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
-
+			$link4 = array ('title'=>'Challenges', 'url'=>'pages/challengelist.php');
+			$link5 = array ('title'=>'Global Rankings', 'url'=>'pages/ranking.php');
 			$menu = array(
+					$link0,
 					$link1,
 					$link2,
+					$link4,
+					$link5,
 					$link3
+					
 				     );
 		}
 		return $menu;
