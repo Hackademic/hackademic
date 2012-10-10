@@ -34,7 +34,7 @@
 class FrontendMenuController{
 
 	public function go() {
-		$menu = self::createMainMenu();
+		//$menu = self::createMainMenu();
 		return $menu;
 	}
 
@@ -42,16 +42,16 @@ class FrontendMenuController{
 	 * Create Main Menu
 	 */
 	protected function createMainMenu() {
-		$link1 = array ('title'=>'Home', 'url'=>'index.php');
-		$link2 = array ('title'=>'Challenges', 'url'=>'pages/challengelist.php');
-		$link3 = array ('title'=>'Rankings', 'url'=>'pages/ranking.php');
-		$link4 = array ('title'=>'Download','external'=>true,'url'=>'https://code.google.com/p/owasp-hackademic-challenges/');
+		//$link1 = array ('title'=>'Home', 'url'=>'index.php');
+		//$link2 = array ('title'=>'Challenges', 'url'=>'pages/challengelist.php');
+		//$link3 = array ('title'=>'Rankings', 'url'=>'pages/ranking.php');
+		//$link4 = array ('title'=>'Download','external'=>true,'url'=>'https://code.google.com/p/owasp-hackademic-challenges/');
 
 		$menu = array(
-				$link1,
-				$link2,
-				$link3,
-				$link4
+			//	$link1,
+			//	$link2,
+			//	$link3//,
+				//$link4
 			     );
 		return $menu;
 	}
