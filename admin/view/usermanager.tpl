@@ -42,6 +42,7 @@
 	    <table class="add_form center">
 		<tr>
 		    <td class="width_40">Search:  <input class="width_90" type="text" name="search" id="search" placeholder="Search Text"/></td>
+			<td class="width_10">Sort By:</td>
 		    <td class="width_25">
 			<select name="category" class="width_90">
 			    <option value="username">Username</option> 
@@ -49,6 +50,7 @@
 			    <option value="email">Email</option> 
 			</select>
 		    </td>
+			<td >Show:</td>
 			<td class="width_25">
 			  <select name="limit" class="width_90">
 	             <option value="">Results Per Page</option>
