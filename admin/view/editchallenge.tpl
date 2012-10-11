@@ -99,6 +99,14 @@ tinyMCE.init({
 			   {/if}
 			   </select></td>
 		</tr>
+		 <tr>
+		<td><label for="name">Level</label></td>
+		<td><input type="text" name="title" value="{$challenge->level}"/></td>
+		</tr>
+		 <tr>
+		<td><label for="name">Duration</label></td>
+		<td><input type="text" name="title" value="{$challenge->duration}"/></td>
+		</tr>
 		<tr>
 		    <td>
 			<p class="submit"><input type="submit" name="submit" value="Update Challenge Details" /></p>
