@@ -49,7 +49,8 @@ CREATE TABLE challenges (
     private, Nobody can take it
     public, everybody can take it
     class_private Only people who belong in a class that this challenge is assigned can take it*/
-    default_points int(11) /*How many points does this challenge grant the solver if the teacher has not modified the value */
+    default_points int(11), /*How many points does this challenge grant the solver if the teacher has not modified the value */
+    default_duration int(11)
 );
 
 CREATE TABLE class_challenges (
