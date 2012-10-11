@@ -79,7 +79,6 @@ public static function getChallengesOfUser($user_id) {
 			   )
 					)
 						)
-		ORDER BY challenges.date_posted DESC
 		";
 	$result_array = array();
 	$query = $db->query($sql);
