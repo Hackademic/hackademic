@@ -72,11 +72,10 @@ public static function getChallengesOfUser($user_id) {
 		FROM class_challenges
 		LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
 		WHERE challenges.publish =1 AND (
-		visibility = 'public' AND availability = 'public' OR ( visibility = 'class_private' AND
-		class_id IN(
+		(visibility = 'public' AND availability = 'public') OR (class_id IN(
 		SELECT class_memberships.class_id AS class_id
 		FROM class_memberships WHERE
-		class_memberships.user_id =$user_id
+		class_memberships.user_id =4
 			   )
 					)
 						)
