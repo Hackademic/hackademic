@@ -192,4 +192,15 @@ class ChallengeAttempts {
 	public static function getClasswiseRankings($class_id) {
 		return self::getUniversalRankings($class_id);
 	}
+
+	public static function getScore($user_id, $challenge_id){
+	global $db;
+	$sql = "SELECT default_points, challenges.id, title
+		FROM challenges, challenge_attempts
+		WHERE challenge_attempts.challenge_id = {$challenge_id}
+		AND challenge_attempts.user_id = {$user_id}
+		AND STATUS =1
+		AND challenge_attempts.challenge_id = challenges.id";
+		
+	}
 }
