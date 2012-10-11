@@ -75,7 +75,14 @@ tinyMCE.init({
                         <td><label for="name">Category</label></td>
                         <td><input type="text" name="category"/><br/><br/></td>
                     </tr>
-                        
+		    <tr>
+                        <td><label for="name">Level</label></td>
+                        <td><input type="text" name="level"/><br/><br/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="name">Duration</label></td>
+                        <td><input type="text" name="duration"placeholder="days:minutes" /><br/><br/></td>
+                    </tr>
                     <tr>
                         <td><label for="name">Description</label></td>
                     </tr>

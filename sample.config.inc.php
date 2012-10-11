@@ -49,3 +49,9 @@ define('SHOW_SQL_QUERIES', '#TRUE OR FALSE');
 define('SHOW_SQL_RESULTS', '#TRUE OR FALSE');
 define("SHOW_EMPTY_VAR_ERRORS", '#TRUE OR FALSE');
 
+
+
+/***************************************
+**	Default Example Challenge Path**
+***************************************/
+define('EXAMPLE_CHALLENGE','challenges/Example/');
