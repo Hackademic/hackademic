@@ -45,6 +45,8 @@ class Challenge {
 	public $availability;
 	public $publish;
 	public $solution;
+	public $level;
+	public $duration;
 
 	public function doesChallengeExist($name){
 		global $db;
