@@ -47,7 +47,7 @@ class UserMenuController{
 			$link1 = array ('title'=>'Add New Articles', 'url'=>'admin/pages/addarticle.php');
 			$link2 = array ('title'=>'Article Manager', 'url'=>'admin/pages/articlemanager.php');
 			$link3 = array ('title'=>'User Manager', 'url'=>'admin/pages/usermanager.php');
-			$link4 = array ('title'=>'Add New Challenge', 'url'=>'admin/pages/addchallenge.php');
+			$link4 = array ('title'=>'Add New Challenge', 'url'=>'admin/pages/addchallenge.php?type=code');
 			$link5 = array ('title'=>'Challenge Manager', 'url'=>'admin/pages/challengemanager.php');
 			$link6 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
 
