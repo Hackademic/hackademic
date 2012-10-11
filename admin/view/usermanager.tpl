@@ -67,7 +67,7 @@
         	   </select>
 		     </td>
 		    <td class="submit_btn width_10">
-			<p class="submit"><input type="submit" name="submit" id="submit" value="search" /></p>
+			<p class="submit"><input type="submit" name="submit" id="submit" value="Submit" /></p>
 		    </td>
 		</tr>
 	    </table>
