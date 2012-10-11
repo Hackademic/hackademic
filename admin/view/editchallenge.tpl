@@ -45,11 +45,13 @@ tinyMCE.init({
 	  <div id="input_form">
     <form id="form" name="form" method="post">
 	<table class="article_main">
+	<tr><td>
+		   	<p class="submit left" id="try_me"><a href="{$site_root_path}admin/pages/editcode.php?id={$challenge->id}" name="submit">Edit Code</a></p></td>
+		</tr>
 	    <tr>
 		<td><label for="name">Title</label></td>
 		<td><input type="text" name="title" value="{$challenge->title}"/></td>
 	    </tr>
-		
 	    <tr>
 		<td><label for="name">Description</label></td>
 	    </tr>
@@ -102,7 +104,7 @@ tinyMCE.init({
 			<p class="submit"><input type="submit" name="submit" value="Update Challenge Details" /></p>
 		    </td>
 		    <td>
-		     	<p class="submit right" id="try_me"><a href="{$site_root_path}admin/pages/editcode.php?id={$challenge->id}" name="submit">Edit Code</a></p></td>
+		  </td>
 		</tr>
 	    
 </table>
