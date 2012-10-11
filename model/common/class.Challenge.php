@@ -93,7 +93,7 @@ class Challenge {
 		FROM class_challenges
 		LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
 		WHERE challenges.publish =1 AND (
-		visibility = 'public' OR ( visibility = 'class_private' AND
+		visibility = 'public' OR (
 		class_id IN(
 		SELECT class_memberships.class_id AS class_id
 		FROM class_memberships WHERE
@@ -101,7 +101,7 @@ class Challenge {
 			   )
 					)
 						)
-		ORDER BY challenges.date_posted DESC";
+		";
 		$result_array=self::findBySQL($sql,$params);
 
 		if ("dev" ==ENVIRONMENT){
