@@ -125,25 +125,45 @@ class AddChallengeController extends HackademicBackendController {
 	if (isset($_POST['continue'])) {
 	    
 	    if ($_POST['title']=='') {
-		$this->addErrorMessage("Title of the challenge should not be empty");
+
+		$e_msg = "Title of the challenge should not be empty";
+		$error = true;
 	    } elseif ($_POST['description']=='') {
-		$this->addErrorMessage("Description should not be empty");
+		$e_msg = "Description should not be empty";
+		$error = true;
 	    } elseif ($_POST['authors']=='') {
-		$this->addErrorMessage("Authors field should not be empty");
+		$e_msg = "Authors field should not be empty";
+		$error = true;
 	    } elseif ($_POST['category']=='') {
-		$this->addErrorMessage("Category field should not be empty");
+		$e_msg = "Category field should not be empty";
+		$error = true;
+	    } elseif ($_POST['level']=='') {
+		$e_msg = "Level field should not be empty";
+		$error = true;
+	    } elseif ($_POST['duration']=='') {
+		$e_msg = "Duration field should not be empty";
+		$error = true;
 	    } else {
 		$array = array (
 		    'title' => $_POST['title'],
 		    'description' => $_POST['description'],
 		    'authors' => $_POST['authors'],
-		    'category' => $_POST['category']
+		    'category' => $_POST['category'],
+		    'level' => $_POST['level'],
+		    'duration' => $_POST['duration']
 		);
 		$_SESSION['challenge_arr'] = $array;
 		$this->addSuccessMessage("Now Please upload the challenge code");
 		$this->addToView('step', 'step2');
 	    }
-
+	$new_msg = $e_msg;
+	if($error){
+		if(defined('EXAMPLE_CHALLENGE') && EXAMPLE_CHALLENGE != ""){
+			$path = SOURCE_ROOT_PATH.EXAMPLE_CHALLENGE;
+			$new_msg = "<em>".$e_msg."</em>
+			<p>For an example on how to build challenges please consult <a href=\" ".$path."\">The Example Challenge</a></p>";}
+		}
+		$this->addErrorMessage($new_msg);
 	}
 
 	
