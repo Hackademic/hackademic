@@ -8,16 +8,17 @@
     <div id="input_form">
 	<form method ="get">
 	    <table class="add_form center">
-		<tr>
-		    <td class="width_40"><input class="width_90" type="text" name="search" id="search"/></td>
+		<tr><td>Search:</td>
+		    <td class="width_40"> <input class="width_90" type="text" name="search" id="search"/></td>
+			<td class="width_10">Order By:</td>
 		    <td class="width_25">
 			<select name="category" class="width_90">
-			    <option value="title">Title</option>
+			  <option value="title">Title</option>
 			</select>
 		    </td>
-		    
+		    <td>Show:  </td>
 			<td class="width_25">
-			   <select name="limit" class="width_90">
+			 <select name="limit" class="width_90">
 	              <option value="">Results Per Page</option>
                   <option value="5">5</option>
 				  <option value="10">10</option>
