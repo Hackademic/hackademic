@@ -8,6 +8,9 @@
     <div id="input_form">
 	<form method ="get">
 	    <table class="add_form center">
+		<tr><td class="width_25">
+		<a href="addchallenge.php?type=code">Add New Challenge</a>
+		</td></tr>
 		<tr><td>Search:</td>
 		    <td class="width_40"> <input class="width_90" type="text" name="search" id="search"/></td>
 			<td class="width_10">Order By:</td>
