@@ -12,7 +12,7 @@
 			<div class="submenu_btn">
 			    <a href="{$site_root_path}admin/pages/adduser.php">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/adduser.png"/><br/>
-				<span class="caption">New</span>
+				<span class="caption">Add User</span>
 			    </a>
 			</div>
 		    </td>
