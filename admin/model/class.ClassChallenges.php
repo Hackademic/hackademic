@@ -79,6 +79,7 @@ public static function getChallengesOfUser($user_id) {
 			   )
 					)
 						)
+		ORDER BY challenge_id
 		";
 	$result_array = array();
 	$query = $db->query($sql);

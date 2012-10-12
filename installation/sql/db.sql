@@ -42,7 +42,7 @@ CREATE TABLE challenges (
 				  binary 0 =no publish, 1=publish*/
     abstract varchar(255) DEFAULT NULL,/*no clue what it does mean TODO: find about abstract in challenges*/
     level varchar(255) DEFAULT NULL,/*TODO: find what does that mean and how its used nad what's expected*/
-    duration time DEFAULT NULL,/*TODO:same as above*/
+    duration int(11) DEFAULT NULL,/*TODO:same as above*/
     goal varchar(255) DEFAULT NULL,/*i guess something along the lines of xss this TODO:same*/
     solution varchar(255)DEFAULT NULL,/*in order to solve the challenge you have to put this text in that form*/
     availability varchar(255) DEFAULT 'private',/*Who can take the challenge. Values: one of:
