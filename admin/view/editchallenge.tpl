@@ -45,11 +45,13 @@ tinyMCE.init({
 	  <div id="input_form">
     <form id="form" name="form" method="post">
 	<table class="article_main">
+	<tr><td>
+		   	<p class="submit left" id="try_me"><a href="{$site_root_path}admin/pages/editcode.php?id={$challenge->id}" name="submit">Edit Code</a></p></td>
+		</tr>
 	    <tr>
 		<td><label for="name">Title</label></td>
 		<td><input type="text" name="title" value="{$challenge->title}"/></td>
 	    </tr>
-		
 	    <tr>
 		<td><label for="name">Description</label></td>
 	    </tr>
@@ -73,6 +75,19 @@ tinyMCE.init({
 			   </select></td>
 		</tr>
 		<tr>
+		<td><label for="visibility">Availability</label></td>
+		<td><select name="availability">
+			    {if $challenge->availability=="public"}
+               <option value="public" selected="selected">Public</option>
+			   <option value="private" >Private</option>
+			   {else $challenge->availability=="private"}
+               <option value="private" selected="selected">Private</option>
+			   <option value="public" >Public</option>
+			   {/if}
+			   </select></td>
+		
+		</tr>
+		<tr>
 		<td><label for="publish">Published</label></td>
 		<td><select name="publish">
 			    {if $challenge->publish==0}
@@ -84,12 +99,20 @@ tinyMCE.init({
 			   {/if}
 			   </select></td>
 		</tr>
+		 <tr>
+		<td><label for="name">Level</label></td>
+		<td><input type="text" name="title" value="{$challenge->level}"/></td>
+		</tr>
+		 <tr>
+		<td><label for="name">Duration(minutes)</label></td>
+		<td><input type="text" name="title" value="{$challenge->duration}"/></td>
+		</tr>
 		<tr>
 		    <td>
 			<p class="submit"><input type="submit" name="submit" value="Update Challenge Details" /></p>
 		    </td>
 		    <td>
-		     	<p class="submit right" id="try_me"><a href="{$site_root_path}admin/pages/editcode.php?id={$challenge->id}" name="submit">Edit Code</a></p></td>
+		  </td>
 		</tr>
 	    
 </table>

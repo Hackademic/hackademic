@@ -42,14 +42,15 @@ CREATE TABLE challenges (
 				  binary 0 =no publish, 1=publish*/
     abstract varchar(255) DEFAULT NULL,/*no clue what it does mean TODO: find about abstract in challenges*/
     level varchar(255) DEFAULT NULL,/*TODO: find what does that mean and how its used nad what's expected*/
-    duration time DEFAULT NULL,/*TODO:same as above*/
+    duration int(11) DEFAULT NULL,/*TODO:same as above*/
     goal varchar(255) DEFAULT NULL,/*i guess something along the lines of xss this TODO:same*/
     solution varchar(255)DEFAULT NULL,/*in order to solve the challenge you have to put this text in that form*/
     availability varchar(255) DEFAULT 'private',/*Who can take the challenge. Values: one of:
     private, Nobody can take it
     public, everybody can take it
     class_private Only people who belong in a class that this challenge is assigned can take it*/
-    default_points int(11) /*How many points does this challenge grant the solver if the teacher has not modified the value */
+    default_points int(11), /*How many points does this challenge grant the solver if the teacher has not modified the value */
+    default_duration int(11)
 );
 
 CREATE TABLE class_challenges (
@@ -81,6 +82,17 @@ CREATE TABLE challenge_attempts (
     time datetime NOT NULL,
     status varchar(255) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS `challenge_attempt_count` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `challenge_id` int(11) NOT NULL,
+  `tries` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  UNIQUE KEY `challenge_id` (`challenge_id`)
+);
+
 
 INSERT INTO challenges(title,pkg_name,description,author,category,date_posted,publish) VALUES 
 ('Challenge 1','ch001','Our agents (hackers) informed us that there reasonable suspicion 

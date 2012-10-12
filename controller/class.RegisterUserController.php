@@ -67,13 +67,13 @@ class RegisterUserController extends HackademicController {
 				elseif(!Utils::validateEmail($email)) {
 					$this->addErrorMessage("Please enter a valid email id");
 				} else {
+					$this->setViewTemplate('mainlogin.tpl');
 					$subject="Hackademic new account";
 					$message="Hackademic account created succesfully";
 					//Mailer::mail($email,$subject,$message);
 					$joined=date("Y-m-d H-i-s");
 					$result = User::addUser($username,$full_name,$email,$password,$joined);
 					$this->addSuccessMessage("You have been registered succesfully");
-					//header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=add");
 				}
 			}
 		}

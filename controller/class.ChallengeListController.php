@@ -42,9 +42,19 @@ class ChallengeListController extends HackademicController {
 		$challenges=Challenge::getChallengesFrontend($user->id);
 		$menu=array();
 		foreach( $challenges as $challenge){
-			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title, 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
+			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title,
+				       'url'=>'challenges/'.$challenge->pkg_name.'/index.php',
+				       'availability'=>$challenge->availability);
 			array_push($menu,$link);
+			
+			if ('private' == $challenge->availability){
+				
+				$message = true;
+			}
 		}
+		if($message)
+			$this->addSuccessMessage("Note: Unclickable challenges are not yet available");
+
 		$this->addToView('list', $menu);
 		$this->setViewTemplate('challenge_list.tpl');
 		return $this->generateView();

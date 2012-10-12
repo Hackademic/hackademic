@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Example Template For Challenge .xml Files creation</title>
+    <author>
+	Name or email or both
+    </author>
+    <category>In what category does your challenge belong?(web? crypto? networks?)</category>
+    <description>
+	Insert some text describing the scenario of the challenge(what the users are supposed to do and if there is any fictional story)
+    </description>
+    <level>
+	Either an interger from 1  to 10 with 1 being the easiest , or one of beginner, intermediate, advanced , hide_yo_wife
+	The level will be the max points a user can get.
+	beginner:	2pts	
+	intermediate	4pts
+	advanced	6pts
+	hide_yo_wife	8pts
+	b4d1d3a		10pts
+    </level>
+	<duration>
+	The duration after which a user is disqualified.
+	The timer starts when a username starts a challenge for first time.
+	</duration>
+</challenge>
