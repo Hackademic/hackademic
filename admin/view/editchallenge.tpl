@@ -104,7 +104,7 @@ tinyMCE.init({
 		<td><input type="text" name="title" value="{$challenge->level}"/></td>
 		</tr>
 		 <tr>
-		<td><label for="name">Duration</label></td>
+		<td><label for="name">Duration(minutes)</label></td>
 		<td><input type="text" name="title" value="{$challenge->duration}"/></td>
 		</tr>
 		<tr>

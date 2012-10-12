@@ -9,15 +9,22 @@
    <form id="form" name="form" method="post">
       <table class="manager_table">
               <tr>
-		     <td><label>Edit Class Name  </label></td>
+		     <td><label>Name:  </label></td>
 		     <td><input type="text" name="updateclassname" value="{$class->name}"/></td>
             
                   <td colspan="2">
 		        <p class="submit">
-			   <input type="submit" name="submit" id="submit" value="Edit ClassName" />
+			   <input type="submit" name="submit" id="submit" value="Update" />
 		        </p>
 		      </td>
+		      <td>
+		<a href="challengemanager.php">Add challenges</a>
+	    </td>
+	     <td>
+		<a href="usermanager.php">Add users</a>
+	    </td>
 	    </tr>
+	    <tr></tr>
       </table>
    </form>  
     <table class="manager_table">
