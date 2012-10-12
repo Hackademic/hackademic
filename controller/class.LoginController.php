@@ -72,7 +72,11 @@ class LoginController extends HackademicController {
 					else {
 						// this sets variables in the session
 						$session->completeLogin($user);
-						header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+						if($user->type){
+							
+							header('Location:'.SOURCE_ROOT_PATH."admin/pages/dashboard.php");
+						}else
+							header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
 					}
 				}
 			} else {

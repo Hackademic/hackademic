@@ -43,7 +43,7 @@ class UserMenuController{
 	 */
 	protected function createMainMenu() {
 		if(Session::isAdmin()){
-			$link0 = array ('title'=>'Admin Dashboard', 'url'=>'admin/');
+			$link0 = array ('title'=>'Home', 'url'=>'admin/');
 			$link1 = array ('title'=>'Add New Articles', 'url'=>'admin/pages/addarticle.php');
 			$link2 = array ('title'=>'Article Manager', 'url'=>'admin/pages/articlemanager.php');
 			$link3 = array ('title'=>'Users/Classes', 'url'=>'admin/pages/usermanager.php');
