@@ -12,7 +12,7 @@ body {height:95%;}
 }
 #usermessage {width: 60%; margin: auto;}
 #username {
-    float: left;
+ /*   float: left;*/
     margin-top:15px;
     margin-left: 20px;
     margin-bottom: -10px;
