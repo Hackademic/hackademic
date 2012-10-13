@@ -48,7 +48,7 @@ tinyMCE.init({
         <table class="article_main">
             <tr>
                 <td class="bottom"><label>Title</label></td>
-                <td class="bottom"><input type="text"name="title"/></td>
+                <td class="bottom"><input type="text"name="title" value="{$cached->title}"/></td>
             </tr>
             <tr>
                 <td><label>Publish Article</label></td>
@@ -62,7 +62,7 @@ tinyMCE.init({
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea name="content"></textarea>
+                    <textarea name="content">{$cached->article}</textarea>
                 </td>
             </tr>
             <tr>
