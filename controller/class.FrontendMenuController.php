@@ -34,8 +34,8 @@
 class FrontendMenuController{
 
 	public function go() {
-		//$menu = self::createMainMenu();
-		return $menu;
+		$menu = self::createMainMenu();
+		return;
 	}
 
 	/**

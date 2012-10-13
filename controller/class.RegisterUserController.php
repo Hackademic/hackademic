@@ -38,9 +38,15 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class RegisterUserController extends HackademicController {
 
+	public $username;
+	public $name;
+	public $email;
+	
+
 	public function go() {
 		$this->setViewTemplate('register_user.tpl');
 		if (isset($_POST['submit'])) {
+			$this->saveFormFields();
 			if ($_POST['username']=='') {
 				$this->addErrorMessage("Username should not be empty");
 			} elseif ($_POST['full_name']=='') {
@@ -67,6 +73,7 @@ class RegisterUserController extends HackademicController {
 				elseif(!Utils::validateEmail($email)) {
 					$this->addErrorMessage("Please enter a valid email id");
 				} else {
+					//$this->destroyFormFields();
 					$this->setViewTemplate('mainlogin.tpl');
 					$subject="Hackademic new account";
 					$message="Hackademic account created succesfully";
@@ -79,4 +86,13 @@ class RegisterUserController extends HackademicController {
 		}
 		return $this->generateView();
 	}
+
+	public function saveFormFields(){
+
+		$this->username = $_POST['username'];
+		$this->name = $_POST['full_name'];
+		$this->email = $_POST['email'];
+		$this->addToView('cached', $this);
+	}
+
 }

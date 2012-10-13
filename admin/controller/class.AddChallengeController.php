@@ -37,6 +37,14 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 // -- Purpose : 
 // -- Created On : 
 class AddChallengeController extends HackademicBackendController {
+
+	public $title;
+	public $authors;
+	public $category;
+	public $level;
+	public $duration;
+	public $description;	
+	
     private static function rrmdir($dir) {
 	foreach(glob($dir . '/*') as $file) {
 	    
@@ -123,9 +131,8 @@ class AddChallengeController extends HackademicBackendController {
 
 	
 	if (isset($_POST['continue'])) {
-	    
+	    $this->cache_values();
 	    if ($_POST['title']=='') {
-
 		$e_msg = "Title of the challenge should not be empty";
 		$error = true;
 	    } elseif ($_POST['description']=='') {
@@ -143,7 +150,11 @@ class AddChallengeController extends HackademicBackendController {
 	    } elseif ($_POST['duration']=='') {
 		$e_msg = "Duration field should not be empty";
 		$error = true;
-	    } else {
+	    } elseif ($_POST['description']=='') {
+		$e_msg = "Description field should not be empty";
+		$error = true;
+	    }
+	     else {
 		$array = array (
 		    'title' => $_POST['title'],
 		    'description' => $_POST['description'],
@@ -232,5 +243,18 @@ class AddChallengeController extends HackademicBackendController {
 	$this->addToView('type', $add_type);
 	return $this->generateView();
     }
+
+	public function cache_values(){
+
+		$this->title = $_POST['title'];
+		$this->description = $_POST['description'];
+		$this->authors = $_POST['authors'];
+		$this->category = $_POST['category'];
+		$this->level = $_POST['level'];
+		$this->duration = $_POST['duration'];
+
+		$this->addToView('cached', $this);
+
+	}
 
 }
