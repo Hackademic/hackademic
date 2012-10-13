@@ -34,24 +34,38 @@ require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
 require_once(HACKADEMIC_PATH."admin/model/class.Classes.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
+require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 
 class ShowClassController extends HackademicBackendController {
 
 	public function go() {
 		$this->setViewTemplate('showclass.tpl');
+
 		if (!isset($_GET['id'])) {
 			header('Location: '.SOURCE_ROOT_PATH."admin/pages/manageclass.php");
 		}
 		$class_id=$_GET['id'];
+
+		$challenges_not_assigned = ClassChallenges::getNotMemberships($class_id);
+		$class = Classes::getClass($class_id);
+		$change = false;
+
 		if(isset($_POST['submit'])) {
 			if(isset($_POST['updateclassname'])) {
 				if ($_POST['updateclassname']=='') {
 					header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editerror");
 				}
-				else {
-					$this->name =$_POST['updateclassname'];
-					Classes::updateClassName($class_id, $this->name);
-					header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editsuccess");
+				else {	
+					if ($_POST['challenges'] !='default') {			
+						ClassChallenges::addMembership($_POST['challenges'],$_GET['id']);
+						$this->addSuccessMessage("Challenge has been added to the class succesfully");
+					}
+					if($_POST['updateclassname'] != $class->name){
+						$change = true;
+						$this->name =$_POST['updateclassname'];
+						Classes::updateClassName($class_id, $this->name);
+						header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editsuccess&message=cname");
+					}
 				}
 			}
 		}
@@ -70,10 +84,16 @@ class ShowClassController extends HackademicBackendController {
 				$this->addSuccessMessage("Challenge has been deleted from the class succesfully");
 			}
 		}
-		$class = Classes::getClass($class_id);
+		
+
 		$user_members = ClassMemberships::getAllMemberships($class_id);
 		$challenges_assigned = ClassChallenges::getAllMemberships($class_id);
+
+		if($change)
+			$class = Classes::getClass($class_id);
+		
 		$this->addToView('class', $class);
+		$this->addToView('challenges_not_assigned',$challenges_not_assigned);
 		$this->addToView('users', $user_members);
 		$this->addToView('challenges', $challenges_assigned);
 		return $this->generateView();

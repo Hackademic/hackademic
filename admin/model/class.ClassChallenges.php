@@ -143,12 +143,31 @@ public static function getChallengesOfUser($user_id) {
 		$param=array(':class_id' => $class_id);
 		$sql = "SELECT DISTINCT class_challenges.challenge_id, challenges.title FROM class_challenges ";
 		$sql .= "LEFT JOIN challenges on class_challenges.challenge_id = challenges.id WHERE ";
-		$sql .= "class_challenges.class_id = :class_id";
+		$sql .= "class_challenges.class_id = :class_id ORDER BY challenge_id";
 		$query = $db->query($sql,$param);
 		$result_array = array();
 		while ($row = $db->fetchArray($query)) {
 			array_push($result_array, $row);
 		}
+		return $result_array;
+	}
+
+	public static function getNotMemberships($class_id){
+
+		global $db;
+		$param=array(':class_id' => $class_id);
+		$sql = "SELECT DISTINCT challenges.id, challenges.title, class_challenges.class_id
+			FROM challenges, class_challenges
+			WHERE challenges.id NOT IN (
+			SELECT challenge_id FROM class_challenges WHERE class_id = :class_id)
+			GROUP BY challenges.id";
+		$query = $db->query($sql,$param);
+		$result_array = array();		
+		while ($row = $db->fetchArray($query)) {
+			array_push($result_array, $row);
+		}
+
+		//var_dump($result_array);
 		return $result_array;
 	}
 
