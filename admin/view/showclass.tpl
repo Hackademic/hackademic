@@ -14,12 +14,23 @@
             
                   <td colspan="2">
 		        <p class="submit">
-			   <input type="submit" name="submit" id="submit" value="Update" />
+			   
 		        </p>
 		      </td>
 		      <td>
-		<a href="challengemanager.php">Add challenges</a>
+
+		<!--<a href="challengemanager.php">Add challenges</a>-->
+		<select name="challenges" class="width_90">
+			    <option value="default">Add challenges</option> 
+			    {foreach from=$challenges_not_assigned item=challenge}
+			    <option value="{$challenge['id']}">{$challenge['title']}</option>
+			    {/foreach} 
+			</select>
 	    </td>
+	     <td class="submit_btn width_10">
+			<p class="submit"><input type="submit" name="submit" id="submit" value="Update" /></p>
+		    </td>
+		    
 	     <td>
 		<a href="usermanager.php">Add users</a>
 	    </td>
