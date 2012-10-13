@@ -36,7 +36,12 @@ require_once(HACKADEMIC_PATH."/admin/controller/class.HackademicBackendControlle
 
 class AddArticleController extends HackademicBackendController {
 
+	public $title;
+	public $publish;
+	public $article;
+
 	public function go() {
+		$this->saveFormFields();
 		$this->setViewTemplate('editor.tpl');
 		if(isset($_POST['submit'])) {
 			if ($_POST['title']=='') {
@@ -60,5 +65,13 @@ class AddArticleController extends HackademicBackendController {
 			}
 		}        
 		$this->generateView();
+	}
+
+	public function saveFormFields(){
+
+		$this->title =$_POST['title'];
+		$this->publis=$_POST['is_published'];
+		$this->article = $_POST['content'];
+		$this->addToView('cached', $this);
 	}
 } 
