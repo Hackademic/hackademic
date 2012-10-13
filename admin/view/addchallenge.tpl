@@ -65,30 +65,30 @@ tinyMCE.init({
                     </tr>
                     <tr>
                         <td><label for="name">Title</label></td>
-                        <td><input type="text" name="title"/><br/><br/></td>
+                        <td><input type="text" name="title" value="{$cached->title}"/><br/><br/></td>
                     </tr>
                     <tr>
                         <td><label for="name">Authors</label></td>
-                        <td><input type="text" name="authors"/><br/><br/></td>
+                        <td><input type="text" name="authors" value="{$cached->authors}"/><br/><br/></td>
                     </tr>
                     <tr>
                         <td><label for="name">Category</label></td>
-                        <td><input type="text" name="category"/><br/><br/></td>
+                        <td><input type="text" name="category" value="{$cached->category}"/><br/><br/></td>
                     </tr>
 		    <tr>
                         <td><label for="name">Level</label></td>
-                        <td><input type="text" name="level"/><br/><br/></td>
+                        <td><input type="text" name="level" value="{$cached->level}"/><br/><br/></td>
                     </tr>
                     <tr>
                         <td><label for="name">Duration</label></td>
-                        <td><input type="text" name="duration"placeholder="days:minutes" /><br/><br/></td>
+                        <td><input type="text" name="duration"placeholder="minutes" value="{$cached->duration}"/><br/><br/></td>
                     </tr>
                     <tr>
                         <td><label for="name">Description</label></td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <textarea name="description" style="width:100%"></textarea><br/><br/>
+                            <textarea name="description" style="width:100%">{$cached->description}</textarea><br/><br/>
                         </td>
                     </tr>
                     
