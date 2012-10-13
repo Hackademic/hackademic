@@ -31,6 +31,11 @@ img {border:none;}
 }
 .text_center{text-align:center;}
 
+#mainMenu{
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
+}
 #menuHeader {margin-left: -30px; display: block;}
 #mainMenu ul {list-style:none; font-family: 'Cuprum', arial, serif; }
 #mainMenu li {display: inline; border-right:1px solid #dcddde;}
