@@ -59,8 +59,13 @@ class ChallengeBackend extends Challenge{
 		$params=array(':id' => $id,':title' => $title,':description' => $description,
 			      ':visibility' => $visibility,':publish' => $publish,':availability'=>$availability,
 			      ':level'=>$level,':duration'=>$duration);
-		$sql="UPDATE challenges SET title=:title,description=:description,visibility=:visibility,publish=:publish, availability=:availability
-			default_points=:level, default_duration=:duration";
+		$sql="UPDATE challenges SET title=:title,
+					    description=:description,
+					    visibility=:visibility,
+					    publish=:publish,
+					    availability=:availability,
+					    default_points=:level,
+					    default_duration=:duration";
 		$sql .= " WHERE id=:id";
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {
