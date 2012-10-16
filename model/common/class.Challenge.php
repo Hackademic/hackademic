@@ -89,7 +89,7 @@ class Challenge {
 		global $db;
 		$params=array(':user_id' => $user_id);
 		
-		$sql = "SELECT *
+		$sql = "SELECT DISTINCT	challenges.id, challenge_id, challenges.title
 		FROM class_challenges
 		LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
 		WHERE challenges.publish =1 AND (
@@ -97,10 +97,11 @@ class Challenge {
 		class_id IN(
 		SELECT class_memberships.class_id AS class_id
 		FROM class_memberships WHERE
-		class_memberships.user_id =:user_id
+		class_memberships.user_id = :user_id
 			   )
 					)
 						)
+		ORDER BY challenge_id
 		";
 		$result_array=self::findBySQL($sql,$params);
 
