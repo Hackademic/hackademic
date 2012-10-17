@@ -84,8 +84,9 @@ public static function getChallengesOfUser($user_id) {
 	$result_array = array();
 	$query = $db->query($sql);
 	while ($row = $db->fetchArray($query)) {
-		$result_array[$row['challenge_id']] = $row['challenge_id'];
+		$result_array[$row['challenge_id']] = $row['title'];
 	}
+		//var_dump($result_array);
 	    return $result_array;
 }
 
