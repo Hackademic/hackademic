@@ -100,7 +100,7 @@ class Installer
 				$_SESSION['admin_email'] = $_POST['email'];
 				$_SESSION['admin_username'] = $_POST['username'];
 				$hash = Utils::hash($_POST['password']);
-
+				//var_dump($_POST['password']);
 				if($hash)
 					$_SESSION['admin_password'] = $hash;
 				else
@@ -144,8 +144,11 @@ class Installer
 	 * Show database setup stuff
 	 *
 	 */
-	public function dbAction()
+	public function dbAction($dbname="",$dbuser="",$dbhost="")
 	{
+		$this->view->vars=array('dbname'=>$dbname);
+		//$this->view->vars=array('dbuser'=>$dbuser);
+		//$this->view->vars=array('dbhost'=>$dbhost);
 		$this->view->render('db');
 	}
 
@@ -175,6 +178,8 @@ class Installer
 		$_SESSION['dbuser']=$options['dbuser'];
 		$_SESSION['dbpass']=$options['dbpass'];
 		$_SESSION['dbhost']=$options['dbhost'];
+		
+		$this->view->vars=array('dbname'=>$options['dbname']);
 # Make sure we have an array of options
 		if(!is_array($options))
 		{
@@ -205,13 +210,16 @@ class Installer
 
 # Select the DB
 		$db_selected = mysql_select_db($this->_options['dbname'], $link);
-#check if hackademic si already installed in that db
+#check if hackademic is already installed in that db
 		if($db_selected){
 		$db = $this->_options['dbname'];
-		$query = "SELECT * FROM $db.challenges, $db.users, $db.classes, $db.articles";
-		$res = mysql_query($query, $link);
-		if($res ||  mysql_num_rows($res) > 0)
-			$this->view->error($this->lang['L-12']);
+		//$query = "SELECT * FROM $db.challenges, $db.users, $db.classes, $db.articles";
+		//$query = "SELECT * FROM information_schema.tables WHERE table_schema = '$db';";
+		//var_dump($query);
+		//$res = mysql_query($query, $link);
+		//var_dump($res);
+		//if(mysql_num_rows($res) > 0)
+		//	$this->view->error($this->lang['L-12']);
 		}
 		if(!$db_selected && !$this->_options['create_database'])
 		{
@@ -248,10 +256,11 @@ class Installer
 
 			$errors = array();
 			foreach ($SQL as $query)
-			{
+			{	
 				$result = mysql_query($query, $link);
 				if (!$result)
-				{
+				{	//var_dump($query);
+					//var_dump(mysql_error());
 					$errors[] = sprintf($this->lang['L-08'], htmlspecialchars(mysql_error()));
 					$errors_count++;
 					continue;
@@ -333,9 +342,11 @@ class Installer
 		$sample=str_replace("#YOUR_DBNAME#",$values['dbname'],$sample,$count);
 		if($count == 0)
 			$this->addErrorMessage("db name not set");
-		if(FALSE === file_put_contents($path, $sample))
+		if(FALSE === file_put_contents($path, $sample)){
 			$this->addErrorMessage("<p>Could not put the contents ".$sample." to file".$path."please create a file named config.inc.php
 			and put the appropriate contents as dictated by the sample</p>");
+			$this->view->vars = array('config'=>$sample,'cpath'=>$path);
+		}
 		$this->view->vars = array("login_path" => $_POST['source_root_path']);
 		$this->view->render('finish');
 		unset($_SESSION);
