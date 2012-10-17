@@ -1,7 +1,4 @@
 SHOW WARNINGS;
-Drop database hackademic;
-create database hackademic;
-use hackademic;
 --
 -- Table structure for table `articles`
 --
