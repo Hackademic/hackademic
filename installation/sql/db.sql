@@ -1,17 +1,7 @@
--- phpMyAdmin SQL Dump
--- version 3.4.11.1deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Oct 16, 2012 at 11:00 PM
--- Server version: 5.5.24
--- PHP Version: 5.4.4-7
---
--- Database: `hackademic-db`
---
-
--- --------------------------------------------------------
-
+SHOW WARNINGS;
+Drop database hackademic;
+create database hackademic;
+use hackademic;
 --
 -- Table structure for table `articles`
 --
@@ -26,15 +16,15 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `ordering` int(10) DEFAULT '0',
   `is_published` int(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+);
 
 --
 -- Dumping data for table `articles`
 --
 
 INSERT INTO `articles` (`title`, `content`, `date_posted`, `created_by`, `last_modified`, `last_modified_by`, `ordering`, `is_published`) VALUES
-('Welcome', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum, felis ac pellentesque feugiat, massa enim sagittis elit, sed dignissim sem ligula non nisl. Sed pulvinar nunc nec eros aliquet non tempus diam vehicula. Nunc tincidunt, leo ut interdum tristique, quam ligula porttitor tellus, at tincidunt magna enim nec arcu. Nunc tempor egestas libero. Vivamus nulla ligula, vehicula vitae mattis quis, laoreet eget urna. Proin eget est quis urna venenatis dictum nec vel lectus. Nullam sit amet vehicula leo. Sed commodo, orci vitae facilisis accumsan, arcu justo sagittis risus, quis aliquet purus neque eu odio. Mauris lectus orci, tincidunt in varius quis, dictum sed nibh. Quisque dapibus mollis blandit. Donec vel tellus nisl, sed scelerisque felis. Praesent ut eros tortor, sed molestie nunc. Duis eu massa at justo iaculis gravida.</p>\r\n<p>In adipiscing dictum risus a tincidunt. Sed nisi ipsum, rutrum sed ornare in, bibendum at augue. Integer ornare semper varius. Integer luctus vehicula elementum. Donec cursus elit quis erat laoreet elementum. Praesent eget justo purus, vitae accumsan massa. Ut tristique, mauris non dignissim luctus, velit justo sollicitudin odio, vel rutrum purus enim eu felis. In adipiscing elementum sagittis. Nam sed dui ante. Nunc laoreet hendrerit nisl vitae porta. Praesent sit amet ligula et nisi vulputate volutpat. Maecenas venenatis iaculis sapien sit amet auctor. Curabitur euismod venenatis velit non tempor. Cras vel sapien purus, mollis fermentum nulla. Mauris sed elementum enim. Donec ultrices urna at justo adipiscing rutrum.</p>', '2012-08-09 01:19:59', 'admin', NULL, NULL, 0, 1),
-('Hello OWASP!', '<p>Hello Everyone,</p>\r\n<p>This is a special article for the appsecusa Hacakdemic project demo.</p>\r\n<p>Greeting from Greece, we hope you find the project interesting even if it still is in its very early stages.</p>\r\n<p>See you around,keep rocking</p>\r\n<p>Oh and buy Kostas a couple of beers, he''s earned them for sure ;-)</p>', '2012-10-16 22:31:28', 'admin', NULL, NULL, 0, 1);
+('Welcome', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum, felis ac pellentesque feugiat, massa enim sagittis elit, sed dignissim sem ligula non nisl. Sed pulvinar nunc nec eros aliquet non tempus diam vehicula. Nunc tincidunt, leo ut interdum tristique, quam ligula porttitor tellus, at tincidunt magna enim nec arcu. Nunc tempor egestas libero. Vivamus nulla ligula, vehicula vitae mattis quis, laoreet eget urna. Proin eget est quis urna venenatis dictum nec vel lectus. Nullam sit amet vehicula leo. Sed commodo, orci vitae facilisis accumsan, arcu justo sagittis risus, quis aliquet purus neque eu odio. Mauris lectus orci, tincidunt in varius quis, dictum sed nibh. Quisque dapibus mollis blandit. Donec vel tellus nisl, sed scelerisque felis. Praesent ut eros tortor, sed molestie nunc. Duis eu massa at justo iaculis gravida.</p>\r\n<p>In adipiscing dictum risus a tincidunt. Sed nisi ipsum, rutrum sed ornare in, bibendum at augue. Integer ornare semper varius. Integer luctus vehicula elementum. Donec cursus elit quis erat laoreet elementum. Praesent eget justo purus, vitae accumsan massa. Ut tristique, mauris non dignissim luctus, velit justo sollicitudin odio, vel rutrum purus enim eu felis. In adipiscing elementum sagittis. Nam sed dui ante. Nunc laoreet hendrerit nisl vitae porta. Praesent sit amet ligula et nisi vulputate volutpat. Maecenas venenatis iaculis sapien sit amet auctor. Curabitur euismod venenatis velit non tempor. Cras vel sapien purus, mollis fermentum nulla. Mauris sed elementum enim. Donec ultrices urna at justo adipiscing rutrum.</p>', '2012-08-09 01:19:59', 'admin',NULL, NULL, 0, 1);
+
 
 -- --------------------------------------------------------
 
@@ -61,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `challenges` (
   `default_points` int(11) DEFAULT NULL,
   `default_duration` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+);
 
 --
 -- Dumping data for table `challenges`
@@ -145,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `date_created` datetime NOT NULL,
   `archive` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+);
 
 --
 -- Dumping data for table `classes`
@@ -167,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `class_challenges` (
   `class_id` int(11) NOT NULL,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+);
 
 --
 -- Dumping data for table `class_challenges`
@@ -202,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `class_memberships` (
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`user_id`,`class_id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+);
 
 --
 -- Dumping data for table `class_memberships`
@@ -234,14 +224,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `token` int(10) DEFAULT '0',
   PRIMARY KEY (`username`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+);
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
-('admin', 'Administrator', 'a@b.c', '$2a$08$BDlWi5lrLzCmwzmXb2iaVuKhjv.mEwo/KC3HQ/pKUkK8eW.a4oUI6', '2012-10-16 22:11:54', '2012-10-16 22:33:41', 1, 1, 0),
 ('bar', 'mr. bar', 'bar@owasp.com', '$P$BJ8UtXZYqS/Lokm8zFMwcxO8dq797P.', '2012-10-16 22:12:52', '2012-10-16 22:22:39', 0, 0, 0),
 ('foo', 'mr. foo', 'foo@owasp.com', '$P$BxCHeVG1RMF06UxwRbrVQtPA1yOwAq.', '2012-10-16 22:12:34', '2012-10-16 22:59:29', 0, 0, 0),
 ('sensei', 'waspy sifu', 'waspy@owasp.sifu', '$P$Bj/JtLJJR3bUD0LLWXL2UW9DuRVo0I.', '2012-10-16 22:36:06', '2012-10-16 22:37:04', 1, 2, 0);
+
+SHOW WARNINGS;
