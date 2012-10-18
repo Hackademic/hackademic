@@ -67,7 +67,7 @@ class TryChallengeController extends HackademicController {
 	protected static function isAllowed($username, $challenge_id) {
 		$user = User::findByUserName($username);
 		$dbg_array = ClassChallenges::getChallengesOfUser($user->id);
-		if(in_array($challenge_id, $dbg_array))
+		if(array_key_exists($challenge_id, $dbg_array))
 		return true;
 		else
 		return false;
