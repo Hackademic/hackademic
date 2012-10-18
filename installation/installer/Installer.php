@@ -208,7 +208,7 @@ class Installer
 #check if hackademic si already installed in that db
 		if($db_selected){
 		$db = $this->_options['dbname'];
-		$query = "SELECT * FROM $db.challenges, $db.users, $db.classes, $db.articles";
+		$query = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = {$db}";
 		$res = mysql_query($query, $link);
 		if($res ||  mysql_num_rows($res) > 0)
 			$this->view->error($this->lang['L-12']);

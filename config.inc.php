@@ -33,3 +33,25 @@ define('DB_TYPE', 'mysql');
 define('DB_USER', 'hack');
 define('DB_PASSWORD', 'northy');
 define('DB_NAME', 'hackademic');
+
+
+/*********************************************/
+/** 	Various Config			*****/
+/********************************************/
+
+//default max challenge size
+define('MAX_CHALLENGE_SIZE','2097152');
+
+/*	DEV DEBUG MESSAGE SELECTION */
+
+//Debug message selection
+define('SHOW_SQL_QUERIES', '#TRUE OR FALSE');
+define('SHOW_SQL_RESULTS', '#TRUE OR FALSE');
+define("SHOW_EMPTY_VAR_ERRORS", '#TRUE OR FALSE');
+
+
+
+/***************************************
+**	Default Example Challenge Path**
+***************************************/
+define('EXAMPLE_CHALLENGE','challenges/Example/');
