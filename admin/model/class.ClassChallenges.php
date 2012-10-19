@@ -159,13 +159,13 @@ class ClassChallenges {
 	public static function getNotMemberships($class_id){
 
 		global $db;
-		$param=array(':class_id' => $class_id);
-		$sql = "SELECT DISTINCT challenges.id, challenges.title, class_challenges.class_id
-			FROM challenges, class_challenges
-			WHERE challenges.id NOT IN (
-			SELECT challenge_id FROM class_challenges WHERE class_id = :class_id)
-			GROUP BY challenges.id";
-		$query = $db->query($sql,$param);
+		//$param=array(':class_id' => $class_id);
+		$sql = "SELECT challenges.id,challenges.title
+			FROM challenges
+			LEFT JOIN class_challenges ON challenges.id = class_challenges.challenge_id
+			WHERE class_challenges.challenge_id IS NULL;";
+		$query = $db->query($sql/*,$param*/);
+		
 		$result_array = array();		
 		while ($row = $db->fetchArray($query)) {
 			array_push($result_array, $row);
