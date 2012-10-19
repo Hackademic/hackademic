@@ -157,12 +157,12 @@ class AddChallengeController extends HackademicBackendController {
 	    }
 	     else {
 		$array = array (
-		    'title' => $_sanitizeInput(POST['title']),
+		    'title' => Utils::santizeInput($_POST['title']),
 		    'description' => $_POST['description'],
-		    'authors' => sanitizeInput($_POST['authors']),
-		    'category' => sanitizeInput($_POST['category']),
-		    'level' => sanitizeInput($_POST['level']),
-		    'duration' => sanitizeInput($_POST['duration'])
+		    'authors' => Utils::sanitizeInput($_POST['authors']),
+		    'category' => Utils::sanitizeInput($_POST['category']),
+		    'level' => Utils::sanitizeInput($_POST['level']),
+		    'duration' => Utils::sanitizeInput($_POST['duration'])
 		);
 		$_SESSION['challenge_arr'] = $array;
 		$this->addSuccessMessage("Now Please upload the challenge code");
@@ -248,12 +248,12 @@ class AddChallengeController extends HackademicBackendController {
 
 	public function cache_values(){
 
-		$this->title = sanitizeInput($_POST['title']);
+		$this->title = Utils::sanitizeInput($_POST['title']);
 		$this->description = $_POST['description'];
-		$this->authors = sanitizeInput($_POST['authors']);
-		$this->category = sanitizeInput($_POST['category']);
-		$this->level = sanitizeInput($_POST['level']);
-		$this->duration = sanitizeInput($_POST['duration']);
+		$this->authors = Utils::sanitizeInput($_POST['authors']);
+		$this->category = Utils::sanitizeInput($_POST['category']);
+		$this->level = Utils::sanitizeInput($_POST['level']);
+		$this->duration = Utils::sanitizeInput($_POST['duration']);
 
 		$this->addToView('cached', $this);
 
