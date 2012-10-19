@@ -99,7 +99,6 @@ class AddChallengeController extends HackademicBackendController {
 	    }
 
 	    $xml = simplexml_load_file($target."$name".".xml");
-
 	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)||
 		 !isset($xml->level)|| !isset($xml->duration)){
 		$this->addErrorMessage("The XML file is not valid.");

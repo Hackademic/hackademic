@@ -74,7 +74,6 @@ class Utils {
 		return $check = $util->CheckPassword($input, $hash);
 	}
 
-
 	public static function sanitizeInput($input){
 
 	$input = htmlspecialchars($input);
