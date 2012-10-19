@@ -33,6 +33,7 @@
 require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ArticleBackend.php");
 require_once(HACKADEMIC_PATH."/admin/controller/class.HackademicBackendController.php");
+require_once(HACKADEMIC_PATH."/model/common/class.Utils.php");
 
 class AddArticleController extends HackademicBackendController {
 
@@ -52,9 +53,9 @@ class AddArticleController extends HackademicBackendController {
 				$this->addErrorMessage("Article post should not be empty");
 			} else {
 				$this->created_by= Session::getLoggedInUser();
-				$this->title =$_POST['title'];
+				$this->title =Utils::sanitizeInput($_POST['title']);
 				$this->is_published=$_POST['is_published'];
-				$this->content = $_POST['content'];
+				$this->content = Utils::sanitizeInput($_POST['content']);
 				$this->date_posted = date("Y-m-d H:i:s");
 
 				ArticleBackend::addArticle($this->title,$this->content,$this->date_posted,$this->created_by,$this->is_published);
