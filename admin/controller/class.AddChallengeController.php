@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."admin/model/class.ChallengeBackend.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 // -- Class Name : AddChallengeController
 // -- Purpose : 
@@ -100,17 +101,20 @@ class AddChallengeController extends HackademicBackendController {
 
 	    $xml = simplexml_load_file($target."$name".".xml");
 	    
-	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)){
+	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)||
+		 !isset($xml->level)|| !isset($xml->duration)){
 		$this->addErrorMessage("The XML file is not valid.");
 		self::rrmdir(HACKADEMIC_PATH."challenges/".$name);
 		return false;
 	    }
 
 	    $a = array(
-		'title'=>$xml->title,
-		'author'=>$xml->author,
-		'description'=>$xml->description,
-		'category'=>$xml->category
+		'title'=>Utils::sanitizeInput($xml->title),
+		'author'=>Utils::sanitizeInput($xml->author),
+		'description'=>$xml->description,//Todo make sure its only html here and no javascript or other possibly malicious stuff
+		'category'=>Utils::sanitizeInput($xml->category),
+		'level'=>Utils::sanitizeInput($xml->level),
+		'duration'=>Utils::sanitizeInput($xml->duration)
 	    );
 	    return $a;
 	} else {
@@ -150,18 +154,15 @@ class AddChallengeController extends HackademicBackendController {
 	    } elseif ($_POST['duration']=='') {
 		$e_msg = "Duration field should not be empty";
 		$error = true;
-	    } elseif ($_POST['description']=='') {
-		$e_msg = "Description field should not be empty";
-		$error = true;
 	    }
 	     else {
 		$array = array (
-		    'title' => $_POST['title'],
+		    'title' => $_sanitizeInput(POST['title']),
 		    'description' => $_POST['description'],
-		    'authors' => $_POST['authors'],
-		    'category' => $_POST['category'],
-		    'level' => $_POST['level'],
-		    'duration' => $_POST['duration']
+		    'authors' => sanitizeInput($_POST['authors']),
+		    'category' => sanitizeInput($_POST['category']),
+		    'level' => sanitizeInput($_POST['level']),
+		    'duration' => sanitizeInput($_POST['duration'])
 		);
 		$_SESSION['challenge_arr'] = $array;
 		$this->addSuccessMessage("Now Please upload the challenge code");
@@ -232,7 +233,8 @@ class AddChallengeController extends HackademicBackendController {
 		if($data==true){
 		    $pkg_name =$name[0];
 		    $date_posted = date("Y-m-d H-i-s");
-		    ChallengeBackend::addchallenge($data['title'],$pkg_name,$data['description'],$data['author'],$data['category'],$date_posted);
+		    ChallengeBackend::addchallenge($data['title'],$pkg_name,$data['description'],$data['author'],$data['category'],$date_posted,
+						   $data['level'], $data['duration']);
 		    header('Location: '.SOURCE_ROOT_PATH."admin/pages/challengemanager.php?action=add");
 		}
 
@@ -246,12 +248,12 @@ class AddChallengeController extends HackademicBackendController {
 
 	public function cache_values(){
 
-		$this->title = $_POST['title'];
+		$this->title = sanitizeInput($_POST['title']);
 		$this->description = $_POST['description'];
-		$this->authors = $_POST['authors'];
-		$this->category = $_POST['category'];
-		$this->level = $_POST['level'];
-		$this->duration = $_POST['duration'];
+		$this->authors = sanitizeInput($_POST['authors']);
+		$this->category = sanitizeInput($_POST['category']);
+		$this->level = sanitizeInput($_POST['level']);
+		$this->duration = sanitizeInput($_POST['duration']);
 
 		$this->addToView('cached', $this);
 
