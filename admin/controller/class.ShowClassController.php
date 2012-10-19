@@ -35,6 +35,7 @@ require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
 require_once(HACKADEMIC_PATH."admin/model/class.Classes.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class ShowClassController extends HackademicBackendController {
 
@@ -56,13 +57,13 @@ class ShowClassController extends HackademicBackendController {
 					header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editerror");
 				}
 				else {	
-					if ($_POST['challenges'] !='default') {			
+					if ($_POST['challenges'] !='default') {
 						ClassChallenges::addMembership($_POST['challenges'],$_GET['id']);
 						$this->addSuccessMessage("Challenge has been added to the class succesfully");
 					}
 					if($_POST['updateclassname'] != $class->name){
 						$change = true;
-						$this->name =$_POST['updateclassname'];
+						$this->name = Utils::sanitizeInput($_POST['updateclassname']);
 						Classes::updateClassName($class_id, $this->name);
 						header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editsuccess&message=cname");
 					}

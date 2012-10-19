@@ -33,6 +33,7 @@
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ChallengeBackend.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class EditChallengeController extends HackademicBackendController {
 	public function go() {
@@ -52,13 +53,13 @@ class EditChallengeController extends HackademicBackendController {
 				$this->addErrorMessage("Duration field should not be empty");
 			} else {
 
-				$this->title =$_POST['title'];
-				$this->description=$_POST['description'];
-				$this->visibility=$_POST['visibility'];
-				$this->publish=$_POST['publish'];
-				$this->availability = $_POST['availability'];
-				$this->level = $_POST['level'];
-				$this->duration = $_POST['duration'];
+				$this->title = Utils::sanitizeInput($_POST['title']);
+				$this->description = $_POST['description'];
+				$this->visibility = Utils::sanitizeInput($_POST['visibility']);
+				$this->publish = Utils::sanitizeInput($_POST['publish']);
+				$this->availability = Utils::sanitizeInput($_POST['availability']);
+				$this->level = Utils::sanitizeInput($_POST['level']);
+				$this->duration = Utils::sanitizeInput($_POST['duration']);
 				ChallengeBackend::updateChallenge($id,$this->title,
 								  $this->description,
 								  $this->visibility,
