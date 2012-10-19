@@ -58,11 +58,11 @@ class RegisterUserController extends HackademicController {
 			} elseif ($_POST['email']=='') {
 				$this->addErrorMessage("please enter ur email id");	    
 			} else {
-				$username = $_POST['username'];
+				$username = Utils::sanitizeInput($_POST['username']);
 				$password = $_POST['password'];
 				$confirmpassword=$_POST['confirmpassword'];
-				$full_name = $_POST['full_name'];
-				$email=$_POST['email'];
+				$full_name = Utils::sanitizeInput($_POST['full_name']);
+				$email=$_POST['email'];//esapi email encode
 				//$is_activated = $_POST['is_activated'];
 				if (User::doesUserExist($username)) {
 					$this->addErrorMessage("Username already exists");
@@ -89,8 +89,8 @@ class RegisterUserController extends HackademicController {
 
 	public function saveFormFields(){
 
-		$this->username = $_POST['username'];
-		$this->name = $_POST['full_name'];
+		$this->username = Utils::sanitizeInput($_POST['username']);
+		$this->name = Utils::sanitizeInput($_POST['full_name']);
 		$this->email = $_POST['email'];
 		$this->addToView('cached', $this);
 	}

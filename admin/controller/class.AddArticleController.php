@@ -53,9 +53,9 @@ class AddArticleController extends HackademicBackendController {
 				$this->addErrorMessage("Article post should not be empty");
 			} else {
 				$this->created_by= Session::getLoggedInUser();
-				$this->title =Utils::sanitizeInput($_POST['title']);
-				$this->is_published=$_POST['is_published'];
-				$this->content = Utils::sanitizeInput($_POST['content']);
+				$this->title = Utils::sanitizeInput($_POST['title']);
+				$this->is_published = $_POST['is_published'];
+				$this->content = $_POST['content'];//TODO somehow we must check if this is malicious
 				$this->date_posted = date("Y-m-d H:i:s");
 
 				ArticleBackend::addArticle($this->title,$this->content,$this->date_posted,$this->created_by,$this->is_published);
@@ -70,7 +70,7 @@ class AddArticleController extends HackademicBackendController {
 
 	public function saveFormFields(){
 
-		$this->title =$_POST['title'];
+		$this->title =Utils::sanitizeInput($_POST['title']);
 		$this->publis=$_POST['is_published'];
 		$this->article = $_POST['content'];
 		$this->addToView('cached', $this);

@@ -33,6 +33,7 @@
 require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."admin/model/class.Classes.php");
 require_once(HACKADEMIC_PATH."/admin/controller/class.HackademicBackendController.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class AddClassController extends HackademicBackendController {
 
@@ -43,7 +44,7 @@ class AddClassController extends HackademicBackendController {
 				$this->addErrorMessage("Name of the class should not be empty");
 			} else {
 				// $this->created_by= Session::getLoggedInUser();
-				$classname =$_POST['classname'];
+				$classname = Utills::sanitizeInput($_POST['classname']);
 				$date_created = date("Y-m-d H:i:s");
 				if (Classes::doesClassExist($classname)) {
 				$this->addErrorMessage(" This Classname already exists");
