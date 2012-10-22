@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
+require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
 
 class Challenge {
 	public $id;
@@ -83,35 +84,27 @@ class Challenge {
 		return $result_array;
 	}
 
-	/*Not used function
-	 * If used it will return all the challenges you can see even those you can't do*/
+//get all Visible challenges
 	public static function getChallengesFrontend($user_id) {
 		global $db;
 		$params=array(':user_id' => $user_id);
-		
-		$sql = "SELECT DISTINCT	challenges.id, challenge_id, challenges.title
-		FROM class_challenges
-		LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
-		WHERE challenges.publish =1 AND (
-		visibility = 'public' OR (
-		class_id IN(
-		SELECT class_memberships.class_id AS class_id
-		FROM class_memberships WHERE
-		class_memberships.user_id = :user_id
-			   )
+		$sql = "SELECT DISTINCT challenges.id, challenges.title,challenges.pkg_name, challenges.availability
+			FROM challenges
+			LEFT JOIN class_challenges ON challenges.id = class_challenges.challenge_id
+			WHERE challenges.publish =1 AND (
+			(visibility = 'public')
+			OR (class_id IN(
+			SELECT class_memberships.class_id AS class_id
+			FROM class_memberships WHERE
+			class_memberships.user_id = :user_id
 					)
-						)
-		ORDER BY challenge_id
-		";
+			   )
+							)
+			ORDER BY challenge_id
+			";
 		$result_array=self::findBySQL($sql,$params);
-
-		if ("dev" ==ENVIRONMENT){
-			if (TRUE === SHOW_SQL_RESULTS)
-				echo var_dump($result_array)."</p>";
-		}
-
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		Debug::show($result_array,'all',$this,_FUNCTION_);
+		return !empty($result_array)?$result_array:false;
 	}
 	
 	public static function getChallengesAssigned($user) {
