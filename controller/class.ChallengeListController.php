@@ -31,6 +31,8 @@
  *
  */
 require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
+require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
+
 class ChallengeListController extends HackademicController {
 
 	public function go() {
@@ -40,13 +42,14 @@ class ChallengeListController extends HackademicController {
 		    return;
 		}
 		$challenges=Challenge::getChallengesFrontend($user->id);
+		
 		$menu=array();
 		foreach( $challenges as $challenge){
 			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title,
 				       'url'=>'challenges/'.$challenge->pkg_name.'/index.php',
 				       'availability'=>$challenge->availability);
 			array_push($menu,$link);
-			
+			Debug::vars_get_value($link);
 			if ('private' == $challenge->availability){
 				
 				$message = true;

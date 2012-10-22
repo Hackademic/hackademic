@@ -65,29 +65,34 @@ class ClassChallenges {
 		}
 		return $result_array;
 	}
-/*@returns: array[0] = [challenge_id,challenge_title,challenge_availability]*/	
+/*@returns: array
+ * Get all challenges the use can solve*/	
 	public static function getChallengesOfUser($user_id) {
 		global $db;
 		$params=array(':user_id' => $user_id);
-		$sql = "SELECT DISTINCT challenge_id, challenges.title
-			FROM class_challenges
-			LEFT JOIN challenges ON challenges.id = class_challenges.challenge_id
-			WHERE challenges.publish =1 AND (
-			(visibility = 'public' AND availability = 'public')
-			OR (class_id IN(
-			SELECT class_memberships.class_id AS class_id
-			FROM class_memberships WHERE
-			class_memberships.user_id =:user_id
-					)
+		$sql = "SELECT DISTINCT	challenges.id, challenges.title,challenges.pkg_name, challenges.availability
+		FROM challenges
+		LEFT JOIN class_challenges ON challenges.id = class_challenges.challenge_id
+		WHERE challenges.publish =1 AND (
+		visibility = 'public' AND availability = 'public' OR (
+		class_id IN(
+		SELECT class_memberships.class_id AS class_id
+		FROM class_memberships WHERE
+		class_memberships.user_id = :user_id
 			   )
-							)
-			ORDER BY challenge_id
-			";
+					)
+						)
+		ORDER BY challenge_id
+		";
 		$result_array = array();
 		$query = $db->query($sql,$params);
 		//var_dump($query);
 		while ($row = $db->fetchArray($query)) {
-			$result_array[$row['challenge_id']] = $row['title'];
+			if ("dev" ==ENVIRONMENT){
+				if (TRUE === SHOW_SQL_RESULTS)
+					echo "<p>".var_dump($row)."</p>";
+				}			
+			$result_array[$row['id']] = $row['title'];
 		}
 		//var_dump($result_array);
 		return $result_array;
