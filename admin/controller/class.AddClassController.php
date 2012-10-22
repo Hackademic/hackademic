@@ -44,7 +44,7 @@ class AddClassController extends HackademicBackendController {
 				$this->addErrorMessage("Name of the class should not be empty");
 			} else {
 				// $this->created_by= Session::getLoggedInUser();
-				$classname = Utills::sanitizeInput($_POST['classname']);
+				$classname = Utils::sanitizeInput($_POST['classname']);
 				$date_created = date("Y-m-d H:i:s");
 				if (Classes::doesClassExist($classname)) {
 				$this->addErrorMessage(" This Classname already exists");
