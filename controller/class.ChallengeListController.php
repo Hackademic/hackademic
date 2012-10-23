@@ -45,9 +45,9 @@ class ChallengeListController extends HackademicController {
 		
 		$menu=array();
 		foreach( $challenges as $challenge){
-			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title,
-				       'url'=>'challenges/'.$challenge->pkg_name.'/index.php',
-				       'availability'=>$challenge->availability);
+			$link = array ('id'=>$challenge['id'], 'title'=>$challenge['title'],
+				       'url'=>'challenges/'.$challenge['pkg_name'].'/index.php',
+				       'availability'=>$challenge['availability'],'class'=>$challenge['class']);
 			array_push($menu,$link);
 			Debug::vars_get_value($link);
 			if ('private' == $challenge->availability){

@@ -74,7 +74,7 @@ class ClassChallenges {
 		FROM challenges
 		LEFT JOIN class_challenges ON challenges.id = class_challenges.challenge_id
 		WHERE challenges.publish =1 AND (
-		visibility = 'public' AND availability = 'public' OR (
+		(visibility = 'public' AND availability = 'public') OR (
 		class_id IN(
 		SELECT class_memberships.class_id AS class_id
 		FROM class_memberships WHERE
@@ -82,19 +82,18 @@ class ClassChallenges {
 			   )
 					)
 						)
-		ORDER BY challenge_id
+		ORDER BY challenges.id
 		";
 		$result_array = array();
 		$query = $db->query($sql,$params);
-		//var_dump($query);
-		while ($row = $db->fetchArray($query)) {
-			if ("dev" ==ENVIRONMENT){
-				if (TRUE === SHOW_SQL_RESULTS)
-					echo "<p>".var_dump($row)."</p>";
-				}			
-			$result_array[$row['id']] = $row['title'];
+		$i = 1;
+		while ($row = $db->fetchArray($query)) {			
+
+			$result_array[$i]["id"]= $row['id'];
+			$result_array[$i]["title"] = $row['title'];
+			$i++;
 		}
-		//var_dump($result_array);
+		Debug::show($result_array,'all',$this,_FUNCTION_);
 		return $result_array;
 	}
 
