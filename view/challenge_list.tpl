@@ -6,7 +6,7 @@
     <ul style="list-style: none;">
         {foreach from=$list item=foo}
             <li style="margin-top: 10px; margin-bottom: 10px;">
-            {if $foo['availability'] == public}
+            {if $foo['availability'] == public || $foo['class'] == true}
                 <a class="width100" href="{$site_root_path}pages/showchallenges.php?id={$foo['id']}">
             {/if}
                     <span class="padding_menu">{$foo['title']}</span>
