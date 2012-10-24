@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
+
 class ChallengeMenuController {
 
 	public function go() {
@@ -42,12 +43,13 @@ class ChallengeMenuController {
 		}
 		if (Session::isAdmin() || Session::isTeacher()) {
 		    $challenges=Challenge::getChallengesFrontend($user->id);
+		    
 		} else {
 		    $challenges=Challenge::getChallengesAssigned($user->id);
 		}
 		$menu=array();
 		foreach( $challenges as $challenge){
-			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title, 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
+			$link = array ('id'=>$challenge['id'], 'title'=>$challenge['title'], 'url'=>'challenges/'.$challenge['pkg_name'].'/index.php');
 			array_push($menu,$link);
 		}
 		return $menu;
