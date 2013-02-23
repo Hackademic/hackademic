@@ -293,7 +293,11 @@ class Installer
 	{
 		$this->view->display();
 	}
-
+	
+	public function addErrorMessage($error_string){
+		//$tmplt = new Installer_Template();
+		echo $this->view->error($error_string);
+	}
 	/**
 	 * Write the configuration File
 	 *
@@ -343,8 +347,13 @@ class Installer
 		if($count == 0)
 			$this->addErrorMessage("db name not set");
 		if(FALSE === file_put_contents($path, $sample)){
-			$this->addErrorMessage("<p>Could not put the contents ".$sample." to file".$path."please create a file named config.inc.php
-			and put the appropriate contents as dictated by the sample</p>");
+			$errmsg= "<pre>Could not put the contents";
+			$errmsg .= $sample;
+			//var_dump($sample);
+			$errmsg .= "to file";
+			$errmsg .= $path;
+			$errmsg .="please create a file named config.inc.php and put the appropriate contents as dictated by the sample</pre>";
+			$this->addErrorMessage($errmsg);
 			$this->view->vars = array('config'=>$sample,'cpath'=>$path);
 		}
 		$this->view->vars = array("login_path" => $_POST['source_root_path']);
