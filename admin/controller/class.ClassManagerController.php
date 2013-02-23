@@ -101,6 +101,7 @@ class ClassManagerController extends HackademicBackendController {
 		if (isset($_GET['search'])) {
 			$this->addToView('search_string', $_GET['search']);
 		}
+		//var_dump($classes);
 		$this->addToView('classes', $classes);
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
