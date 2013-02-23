@@ -69,9 +69,16 @@ class Session {
 	 */
 	public static function completeLogin($owner) {
 		User::updateLastVisit($owner->username);
-		$_SESSION['hackademic_user'] = $owner->username;
-		$_SESSION['hackademic_user_type'] = $owner->type;
-		$_SESSION['hackademic_path'] = HACKADEMIC_PATH;
+		$utils = false;// User::getUtils();
+		if(false === $utils){
+			//add debugging echo
+			$_SESSION['hackademic_user'] = $owner->username;
+			$_SESSION['hackademic_user_type'] = $owner->type;
+			$_SESSION['hackademic_path'] = HACKADEMIC_PATH;
+		}
+		else{
+				//start and validate session using esapi
+		}
 	}
 	/**
 	 * Check password
