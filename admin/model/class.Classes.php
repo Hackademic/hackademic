@@ -118,7 +118,7 @@ class Classes {
 					break;
 			}
 		} else {
-			$sql= "SELECT * FROM classes WHERE archive = 0 ORDER BY id LIMIT :start, :limit ";
+			$sql= "SELECT * FROM classes ORDER BY id LIMIT :start, :limit ";
 		}
 
 		$result_array=self::findBySQL($sql,$params);
