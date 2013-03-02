@@ -55,3 +55,17 @@ define("SHOW_EMPTY_VAR_ERRORS", '#TRUE OR FALSE');
 **	Default Example Challenge Path**
 ***************************************/
 define('EXAMPLE_CHALLENGE','challenges/Example/');
+
+
+/***************************************
+**	"Security" settings "**
+***************************************/
+
+//every session closes after 48 hours
+define('SESS_EXP_ABS',172800); 
+
+//every session closes after 2 hours of inacivity
+define('SESS_EXP_INACTIVE',7200); 
+
+//session cookie name
+define('SESS_NAME',"not_the_cookie_you_are_looking_for"); 

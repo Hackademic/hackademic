@@ -31,6 +31,7 @@
 require_once("config.inc.php");
 require_once("model/common/class.Loader.php");
 require_once("model/common/class.HackademicDB.php");
+
 if (defined('ENVIRONMENT') && ENVIRONMENT == "dev") {
     ini_set('display_errors', true);
 } else {
@@ -38,3 +39,10 @@ if (defined('ENVIRONMENT') && ENVIRONMENT == "dev") {
 }
 Loader::init();
 $db=new HackademicDB();
+
+require_once("esapi/class.Esapi_Utils.php");
+
+if(!isset($ESAPI_utils)){
+			// error_log("Esapi not inited in init", 0);
+			$ESAPI_utils = new Esapi_Utils();
+}

@@ -31,11 +31,9 @@
  *
  */
 require_once(HACKADEMIC_PATH."/model/common/class.User.php");
+require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
 class Session {
 
-	/**
-	 * @return bool Is user logged into SocialCalc
-	 */
 	public static function isLoggedIn() {
 		if (isset($_SESSION['hackademic_user'])) {
 			return true;
@@ -43,10 +41,6 @@ class Session {
 			return false;
 		}
 	}
-
-	/**
-	 * @return bool Is user logged into Hackademic an admin
-	 */
 	public static function isAdmin() {
 		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==1)){
 			return true;
@@ -54,7 +48,6 @@ class Session {
 			return false; 
 		}	       
 	}
-
 	public static function isTeacher() {
 		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==2)){
 			return true;
@@ -62,23 +55,13 @@ class Session {
 			return false; 
 		}	       
 	}
-
-	/**
-	 * Complete login action
-	 * @param Owner $owner
-	 */
 	public static function completeLogin($owner) {
 		User::updateLastVisit($owner->username);
-		$utils = false;// User::getUtils();
-		if(false === $utils){
-			//add debugging echo
-			$_SESSION['hackademic_user'] = $owner->username;
-			$_SESSION['hackademic_user_type'] = $owner->type;
-			$_SESSION['hackademic_path'] = HACKADEMIC_PATH;
-		}
-		else{
-				//start and validate session using esapi
-		}
+		self::start($owner->username,SESS_EXP_ABS);
+		//setup session vars
+		$_SESSION['hackademic_user'] = $owner->username;
+		$_SESSION['hackademic_user_type'] = $owner->type;
+		session_write_close();
 	}
 	/**
 	 * Check password
@@ -96,23 +79,6 @@ class Session {
 		}
 	}
 	/**
-	 *
-	 * @param str $pwd Password
-	 * @return str MD5-hashed password
-	 *
-	public function md5pwd($pwd) {
-		return md5($pwd);
-	}
-
-	/**
-	 * @param str $pwd Password
-	 * @return str SHA1-hashed password
-	 *
-	private function sha1pwd($pwd) {
-		return sha1($pwd);
-	}
-	*/
-	/**
 	 * @return str Currently logged-in SocialCalc username (email address)
 	 */
 	public static function getLoggedInUser() {
@@ -122,13 +88,142 @@ class Session {
 			return null;
 		}
 	}
-
-	/**
-	 * Log out
-	 */
 	public static function logout() {
-		unset($_SESSION['hackademic_user']);
-		unset($_SESSION['hackademic_user_type']);
-		session_destroy();      
+		//die("logout");
+		//$_SESSION = array();
+		session_destroy(); 
 	}
+	/*****************************
+	 * "security"-ish functions" *
+	 * **************************
+	 */
+	static function start($name, $limit = 0,
+								 $path = SITE_ROOT_PATH, $domain = null,
+								 $secure = null){
+		Global $ESAPI_utils;
+
+		// Set the cookie name
+		session_name(SESS_NAME);
+
+		// Set SSL level
+		$https = isset($secure) ? $secure : isset($_SERVER['HTTPS']);
+
+		// Set session cookie options
+		session_set_cookie_params($limit, $path, $domain, $https, true);
+		if(isset($_SESSION)){
+			//error_log("HACKADEMIC:: Regenerating session id", 0);
+			self::regenerateSession();
+		}
+		else{
+			//error_log("HACKADEMIC:: Starting new session", 0);
+			session_start();
+		}
+		$_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
+		$_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+		
+		if(!isset($ESAPI_utils)){
+			 error_log("Esapi not inited in session start", 0);
+			$ESAPI_utils = new Esapi_Utils();
+		}
+		$_SESSION['TOKEN'] = $ESAPI_utils->getHttpUtilities()->getCSRFToken();
+		$_SESSION['LAST_ACCESS'] = time();
+
+		// Make sure the session hasn't expired and that it is legit,
+		// otherwise destroy it
+		if(!self::isValid($_SESSION['TOKEN'])){
+			error_log("HACKADEMIC:: Invalid Session in Session::start", 0);
+			//die("HACKADEMIC:: Invalid Session in Session::start");
+			self::logout();
+		}
+	}
+	/* 
+	 * Session validation 
+	 * Checks:  Absolute expiration
+	 *			Inactive expiration
+	 * 			Ip addr
+	 * 			User agent
+	 * 			Token
+	 * Also there is a chance to change the session id on any req
+	 */
+	public static function isValid($token = null){
+
+		//return true;
+
+		if( isset($_SESSION['OBSOLETE']) && (!isset($_SESSION['EXPIRES']) || !isset($_SESSION['LAST_ACCESS'])) ){
+			error_log("HACKADEMIC:: Session validation: OBSOLETE session detected", 0);
+			return false;
+		}
+
+		if(isset($_SESSION['EXPIRES']) && $_SESSION['EXPIRES'] < time()){
+			error_log("HACKADEMIC:: Session validation: EXPIRED session detected", 0);
+			return false;
+		}
+			
+		if(isset($_SESSION['LAST_ACCESS']) && $_SESSION['LAST_ACCESS'] + SESS_EXP_INACTIVE < time()){
+			error_log("HACKADEMIC:: Session validation: INACTIVE session detected", 0);
+			return false;
+		}
+
+		if(!isset($_SESSION['IPaddress']) || !isset($_SESSION['userAgent'])){
+			error_log("HACKADEMIC:: Session validation: WRONG INFO", 0);
+			return false;
+		}
+		
+		if ($_SESSION['IPaddress'] != $_SERVER['REMOTE_ADDR']){
+			error_log("HACKADEMIC:: Session validation: WRONG IPADDR", 0);
+			return false;}
+
+		if( $_SESSION['userAgent'] != $_SERVER['HTTP_USER_AGENT']){
+			error_log("HACKADEMIC:: Session validation: WRONG USER AGENT", 0);
+			return false;}
+
+		/*if(!isset($_SESSION['TOKEN'])){
+			error_log("HACKADEMIC:: Session validation: NO TOKEN", 0);
+			return false;}
+
+		if(isset($_SESSION['TOKEN']) && $_SESSION['TOKEN'] != $token){
+			error_log("HACKADEMIC:: Session validation: WRONG TOKEN", 0);
+			return false;}
+		*/
+		// Give a 5% chance of the session id changing on any request
+		if(rand(1, 100) <= 5){
+			self::regenerateSession();
+		}
+		
+		$_SESSION['LAST_ACCESS'] = time();
+
+		return true;
+	}
+	/* Regenerate id in case of expiration
+	 * we get into the trouble of obsoleting the current session instead
+	 *  of destroying right away to give time to the ajax plugins to update
+	 */
+	static function regenerateSession(){
+
+		// If this session is obsolete it means there already is a new id
+		if(isset($_SESSION['OBSOLETE']) || $_SESSION['OBSOLETE'] == true){
+			error_log("HACKADEMIC:: REGENERATE SESSION obsolete", 0);
+			return;}
+
+		// Set current session to expire in 10 seconds
+		$_SESSION['OBSOLETE'] = true;
+		$_SESSION['EXPIRES'] = time() + 10;
+
+		// Create new session without destroying the old one
+		session_regenerate_id(false);
+
+		// Grab current session ID and close both sessions to allow other scripts to use them
+		$newSession = session_id();
+		session_write_close();
+
+		// Set session ID to the new one, and start it back up again
+		session_id($newSession);
+		session_start();
+
+		// Now we unset the obsolete and expiration values for the session we want to keep
+		unset($_SESSION['OBSOLETE']);
+		unset($_SESSION['EXPIRES']);
+	}
+
+	
 }
