@@ -42,7 +42,9 @@ class LoginController extends HackademicController {
 		$this->setViewTemplate('landingpage.tpl');
 		$this->addPageTitle('Log in');
 
-		if ($this->isLoggedIn()) {
+		
+		if ($this->isLoggedIn() && Session::isValid($_GET['token'])) {
+			//die("already logged");
 			$controller = new LandingPageController();
 			return $controller->go();
 		} else  {
@@ -70,13 +72,16 @@ class LoginController extends HackademicController {
 						return $this->generateView();
 					}
 					else {
-						// this sets variables in the session
+						// start the session
 						$session->completeLogin($user);
 						if($user->type){
-							
+							//error_log("HACKADEMIC:: admin dashboard SUCCESS", 0);
+							//var_dump($_SESSION);//die();
 							header('Location:'.SOURCE_ROOT_PATH."admin/pages/dashboard.php");
-						}else
+						}else{
+							//error_log("HACKADEMIC:: USER HOME SUCCESS", 0);
 							header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+						}
 					}
 				}
 			} else {
