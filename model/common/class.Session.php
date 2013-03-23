@@ -117,6 +117,7 @@ class Session {
 		else{
 			//error_log("HACKADEMIC:: Starting new session", 0);
 			session_start();
+			session_id($ESAPI_utils->getHttpUtilities()->getCSRFToken());
 		}
 		$_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
 		$_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
