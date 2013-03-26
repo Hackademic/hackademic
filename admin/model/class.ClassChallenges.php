@@ -93,7 +93,7 @@ class ClassChallenges {
 			$result_array[$i]["title"] = $row['title'];
 			$i++;
 		}
-		Debug::show($result_array,'all',$this,_FUNCTION_);
+		//Debug::show($result_array,'all',$this,_FUNCTION_);
 		return $result_array;
 	}
 

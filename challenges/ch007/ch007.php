@@ -12,8 +12,11 @@
  
 ?>
 <?php
- session_start();
- require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
+		include_once dirname(__FILE__).'/../../init.php';		
+        session_start();
+        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+
 $mystring = $_POST["name"]; 
 if ($mystring === 'Irene'){
 
