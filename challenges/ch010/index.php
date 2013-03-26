@@ -18,8 +18,11 @@
 <meta http-equiv="Content-Language" content="en-us">
 </head>
 <?php
- session_start();
- require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
+		include_once dirname(__FILE__).'/../../init.php';		
+        session_start();
+        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+
 if(isset($_POST['login']))
 {
 	$state = $_POST['LetMeIn'];

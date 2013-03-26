@@ -35,6 +35,7 @@ require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.ChallengeMenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.UserMenuController.php");
+require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
 
 abstract class HackademicController {
 
@@ -81,7 +82,7 @@ abstract class HackademicController {
 		}
 		/*
 		if(!isset($_GET['token']) && isset($_SESSION['hackademic_user'])){
-			die("not token but session");
+			//die("not token but session");
 			error_log("HACKADEMIC:: not token but session", 0);
 			header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php");
 			

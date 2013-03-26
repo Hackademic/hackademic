@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Hackademic-CMS/controller/class.UserMenuController.php
+ * Hackademic-CMS/controller/class.ChallengeMonitorController.php
  *
  * Hackademic User Menu Controller
  * Class for creating the frontend Main Menu
@@ -36,29 +36,96 @@ require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."model/common/class.ChallengeAttempts.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
+require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
 
 class ChallengeMonitorController {
     
     public function go() {
         // Check Permissions
     }
-    
-    public function update($status) {
-        if (!Session::isAdmin() && !Session::isTeacher()) {
-            $username = Session::getLoggedInUser();
-            $url = $_SERVER['REQUEST_URI'];
-            $url_components = explode("/", $url);
-            $count_url_components = count($url_components);
-            for ($i=0; $url_components[$i] != "challenges"; $i++);
-            $pkg_name = $url_components[$i+1];
-            $user = User::findByUserName($username);
-            $challenge = Challenge::getChallengeByPkgName($pkg_name);
-            $user_id = $user->id;
-            $challenge_id = $challenge[0]->id;
-            if (!ChallengeAttempts::isChallengeCleared($user_id, $challenge_id)) {
-                ChallengeAttempts::addChallengeAttempt($user_id, $challenge_id, $status);
-            }
-        }
-    }
+    public function start($userid=null, $chid=null, $token=null){
+		if(!isset($_SESSION))
+			session_start();
+			
+		//echo"<p>";var_dump($token);echo "</p>";
+		//echo"<p>";var_dump($_SESSION['token']);echo "</p>";
+		
+		if(!isset($_SESSION['chid']))
+			$_SESSION['chid'] = $chid;
+		if(!isset($_SESSION['token']))
+			$_SESSION['token'] = $token;
+		if(!isset($_SESSION['userid']))
+			$_SESSION['userid'] = $userid;
+		//echo"<p>";var_dump($_SESSION['token']);echo "</p>";
+
+		$url = $_SERVER['REQUEST_URI'];
+        $url_components = explode("/", $url);
+        $count_url_components = count($url_components);
+        for ($i=0; $url_components[$i] != "challenges"; $i++);
+		$pkg_name = $url_components[$i+1];
+		
+		if(!isset($_SESSION['pkg_name']))
+			$_SESSION['pkg_name'] = $pkg_name;
+			
+		$pair = UserHasChallengeToken::findByPair($userid,$chid,$token);
+		
+		/*If token is the one in the session then challenge must be the same*/
+		if($_SESSION['token'] == $token)
+		if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
+			error_log("HACKADEMIC::ChallengeMonitorController::RIGHT token WRONG CHALLENGE ".$_SESSION['pkg_name']);
+			header("Location: ".SITE_ROOT_PATH);
+		}
+		/* If token changed AND the challenge changed AND its a valid token for that challenge then we are in a new challenge*/
+		if($_SESSION['token'] != $token && $token!=null)
+			if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
+				if($pair[0]->token == $token){
+					$_SESSION['chid'] = $chid;
+					$_SESSION['token'] = $token;
+					$_SESSION['pkg_name'] = $pkg_name;
+				}
+			}else{
+				error_log("HACKADEMIC::ChallengeMonitorController::WRONG CHALLENGE ".$_SESSION['pkg_name']);
+				header("Location: ".SITE_ROOT_PATH);}
+		
+		/*echo"<p>";var_dump($pair);echo "</p>";
+		echo"<p>";var_dump($token);echo "</p>";
+		echo"<p>";var_dump($_SESSION['token']);echo "</p>";
+		*/
+		if($pair[0]->token != $token){
+			error_log("HACKADEMIC::ChallengeMonitorController::pair->token != $token",$pair[0]->token);
+			header("Location: ".SITE_ROOT_PATH);
+		
+		}
+	}
+    public function update($status,$userid = null ,$chid = null ,$token = null) {
+		
+		$this->start($userid,$chid,$token);
+		/*IF status == init we only need to update the SESSION var*/
+		if($status == CHALLENGE_INIT)
+		return;
+
+		if($userid == null)
+			$userid = $_SESSION['userid'];
+		if($chid == null)
+			$chid = $_SESSION['chid'];
+		if($token == null)
+			$token = $_SESSION['token'];
+
+        $username = $userid;
+        $url = $_SERVER['REQUEST_URI'];
+        $url_components = explode("/", $url);
+        $count_url_components = count($url_components);
+        for ($i=0; $url_components[$i] != "challenges"; $i++);
+		$pkg_name = $url_components[$i+1];
+        $user = User::findByUserName($username);
+        $challenge = Challenge::getChallengeByPkgName($pkg_name);
+        if($user)
+           $user_id = $user->id;
+         $challenge_id = $challenge[0]->id;
+         if (!ChallengeAttempts::isChallengeCleared($user_id, $challenge_id)) {
+			ChallengeAttempts::addChallengeAttempt($user_id, $challenge_id, $status);
+          }
+   }
+ 
     
 }

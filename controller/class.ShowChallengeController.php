@@ -48,11 +48,13 @@ class ShowChallengeController extends HackademicController {
 			    $this->addErrorMessage("You must login to be able to take the challenge");
 		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge[0]->id)) {
 			    $this->addToView('is_allowed', true);
+			  $this->addToView('username', $this->getLoggedInUser());
 		    } else {
 			    $this->addErrorMessage('You cannot take the challenge as you are not a member
 					    of any class to which this challenge is assigned and this challenge
 					    is not publicly available for solving .');
 		    }
+		    //error_log("HACKADEMIC:Show Challenge controller: path".$_SESSION['hackademic_path'], 0);
 		    $this->generateView();
 		}
 	}

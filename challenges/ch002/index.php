@@ -12,8 +12,11 @@
  
 ?>
 <?php
+		include_once dirname(__FILE__).'/../../init.php';		
         session_start();
-        require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
+        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+ 
 	$result =  $_GET['Result'];
 	if ($result === 'enter a coin to play'){
 		echo "<h1><br><center>Congratulations!</br></cetner></h1>";
