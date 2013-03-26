@@ -61,6 +61,8 @@ class Session {
 		//setup session vars
 		$_SESSION['hackademic_user'] = $owner->username;
 		$_SESSION['hackademic_user_type'] = $owner->type;
+		$_SESSION['hackademic_path'] = SOURCE_ROOT_PATH;
+		//error_log("HACKADEMIC:SESSION: path".$_SESSION['hackademic_path'], 0);
 		session_write_close();
 	}
 	/**
