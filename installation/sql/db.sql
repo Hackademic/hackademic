@@ -232,4 +232,16 @@ INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `la
 ('foo', 'mr. foo', 'foo@owasp.com', '$P$BxCHeVG1RMF06UxwRbrVQtPA1yOwAq.', '2012-10-16 22:12:34', '2012-10-16 22:59:29', 0, 0, 0),
 ('sensei', 'waspy sifu', 'waspy@owasp.sifu', '$P$Bj/JtLJJR3bUD0LLWXL2UW9DuRVo0I.', '2012-10-16 22:36:06', '2012-10-16 22:37:04', 1, 2, 0);
 
+--
+-- Table structure for table `user_has_challenge_token`
+--
+DROP TABLE IF EXISTS `user_has_challenge_token`;
+CREATE TABLE IF NOT EXISTS "user_has_challenge_token" (
+  "id" int(11) NOT NULL AUTO_INCREMENT,
+  "user_id" varchar(512) NOT NULL,
+  "challenge_id" varchar(512) NOT NULL,
+  "token" varchar(256) NOT NULL,
+  PRIMARY KEY ("id")
+);
+
 SHOW WARNINGS;
