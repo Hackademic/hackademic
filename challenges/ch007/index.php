@@ -49,6 +49,11 @@ function off(name)  {
 
 <META content="MSHTML 6.00.6000.16608" name=GENERATOR></HEAD>
 <BODY background=index_files/background.jpg>
+	<?php 		include_once dirname(__FILE__).'/../../init.php';		
+        session_start();
+        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+?>
   <TR>
     <TD   width="100%">
       <TABLE cellSpacing=0 cellPadding=0 width=766 border=0></TD>
