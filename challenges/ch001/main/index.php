@@ -11,10 +11,6 @@
 ?>
 <?php
 
-		include_once dirname(__FILE__).'/../../../init.php';		
-        session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-         $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
 
 $name1 = $_POST["name1"];
 $name2 = $_POST["name2"];

