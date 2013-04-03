@@ -236,12 +236,12 @@ INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `la
 -- Table structure for table `user_has_challenge_token`
 --
 DROP TABLE IF EXISTS `user_has_challenge_token`;
-CREATE TABLE IF NOT EXISTS "user_has_challenge_token" (
-  "id" int(11) NOT NULL AUTO_INCREMENT,
-  "user_id" varchar(512) NOT NULL,
-  "challenge_id" varchar(512) NOT NULL,
-  "token" varchar(256) NOT NULL,
-  PRIMARY KEY ("id")
+CREATE TABLE IF NOT EXISTS `user_has_challenge_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(512) NOT NULL,
+  `challenge_id` varchar(512) NOT NULL,
+  `token` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
 );
 
 SHOW WARNINGS;
