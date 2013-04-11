@@ -57,13 +57,13 @@ class Session {
 	}
 	public static function completeLogin($owner) {
 		User::updateLastVisit($owner->username);
-		self::start($owner->username,SESS_EXP_ABS);
+		self::init(SESS_EXP_INACTIVE);
 		//setup session vars
 		$_SESSION['hackademic_user'] = $owner->username;
 		$_SESSION['hackademic_user_type'] = $owner->type;
 		$_SESSION['hackademic_path'] = SOURCE_ROOT_PATH;
 		//error_log("HACKADEMIC:SESSION: path".$_SESSION['hackademic_path'], 0);
-		session_write_close();
+		//session_write_close();
 	}
 	/**
 	 * Check password
@@ -93,50 +93,99 @@ class Session {
 	public static function logout() {
 		//die("logout");
 		//$_SESSION = array();
-		session_destroy(); 
+		$_SESSION = array();
+		setcookie (session_id(), "", time() - 3600);
+		session_destroy();
+		session_unset();
+		session_write_close();
 	}
 	/*****************************
 	 * "security"-ish functions" *
 	 * **************************
 	 */
-	static function start($name, $limit = 0,
+	public static function init( $limit = 0,
+								 $path = SITE_ROOT_PATH, $domain = null,
+								 $secure = null){
+			Global $ESAPI_utils;
+			// Set the cookie name
+			session_name(SESS_NAME);
+			// Set SSL level
+			$https = isset($secure) ? $secure : isset($_SERVER['HTTPS']);
+			// Set session cookie options
+			session_set_cookie_params($limit, $path, $domain, $https, true);
+			
+			/*if there already exists a valid logged in user session
+			 * then we are here by mistake so just log it and regenerate
+			 *  the session id
+			 */
+			if(isset($_SESSION['hackademic_user'])){
+				if(self::isValid()){
+					self::regenerateSession();
+					error_log("HACKADEMIC:: Session:nit called with already existing and valid session 
+								regenerating session", 0);
+				}else{//the function was called on an invalid session
+					self::logout();
+					/*TODO throw (security?) exception*/
+					return;
+				}
+			}elseif(isset($_SESSION['hackademic_guest'])){
+				//if there is a guest session destroy it and login
+				self::logout();
+				//error_log("HACKADEMIC:: Going from guest to user", 0);			
+				//error_log("HACKADEMIC:: Starting new session", 0);
+
+				if(!isset($ESAPI_utils)){
+					error_log("HACKADEMIC:: Esapi not inited in session start", 0);
+					$ESAPI_utils = new Esapi_Utils();
+				}
+				session_id($ESAPI_utils->getHttpUtilities()->getCSRFToken());
+				session_start();
+				//error_log(session_id(),0);
+				$_SESSION['TOKEN'] = $ESAPI_utils->getHttpUtilities()->getCSRFToken();
+				$_SESSION['LAST_ACCESS'] = time();
+				$_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
+				$_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
+				$_SESSION['created'] = time();
+			}
+	}
+	public static function start($limit = SESS_EXP_INACTIVE,
 								 $path = SITE_ROOT_PATH, $domain = null,
 								 $secure = null){
 		Global $ESAPI_utils;
 
 		// Set the cookie name
 		session_name(SESS_NAME);
-
 		// Set SSL level
 		$https = isset($secure) ? $secure : isset($_SERVER['HTTPS']);
-
 		// Set session cookie options
 		session_set_cookie_params($limit, $path, $domain, $https, true);
-		if(isset($_SESSION)){
-			//error_log("HACKADEMIC:: Regenerating session id", 0);
-			self::regenerateSession();
-		}
-		else{
-			//error_log("HACKADEMIC:: Starting new session", 0);
-			session_start();
-			session_id($ESAPI_utils->getHttpUtilities()->getCSRFToken());
-		}
-		$_SESSION['IPaddress'] = $_SERVER['REMOTE_ADDR'];
-		$_SESSION['userAgent'] = $_SERVER['HTTP_USER_AGENT'];
 		
-		if(!isset($ESAPI_utils)){
-			 error_log("Esapi not inited in session start", 0);
-			$ESAPI_utils = new Esapi_Utils();
+		/*If function was called after a session_start then we have a bug*/
+		if(isset($_SESSION) && 
+		  (isset($_SESSION['hackademic_user']) || isset($_SESSION['hackademic_guest']))){
+			error_log("HACKADEMIC:: Regenerating session id possible bug detected", 0);
+			self::regenerateSession();
+		}else{
+			session_start();
+			
+			/*If this is a guest session (init hasn't been called first)*/
+			if(!self::isLoggedIn() && !isset($_SESSION['hackademic_guest'])){
+				$_SESSION['hackademic_guest'] = 'guest';
+			}
+			// Reset the expiration time upon page load
+			if (isset($_COOKIE[SESS_NAME])){
+				setcookie(SESS_NAME, session_id(), time() + $limit, $path);
+			}
 		}
-		$_SESSION['TOKEN'] = $ESAPI_utils->getHttpUtilities()->getCSRFToken();
-		$_SESSION['LAST_ACCESS'] = time();
-
-		// Make sure the session hasn't expired and that it is legit,
-		// otherwise destroy it
-		if(!self::isValid($_SESSION['TOKEN'])){
-			error_log("HACKADEMIC:: Invalid Session in Session::start", 0);
-			//die("HACKADEMIC:: Invalid Session in Session::start");
-			self::logout();
+		//currently we are only checking the session for logged in users
+		//since the guest user can't do anything in the site
+		if(self::isLoggedIn()){
+			// Make sure the session hasn't expired and that it is legit,
+			// otherwise destroy it
+			if(!self::isValid($_SESSION['TOKEN'])){
+				error_log("HACKADEMIC:: Invalid Session in Session::start", 0);
+				self::logout();
+			}
 		}
 	}
 	/* 
@@ -163,10 +212,13 @@ class Session {
 		}
 			
 		if(isset($_SESSION['LAST_ACCESS']) && $_SESSION['LAST_ACCESS'] + SESS_EXP_INACTIVE < time()){
-			error_log("HACKADEMIC:: Session validation: INACTIVE session detected", 0);
+			//error_log("HACKADEMIC:: Session validation: INACTIVE session detected", 0);
 			return false;
 		}
-
+		if(isset($_SESSION['created']) && $_SESSION['created'] + SESS_EXP_ABS < time()){
+			//error_log("HACKADEMIC:: Session validation: ABSOLUTE EXPIRED session detected", 0);
+			return false;
+		}
 		if(!isset($_SESSION['IPaddress']) || !isset($_SESSION['userAgent'])){
 			error_log("HACKADEMIC:: Session validation: WRONG INFO", 0);
 			return false;
@@ -202,7 +254,6 @@ class Session {
 	 *  of destroying right away to give time to the ajax plugins to update
 	 */
 	static function regenerateSession(){
-
 		// If this session is obsolete it means there already is a new id
 		if(isset($_SESSION['OBSOLETE']) || $_SESSION['OBSOLETE'] == true){
 			error_log("HACKADEMIC:: REGENERATE SESSION obsolete", 0);
