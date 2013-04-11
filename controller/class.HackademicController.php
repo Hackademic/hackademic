@@ -75,8 +75,7 @@ abstract class HackademicController {
 	public function __construct() {
 		if (!self::$session_exists) {
 			self::$session_exists = 1;
-			session_name(SESS_NAME);
-			session_start();
+			Session::start(SESS_EXP_ABS);
 			//var_dump("no session");
 			//die("no session");
 		}
