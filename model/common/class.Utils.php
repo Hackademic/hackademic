@@ -5,7 +5,7 @@
  *
  * Hackademic Utils Class
  * Generic, common and utility methods
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -43,6 +43,11 @@ class Utils {
 		if ( !defined('HACKADEMIC_PATH') ) {
 			define('HACKADEMIC_PATH', str_replace("\\",'/', dirname(dirname(dirname(__FILE__)))).'/');
 		}
+		/*two binary digits lsb = report  msb = penalty*/
+		define("SCORING_TIME_RESET",'00');
+		define("SCORING_REPORT",'01');
+		define("SCORING_PENALTY",'10');
+		define("SCORING_REPORT_PENALTY",'11');
 	}
 
 	public function validateEmail($email = '') {
@@ -50,7 +55,7 @@ class Utils {
 		$pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
 		return preg_match($pattern, $email);
 	}
-	
+
 	public static function getPassUtil(){
 		return $util =  new PasswordHash(8, true);
 	}
@@ -70,7 +75,7 @@ class Utils {
 		return $check = $util->CheckPassword($input, $hash);
 	}
 
-	
+
 	public static function sanitizeInput($input){
 
 	$input = htmlspecialchars($input);

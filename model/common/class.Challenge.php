@@ -45,10 +45,28 @@ class Challenge {
 	public $visibility;
 	public $availability;
 	public $publish;
-	public $solution;
+	public $solution; //table
 	public $level;
-	public $duration;
-
+	
+	/*Scoring vars*/
+	public $max_pts; //int
+	
+	public $duration; //int in seconds
+	public $dur_action; 
+	public $dur_penalty; //int
+	
+	public $req_freq; //int
+	public $easy; //int
+	public $req_penalty; //int
+	public $req_action; //int
+	
+	public $banned_ua; //table
+	public $bua_penalty;
+	public $bua_action;
+	
+	public $cheat_penalty;
+	public $cheat_action;
+	
 	public function doesChallengeExist($name){
 		global $db;
 		$params=array(':name' => $name);
@@ -69,8 +87,8 @@ class Challenge {
 			       );
 		$sql = "SELECT * FROM challenges WHERE id= :id LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
+		//return $result_array;
 	}
 	
 	public static function getChallengeByPkgName($pkg_name) {
@@ -80,8 +98,7 @@ class Challenge {
 			       );
 		$sql = "SELECT * FROM challenges WHERE pkg_name= :pkg_name LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
 	}
 
 //get all Visible challenges
@@ -117,7 +134,8 @@ class Challenge {
 			
 		}
 		//echo "<p>".var_dump($result_array)."</p>";
-		Debug::show($result_array,'all',$this,_FUNCTION_);
+		//Debug::show($result_array,'all',$this,_FUNCTION_);
+		$result_array = self::findBySQL($sql,$params);
 		return !empty($result_array)?$result_array:false;
 	}
 	
@@ -129,6 +147,7 @@ class Challenge {
     		    $challenge = self::getChallenge($id);
 		    array_push($challenges, $challenge[0]);
 		}
+		//echo '<p>';var_dump($challenges);echo '</p>';
 		return $challenges;
 	}
 

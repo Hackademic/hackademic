@@ -41,11 +41,71 @@ class ChallengeBackend extends Challenge{
 		$description=mysql_escape_string(trim($description));
 		$title=mysql_escape_string(trim($title));
 		$author=mysql_escape_string(trim($author));
-		$params=array(':title'=>$title,':pkg_name'=>$pkg_name,':description'=>$description,
-				':author'=>$author,':category'=>$category,':date_posted'=>$date_posted,
-				':level'=>$level,':duration'=>$duration);
-		$sql="INSERT INTO challenges(title,pkg_name,description,author,category,date_posted,default_points,default_duration)";
-		$sql .= "VALUES (:title,:pkg_name,:description,:author,:category,:date_posted,:level,:duration)";
+		
+		$params=array(
+			':title'=>$title,
+			':pkg_name'=>$pkg_name,
+			':description'=>$description,
+			':author'=>$author,
+			':category'=>$category,
+			':date_posted'=>$date_posted,
+			':level'=>$level,
+			':solution'=>$solution,
+			':points'=>$points,
+			':duration'=>$duration,
+			':duration_action'=>$dur_action,
+			':duration_penalty'=>$dur_penalty,
+			':request_per_sec_frequency'=>$request_per_sec_frequency,
+			':request_penalty'=>$request_penalty,
+			':requset_action'=>$requset_action,
+			':banned_uas'=>$banned_uas,
+			':bua_penalty'=>$bua_penalty,
+			':bua_action'=>$bua_action,
+			':cheat_penalty'=>$cheat_penalty,
+			':cheat_action'=>$cheat_action
+			);
+		$sql="INSERT INTO challenges(
+				title,
+				pkg_name,
+				description,
+				author,
+				category,
+				date_posted,
+				level,
+				solution,
+				points,
+				duration,
+				duration_action,
+				duration_penalty,
+				request_per_sec_frequency,
+				request_penalty,
+				requset_action,
+				banned_uas,
+				bua_penalty,
+				bua_action,
+				cheat_penalty,
+				cheat_action)";
+		$sql .= "VALUES (
+					:title,
+					:pkg_name,
+					:description,
+					:author,
+					:category,
+					:date_posted,
+					:level,
+					:solution,
+					:points,
+					:duration,
+					:duration_action,
+					:duration_penalty,
+					:request_per_sec_frequency,
+					:request_penalty,
+					:requset_action,
+					:banned_uas,
+					:bua_penalty,
+					:bua_action,
+					:cheat_penalty,
+					:cheat_action)";
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {
 			return true;
@@ -53,19 +113,25 @@ class ChallengeBackend extends Challenge{
 			return false;
 		}
 	}
-
 	public static function updateChallenge($id,$title,$description,$visibility,$publish, $availability,$duration,$level){
 		global $db;
-		$params=array(':id' => $id,':title' => $title,':description' => $description,
-			      ':visibility' => $visibility,':publish' => $publish,':availability'=>$availability,
-			      ':level'=>$level,':duration'=>$duration);
-		$sql="UPDATE challenges SET title=:title,
-					    description=:description,
-					    visibility=:visibility,
-					    publish=:publish,
-					    availability=:availability,
-					    default_points=:level,
-					    default_duration=:duration";
+		$params=array(
+				':id' => $id,
+				':title' => $title,
+				':description' => $description,
+			    ':visibility' => $visibility,
+			    ':publish' => $publish,
+			    ':availability'=>$availability,
+			    ':level'=>$level,
+			    ':duration'=>$duration);
+		$sql="UPDATE challenges SET
+				title=:title,
+				description=:description,
+				visibility=:visibility,
+				publish=:publish,
+				availability=:availability,
+				default_points=:level,
+				default_duration=:duration";
 		$sql .= " WHERE id=:id";
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {

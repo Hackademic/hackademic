@@ -75,30 +75,126 @@ tinyMCE.init({
                         <td><label for="name">Category</label></td>
                         <td><input type="text" name="category" value="{$cached->category}"/><br/><br/></td>
                     </tr>
-		    <tr>
+					<tr>
                         <td><label for="name">Level</label></td>
                         <td><input type="text" name="level" value="{$cached->level}"/><br/><br/></td>
                     </tr>
-                    <tr>
-                        <td><label for="name">Duration</label></td>
-                        <td><input type="text" name="duration"placeholder="minutes" value="{$cached->duration}"/><br/><br/></td>
+					<tr>
+                        <td><label for="name">Points</label></td>
+                        <td><input type="text" name="points" value="{$cached->points}"/><br/><br/></td>
                     </tr>
                     <tr>
                         <td><label for="name">Description</label></td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <textarea name="description" style="width:100%">{$cached->description}</textarea><br/><br/>
+                            <textarea name="description" style="width_100%">{$cached->description}</textarea><br/><br/>
                         </td>
                     </tr>
-                    
-                    <tr>
-                        <td>
-                            <p class="submit"><input type="submit" name="continue" value="Continue" /></p>
-                        </td>
-                    </tr>
-                </table>
-            </form>		
+                    </table>
+                 <!-- Scoring Hell -->
+                   <table class="article_main">
+						<tr>
+							<td>
+								<div class="scoring">
+									<fieldset>
+										<legend>Duration values</legend>
+										<label for="name">Duration</label>
+										<input type="text" name="duration"placeholder="minutes" value="{$cached->duration}"/></br>
+
+										<label for="name">Action</label>
+										<select  name="dur_action">
+											<option value="">What happens after the time runs out?</option>
+											<option {if $cached->dur_action eq "reset_timer"} selected="selected"{/if} value="reset_timer">Reset the timer(nothing)</option>
+											<option {if $cached->dur_action eq "reset_report"} selected="selected"{/if} value="reset_report">Report to the teacher that the student has run out of time</option>
+											<option {if $cached->dur_action eq "reset_penalty"} selected="selected"{/if} value="reset_penalty">Reset the timer and apply penalty</option>
+											<option {if $cached->dur_action eq "report_penalty"} selected="selected"{/if} value="report_penalty">Report to the teacher that the student ran out of time and apply a penalty</option>
+										</select> </br>
+
+										<label  for="name">Penalty</label>
+										<input  type="text" name="dur_penalty" value="{$cached->dur_penalty}"/>
+									</fieldset>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="scoring">
+									<fieldset>
+										<legend>Requests per second limits</legend>
+										<label for="name">Requests per second</label>
+										<input type="text" name="req_per_sec" placeholder="Number of max requests/sec" value="{$cached->req_per_sec}"/></br>
+
+										<label  for="name">Easyness</label>
+										<input  type="text" placeholder="How many times can the limit be reached" name="easy" value="{$cached->easy}"/></br>
+										<label for="name">Action</label>
+										<select  name="reqpsec_action">
+											<option value=" ">What happens if a user submits too many requests per second?</option>
+											<option {if $cached->reqpsec_action eq "reset_timer"} selected="selected"{/if} value="reset_timer">Reset the counter(nothing)</option>
+											<option {if $cached->reqpsec_action eq 'reset_report'} selected="selected"{/if} value="reset_report">Report to the teacher that the student is probably using a script</option>
+											<option {if $cached->reqpsec_action eq "reset_penalty"} selected="selected"{/if} value="reset_penalty">Reset the counter and apply penalty</option>
+											<option {if $cached->reqpsec_action eq "report_penalty"} selected="selected"{/if} value="report_penalty">Report to the teacher that the student is probably using a script and apply a penalty</option>
+										</select> </br>
+
+										<label  for="name">Penalty</label>
+										<input  type="text" name="reqpsec_penalty" value="{$cached->reqpsec_penalty}"/>
+									</fieldset>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="scoring">
+									<fieldset>
+									<legend>Banned user agends</legend>
+									<label for="name">Banned User Agents</label>
+									<input type="text" name="bua" placeholder="A list of banned user agent strings" value="{$cached->req_per_sec}"/></br>
+									<label for="name">Action</label>
+									<select  name="bua_action">
+										<option value=" ">What happens if a user is using a banned useragent?</option>
+										<option {if $cached->bua_action eq "reset_timer"} selected="selected"{/if} value="reset_timer">nothing</option>
+										<option {if $cached->bua_action eq "reset_report"} selected="selected"{/if} value="reset_report">Report to the teacher that the student is using a script</option>
+										<option {if $cached->bua_action eq "reset_penalty"} selected="selected"{/if} value="reset_penalty">Apply penalty</option>
+										<option {if $cached->bua_action eq "report_penalty"} selected="selected"{/if} value="report_penalty">Report to the teacher that the student is using a script and apply a penalty</option>
+									</select> </br>
+
+									<label  for="name">Penalty</label>
+									<input  type="text" name="bua_penalty" value="{$cached->bua_penalty}"/>
+								</fieldset>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="scoring">
+								<fieldset>
+								<legend>Cheater buster</legend>
+								<label for="name">Enable Cheater control?</label>
+								<input type="checkbox" name="cheats_check"/></br>
+
+								<label for="name">Action</label>
+								<select  name="cheats_action">
+									<option value=" ">What happens if a user is cheating?</option>
+									<option {if $cached->cheats_action eq "reset_timer"} selected="selected"{/if} value="reset_timer">nothing</option>
+									<option {if $cached->cheats_action eq "reset_report"} selected="selected"{/if} value="reset_report">Report to the teacher that the student is probably cheating</option>
+									<option {if $cached->cheats_action eq "reset_penalty"} selected="selected"{/if} value="reset_penalty">Apply penalty</option>
+									<option {if $cached->cheats_action eq "report_penalty"} selected="selected"{/if} value="report_penalty">Report to the teacher that the student is is probably cheating and apply a penalty</option>
+								</select> </br>
+
+								<label  for="name">Penalty</label>
+								<input  type="text" name="cheats_penalty" value="{$cached->cheats_penalty}"/>
+							</fieldset>
+						</div>
+					</td>
+				</tr>
+				<!-- /Scoring Hell -->
+                <tr>
+					<td>
+						<p class="submit"><input type="submit" name="continue" value="Continue" /></p>
+                    </td>
+                </tr>
+				</table>
+            </form>
         </div>
     {/if}
 </div>

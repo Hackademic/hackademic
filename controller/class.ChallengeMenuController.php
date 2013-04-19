@@ -49,6 +49,7 @@ class ChallengeMenuController {
 		}
 		$menu=array();
 		foreach( $challenges as $challenge){
+			//echo '<p>';var_dump($challenge);echo '</p>';
 			$link = array ('id'=>$challenge->id,
 						   'title'=>$challenge->title,
 						   'url'=>'challenges/'.$challenge->pkg_name.'/index.php');

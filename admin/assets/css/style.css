@@ -136,3 +136,9 @@ img {border:none;}
     text-decoration: none;
     color: white;
 }
+.scoring label{
+    display: inline-block;
+}
+.scoring input,select{
+margin-bottom:10px;
+}

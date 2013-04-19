@@ -4,7 +4,7 @@
  * Hackademic-CMS/pages/showchallenges.php
  *
  * The page for calling the Hackademic Showing Challenges Controller
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -35,6 +35,11 @@ define("CHALLENGE_INIT", 2);
 define("CHALLENGE_SUCCESS", 1);
 define("CHALLENGE_FAILURE", 0);
 
-
+/*two binary digits lsb = report  msb = penalty*
+define("SCORING_TIME_RESET",'00');
+define("SCORING_REPORT",'01');
+define("SCORING_PENALTY",'10');
+define("SCORING_REPORT_PENALTY",'11');
+*/
 $monitor = new ChallengeMonitorController();
 $monitor->go();

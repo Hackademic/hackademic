@@ -35,20 +35,38 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 // -- Class Name : AddChallengeController
-// -- Purpose : 
-// -- Created On : 
+// -- Purpose :
+// -- Created On :
 class AddChallengeController extends HackademicBackendController {
 
-	public $title;
-	public $authors;
-	public $category;
-	public $level;
-	public $duration;
-	public $description;	
-	
+	public $title = null;
+	public $authors = null;
+	public $category = null;
+	public $level = null;
+	public $description = null;
+
+	/*Scoring vars*/
+	public $points = null; //int
+
+	public $duration; //int in seconds
+	public $dur_action;
+	public $dur_penalty; //int
+
+	public $req_per_sec; //int
+	public $easy; //int
+	public $reqpsec_penalty; //int
+	public $reqpsec_action; //int
+
+	public $bua; //table
+	public $bua_penalty;
+	public $bua_action;
+
+	public $cheats_penalty;
+	public $cheats_action;
+
     private static function rrmdir($dir) {
 	foreach(glob($dir . '/*') as $file) {
-	    
+
 	    if(is_dir($file)) {
 		self::rrmdir($file);
 	    } else {
@@ -63,25 +81,25 @@ class AddChallengeController extends HackademicBackendController {
     public function installChallenge($file_to_open,$target,$name) {
 	$zip = new ZipArchive();
 	$x = $zip->open($file_to_open);
-	
+
 	if ($x === true) {
 	    $zip->extractTo($target);
 	    $zip->close();
 	    unlink($file_to_open);
 	    #deletes the zip file. We no longer need it.
-	    
+
 	    if (isset($_GET['type']) && $_GET['type'] == "code") {
 		$xml_exists = 1;
 	    } else {
 		$xml_exists = file_exists($target."$name".".xml");
 	    }
 
-	    
+
 	    if (!file_exists($target."index.php") || !$xml_exists) {
-		
+
 		if (!file_exists($target."index.php")) {
 		    $this->addErrorMessage("Not a valid challenge! Index.php file doesn't exist");
-		    
+
 		    if (isset($_GET['type']) && $_GET['type'] == "code") {
 			$this->addToView('step', 'step2');
 		    }
@@ -94,13 +112,13 @@ class AddChallengeController extends HackademicBackendController {
 		return false;
 	    }
 
-	    
+
 	    if (isset($_GET['type']) && $_GET['type'] == "code") {
 		return $_SESSION['challenge_arr'];
 	    }
 
 	    $xml = simplexml_load_file($target."$name".".xml");
-	    
+
 	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)||
 		 !isset($xml->level)|| !isset($xml->duration)){
 		$this->addErrorMessage("The XML file is not valid.");
@@ -125,17 +143,18 @@ class AddChallengeController extends HackademicBackendController {
     }
 
     public function go() {
+	$this->cache_values($_POST);
 	$this->setViewTemplate('addchallenge.tpl');
-	
+
 	if (isset($_GET['type']) && $_GET['type'] == "code") {
 	    $add_type = "code";
 	} else {
 	    $add_type = "challenge";
 	}
 
-	
+
 	if (isset($_POST['continue'])) {
-	    $this->cache_values();
+		$e_msg = "";$error = false;
 	    if ($_POST['title']=='') {
 		$e_msg = "Title of the challenge should not be empty";
 		$error = true;
@@ -154,15 +173,35 @@ class AddChallengeController extends HackademicBackendController {
 	    } elseif ($_POST['duration']=='') {
 		$e_msg = "Duration field should not be empty";
 		$error = true;
-	    }
-	     else {
+	    }elseif($this->dec_action($_POST['dur_action']) === false ||
+				$this->dec_action($_POST['reqpsec_action']) === false ||
+				$this->dec_action($_POST['bua_action']) === false ||
+				$this->dec_action($_POST['cheats_action']) === false){
+
+				$e_msg ="You must set an action for scoring";
+				$error = true;
+		}else {
 		$array = array (
-		    'title' => Utils::santizeInput($_POST['title']),
+		    'title' => Utils::sanitizeInput($_POST['title']),
 		    'description' => $_POST['description'],
 		    'authors' => Utils::sanitizeInput($_POST['authors']),
 		    'category' => Utils::sanitizeInput($_POST['category']),
 		    'level' => Utils::sanitizeInput($_POST['level']),
-		    'duration' => Utils::sanitizeInput($_POST['duration'])
+		    'points' => Utils::sanitizeInput($_POST['points']),
+		    'duration' => Utils::sanitizeInput($_POST['duration']),
+		    'dur_action'=>$this->dec_action($_POST['dur_action']),
+		    'dur_penalty'=>Utils::sanitizeInput($_POST['dur_penalty']),
+		    'req_per_sec'=>Utils::sanitizeInput($_POST['req_per_sec']),
+		    'easy'=>Utils::sanitizeInput($_POST['easy']),
+		    'reqpsec_action'=>$this->dec_action($_POST['reqpsec_action']),
+		    'reqpsec_penalty'=>Utils::sanitizeInput($_POST['reqpsec_penalty']),
+		    'bua'=>Utils::sanitizeInput($_POST['bua']),
+		    'bua_action'=>$this->dec_action($_POST['bua_action']),
+		    'bua_penalty'=>Utils::sanitizeInput($_POST['bua_penalty']),
+		    'cheats_check'=>Utils::sanitizeInput($_POST['cheats_check']),
+		    'cheats_action'=>$this->dec_action($_POST['cheats_action']),
+		    'cheats_penalty'=>Utils::sanitizeInput($_POST['cheats_penalty']),
+
 		);
 		$_SESSION['challenge_arr'] = $array;
 		$this->addSuccessMessage("Now Please upload the challenge code");
@@ -178,25 +217,25 @@ class AddChallengeController extends HackademicBackendController {
 		$this->addErrorMessage($new_msg);
 	}
 
-	
+
 	if(isset($_FILES['fupload'])) {
 	    $filename = $_FILES['fupload']['name'];
 	    $source = $_FILES['fupload']['tmp_name'];
 	    $type = $_FILES['fupload']['type'];
 	    $name = explode('.', $filename);
 	    $target = HACKADEMIC_PATH."challenges/". $name[0] . '/';
-	    
+
 	    if(!isset($name[1])) {
 		$this->addErrorMessage("Please select a file");
 		return $this->generateView();
 	    }
 
-	    
+
 	    if(isset($name[0])) {
 		$challenge=ChallengeBackend::doesChallengeExist($name[0]);
-		
+
 		if($challenge==true){
-		    
+
 		    if (isset($_SESSION['challenge_arr'])) {
 			$this->addToView('step', 'step2');
 		    } else {
@@ -211,9 +250,9 @@ class AddChallengeController extends HackademicBackendController {
 
 	    $okay = strtolower($name[1]) == 'zip' ? true :
 	    false;
-	    
+
 	    if(!$okay) {
-		
+
 		if (isset($_SESSION['challenge_arr'])) {
 		    $this->addToView('step', 'step2');
 		} else {
@@ -226,10 +265,10 @@ class AddChallengeController extends HackademicBackendController {
 
 	    mkdir($target);
 	    $saved_file_location = $target . $filename;
-	    
+
 	    if(move_uploaded_file($source, $target . $filename)) {
 		$data=$this->installChallenge($saved_file_location,$target,$name[0]);
-		
+
 		if($data==true){
 		    $pkg_name =$name[0];
 		    $date_posted = date("Y-m-d H-i-s");
@@ -246,17 +285,51 @@ class AddChallengeController extends HackademicBackendController {
 	return $this->generateView();
     }
 
-	public function cache_values(){
+	public function dec_action($action){
+		switch ($action) {
+			case "":
+				error_log("Empty action ". $action,0);
+				return false;
+				break;
+			case "reset_timer":
+				error_log("action reset_timer ". $action,0);
+				return decbin(SCORING_TIME_RESET);
+				break;
+			case 'reset_report':
+				error_log("action reset_report ". $action,0);
+				return decbin(SCORING_REPORT);
+				break;
+			case 'reset_penalty':
+				error_log("action reset_penalty ". $action,0);
+				return decbin(SCORING_PENALTY);
+				break;
+			case 'report_penalty':
+				error_log("action report_penalty ". $action,0);
+				return decbin(SCORING_REPORT_PENALTY);
+				break;
+			}
+	}
 
-		$this->title = Utils::sanitizeInput($_POST['title']);
-		$this->description = $_POST['description'];
-		$this->authors = Utils::sanitizeInput($_POST['authors']);
-		$this->category = Utils::sanitizeInput($_POST['category']);
-		$this->level = Utils::sanitizeInput($_POST['level']);
-		$this->duration = Utils::sanitizeInput($_POST['duration']);
+	public function cache_values($record){
+		if(!empty($_POST)){
+			$object = $this;
+			foreach($record as $attribute=>$value) {
+				if(property_exists ( $object , $attribute)) {
+				$object->$attribute = $value;
+				}
+			}
+		}
+			/*
+			$this->title = Utils::sanitizeInput($_POST['title']);
+			$this->description = $_POST['description'];
+			$this->authors = Utils::sanitizeInput($_POST['authors']);
+			$this->category = Utils::sanitizeInput($_POST['category']);
+			$this->level = Utils::sanitizeInput($_POST['level']);
+			$this->duration = Utils::sanitizeInput($_POST['duration']);*/
 
+			echo '<p>';var_dump($_POST);echo'</p>';
+			//echo'<p>';var_dump(get_object_vars ($object ));echo'</p>';//die();
 		$this->addToView('cached', $this);
-
 	}
 
 }

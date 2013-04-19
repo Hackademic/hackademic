@@ -39,23 +39,30 @@ require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
 require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
 
 class ChallengeMonitorController {
-    
+
     public function go() {
         // Check Permissions
     }
     public function start($userid=null, $chid=null, $token=null){
 		if(!isset($_SESSION))
 			session_start();
-			
+
 		//echo"<p>";var_dump($token);echo "</p>";
 		//echo"<p>";var_dump($_SESSION['token']);echo "</p>";
-		
+
 		if(!isset($_SESSION['chid']))
 			$_SESSION['chid'] = $chid;
 		if(!isset($_SESSION['token']))
 			$_SESSION['token'] = $token;
 		if(!isset($_SESSION['userid']))
 			$_SESSION['userid'] = $userid;
+
+		/*Scoring vars*/
+		if(!isset($_SESSION['first_attempt']))
+			$_SESSION['first_attempt'] = time();
+		if(!isset($_SESSION['last_request']))
+			$_SESSION['last_request'] = time();
+		$_SESSION['attempt'] = 0;
 		//echo"<p>";var_dump($_SESSION['token']);echo "</p>";
 
 		$url = $_SERVER['REQUEST_URI'];
@@ -63,12 +70,12 @@ class ChallengeMonitorController {
         $count_url_components = count($url_components);
         for ($i=0; $url_components[$i] != "challenges"; $i++);
 		$pkg_name = $url_components[$i+1];
-		
+
 		if(!isset($_SESSION['pkg_name']))
 			$_SESSION['pkg_name'] = $pkg_name;
-			
+
 		$pair = UserHasChallengeToken::findByPair($userid,$chid,$token);
-		
+
 		/*If token is the one in the session then challenge must be the same*/
 		if($_SESSION['token'] == $token)
 		if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
@@ -82,11 +89,15 @@ class ChallengeMonitorController {
 					$_SESSION['chid'] = $chid;
 					$_SESSION['token'] = $token;
 					$_SESSION['pkg_name'] = $pkg_name;
+
+					$_SESSION['first_attempt'] = time();
+					$_SESSION['last_request'] = time();
+					$_SESSION['attempt'] = 0;
 				}
 			}else{
 				error_log("HACKADEMIC::ChallengeMonitorController::WRONG CHALLENGE ".$_SESSION['pkg_name']);
 				header("Location: ".SITE_ROOT_PATH);}
-		
+
 		/*echo"<p>";var_dump($pair);echo "</p>";
 		echo"<p>";var_dump($token);echo "</p>";
 		echo"<p>";var_dump($_SESSION['token']);echo "</p>";
@@ -94,11 +105,11 @@ class ChallengeMonitorController {
 		if($pair[0]->token != $token){
 			error_log("HACKADEMIC::ChallengeMonitorController::pair->token != $token",$pair[0]->token);
 			header("Location: ".SITE_ROOT_PATH);
-		
+
 		}
 	}
     public function update($status,$userid = null ,$chid = null ,$token = null) {
-		
+
 		$this->start($userid,$chid,$token);
 		/*IF status == init we only need to update the SESSION var*/
 		if($status == CHALLENGE_INIT)
@@ -111,7 +122,7 @@ class ChallengeMonitorController {
 		if($token == null)
 			$token = $_SESSION['token'];
 
-        $username = $userid;
+		$username = $userid;
         $url = $_SERVER['REQUEST_URI'];
         $url_components = explode("/", $url);
         $count_url_components = count($url_components);
@@ -119,6 +130,32 @@ class ChallengeMonitorController {
 		$pkg_name = $url_components[$i+1];
         $user = User::findByUserName($username);
         $challenge = Challenge::getChallengeByPkgName($pkg_name);
+
+        /*Scoring section*/
+		$t = time();
+		$abs_time =  $t - $_SESSION['first_attempt'];//duration
+		$time_last_req = $t - $_SESSION['last_request'];//req/sec
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];//ua
+		/* if($abs_time > challenge->duration)
+		 * 		take action
+		 * if count_req_last_seq() > challenge->reqpsec
+		 * 		take action
+		 */
+
+		if($status == CHALLENGE_SUCCESS){
+			/* Action for late solution */
+			if($challenge[0]->duration >=0 && ($challenge[0]->duration < $abs_time))
+				/*  if($challenge->late_action == ACTION_REPORT)
+				 * 		add to db the report with the user_id and the challenge id and the abs_time converted in days
+				 * elseif($challenge->late_action == ACTION_SUB_POINTS)
+				 *  $points = challenge->default_pts - challenge->late_penalty
+				 */
+			/* Action for too many requests per second */
+			if($time_last_req > $challenge->req_time_threshold){
+				$_SESSION['request_no_alert']++;
+				if($_SESSION['request_no_alert'] > $challenge->req_threshold)
+			}
+		}
         if($user)
            $user_id = $user->id;
          $challenge_id = $challenge[0]->id;
@@ -126,6 +163,10 @@ class ChallengeMonitorController {
 			ChallengeAttempts::addChallengeAttempt($user_id, $challenge_id, $status);
           }
    }
- 
-    
+	public function cheater(){
+		/* count the number of challenges solved on first try
+		 * if count > 4
+		 * report count
+		 */
+	}
 }

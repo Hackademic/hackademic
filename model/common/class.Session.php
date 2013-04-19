@@ -255,7 +255,7 @@ class Session {
 	 */
 	static function regenerateSession(){
 		// If this session is obsolete it means there already is a new id
-		if(isset($_SESSION['OBSOLETE']) || $_SESSION['OBSOLETE'] == true){
+		if(isset($_SESSION['OBSOLETE']) && $_SESSION['OBSOLETE'] == true){
 			error_log("HACKADEMIC:: REGENERATE SESSION obsolete", 0);
 			return;}
 

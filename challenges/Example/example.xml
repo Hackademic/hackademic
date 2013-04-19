@@ -6,19 +6,84 @@
     </author>
     <category>In what category does your challenge belong?(web? crypto? networks?)</category>
     <description>
-	Insert some text describing the scenario of the challenge(what the users are supposed to do and if there is any fictional story)
+	Insert some text describing the scenario of the challenge
+	(what the users are supposed to do and if there is any fictional story)
     </description>
+    <solutions>
+    a list of solutions like the following
+    <sol>the solution string that should be submitted</sol>
+    </solutions>
     <level>
-	Either an interger from 1  to 10 with 1 being the easiest , or one of beginner, intermediate, advanced , hide_yo_wife
-	The level will be the max points a user can get.
-	beginner:	2pts	
-	intermediate	4pts
-	advanced	6pts
-	hide_yo_wife	8pts
-	b4d1d3a		10pts
+	Either an interger from 1  to 10 with 1 being the easiest,
+	or one of beginner, intermediate, advanced
     </level>
+    <max_points>
+    An integer listing the max number of points for that challenge
+    </max_points>
 	<duration>
-	The duration after which a user is disqualified.
-	The timer starts when a username starts a challenge for first time.
+		<limit>
+			The time in which a user should finish the challenge
+			time starts counting from the first time the user submits a solution
+		</limit>
+		<penalty>
+			The penalty in points a user looses if he gets out of time
+		</penalty>
+		<action>
+			One of 
+			RESET_AND_IGNORE (will just reset the timer)
+			RESET_AND_REPORT (will reset the timer and notify the teacher)
+			APPLY_PENALTY_AND_REPORT (will substract "penalty" points from the user and will notify the teacher)
+			APPLY_PENALTY_AND_IGNORE (will substract "penalty" points from the user)
+		</action>
 	</duration>
+	<request_freq>
+		<limit>
+		An integer defining how many requests per second the user should submit at maximum
+		</limit>
+		<easiness>
+			How many times the limit can be reached or surpassed
+		</easiness>
+		<penalty>
+			The penalty in points a user looses if he gets out of time
+		</penalty>
+		<action>
+			One of 
+			RESET_AND_IGNORE (will just reset the timer)
+			RESET_AND_REPORT (will reset the timer and notify the teacher)
+			APPLY_PENALTY_AND_REPORT (will substract "penalty" points from the user and will notify the teacher)
+			APPLY_PENALTY_AND_IGNORE (will substract "penalty" points from the user)
+		</action>
+	</request_freq>
+	<banned_user_agents>
+		A list of user agents which the user should not use
+		the list should look like the following
+		the list of the default ones can be found on our site
+		If you dont want to ban any user agents dont include this section
+		<ua>
+		User agent string
+		</ua>
+		<penalty>
+			The penalty in points a user looses if he gets out of time
+		</penalty>
+		<action>
+			One of 
+			RESET_AND_IGNORE (will just reset the timer)
+			RESET_AND_REPORT (will reset the timer and notify the teacher)
+			APPLY_PENALTY_AND_REPORT (will substract "penalty" points from the user and will notify the teacher)
+			APPLY_PENALTY_AND_IGNORE (will substract "penalty" points from the user)
+		</action>
+	</banned_user_agents>
+	<cheat_penalty>
+	Currently we only check if the student solved more than one challenge on the first try
+	<penalty>
+			The penalty in points a user looses if he gets out of time
+	</penalty>
+	<action>
+			One of 
+			RESET_AND_IGNORE (will just reset the timer)
+			RESET_AND_REPORT (will reset the timer and notify the teacher)
+			APPLY_PENALTY_AND_REPORT (will substract "penalty" points from the user and will notify the teacher)
+			APPLY_PENALTY_AND_IGNORE (will substract "penalty" points from the user)
+	</action>
+	</cheat_penalty>
 </challenge>
