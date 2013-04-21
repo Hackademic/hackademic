@@ -5,7 +5,7 @@
  *
  * Hackademic User Model
  * Class for Hackademic's User Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -54,7 +54,7 @@ class UserHasChallengeToken {
 			$sql = 'INSERT INTO user_has_challenge_token(user_id,challenge_id,token) VALUES(
 					:user_id,:challenge_id,:token)';
 		}
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -64,15 +64,18 @@ class UserHasChallengeToken {
 	public static function findByPair($userid,$chid){
 		global $db;
 		$sql = "SELECT * FROM user_has_challenge_token WHERE
-				user_id = :user_id AND challenge_id = :challenge_id
+				user_id= :user_id AND challenge_id= :challenge_id
 				LIMIT 1";
 		$params = array(
 				':user_id' => $userid,
 				':challenge_id' => $chid
 			     );
 		$object_array=self::findBySQL($sql, $params);
-		return $object_array;
-	}  
+		/*var_dump($userid);
+		var_dump($chid);
+		var_dump($object_array);die();*/
+		return !empty($object_array)?array_shift($object_array):false;
+	}
 	private static function findBySQL($sql, $params = NULL) {
 		global $db;
 		$result_set=$db->query($sql, $params);
