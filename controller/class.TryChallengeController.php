@@ -59,21 +59,29 @@ class TryChallengeController extends HackademicController {
 				if(isset($_GET['user']) && $_GET['user'] == $this->getLoggedInUser()){
 					$usr = $this->getLoggedInUser();
 					$url.='?user='.$usr."&id=".$id;
-					Global $ESAPI_utils;
-					$token = $ESAPI_utils->getRandomizer()->getRandomGUID();
-					$token = $ESAPI_utils->getEncoder()->encodeForURL($token);
-					$url.='&token='.$token;
-					UserHasChallengeToken::add($usr,$id,$token);
+					$pair = UserHasChallengeToken::findByPair($usr,$id);
+					if($pair === false){
+						error_log("adding new token usr, id".$usr." ".$id);
+						Global $ESAPI_utils;
+						$token = $ESAPI_utils->getRandomizer()->getRandomGUID();
+						$token = $ESAPI_utils->getEncoder()->encodeForURL($token);
+						UserHasChallengeToken::add($usr,$id,$token);
+						$pair = new UserHasChallengeToken();
+						$pair->token = $token;
+					}
+					$url.='&token='.$pair->token;
+					var_dump($pair);
 				}
 				header("Location: ".$url);
 		    }else {
+				error_log("dafuq?");
 				header("Location: ".SITE_ROOT_PATH);
 			}
 		}
 		$this->setViewTemplate("trychallenge.tpl");
 		$this->generateView();
 	}
-	
+
 	protected static function isAllowed($username, $challenge_id) {
 		$user = User::findByUserName($username);
 		$dbg_array = ClassChallenges::getChallengesOfUser($user->id);
