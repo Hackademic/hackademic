@@ -1,13 +1,13 @@
 <?php
 
 /**
- * 
+ *
  * Please read the LICENSE file
  * @author Vadim V. Gabriel <vadimg88@gmail.com> http://www.vadimg.co.il/
  * @package Class Installer
  * @version 1.0.0a
  * @license GNU Lesser General Public License
- * 
+ *
  */
 
 /** Load the template class **/
@@ -178,7 +178,7 @@ class Installer
 		$_SESSION['dbuser']=$options['dbuser'];
 		$_SESSION['dbpass']=$options['dbpass'];
 		$_SESSION['dbhost']=$options['dbhost'];
-		
+
 		$this->view->vars=array('dbname'=>$options['dbname']);
 # Make sure we have an array of options
 		if(!is_array($options))
@@ -256,7 +256,7 @@ class Installer
 
 			$errors = array();
 			foreach ($SQL as $query)
-			{	
+			{
 				$result = mysql_query($query, $link);
 				if (!$result)
 				{	//var_dump($query);
@@ -293,7 +293,7 @@ class Installer
 	{
 		$this->view->display();
 	}
-	
+
 	public function addErrorMessage($error_string){
 		//$tmplt = new Installer_Template();
 		echo $this->view->error($error_string);
@@ -347,12 +347,11 @@ class Installer
 		if($count == 0)
 			$this->addErrorMessage("db name not set");
 		if(FALSE === file_put_contents($path, $sample)){
-			$errmsg= "<pre>Could not put the contents";
+			$errmsg= "Could not put the contents please create a file named config.inc.php and put the appropriate contents as dictated by the sample";
 			$errmsg .= $sample;
 			//var_dump($sample);
 			$errmsg .= "to file";
 			$errmsg .= $path;
-			$errmsg .="please create a file named config.inc.php and put the appropriate contents as dictated by the sample</pre>";
 			$this->addErrorMessage($errmsg);
 			$this->view->vars = array('config'=>$sample,'cpath'=>$path);
 		}
