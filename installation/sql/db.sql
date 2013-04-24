@@ -82,19 +82,6 @@ CREATE TABLE IF NOT EXISTS `challenge_attempts` (
   PRIMARY KEY (`id`)
 );
 
---
--- Dumping data for table `challenge_attempts`
---
-
-INSERT INTO `challenge_attempts` (`user_id`, `challenge_id`, `time`, `status`) VALUES
-(4, 3, '2012-10-16 22:17:40', '0'),
-(4, 3, '2012-10-16 22:17:49', '1'),
-(4, 10, '2012-10-16 22:18:43', '0'),
-(4, 10, '2012-10-16 22:18:56', '1'),
-(5, 5, '2012-10-16 22:22:46', '0'),
-(5, 4, '2012-10-16 22:22:52', '0'),
-(5, 4, '2012-10-16 22:23:14', '1');
-
 -- --------------------------------------------------------
 
 --
@@ -110,16 +97,6 @@ CREATE TABLE IF NOT EXISTS `challenge_attempt_count` (
   UNIQUE KEY `user_id` (`user_id`),
   UNIQUE KEY `challenge_id` (`challenge_id`)
 );
-
---
--- Dumping data for table `challenge_attempt_count`
---
-
-
-INSERT INTO `challenge_attempt_count` (`user_id`, `challenge_id`, `tries`) VALUES
-( 4, 3, 4),
-( 5, 5, 3);
-
 -- --------------------------------------------------------
 
 --
