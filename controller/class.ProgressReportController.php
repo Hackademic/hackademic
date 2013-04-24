@@ -61,17 +61,17 @@ class ProgressReportController extends HackademicController{
 			$attempts = ChallengeAttempts::getTotalAttempts($user->id);
 			$cleared_challenges = ChallengeAttempts::getClearedChallenges($user->id);
 			$data = array();
-			foreach ($challenges_of_user as $id => $title) {
-				$attempt = isset($attempts[$id])?$attempts[$id]:0;
-				$cleared = isset($cleared_challenges[$id]['cleared'])?$cleared_challenges[$id]['cleared']:false;
+			foreach ($challenges_of_user as $i) {
+				$attempt = isset($attempts[$i])?$attempts[$i]:0;
+				$cleared = isset($cleared_challenges[$i]['cleared'])?$cleared_challenges[$i]['cleared']:false;
 				if ($cleared) {
-					$cleared_on = $cleared_challenges[$id]['cleared_on'];
+					$cleared_on = $cleared_challenges[$i]['cleared_on'];
 				} else {
 					$cleared_on = false;
 				}
 				$arr = array(
-					'id' => $id,
-					'title' => $title,
+					'id' => $i['id'],
+					'title' => $i['title'],
 					'attempts' => $attempt,
 					'cleared' => $cleared,
 					'cleared_on' => $cleared_on
