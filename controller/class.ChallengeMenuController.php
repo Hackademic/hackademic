@@ -43,11 +43,12 @@ class ChallengeMenuController {
 		}
 		if (Session::isAdmin() || Session::isTeacher()) {
 		    $challenges=Challenge::getChallengesFrontend($user->id);
-		    
+
 		} else {
 		    $challenges=Challenge::getChallengesAssigned($user->id);
 		}
 		$menu=array();
+		//var_dump($challenges);
 		foreach( $challenges as $challenge){
 			$link = array ('id'=>$challenge->id,
 						   'title'=>$challenge->title,

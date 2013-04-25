@@ -42,16 +42,17 @@ class ChallengeListController extends HackademicController {
 		    return;
 		}
 		$challenges=Challenge::getChallengesFrontend($user->id);
-		
+
 		$menu=array();
+		$message = false;
 		foreach( $challenges as $challenge){
-			$link = array ('id'=>$challenge['id'], 'title'=>$challenge['title'],
-				       'url'=>'challenges/'.$challenge['pkg_name'].'/index.php',
-				       'availability'=>$challenge['availability'],'class'=>$challenge['class']);
+			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title,
+				       'url'=>'challenges/'.$challenge->pkg_name.'/index.php',
+				       'availability'=>$challenge->availability);
 			array_push($menu,$link);
-			Debug::vars_get_value($link);
+			//Debug::vars_get_value($link);
+			//var_dump($challenge);echo'</p>';
 			if ('private' == $challenge->availability){
-				
 				$message = true;
 			}
 		}

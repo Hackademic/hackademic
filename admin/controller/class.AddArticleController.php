@@ -48,7 +48,7 @@ class AddArticleController extends HackademicBackendController {
 			if ($_POST['title']=='') {
 				$this->addErrorMessage("Title of the article should not be empty");
 			} elseif (!isset($_POST['is_published'])) {
-				$this->addErrorMessage("Please tell if the article has been published successfully?");
+				$this->addErrorMessage("Please tell if the article should be published");
 			} elseif ($_POST['content']=='') {
 				$this->addErrorMessage("Article post should not be empty");
 			} else {
@@ -64,15 +64,18 @@ class AddArticleController extends HackademicBackendController {
 				header('Location: '.SOURCE_ROOT_PATH."admin/pages/editarticle.php?id=$id&source=new");
 
 			}
-		}        
+		}
 		$this->generateView();
 	}
 
 	public function saveFormFields(){
+		if(isset($_POST['title']))
+			$this->title =Utils::sanitizeInput($_POST['title']);
+		if(isset($_POST['is_published']))
+			$this->publish=$_POST['is_published'];
+		if(isset($_POST['content']))
+			$this->article = $_POST['content'];
 
-		$this->title =Utils::sanitizeInput($_POST['title']);
-		$this->publis=$_POST['is_published'];
-		$this->article = $_POST['content'];
 		$this->addToView('cached', $this);
 	}
-} 
+}
