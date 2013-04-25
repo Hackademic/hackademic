@@ -38,8 +38,8 @@
 		<td><label>Activate User</label></td>
 		<td class="radio">
 			{if $cached->activated == 1}
-		    <input type="radio" name="is_activated" value="1" checked="true"/>Yes
-		    <input type="radio" name="is_activated" value="0"/>No
+		    <input type="radio" name="activated" value="1" checked="true"/>Yes
+		    <input type="radio" name="activated" value="0"/>No
 		    {else}
 		    <input type="radio" name="activated" value="1" />Yes
 		    <input type="radio" name="activated" value="0"checked="true"/>No
