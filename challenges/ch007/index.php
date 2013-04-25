@@ -1,15 +1,15 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML><HEAD><TITLE>Challenge 007</TITLE>
@@ -49,7 +49,8 @@ function off(name)  {
 
 <META content="MSHTML 6.00.6000.16608" name=GENERATOR></HEAD>
 <BODY background=index_files/background.jpg>
-	<?php 		include_once dirname(__FILE__).'/../../init.php';		
+	<?php
+		include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
         $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
