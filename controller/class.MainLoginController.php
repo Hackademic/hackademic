@@ -43,9 +43,11 @@ class MainLoginController extends HackademicController {
 			if($_GET["msg"]=="username"){
 				$this->addErrorMessage("The username or password you entered is incorrect");
 			} elseif($_GET["msg"]=="password"){
-				$this->addErrorMessage("The username or password you entered is incorrect"); 
+				$this->addErrorMessage("The username or password you entered is incorrect");
 			} elseif($_GET["msg"]=="challenge"){
 				$this->addErrorMessage("You must be logged in to try a challenge");
+			} elseif($_GET["msg"]=="activate"){
+				$this->addErrorMessage("Your account is not activated, please contact the admin to activate your account");
 			}
 		}
 		$this->addPageTitle('Log in');

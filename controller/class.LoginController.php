@@ -70,8 +70,9 @@ class LoginController extends HackademicController {
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
 						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=password");
 						return $this->generateView();
-					}/* if ($user->isactivated != 1){
-					} */else {
+					} if ($user->is_activated != 1){
+						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=activate");
+					} else {
 						// start the session
 						$session->completeLogin($user);
 						if($user->type){
