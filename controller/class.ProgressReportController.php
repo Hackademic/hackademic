@@ -67,6 +67,7 @@ class ProgressReportController extends HackademicController{
 				$attempts = 0;
 				$cleared = false;
 				$cleared_on = null;
+				if(false != $progress)
 				foreach($progress as $chal_prog){
 					if($challenge->id === $chal_prog->challenge_id){
 						$attempts = $chal_prog->count;
