@@ -48,6 +48,8 @@ class ShowClassController extends HackademicBackendController {
 		$class_id=$_GET['id'];
 
 		$challenges_not_assigned = ClassChallenges::getNotMemberships($class_id);
+
+
 		$class = Classes::getClass($class_id);
 		$change = false;
 
@@ -56,7 +58,7 @@ class ShowClassController extends HackademicBackendController {
 				if ($_POST['updateclassname']=='') {
 					header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editerror");
 				}
-				else {	
+				else {
 					if ($_POST['challenges'] !='default') {
 						ClassChallenges::addMembership($_POST['challenges'],$_GET['id']);
 						$this->addSuccessMessage("Challenge has been added to the class succesfully");
@@ -85,14 +87,17 @@ class ShowClassController extends HackademicBackendController {
 				$this->addSuccessMessage("Challenge has been deleted from the class succesfully");
 			}
 		}
-		
+
 
 		$user_members = ClassMemberships::getAllMemberships($class_id);
 		$challenges_assigned = ClassChallenges::getAllMemberships($class_id);
 
 		if($change)
 			$class = Classes::getClass($class_id);
-		
+/*
+		var_dump($challenges_not_assigned);
+		var_dump($challenges_assigned);
+*/
 		$this->addToView('class', $class);
 		$this->addToView('challenges_not_assigned',$challenges_not_assigned);
 		$this->addToView('users', $user_members);
