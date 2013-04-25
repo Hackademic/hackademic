@@ -46,7 +46,6 @@ class AddUserController extends HackademicBackendController {
 		$this->saveFormFields();
 		$this->setViewTemplate('adduser.tpl');
 		if (isset($_POST['submit'])) {
-			var_dump($_POST);
 			if ($_POST['username']=='') {
 				$this->addErrorMessage("Username should not be empty");
 			} elseif ($_POST['full_name']=='') {
