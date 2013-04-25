@@ -36,8 +36,14 @@ require_once(HACKADEMIC_PATH."model/common/class.Mailer.php");
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class AddUserController extends HackademicBackendController {
+	public $username;
+	public $full_name;
+	public $activated;
+	public $type;
+	public $email;
 
-	public function go() {           
+	public function go() {
+		$this->saveFormFields();
 		$this->setViewTemplate('adduser.tpl');
 		if (isset($_POST['submit'])) {
 			if ($_POST['username']=='') {
@@ -48,19 +54,19 @@ class AddUserController extends HackademicBackendController {
 				$this->addErrorMessage("Password should not be empty");
 			} elseif ($_POST['confirmpassword']=='') {
 				$this->addErrorMessage("Please confirm password");
-			} elseif (!isset($_POST['is_activated'])) {
+			} elseif (!isset($_POST['activated'])) {
 				$this->addErrorMessage("Is the user activated?");
 			} elseif (!isset($_POST['type'])) {
 				$this->addErrorMessage("Select the type of user");
 			} elseif ($_POST['email']=='') {
-				$this->addErrorMessage("please enter ur email id");	    
+				$this->addErrorMessage("please enter ur email id");
 			} else {
 				$username = $_POST['username'];
 				$password = $_POST['password'];
 				$confirmpassword=$_POST['confirmpassword'];
 				$full_name = $_POST['full_name'];
 				$email=$_POST['email'];
-				$is_activated = $_POST['is_activated'];
+				$activated = $_POST['activated'];
 				$type = $_POST['type'];
 				if (User::doesUserExist($username)) {
 					$this->addErrorMessage("Username already exists");
@@ -75,7 +81,7 @@ class AddUserController extends HackademicBackendController {
 					$message="Hackademic account created succesfully";
 					//Mailer::mail($email,$subject,$message);
 					$joined=date("Y-m-d H-i-s");
-					$result = User::addUser($username,$full_name,$email,$password,$joined,$is_activated,$type);
+					$result = User::addUser($username,$full_name,$email,$password,$joined,$activated,$type);
 					$this->addSuccessMessage("User has been added succesfully");
 					header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=add");
 				}
@@ -83,5 +89,19 @@ class AddUserController extends HackademicBackendController {
 		}
 		return $this->generateView();
 	}
+	public function saveFormFields(){
+		if(isset($_POST['username']))
+			$this->username =Utils::sanitizeInput($_POST['username']);
+		if(isset($_POST['full_name']))
+			$this->full_name=Utils::sanitizeInput($_POST['full_name']);
+		if(isset($_POST['email']))
+			$this->email = Utils::sanitizeInput($_POST['email']);
+		if(isset($_POST['activated']))
+			$this->activated = Utils::sanitizeInput($_POST['activated']);
+		if(isset($_POST['type']))
+			$this->type = Utils::sanitizeInput($_POST['type']);
 
+		var_dump($_POST['activated']);
+		$this->addToView('cached', $this);
+	}
 }

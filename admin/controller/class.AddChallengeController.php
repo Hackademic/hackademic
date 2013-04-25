@@ -35,8 +35,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 // -- Class Name : AddChallengeController
-// -- Purpose : 
-// -- Created On : 
+// -- Purpose :
+// -- Created On :
 class AddChallengeController extends HackademicBackendController {
 
 	public $title;
@@ -44,11 +44,11 @@ class AddChallengeController extends HackademicBackendController {
 	public $category;
 	public $level;
 	public $duration;
-	public $description;	
-	
+	public $description;
+
     private static function rrmdir($dir) {
 	foreach(glob($dir . '/*') as $file) {
-	    
+
 	    if(is_dir($file)) {
 		self::rrmdir($file);
 	    } else {
@@ -56,32 +56,31 @@ class AddChallengeController extends HackademicBackendController {
 	    }
 
 	}
-
 	rmdir($dir);
     }
 
     public function installChallenge($file_to_open,$target,$name) {
 	$zip = new ZipArchive();
 	$x = $zip->open($file_to_open);
-	
+
 	if ($x === true) {
 	    $zip->extractTo($target);
 	    $zip->close();
 	    unlink($file_to_open);
 	    #deletes the zip file. We no longer need it.
-	    
+
 	    if (isset($_GET['type']) && $_GET['type'] == "code") {
 		$xml_exists = 1;
 	    } else {
 		$xml_exists = file_exists($target."$name".".xml");
 	    }
 
-	    
+
 	    if (!file_exists($target."index.php") || !$xml_exists) {
-		
+
 		if (!file_exists($target."index.php")) {
 		    $this->addErrorMessage("Not a valid challenge! Index.php file doesn't exist");
-		    
+
 		    if (isset($_GET['type']) && $_GET['type'] == "code") {
 			$this->addToView('step', 'step2');
 		    }
@@ -94,13 +93,13 @@ class AddChallengeController extends HackademicBackendController {
 		return false;
 	    }
 
-	    
+
 	    if (isset($_GET['type']) && $_GET['type'] == "code") {
 		return $_SESSION['challenge_arr'];
 	    }
 
 	    $xml = simplexml_load_file($target."$name".".xml");
-	    
+
 	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)||
 		 !isset($xml->level)|| !isset($xml->duration)){
 		$this->addErrorMessage("The XML file is not valid.");
@@ -126,14 +125,14 @@ class AddChallengeController extends HackademicBackendController {
 
     public function go() {
 	$this->setViewTemplate('addchallenge.tpl');
-	
+
 	if (isset($_GET['type']) && $_GET['type'] == "code") {
 	    $add_type = "code";
 	} else {
 	    $add_type = "challenge";
 	}
 
-	
+
 	if (isset($_POST['continue'])) {
 	    $this->cache_values();
 	    if ($_POST['title']=='') {
@@ -178,25 +177,25 @@ class AddChallengeController extends HackademicBackendController {
 		$this->addErrorMessage($new_msg);
 	}
 
-	
+
 	if(isset($_FILES['fupload'])) {
 	    $filename = $_FILES['fupload']['name'];
 	    $source = $_FILES['fupload']['tmp_name'];
 	    $type = $_FILES['fupload']['type'];
 	    $name = explode('.', $filename);
 	    $target = HACKADEMIC_PATH."challenges/". $name[0] . '/';
-	    
+
 	    if(!isset($name[1])) {
 		$this->addErrorMessage("Please select a file");
 		return $this->generateView();
 	    }
 
-	    
+
 	    if(isset($name[0])) {
 		$challenge=ChallengeBackend::doesChallengeExist($name[0]);
-		
+
 		if($challenge==true){
-		    
+
 		    if (isset($_SESSION['challenge_arr'])) {
 			$this->addToView('step', 'step2');
 		    } else {
@@ -211,9 +210,9 @@ class AddChallengeController extends HackademicBackendController {
 
 	    $okay = strtolower($name[1]) == 'zip' ? true :
 	    false;
-	    
+
 	    if(!$okay) {
-		
+
 		if (isset($_SESSION['challenge_arr'])) {
 		    $this->addToView('step', 'step2');
 		} else {
@@ -226,10 +225,10 @@ class AddChallengeController extends HackademicBackendController {
 
 	    mkdir($target);
 	    $saved_file_location = $target . $filename;
-	    
+
 	    if(move_uploaded_file($source, $target . $filename)) {
 		$data=$this->installChallenge($saved_file_location,$target,$name[0]);
-		
+
 		if($data==true){
 		    $pkg_name =$name[0];
 		    $date_posted = date("Y-m-d H-i-s");

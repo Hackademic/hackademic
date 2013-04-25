@@ -40,8 +40,8 @@ class EditCodeController extends HackademicBackendController {
 		if (isset($_GET['id'])) {
 			$id=$_GET['id'];
 			$challenges=Challenge::getChallenge($id);
-			$title = $challenges[0]->title;
-			$url = HACKADEMIC_PATH."challenges/".$challenges[0]->pkg_name."/index.php";
+			$title = $challenges->title;
+			$url = HACKADEMIC_PATH."challenges/".$challenges->pkg_name."/index.php";
 			if(isset($_POST['submit'])) {
 				$contents = $_POST['code'];
 				file_put_contents($url, $contents);
@@ -54,7 +54,7 @@ class EditCodeController extends HackademicBackendController {
 			} else {
 				$file_contents = htmlspecialchars(file_get_contents($url), ENT_NOQUOTES | ENT_HTML401);
 			}
-			$folder = $challenges[0]->pkg_name;
+			$folder = $challenges->pkg_name;
 		} else {
 			$title = "Unknown Challenge";
 			$file_contents = '';

@@ -34,11 +34,15 @@ require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ArticleBackend.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
 require_once(HACKADEMIC_PATH."/model/common/class.Utils.php");
+require_once(HACKADEMIC_PATH."/model/common/class.Article.php");
 
 class EditArticleController extends HackademicBackendController {
+	public $title;
+	public $publish;
+	public $article;
 
 	public function go() {
-
+		$this->saveFormFields();
 		if (isset($_GET['id'])) {
 			$id=$_GET['id'];
 		}
@@ -47,7 +51,7 @@ class EditArticleController extends HackademicBackendController {
 		}
 		if(isset($_POST['submit'])) {
 			if ($_POST['title']=='') {
-				$this->addErrorMessage("Title of the article should not be empty"); 
+				$this->addErrorMessage("Title of the article should not be empty");
 			} elseif (!isset($_POST['is_published'])) {
 				$this->addErrorMessage("Please tell if the article has been published successfully?");
 			} elseif ($_POST['content']=='') {
@@ -62,13 +66,24 @@ class EditArticleController extends HackademicBackendController {
 				$this->addSuccessMessage("Article has been updated succesfully");
 			}
 		}
-		$article=ArticleBackend::getArticle($id);
+		$article=Article::getArticle($id);
 		$this->setViewTemplate('editarticle.tpl');
-		$this->addToView('article', $article[0]);
-		$this->generateView();
+		$this->addToView('article', $article);
 		if(isset($_POST['deletesubmit'])) {
 			ArticleBackend::deleteArticle($id);
-			header('Location:'.SOURCE_ROOT_PATH."admin/pages/articlemanager.php?source=del");
-		}  
+			header('Location:'.SOURCE_ROOT_PATH."admin/pages/articlemanager.php");
+		}
+		$this->generateView();
+
+	}
+	public function saveFormFields(){
+		if(isset($_POST['title']))
+			$this->title =Utils::sanitizeInput($_POST['title']);
+		if(isset($_POST['is_published']))
+			$this->publish=$_POST['is_published'];
+		if(isset($_POST['content']))
+			$this->article = $_POST['content'];
+
+		$this->addToView('cached', $this);
 	}
 }

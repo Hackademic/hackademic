@@ -94,8 +94,8 @@ class ChallengeMonitorController {
 		echo"<p>";var_dump($token);echo "</p>";
 		echo"<p>";var_dump($_SESSION['token']);echo "</p>";
 		*/
-		if($pair->token != $token){
-			error_log("HACKADEMIC::ChallengeMonitorController::pair->token != $token".$pair[0]->token);
+		if($pair && $pair->token != $token){
+			error_log("HACKADEMIC::ChallengeMonitorController::pair->token != $token".$pair->token);
 			header("Location: ".SITE_ROOT_PATH);
 
 		}
@@ -124,7 +124,7 @@ class ChallengeMonitorController {
         $challenge = Challenge::getChallengeByPkgName($pkg_name);
         if($user)
            $user_id = $user->id;
-         $challenge_id = $challenge[0]->id;
+         $challenge_id = $challenge->id;
          if (!ChallengeAttempts::isChallengeCleared($user_id, $challenge_id)) {
 			ChallengeAttempts::addChallengeAttempt($user_id, $challenge_id, $status);
           }

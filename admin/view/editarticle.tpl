@@ -42,7 +42,7 @@ tinyMCE.init({
         <div class="page_title"><h3 class="left">Edit Article</h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
-    
+
     <div id="input_form">
     <form method="post" action="{$site_root_path}admin/pages/editarticle.php?id={$article->id}">
         <table class="article_main">
@@ -62,6 +62,8 @@ tinyMCE.init({
                     {/if}
                 </td>
             </tr>
+            <tr><td><label> Delete Article?</label></td>
+            <td><input type="checkbox" name="deletesubmit" value="Delete Article"/></td></tr>
             <tr>
                 <td colspan=2"><label>Write your Article</label></td>
             </tr>
@@ -74,7 +76,6 @@ tinyMCE.init({
                 <td colspan="2">
                     <p class="submit">
                         <input type="submit" name="submit" value="submit"/>
-                        <input type="submit" name="deletesubmit" value="Delete Article"/>
                     </p>
                 </td>
             </tr>
