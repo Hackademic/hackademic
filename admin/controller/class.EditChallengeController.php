@@ -72,7 +72,7 @@ class EditChallengeController extends HackademicBackendController {
 		}
 		$challenges=Challenge::getChallenge($id);
 		$this->setViewTemplate('editchallenge.tpl');
-		$this->addToView('challenge', $challenges[0]);
+		$this->addToView('challenge', $challenges);
 		$this->generateView();
 
 	}

@@ -5,7 +5,7 @@
  *
  * Hackademic Session Class
  * The class that manages logged-in Hackademic users' sessions via the web.
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -45,15 +45,15 @@ class Session {
 		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==1)){
 			return true;
 		} else {
-			return false; 
-		}	       
+			return false;
+		}
 	}
 	public static function isTeacher() {
 		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==2)){
 			return true;
 		} else {
-			return false; 
-		}	       
+			return false;
+		}
 	}
 	public static function completeLogin($owner) {
 		User::updateLastVisit($owner->username);
@@ -71,11 +71,11 @@ class Session {
 	 * @param str $result Result
 	 * @return bool Whether or submitted password matches check
 	 */
-	public function pwdCheck($pwd, $result) {		
+	public function pwdCheck($pwd, $result) {
 		$isGood = Utils::check($pwd, $result);
 		if ($isGood) {
 			return true;
-		
+
 		} else {
 			return false;
 		}
@@ -113,7 +113,7 @@ class Session {
 			$https = isset($secure) ? $secure : isset($_SERVER['HTTPS']);
 			// Set session cookie options
 			session_set_cookie_params($limit, $path, $domain, $https, true);
-			
+
 			/*if there already exists a valid logged in user session
 			 * then we are here by mistake so just log it and regenerate
 			 *  the session id
@@ -121,7 +121,7 @@ class Session {
 			if(isset($_SESSION['hackademic_user'])){
 				if(self::isValid()){
 					self::regenerateSession();
-					error_log("HACKADEMIC:: Session:nit called with already existing and valid session 
+					error_log("HACKADEMIC:: Session:nit called with already existing and valid session
 								regenerating session", 0);
 				}else{//the function was called on an invalid session
 					self::logout();
@@ -131,7 +131,7 @@ class Session {
 			}elseif(isset($_SESSION['hackademic_guest'])){
 				//if there is a guest session destroy it and login
 				self::logout();
-				//error_log("HACKADEMIC:: Going from guest to user", 0);			
+				//error_log("HACKADEMIC:: Going from guest to user", 0);
 				//error_log("HACKADEMIC:: Starting new session", 0);
 
 				if(!isset($ESAPI_utils)){
@@ -159,15 +159,15 @@ class Session {
 		$https = isset($secure) ? $secure : isset($_SERVER['HTTPS']);
 		// Set session cookie options
 		session_set_cookie_params($limit, $path, $domain, $https, true);
-		
+
 		/*If function was called after a session_start then we have a bug*/
-		if(isset($_SESSION) && 
+		if(isset($_SESSION) &&
 		  (isset($_SESSION['hackademic_user']) || isset($_SESSION['hackademic_guest']))){
 			error_log("HACKADEMIC:: Regenerating session id possible bug detected", 0);
 			self::regenerateSession();
 		}else{
 			session_start();
-			
+
 			/*If this is a guest session (init hasn't been called first)*/
 			if(!self::isLoggedIn() && !isset($_SESSION['hackademic_guest'])){
 				$_SESSION['hackademic_guest'] = 'guest';
@@ -188,8 +188,8 @@ class Session {
 			}
 		}
 	}
-	/* 
-	 * Session validation 
+	/*
+	 * Session validation
 	 * Checks:  Absolute expiration
 	 *			Inactive expiration
 	 * 			Ip addr
@@ -210,7 +210,7 @@ class Session {
 			error_log("HACKADEMIC:: Session validation: EXPIRED session detected", 0);
 			return false;
 		}
-			
+
 		if(isset($_SESSION['LAST_ACCESS']) && $_SESSION['LAST_ACCESS'] + SESS_EXP_INACTIVE < time()){
 			//error_log("HACKADEMIC:: Session validation: INACTIVE session detected", 0);
 			return false;
@@ -223,7 +223,7 @@ class Session {
 			error_log("HACKADEMIC:: Session validation: WRONG INFO", 0);
 			return false;
 		}
-		
+
 		if ($_SESSION['IPaddress'] != $_SERVER['REMOTE_ADDR']){
 			error_log("HACKADEMIC:: Session validation: WRONG IPADDR", 0);
 			return false;}
@@ -244,7 +244,7 @@ class Session {
 		if(rand(1, 100) <= 5){
 			self::regenerateSession();
 		}
-		
+
 		$_SESSION['LAST_ACCESS'] = time();
 
 		return true;
@@ -255,7 +255,7 @@ class Session {
 	 */
 	static function regenerateSession(){
 		// If this session is obsolete it means there already is a new id
-		if(isset($_SESSION['OBSOLETE']) || $_SESSION['OBSOLETE'] == true){
+		if(isset($_SESSION['OBSOLETE']) && $_SESSION['OBSOLETE'] == true){
 			error_log("HACKADEMIC:: REGENERATE SESSION obsolete", 0);
 			return;}
 
@@ -279,5 +279,5 @@ class Session {
 		unset($_SESSION['EXPIRES']);
 	}
 
-	
+
 }

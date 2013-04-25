@@ -5,7 +5,7 @@
  *
  * Hackademic Challenge Attempts Class
  * Class for Hackademic's Challenge Attempts Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -37,7 +37,8 @@ class ChallengeAttempts {
 	public $challenge_id;
 	public $time;
 	public $status;
-
+	public $count;//total_attempts;
+	//public $dummy;//dummy class var for hacks
 
 	public static function addChallengeAttempt($user_id,$challenge_id,$status){
 		global $db;
@@ -69,7 +70,7 @@ class ChallengeAttempts {
 			ON DUPLICATE KEY UPDATE tries = tries + 1";
 		$query = $db->query($sql, $params);
 	}
-	
+
 	public static function deleteChallengeAttemptByUser($user_id){
 		global $db;
 		$params=array(':user_id' => $user_id);
@@ -90,7 +91,7 @@ class ChallengeAttempts {
 		$query = $db->query($sql,$params);
 
 	}
-	
+
 	public static function deleteChallengeAttemptByChallenge($challenge_id){
 		global $db;
 		$params=array(':challenge_id' => $challenge_id);
@@ -110,7 +111,7 @@ class ChallengeAttempts {
 		$sql = "DELETE FROM challenge_attempt_count WHERE challenge_id=:challenge_id";
 		$query = $db->query($sql,$params);
 	}
-	
+
 	public static function getChallengeAttemptDetails($user_id) {
 		global $db;
 		$params=array(':user_id' => $user_id);
@@ -120,7 +121,7 @@ class ChallengeAttempts {
 		// return !empty($result_array)?array_shift($result_array):false;
 		return $result_array;
 	}
-	
+
 	public static function isChallengeCleared($user_id, $challenge_id) {
 		global $db;
 		$params = array(
@@ -136,31 +137,56 @@ class ChallengeAttempts {
 			return false;
 		}
 	}
-	
-	public static function getTotalAttempts($user_id) {
+	public static function getUserProgress($user_id) {
 		global $db;
-		$sql = "SELECT challenge_id, count(*) as count FROM challenge_attempts ";
-		$sql .= " WHERE user_id = $user_id GROUP BY challenge_id;";
-		$query = $db->query($sql);
-		$result_array = array();
-		while($row=$db->fetchArray($query)) {
-			$result_array[$row['challenge_id']] = $row['count'];
+		$params = array(':user_id' => $user_id );
+
+		/*Count the attempts for all challenges*/
+		$sql = "SELECT challenge_id, count(*) as count FROM challenge_attempts
+				WHERE user_id = :user_id GROUP BY challenge_id;";
+		$result_array = self::findBySQL($sql,$params);
+
+		/* Get more data for the completed ones*/
+		$sql2 = "SELECT DISTINCT challenge_id, time FROM challenge_attempts
+				 WHERE user_id = :user_id AND status = 1;";
+		$result_2 = self::findBySQL($sql2,$params);
+
+		//var_dump($result_array);echo'</p> 2:</p>';var_dump($result_2);echo'</p>';
+		foreach($result_array as $element){
+			foreach($result_2 as $el){
+				if($element->challenge_id === $el->challenge_id){
+					$element->time = $el->time;
+					$element->status = 1;
+					//unset($result_2[$el]);
+				}
+			}
 		}
-		return $result_array;
+		//var_dump($result_array);
+		//var_dump(!empty($result_array)?$result_array:false);
+		return !empty($result_array)?$result_array:false;
 	}
-	
+/*	public static function getTotalAttemptsOfUserForEachChallenge($user_id) {
+		global $db;
+		self::getUserProgress($user_id);
+
+		$params = array(':user_id' => $user_id );
+		$sql = "SELECT challenge_id, count(*) as count FROM challenge_attempts ";
+		$sql .= " WHERE user_id = :user_id GROUP BY challenge_id;";
+		$result_array = self::findBySQL($sql,$params);
+		//var_dump(!empty($result_array)?$result_array:false);
+		return !empty($result_array)?$result_array:false;
+	}
+
 	public static function getClearedChallenges($user_id) {
 		global $db;
 		$sql = "SELECT DISTINCT challenge_id, time FROM challenge_attempts ";
 		$sql .= " WHERE user_id = $user_id AND status = 1;";
 		$query = $db->query($sql);
-		$result_array = array();
-		while($row=$db->fetchArray($query)) {
-			$result_array[$row['challenge_id']] = array('cleared' => true, 'cleared_on' => $row['time']);
-		}
-		return $result_array;
+		$result_array = self::findBySQL($sql,$params);
+		//var_dump(!empty($result_array)?$result_array:false);
+		return !empty($result_array)?$result_array:false;
 	}
-
+*/
 	private static function findBySQL($sql,$params=NULL) {
 		global $db;
 		$result_set=$db->query($sql,$params);
@@ -170,7 +196,19 @@ class ChallengeAttempts {
 		}
 		return $object_array;
 	}
-	
+	public static function instantiate($record) {
+		$object=new self;
+		foreach($record as $attribute=>$value) {
+			if($object->hasAttribute($attribute)) {
+				$object->$attribute=$value;
+			}
+		}
+		return $object;
+	}
+	private function hasAttribute($attribute) {
+		$object_vars=get_object_vars($this);
+		return array_key_exists($attribute,$object_vars);
+	}
 	public static function getUniversalRankings($class_id = NULL) {
 		global $db;
 		$sql = "SELECT user_id, time, count(*) as count, users.username ";
@@ -188,7 +226,7 @@ class ChallengeAttempts {
 		}
 		return $result_array;
 	}
-	
+
 	public static function getClasswiseRankings($class_id) {
 		return self::getUniversalRankings($class_id);
 	}
@@ -201,6 +239,6 @@ class ChallengeAttempts {
 		AND challenge_attempts.user_id = {$user_id}
 		AND STATUS =1
 		AND challenge_attempts.challenge_id = challenges.id";
-		
+
 	}
 }

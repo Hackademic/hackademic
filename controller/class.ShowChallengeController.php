@@ -43,10 +43,10 @@ class ShowChallengeController extends HackademicController {
 		    $id=$_GET['id'];
 		    $challenge=Challenge::getChallenge($id);
 		    $this->setViewTemplate('showChallenge.tpl');
-		    $this->addToView('challenge', $challenge[0]);
+		    $this->addToView('challenge', $challenge);
 		    if (!$this->isLoggedIn()) {
 			    $this->addErrorMessage("You must login to be able to take the challenge");
-		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge[0]->id)) {
+		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id)) {
 			    $this->addToView('is_allowed', true);
 			  $this->addToView('username', $this->getLoggedInUser());
 		    } else {

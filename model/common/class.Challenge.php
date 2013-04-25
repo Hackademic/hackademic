@@ -5,7 +5,7 @@
  *
  * Hackademic Challenge Class
  * Class for Hackademic's Challenge Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -60,7 +60,7 @@ class Challenge {
 		} else {
 			return false;
 		}
-	} 
+	}
 
 	public static function getChallenge($id) {
 		global $db;
@@ -69,10 +69,9 @@ class Challenge {
 			       );
 		$sql = "SELECT * FROM challenges WHERE id= :id LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
 	}
-	
+
 	public static function getChallengeByPkgName($pkg_name) {
 		global $db;
 		$params = array(
@@ -80,8 +79,8 @@ class Challenge {
 			       );
 		$sql = "SELECT * FROM challenges WHERE pkg_name= :pkg_name LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
+		//return $result_array;
 	}
 
 //get all Visible challenges
@@ -103,31 +102,33 @@ class Challenge {
 							)
 			ORDER BY challenges.id
 			";
-		$result_set=$db->query($sql,$params);
+		$result_array= self::findBySQL($sql,$params);
+		/*$result_set=$db->query($sql,$params);
 		$object_array=array();
 		$i = 0;
 		while($row=$db->fetchArray($result_set)) {
-			
+
 			$result_array[$i]["id"]= $row['id'];
 			$result_array[$i]["title"] = $row['title'];
 			$result_array[$i]["pkg_name"] = $row["pkg_name"];
 			$result_array[$i]["availability"]=  $row['availability'];
-			$result_array[$i]["class"]= $row['class']; 
+			$result_array[$i]["class"]= $row['class'];
 			$i++;
-			
-		}
+
+		}*/
 		//echo "<p>".var_dump($result_array)."</p>";
-		Debug::show($result_array,'all',$this,_FUNCTION_);
+		//Debug::show($result_array,'all',$this,_FUNCTION_);
 		return !empty($result_array)?$result_array:false;
 	}
-	
+
 	public static function getChallengesAssigned($user) {
 		global $db;
 		$challenge_ids = ClassChallenges::getChallengesOfUser($user);
+		//var_dump($challenge_ids);
 		$challenges = array();
-		foreach ($challenge_ids as $id => $title) {
-    		    $challenge = self::getChallenge($id);
-		    array_push($challenges, $challenge[0]);
+		foreach ($challenge_ids as $chal) {
+    		    $challenge = self::getChallenge($chal->id);
+		    array_push($challenges, $challenge);
 		}
 		return $challenges;
 	}

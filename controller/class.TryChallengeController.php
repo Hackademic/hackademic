@@ -44,10 +44,10 @@ class TryChallengeController extends HackademicController {
 		    $id=$_GET['id'];
 		    $this->addToView('id', $id);
 		    $challenge=Challenge::getChallenge($id);
-		    if ($this->isLoggedIn() && ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge[0]->id))) {
-				$challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge[0]->pkg_name."/";
-				$this->addToView('pkg_name', $challenge[0]->pkg_name);
-				$solution = $challenge[0]->solution;
+		    if ($this->isLoggedIn() && ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id))) {
+				$challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge->pkg_name."/";
+				$this->addToView('pkg_name', $challenge->pkg_name);
+				$solution = $challenge->solution;
 				if (isset($_POST) && count($_POST)!=0) {
 					//echo '<div style = "color:red">CHALLENGE WAS SUBMITTED</div>';
 				}
