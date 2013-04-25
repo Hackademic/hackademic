@@ -158,7 +158,7 @@ class ClassChallenges {
 		if (empty($classes) || "" == $challenge_id){
 			if ("dev" ==ENVIRONMENT && TRUE === SHOW_EMPTY_VAR_ERRORS){
 				echo "<p> error: class.ClassChallenges.isAllowed challenge_id == ".$challenge_id. " and classes == ".print_r($classes,true)."</p>";
-				}
+			}
 			return false;
 		}
 		$params=array(':challenge_id' => $challenge_id);
