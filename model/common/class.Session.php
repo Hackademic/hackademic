@@ -91,8 +91,6 @@ class Session {
 		}
 	}
 	public static function logout() {
-		//die("logout");
-		//$_SESSION = array();
 		$_SESSION = array();
 		setcookie (session_id(), "", time() - 3600);
 		session_destroy();
