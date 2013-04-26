@@ -28,6 +28,7 @@
 		include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
         // <script>alert(String.fromCharCode(88,88,83,33))</script>
 	if(isset($_POST['try_xss'])){
 	$try_xss = $_POST['try_xss'];
