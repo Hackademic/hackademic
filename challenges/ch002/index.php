@@ -16,6 +16,8 @@
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
         $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+        $_SESSION['init'] = true;
+
 if(isset($_GET['Result'])){
 	$result =  $_GET['Result'];
 	if ($result === 'enter a coin to play'){

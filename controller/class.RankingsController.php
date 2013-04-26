@@ -36,7 +36,8 @@ require_once(HACKADEMIC_PATH."/admin/model/class.ClassMemberships.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
 
 class RankingsController extends HackademicController {
-    
+
+
     public function go() {
         $this->setViewTemplate("rankings.tpl");
         if ($this->isLoggedIn()) {
@@ -66,12 +67,13 @@ class RankingsController extends HackademicController {
         $rank=1;
         $rankcount=1;
         $prevcount=null;
+
         foreach($rankings as $ranking){
-			if ($counter !=1 && $prevcount == $ranking['count']) {$rank=$rankcount; $rankcount++;} 
+			if ($counter !=1 && $prevcount == $ranking['count']) {$rank=$rankcount; /*$rankcount++;*/}
 			if  ($counter !=1 && $prevcount != $ranking['count']) {$rankcount++; $rank=$rankcount;}
                         $prevcount=$ranking['count'];
                         $counter++;
-                        $temp=array('user_id'=>$ranking['user_id'],'time'=>$ranking['time'],'count' =>$ranking['count'],'username'=>$ranking['username'],'rank'=>$rank);
+                        $temp=array('user_id'=>$ranking['user_id'],'count' =>$ranking['count'],'username'=>$ranking['username'],'rank'=>$rank);
                         array_push($final,$temp);
         }
         $this->addToView('rankings', $final);

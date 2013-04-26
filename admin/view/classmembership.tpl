@@ -2,10 +2,10 @@
 <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/pagination.css"/>
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">Class Membership - Users {$user[0]->username}</h3></div>
+	<div class="page_title"><h3 class="left">Class Membership - Users {$user->username}</h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
-    
+
     <div id="input_form">
        <form method="post">
 	    <table class="add_form">
@@ -15,7 +15,7 @@
 			<select name="class_id">
 			    {foreach from=$classes item=class}
 				<option value="{$class->id}">{$class->name}</option>
-			    {/foreach} 
+			    {/foreach}
 			</select>
 		    </td>
 		    <td colspan="2">
@@ -26,15 +26,15 @@
         </form>
     </div>
     <table class="manager_table">
-	<thead> 
+	<thead>
 	    <th>Class name</th>
 	    <th>Delete</th>
 	</thead>
 	{foreach from=$class_memberships item=class}
-	    <tr>  
+	    <tr>
 		<td><a href="{$site_root_path}admin/pages/showclass.php?id={$class['class_id']}">{$class['name']}</a></td>
 		<td><a href="{$site_root_path}admin/pages/classmemberships.php?id={$smarty.get.id}&class_id={$class['class_id']}&action=del">Delete</a></td>
 	    </tr>
-	{/foreach} 			
+	{/foreach}
     </table>
 {include file="_footer.tpl"}
