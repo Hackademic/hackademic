@@ -37,33 +37,43 @@ require_once(HACKADEMIC_PATH."model/common/class.ChallengeAttempts.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
 require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
+require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
 
 class ChallengeMonitorController {
 
     public function go() {
         // Check Permissions
     }
-    public function start($userid=null, $chid=null, $token=null){
+
+    public function get_pkg_name(){
+		$url = $_SERVER['REQUEST_URI'];
+        $url_components = explode("/", $url);
+        $count_url_components = count($url_components);
+        for ($i=0; $url_components[$i] != "challenges"; $i++);
+			$pkg_name = $url_components[$i+1];
+		return $pkg_name;
+	}
+    public function start($userid=null, $chid=null, $token=null,$status = 'CHECK'){
 		if(!isset($_SESSION))
 			session_start();
 
+		if($status == CHALLENGE_INIT && !isset($_SESSION['init'])){
+			$_SESSION['chid'] = $chid;
+			$_SESSION['token'] = $token;
+			$_SESSION['userid'] = $userid;
+			$_SESSION['pkg_name'] = $this->get_pkg_name();
+			var_dump($_SESSION);
+			return;
+		}
+		$pkg_name = $this->get_pkg_name();
 		//echo"<p>";var_dump($token);echo "</p>";
 		//echo"<p>";var_dump($_SESSION['token']);echo "</p>";
-
 		if(!isset($_SESSION['chid']))
 			$_SESSION['chid'] = $chid;
 		if(!isset($_SESSION['token']))
 			$_SESSION['token'] = $token;
 		if(!isset($_SESSION['userid']))
 			$_SESSION['userid'] = $userid;
-		//echo"<p>";var_dump($_SESSION['token']);echo "</p>";
-
-		$url = $_SERVER['REQUEST_URI'];
-        $url_components = explode("/", $url);
-        $count_url_components = count($url_components);
-        for ($i=0; $url_components[$i] != "challenges"; $i++);
-		$pkg_name = $url_components[$i+1];
-
 		if(!isset($_SESSION['pkg_name']))
 			$_SESSION['pkg_name'] = $pkg_name;
 
@@ -72,20 +82,21 @@ class ChallengeMonitorController {
 		/*If token is the one in the session then challenge must be the same*/
 		if($_SESSION['token'] == $token)
 		if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
-			error_log("HACKADEMIC::ChallengeMonitorController::RIGHT token WRONG CHALLENGE ".$_SESSION['pkg_name']);
+			error_log("HACKADEMIC::ChallengeMonitorController::RIGHT token WRONG CHALLENGE it's ".$pkg_name.' it should be '.$_SESSION['pkg_name']);
 			header("Location: ".SITE_ROOT_PATH);
 		}
-		/* If token changed AND the challenge changed AND its a valid token for that challenge then we are in a new challenge*/
+		/* If token changed AND the challenge changed AND its a valid token
+		 * for that challenge then we are in a new challenge
+		 */
 		if($_SESSION['token'] != $token && $token!=null)
 			if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
-				//var_dump($pair);die();
 				if($pair->token == $token){
 					$_SESSION['chid'] = $chid;
 					$_SESSION['token'] = $token;
 					$_SESSION['pkg_name'] = $pkg_name;
 				}
 			}else{
-				//var_dump($token);die();
+				//var_dump($_SESSION);//die();
 				error_log("HACKADEMIC::ChallengeMonitorController::WRONG CHALLENGE ".$_SESSION['pkg_name']);
 				header("Location: ".SITE_ROOT_PATH);
 			}
@@ -102,7 +113,7 @@ class ChallengeMonitorController {
 	}
     public function update($status,$userid = null ,$chid = null ,$token = null) {
 
-		$this->start($userid,$chid,$token);
+		$this->start($userid,$chid,$token,$status);
 		/*IF status == init we only need to update the SESSION var*/
 		if($status == CHALLENGE_INIT)
 		return;
