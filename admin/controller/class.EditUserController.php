@@ -41,7 +41,7 @@ class EditUserController extends HackademicBackendController {
 		}
 		if(isset($_POST['submit'])) {
 			if ($_POST['username']=='') {
-				$this->addErrorMessage("Name of the user should not be empty"); 
+				$this->addErrorMessage("Name of the user should not be empty");
 			} elseif ($_POST['email']=='') {
 				$this->addErrorMessage("Email should not be empty");
 			} elseif ($_POST['full_name']=='') {
@@ -64,12 +64,12 @@ class EditUserController extends HackademicBackendController {
 		}
 		$users=User::getUser($id);
 		$this->setViewTemplate('edituser.tpl');
-		$this->addToView('user', $users[0]);
+		$this->addToView('user', $users);
 		$this->generateView();
 		if(isset($_POST['deletesubmit'])) {
 			User::deleteUser($id);
 			$this->addSuccessMessage("User has been deleted succesfully");
 			header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=del");
-		}  
+		}
 	}
 }

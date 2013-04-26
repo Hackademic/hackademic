@@ -53,7 +53,7 @@ class ClassMemberships {
 			return false;
 		}
 	}
-	
+
 	public static function getMembershipsOfUserObjects($user_id) {
 	    $classes = self::getMembershipsOfUser($user_id);
 	    $object_array = array();

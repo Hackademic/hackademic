@@ -62,7 +62,7 @@ class ChallengeMonitorController {
 			$_SESSION['token'] = $token;
 			$_SESSION['userid'] = $userid;
 			$_SESSION['pkg_name'] = $this->get_pkg_name();
-			var_dump($_SESSION);
+			//var_dump($_SESSION);
 			return;
 		}
 		$pkg_name = $this->get_pkg_name();
@@ -89,15 +89,16 @@ class ChallengeMonitorController {
 		 * for that challenge then we are in a new challenge
 		 */
 		if($_SESSION['token'] != $token && $token!=null)
-			if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
+			if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid || $_SESSION['userid'] != $userid){
 				if($pair->token == $token){
 					$_SESSION['chid'] = $chid;
 					$_SESSION['token'] = $token;
 					$_SESSION['pkg_name'] = $pkg_name;
+					$_SESSION['userid'] = $userid;
 				}
 			}else{
 				//var_dump($_SESSION);//die();
-				error_log("HACKADEMIC::ChallengeMonitorController::WRONG CHALLENGE ".$_SESSION['pkg_name']);
+				error_log("HACKADEMIC::ChallengeMonitorController::Hijacking attempt? ".$_SESSION['pkg_name']);
 				header("Location: ".SITE_ROOT_PATH);
 			}
 
