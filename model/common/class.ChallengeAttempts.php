@@ -251,7 +251,7 @@ class ChallengeAttempts {
 
 		$score = array();
 		//for each user,challenge pair check if the user has solved the challenge
-			$score_q = "SELECT user_id, users.username, count(*) as count
+			$score_q = "SELECT count(*) as count, user_id, users.username
 							FROM challenge_attempts LEFT JOIN users ON
 					users.id = user_id WHERE status = 1 AND user_id = :user_id AND challenge_id = :challenge_id";
 
@@ -263,19 +263,35 @@ class ChallengeAttempts {
 			$result = $db->query($score_q,$params);
 
 			//echo'</p>'.$user_id." ".$challenge_id;echo'</p>';var_dump($row);
+			$res = array();
 			while($res=$db->fetchArray($result)) {
-				$k = array_search($res['user_id'],$score);
-				if( false != $k){
-					$score[$k]['count']++;
-				} else {
-				if($res['username']!=null)
-				array_push($score, $res);
+				$k = false;
+				if(!empty($score)){
+					foreach($score as &$uscore){
+						$k = array_search($res['user_id'],$uscore);
+						if( false != $k){
+							$uscore['count'] = 1 + intval($uscore['count']);
+							break;
+						}
+						unset($uscore);
+					}
 				}
+				if( false === $k){
+						if($res['username']!=null)
+					array_push($score, $res);
+					}
 			}
 		}
+		usort($score, array("ChallengeAttempts", "sort_count"));
 		return $score;
 	}
+	static function sort_count($rankA, $rankB){
 
+		if ($rankA['count'] == $rankB['count']) {
+			return 0;
+		}
+    return ($rankA['count'] < $rankB['count']) ? 1 : -1;
+	}
 	public static function getScore($user_id, $challenge_id){
 	global $db;
 	$sql = "SELECT default_points, challenges.id, title

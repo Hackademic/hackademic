@@ -5,7 +5,7 @@
  *
  * Hackademic User Model
  * Class for Hackademic's User Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -33,6 +33,8 @@
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
+require_once(HACKADEMIC_PATH."model/common/class.ChallengeAttempts.php");
+require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
 
 class User {
 	public $id;
@@ -63,8 +65,8 @@ class User {
 				':id' => $id
 			       );
 		$result_array=self::findBySQL($sql, $params);
-		return $result_array;
-	}   
+		return !empty($result_array)?array_shift($result_array):false;
+	}
 
 	private static function findBySQL($sql, $params = NULL) {
 		global $db;
@@ -80,7 +82,7 @@ class User {
 			$joined=null, $is_activated=null, $type=null, $token=0) {
 		global $db;
 		$password = Utils::hash($password);
-		
+
 		$params = array(
 				':username' => $username,
 				':full_name' => $full_name,
@@ -98,7 +100,7 @@ class User {
 			$sql = "INSERT INTO users (username, full_name, email, password, joined, token)";
 			$sql .= "VALUES (:username, :full_name, :email, :password, :joined, :token)";
 		}
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -113,7 +115,7 @@ class User {
 				':token' => $token,
 				':username' => $username
 			       );
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -129,7 +131,7 @@ class User {
 				':password' => $password,
 				':username' => $username
 			       );
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -156,7 +158,7 @@ class User {
 
 
 	public static function getNumberOfUsers($search=null,$category=null) {
-		global $db;  
+		global $db;
 		if ($search != null && $category != null) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
@@ -256,8 +258,11 @@ class User {
 		$params = array(
 				':id' => $id
 			       );
-		$query = $db->query($sql, $params);
 		ClassMemberships::deleteAllMemberships($id);
+		ChallengeAttempts::deleteChallengeAttemptByUser($id);
+		$user = self::getUser($id);
+		UserHasChallengeToken::deleteByUser($user->username);
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {

@@ -35,7 +35,7 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class UserHasChallengeToken {
 	public $id;
-	public $user_id;
+	public $user_id;//username
 	public $token;
 	public $challenge_id;
 
@@ -60,6 +60,11 @@ class UserHasChallengeToken {
 		} else {
 			return false;
 		}
+	}
+	public static function deleteByUser($user_id){
+		global $db;
+		$params = array(':user_id' => $user_id);
+		$sql = 'DELETE FROM user_has_challenge_token WHERE user_id = :user_id;';
 	}
 	public static function findByPair($userid,$chid){
 		global $db;
