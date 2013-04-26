@@ -125,7 +125,7 @@ class AddChallengeController extends HackademicBackendController {
 
     public function go() {
 	$this->setViewTemplate('addchallenge.tpl');
-
+	$this->cache_values();
 	if (isset($_GET['type']) && $_GET['type'] == "code") {
 	    $add_type = "code";
 	} else {
@@ -156,7 +156,7 @@ class AddChallengeController extends HackademicBackendController {
 	    }
 	     else {
 		$array = array (
-		    'title' => Utils::santizeInput($_POST['title']),
+		    'title' => Utils::sanitizeInput($_POST['title']),
 		    'description' => $_POST['description'],
 		    'authors' => Utils::sanitizeInput($_POST['authors']),
 		    'category' => Utils::sanitizeInput($_POST['category']),
@@ -246,13 +246,18 @@ class AddChallengeController extends HackademicBackendController {
     }
 
 	public function cache_values(){
-
-		$this->title = Utils::sanitizeInput($_POST['title']);
-		$this->description = $_POST['description'];
-		$this->authors = Utils::sanitizeInput($_POST['authors']);
-		$this->category = Utils::sanitizeInput($_POST['category']);
-		$this->level = Utils::sanitizeInput($_POST['level']);
-		$this->duration = Utils::sanitizeInput($_POST['duration']);
+		if(isset($_POST['title']))
+			$this->title = Utils::sanitizeInput($_POST['title']);
+		if(isset($_POST['description']))
+			$this->description = $_POST['description'];
+		if(isset($_POST['authors']))
+			$this->authors = Utils::sanitizeInput($_POST['authors']);
+		if(isset($_POST['category']))
+			$this->category = Utils::sanitizeInput($_POST['category']);
+		if(isset($_POST['level']))
+			$this->level = Utils::sanitizeInput($_POST['level']);
+		if(isset($_POST['duration']))
+			$this->duration = Utils::sanitizeInput($_POST['duration']);
 
 		$this->addToView('cached', $this);
 
