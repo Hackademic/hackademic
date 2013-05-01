@@ -47,9 +47,6 @@ class ShowClassController extends HackademicBackendController {
 		}
 		$class_id=$_GET['id'];
 
-		$challenges_not_assigned = ClassChallenges::getNotMemberships($class_id);
-
-
 		$class = Classes::getClass($class_id);
 		$change = false;
 
@@ -98,6 +95,7 @@ class ShowClassController extends HackademicBackendController {
 		var_dump($challenges_not_assigned);
 		var_dump($challenges_assigned);
 */
+		$challenges_not_assigned = ClassChallenges::getNotMemberships($class_id);
 		$this->addToView('class', $class);
 		$this->addToView('challenges_not_assigned',$challenges_not_assigned);
 		$this->addToView('users', $user_members);
