@@ -208,7 +208,20 @@ class User {
 		$result_array=self::findBySQL($sql, $params);
 		return $result_array;
 	}
-
+	public static function isUserActivated($username){
+		global $db;
+		$sql = "SELECT * FROM users WHERE username = :username AND is_activated = 1";
+		$params = array(
+				':username' => $username
+			       );
+		$query = $db->query($sql, $params);
+		$result = $db->numRows($query);
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	public function doesUserExist($username){
 		global $db;
 		$sql = "SELECT * FROM users WHERE username = :username";
