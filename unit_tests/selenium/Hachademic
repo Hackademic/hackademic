@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="Case1_Filling_the_Database">Case1_Filling_the_Database</a></td></tr>
+<tr><td><a href="Case2_Class_Memberships">Case2_Class_Memberships</a></td></tr>
+<tr><td><a href="Case3_Registring_User">Case3_Registring_User</a></td></tr>
+<tr><td><a href="Case4_Activating_User">Case4_Activating_User</a></td></tr>
+<tr><td><a href="Case5_Deleting_User">Case5_Deleting_User</a></td></tr>
+<tr><td><a href="Case6_Editing_User_Data">Case6_Editing_User_Data</a></td></tr>
+<tr><td><a href="Case7_Editing_Challenges">Case7_Editing_Challenges</a></td></tr>
+</tbody></table>
+</body>
+</html>
