@@ -36,6 +36,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class ClassManagerController extends HackademicBackendController {
 
+  private static $action_type = 'class_manager';
+
 	public function go() {
 		if (isset($_GET["source"]) && ($_GET["source"]=="del")) {
 			$id=$_GET['id'];
@@ -106,6 +108,6 @@ class ClassManagerController extends HackademicBackendController {
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('classmanager.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

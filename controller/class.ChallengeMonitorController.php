@@ -106,8 +106,9 @@ class ChallengeMonitorController {
 		/* If token changed AND the challenge changed AND its a valid token
 		 * for that challenge then we are in a new challenge
 		 */
-		if($_SESSION['token'] != $token && $token!=null)
+		if($_SESSION['token'] != $token && $token != NULL)
 			if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid || $_SESSION['user_id'] != $user_id){
+
 				if($pair->token == $token){
 					$_SESSION['chid'] = $chid;
 					$_SESSION['token'] = $token;
@@ -153,13 +154,15 @@ class ChallengeMonitorController {
 		 * if status == init we only need to update the SESSION var which we do in start
 		 */
 		if($status == CHALLENGE_INIT){
-			return;
+		return;
+
 		}
 		if ($user_id == null)
 			$user_id = $_SESSION['user_id'];
 		if ($chid == null)
 			$chid = $_SESSION['chid'];
-		if ($token == null)
+		if($token == NULL)
+
 			$token = $_SESSION['token'];
 		if ($class_id == null)
 			$class_id = $_SESSION['class_id'];

@@ -31,7 +31,6 @@
  *
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
-require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
 
 class UserChallenges {
 	public $id;//challenge_id
@@ -39,6 +38,8 @@ class UserChallenges {
 	public $pkg_name;
 	public $availability;
 	public $class_id;
+
+  private static $action_type = 'user_challenge';
 
 	/**
 	 * @returns: array
@@ -48,7 +49,7 @@ class UserChallenges {
    */
 	public static function getChallengesOfUser($user_id) {
 			global $db;
-			$params=array(':user_id' => $user_id);
+			$params = array(':user_id' => $user_id);
 			$sql = "SELECT DISTINCT
 								class_id,
 								challenges.id, challenges.title,
@@ -63,12 +64,13 @@ class UserChallenges {
 												IN (	SELECT class_memberships.class_id AS class_id
 														FROM class_memberships
 														WHERE class_memberships.user_id = :user_id
-														)
-													)
-												)
+					)
+						)
+					)
 							ORDER BY challenges.id";
-		$result_array = self::findBySQL($sql,$params);
-		return !empty($result_array)?$result_array:false;
+			$result_array = self::findBySQL($sql,$params);
+			//Debug::show($result_array,'all',$this,_FUNCTION_);
+			return !empty($result_array)?$result_array:false;
 	}
 	public static function print_vars($var){
 		$result ="";
@@ -76,18 +78,18 @@ class UserChallenges {
 			$result .= "<p>".$key."=>".$value."</p>";
 		return $result;
 	}
-	private static function findBySQL($sql,$params=NULL) {
+	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql,$params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$result_set = $db->read($sql, $params, self::$action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($result_set)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
 	public static function instantiate($record) {
-		$object=new self;
-		foreach($record as $attribute=>$value) {
+		$object = new self;
+		foreach($record as $attribute => $value) {
 			if($object->hasAttribute($attribute)) {
 				$object->$attribute=$value;
 			}
@@ -95,7 +97,7 @@ class UserChallenges {
 		return $object;
 	}
 	private function hasAttribute($attribute) {
-		$object_vars=get_object_vars($this);
+		$object_vars = get_object_vars($this);
 		return array_key_exists($attribute,$object_vars);
 	}
 	private static function compare_challenges($ch_a, $ch_b) {

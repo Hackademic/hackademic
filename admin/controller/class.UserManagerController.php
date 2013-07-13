@@ -35,6 +35,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class UserManagerController extends HackademicBackendController {
 
+  private static $action_type = 'user_manager';
+
 	public function go() {
 		if (isset($_GET['source']) && $_GET['source']=="del") {
 			$this->addSuccessMessage("User has been deleted succesfully");
@@ -93,6 +95,6 @@ class UserManagerController extends HackademicBackendController {
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('usermanager.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

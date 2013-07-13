@@ -38,6 +38,7 @@ require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
 
 class RankingsController extends HackademicController {
 
+    private static $action_type = 'rankings';
 
     public function go() {
         $this->setViewTemplate("rankings.tpl");
@@ -59,7 +60,7 @@ class RankingsController extends HackademicController {
             $class = Classes::getClass($class_id);
             if (!$class) {
                 $this->addErrorMessage("Not a valid class");
-                return $this->generateView();
+                return $this->generateView(self::$action_type);
             } else {
                 $rankings = ChallengeAttempts::getClasswiseRankings($class_id);
             }
@@ -68,21 +69,21 @@ class RankingsController extends HackademicController {
         $counter=1;
         $rank=1;
         $rankcount=1;
-        $prevcount=null;
+        $prevcount=NULL;
 
-      foreach($rankings as $ranking){
+        foreach($rankings as $ranking){
 				if($ranking['user_id'] != NULL){
 					if ($counter !=1 && $prevcount == $ranking['tries']) {$rank=$rankcount; /*$rankcount++;*/}
 					if  ($counter !=1 && $prevcount != $ranking['tries']) {$rankcount++; $rank=$rankcount;}
 					$user_points = $this->calc_user_pts($ranking['user_id'], $class_id);
 					$prevcount=$ranking['tries'];
-					$counter++;
+                        $counter++;
 					$temp=array('user_id'=>$ranking['user_id'],'count' =>$ranking['tries'],'username'=>$ranking['username'],'rank'=>$rank,'score' => $user_points);
-					array_push($final,$temp);
-				}
+                        array_push($final,$temp);
+        }
       }
         $this->addToView('rankings', $final);
-        return $this->generateView();
+        return $this->generateView(self::$action_type);
     }
     private function calc_user_pts($user_id, $class_id = -1){
 			$points = 0;
@@ -98,5 +99,5 @@ class RankingsController extends HackademicController {
 				}
 			}
 			return $points;
-		}
+    }
 }

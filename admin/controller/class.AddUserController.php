@@ -42,6 +42,8 @@ class AddUserController extends HackademicBackendController {
 	public $type;
 	public $email;
 
+  private static $action_type = 'add_user';
+
 	public function go() {
 		$this->saveFormFields();
 		$this->setViewTemplate('adduser.tpl');
@@ -89,7 +91,7 @@ class AddUserController extends HackademicBackendController {
 				}
 			}
 		}
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 	public function saveFormFields(){
 		if(isset($_POST['username']))

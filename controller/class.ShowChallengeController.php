@@ -38,11 +38,13 @@ require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
 
 class ShowChallengeController extends HackademicController {
 
+  private static $action_type = 'show_challenge';
+
 	public function go() {
 		if (isset($_GET['id'])) {
 			if (isset($_GET['class_id']))
 				$class_id = $_GET['class_id'];
-		    $id=$_GET['id'];
+		    $id = $_GET['id'];
 		    $challenge=Challenge::getChallenge($id);
 		    $this->setViewTemplate('showChallenge.tpl');
 		    $this->addToView('challenge', $challenge);
@@ -50,7 +52,7 @@ class ShowChallengeController extends HackademicController {
 			    $this->addErrorMessage("You must login to be able to take the challenge");
 		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id)) {
 			    $this->addToView('is_allowed', true);
-					$this->addToView('username', $this->getLoggedInUser());
+			    $this->addToView('username', $this->getLoggedInUser());
 					$this->addToView('class_id', $class_id);
 		    } else {
 			    $this->addErrorMessage('You cannot take the challenge as you are not a member
@@ -58,7 +60,7 @@ class ShowChallengeController extends HackademicController {
 					    is not publicly available for solving .');
 		    }
 		    //error_log("HACKADEMIC:Show Challenge controller: path".$_SESSION['hackademic_path'], 0);
-		    $this->generateView();
+		    $this->generateView(self::$action_type);
 		}
 	}
 

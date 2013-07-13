@@ -36,6 +36,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class ClassChallengesController extends HackademicBackendController {
 
+  private static $action_type = 'class_challenges';
+
 	public function go() {
 		$this->setViewTemplate('classchallenges.tpl');
 		$challenge_id=$_GET['id'];
@@ -61,6 +63,6 @@ class ClassChallengesController extends HackademicBackendController {
 		$this->addToView('classes', $classes);
 		$this->addToView('class_memberships', $class_memberships);
 		$this->setViewTemplate('classchallenges.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

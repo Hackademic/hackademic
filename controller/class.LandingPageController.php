@@ -36,6 +36,8 @@ require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
 
 class LandingPageController extends HackademicController {
 
+  private static $action_type = 'landing_page';
+
 	public function go() {
 		$limit = 10;
 		$targetpage = SOURCE_ROOT_PATH."index.php";
@@ -76,6 +78,6 @@ class LandingPageController extends HackademicController {
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('landingpage.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

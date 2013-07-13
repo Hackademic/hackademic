@@ -34,8 +34,10 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class DashboardController extends HackademicBackendController {
 
+  private static $action_type = 'dashboard';
+
 	public function go() {
 		$this->setViewTemplate('dashboard.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }
