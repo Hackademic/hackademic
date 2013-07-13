@@ -53,7 +53,7 @@ class ChallengeMonitorController {
 			$pkg_name = $url_components[$i+1];
 		return $pkg_name;
 	}
-    public function start($userid=null, $chid=null, $token=null,$status = 'CHECK'){
+    public function start($userid=NULL, $chid=NULL, $token=NULL,$status = 'CHECK'){
 		if(!isset($_SESSION))
 			session_start();
 
@@ -88,7 +88,7 @@ class ChallengeMonitorController {
 		/* If token changed AND the challenge changed AND its a valid token
 		 * for that challenge then we are in a new challenge
 		 */
-		if($_SESSION['token'] != $token && $token!=null)
+		if($_SESSION['token'] != $token && $token!=NULL)
 			if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid || $_SESSION['userid'] != $userid){
 				if($pair->token == $token){
 					$_SESSION['chid'] = $chid;
@@ -112,18 +112,18 @@ class ChallengeMonitorController {
 
 		}
 	}
-    public function update($status,$userid = null ,$chid = null ,$token = null) {
+    public function update($status,$userid = NULL ,$chid = NULL ,$token = NULL) {
 
 		$this->start($userid,$chid,$token,$status);
 		/*IF status == init we only need to update the SESSION var*/
 		if($status == CHALLENGE_INIT)
 		return;
 
-		if($userid == null)
+		if($userid == NULL)
 			$userid = $_SESSION['userid'];
-		if($chid == null)
+		if($chid == NULL)
 			$chid = $_SESSION['chid'];
-		if($token == null)
+		if($token == NULL)
 			$token = $_SESSION['token'];
 
         $username = $userid;

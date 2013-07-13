@@ -41,13 +41,17 @@ class Classes {
 	public $date_created;
 	public $archive;
 
+  private static $action_type = 'class';
+
 	public static function addClass($class_name, $date_created) {
 		global $db;
-		$params=array(':class_name' => $class_name,
-				':date_created' => $date_created);
+		$params = array(
+      ':class_name' => $class_name,
+			':date_created' => $date_created
+    );
 		$sql = "INSERT INTO classes(name,date_created)";
 		$sql .= " VALUES (:class_name,:date_created)";
-		$query = $db->query($sql,$params);
+		$query = $db->create($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -57,10 +61,10 @@ class Classes {
 
 	public static function updateClassName($class_id , $class_name) {
 		global $db;
-		$params=array(':id' => $class_id,':class_name' => $class_name);
+		$params = array(':id' => $class_id,':class_name' => $class_name);
 		$sql = "UPDATE classes SET name = :class_name";
 		$sql .= " WHERE id = :id ";
-		$query = $db->query($sql,$params);
+    $query = $db->update($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -68,50 +72,44 @@ class Classes {
 		}
 	}
 
-
 	public static function getClass($class_id) {
-		global $db;
-		$params=array(':id' => $class_id);
+		$params = array(':id' => $class_id);
 		$sql = "SELECT * FROM classes WHERE id = :id";
-		$query = $db->query($sql,$params);
-		$result_array=self::findBySQL($sql,$params);
+		$result_array = self::findBySQL($sql,$params);
 		return !empty($result_array)?array_shift($result_array):false;
 	}
 
-	public static function getNumberOfClasses($search=null,$category=null) {
+	public static function getNumberOfClasses($search=NULL,$category=NULL) {
 		global $db;
-		if ($search != null && $category != null) {
+		if($search != NULL && $category != NULL) {
 			$params[':search_string'] = '%'.$search.'%';
-			switch($category){
+			switch($category) {
 				case "name":
 					$sql = "SELECT COUNT(*) as num FROM classes WHERE name LIKE :search_string ";
 					break;
 			}
-			$query = $db->query($sql,$params);
+      $query = $db->read($sql, $params, self::$action_type);
 		} else {
 			$sql = "SELECT COUNT(*) as num FROM classes WHERE archive =0";
-			$query = $db->query($sql);
+      $query = $db->read($sql, NULL, self::$action_type);
 		}
 		$result = $db->fetchArray($query);
 		return $result['num'];
 	}
 
 	public static function getAllClasses() {
-		global $db;
 		$sql = "SELECT * FROM classes WHERE archive = 0 ";
-		$query = $db->query($sql);
-		$result_array=self::findBySQL($sql);
+		$result_array = self::findBySQL($sql);
 		return $result_array;
 	}
 
-	public static function getNClasses ($start, $limit,$search=null,$category=null) {
-		global $db;
+	public static function getNClasses ($start, $limit, $search = NULL, $category = NULL) {
 		$params = array(
-				':start' => $start,
-				':limit' => $limit
-			       );
-		if ($search != null && $category != null) {
-			$params[':search_string'] = '%'.$search.'%';
+		  ':start' => $start,
+		  ':limit' => $limit
+    );
+		if ($search != NULL && $category != NULL) {
+			$params[':search_string'] = '%' . $search . '%';
 			switch ($category) {
 				case "name":
 					$sql = "SELECT * FROM classes WHERE name LIKE :search_string  LIMIT :start, :limit";
@@ -121,40 +119,40 @@ class Classes {
 			$sql= "SELECT * FROM classes ORDER BY id LIMIT :start, :limit ";
 		}
 
-		$result_array=self::findBySQL($sql,$params);
+		$result_array = self::findBySQL($sql, $params);
 		return $result_array;
 	}
 
-	private static function findBySQL($sql,$params=NULL) {
+	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql,$params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$result_set = $db->read($sql, $params, self::$action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($result_set)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
 
 	public static function instantiate($record) {
-		$object=new self;
-		foreach($record as $attribute=>$value) {
+		$object = new self;
+		foreach($record as $attribute => $value) {
 			if($object->hasAttribute($attribute)) {
-				$object->$attribute=$value;
+				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
 
 	private function hasAttribute($attribute) {
-		$object_vars=get_object_vars($this);
-		return array_key_exists($attribute,$object_vars);
+		$object_vars = get_object_vars($this);
+		return array_key_exists($attribute, $object_vars);
 	}
 
 	public static function deleteClass($id){
 		global $db;
-		$params=array(':id' => $id);
-		$sql="DELETE FROM classes WHERE id = :id";
-		$query = $db->query($sql,$params);
+		$params = array(':id' => $id);
+		$sql = "DELETE FROM classes WHERE id = :id";
+		$query = $db->delete($sql, $params, self::$action_type);
 		ClassChallenges::deleteAllMembershipsOfClass($id);
 		ClassMemberships::deleteAllMembershipsOfClass($id);
 		if ($db->affectedRows($query)) {
@@ -169,8 +167,8 @@ class Classes {
 		$sql = "SELECT * FROM classes WHERE name = :classname";
 		$params = array(
 				':classname' => $classname
-			       );
-		$query = $db->query($sql, $params);
+	      );
+		$query = $db->read($sql, $params, self::$action_type);
 		$result = $db->numRows($query);
 		if ($result) {
 			return true;
@@ -181,10 +179,10 @@ class Classes {
 
 	public static function archiveClass($id){
 		global $db;
-		$params=array(':id' => $id);
-		$sql="UPDATE classes SET archive= 1 ";
+		$params = array(':id' => $id);
+		$sql = "UPDATE classes SET archive= 1 ";
 		$sql .="WHERE id = :id";
-		$query = $db->query($sql,$params);
+		$query = $db->update($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -194,10 +192,10 @@ class Classes {
 
 	public static function unarchiveClass($id){
 		global $db;
-		$params=array(':id' => $id);
-		$sql="UPDATE classes SET archive= 0 ";
-		$sql .="WHERE id = :id";
-		$query = $db->query($sql,$params);
+		$params = array(':id' => $id);
+		$sql = "UPDATE classes SET archive= 0 ";
+		$sql .= "WHERE id = :id";
+		$query = $db->update($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {

@@ -49,11 +49,13 @@ class Challenge {
 	public $level;
 	public $duration;
 
+  protected static $action_type = 'challenge';
+
 	public function doesChallengeExist($name){
 		global $db;
-		$params=array(':name' => $name);
+		$params = array(':name' => $name);
 		$sql = "SELECT * FROM challenges WHERE pkg_name = :name";
-		$query = $db->query($sql,$params);
+		$query = $db->read($sql, $params, self::$action_type);
 		$result = $db->numRows($query);
 		if ($result) {
 			return true;
@@ -63,20 +65,14 @@ class Challenge {
 	}
 
 	public static function getChallenge($id) {
-		global $db;
-		$params = array(
-				':id' => $id
-			       );
+		$params = array(':id' => $id);
 		$sql = "SELECT * FROM challenges WHERE id= :id LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
 		return !empty($result_array)?array_shift($result_array):false;
 	}
 
 	public static function getChallengeByPkgName($pkg_name) {
-		global $db;
-		$params = array(
-				':pkg_name' => $pkg_name
-			       );
+		$params = array(':pkg_name' => $pkg_name);
 		$sql = "SELECT * FROM challenges WHERE pkg_name= :pkg_name LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
 		return !empty($result_array)?array_shift($result_array):false;
@@ -98,8 +94,8 @@ class Challenge {
 			FROM class_memberships WHERE
 			class_memberships.user_id = :user_id
 					)
-			   )
-							)
+			  )
+			)
 			ORDER BY challenges.id
 			";
 		$result_array= self::findBySQL($sql,$params);
@@ -127,8 +123,8 @@ class Challenge {
 		//var_dump($challenge_ids);
 		$challenges = array();
 		foreach ($challenge_ids as $chal) {
-    		    $challenge = self::getChallenge($chal->id);
-		    array_push($challenges, $challenge);
+      $challenge = self::getChallenge($chal->id);
+		   array_push($challenges, $challenge);
 		}
 		return $challenges;
 	}
@@ -138,23 +134,22 @@ class Challenge {
 		return $db->insertId();
 	}
 
-	private static function findBySQL($sql,$params=NULL) {
+	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql,$params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$result_set = $db->read($sql, $params, self::$action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($result_set)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
 
-	public static function getNchallenges($start, $limit,$search=null,$category=null) {
-		global $db;
+	public static function getNchallenges($start, $limit, $search = NULL, $category = NULL) {
 		$params = array(
-				':start' => $start,
-				':limit' => $limit
-			       );
-		if ($search != null && $category != null) {
+			':start' => $start,
+			':limit' => $limit
+    );
+		if($search != NULL && $category != NULL) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
 				case "title":
@@ -164,40 +159,40 @@ class Challenge {
 		} else {
 			$sql= "SELECT * FROM challenges LIMIT :start, :limit";
 		}
-		$result_array=self::findBySQL($sql,$params);
+		$result_array = self::findBySQL($sql, $params);
 		return $result_array;
 	}
 
-	public static function getNumberOfChallenges($search=null,$category=null) {
+	public static function getNumberOfChallenges($search = NULL, $category = NULL) {
 		global $db;
-		if ($search != null && $category != null) {
+		if($search != NULL && $category != NULL) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
 				case "title":
 					$sql = "SELECT COUNT(*) as num FROM challenges WHERE title LIKE :search_string ";
 					break;
 			}
-			$query = $db->query($sql,$params);
+			$query = $db->read($sql, $params, self::$action_type);
 		} else {
 			$sql = "SELECT COUNT(*) as num FROM challenges";
-			$query = $db->query($sql);
+			$query = $db->read($sql, NULL, self::$action_type);
 		}
 		$result = $db->fetchArray($query);
 		return $result['num'];
 	}
 
 	public static function instantiate($record) {
-		$object=new self;
-		foreach($record as $attribute=>$value) {
+		$object = new self;
+		foreach($record as $attribute => $value) {
 			if($object->hasAttribute($attribute)) {
-				$object->$attribute=$value;
+				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
 
 	private function hasAttribute($attribute) {
-		$object_vars=get_object_vars($this);
-		return array_key_exists($attribute,$object_vars);
+		$object_vars = get_object_vars($this);
+		return array_key_exists($attribute, $object_vars);
 	}
 }

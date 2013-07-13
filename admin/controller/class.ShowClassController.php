@@ -1,10 +1,10 @@
 <?php
 /**
  *
- * Hackademic-CMS/admin/controller/class.ClassMembershipsController.php
+ * Hackademic-CMS/admin/controller/class.ShowClassController.php
  *
  * Hackademic Class Memberships Controller
- * Class for the Class Memberships page in Backend
+ * Class for the Class Memberships page in Backend to show the class.
  *
  * Copyright (c) 2012 OWASP
  *
@@ -38,6 +38,8 @@ require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class ShowClassController extends HackademicBackendController {
+
+  private static $action_type = 'show_class';
 
 	public function go() {
 		$this->setViewTemplate('showclass.tpl');
@@ -100,6 +102,6 @@ class ShowClassController extends HackademicBackendController {
 		$this->addToView('challenges_not_assigned',$challenges_not_assigned);
 		$this->addToView('users', $user_members);
 		$this->addToView('challenges', $challenges_assigned);
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

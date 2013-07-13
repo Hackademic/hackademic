@@ -38,6 +38,7 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class ForgotPasswordController extends HackademicController {
 
+  private static $action_type = 'forgot_password';
 
 	public function go() {
 		$this->setViewTemplate('forgotpw.tpl');
@@ -64,6 +65,6 @@ class ForgotPasswordController extends HackademicController {
 				}
 			}
 		}
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

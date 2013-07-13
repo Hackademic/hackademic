@@ -37,6 +37,8 @@ require_once(HACKADEMIC_PATH."model/common/class.User.php");
 
 class ClassMembershipsController extends HackademicBackendController {
 
+  private static $action_type = 'class_memberships';
+
 	public function go() {
 		$this->setViewTemplate('classmembership.tpl');
 		$user_id=$_GET['id'];
@@ -64,6 +66,6 @@ class ClassMembershipsController extends HackademicBackendController {
 		$this->addToView('class_memberships', $class_memberships);
 		$this->addToView('user', $user);
 		$this->setViewTemplate('classmembership.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

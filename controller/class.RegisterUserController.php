@@ -41,7 +41,8 @@ class RegisterUserController extends HackademicController {
 	public $username;
 	public $name;
 	public $email;
-	
+
+  private static $action_type = 'register_user';
 
 	public function go() {
 		$this->setViewTemplate('register_user.tpl');
@@ -84,11 +85,10 @@ class RegisterUserController extends HackademicController {
 				}
 			}
 		}
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 
-	public function saveFormFields(){
-
+	public function saveFormFields() {
 		$this->username = Utils::sanitizeInput($_POST['username']);
 		$this->name = Utils::sanitizeInput($_POST['full_name']);
 		$this->email = $_POST['email'];

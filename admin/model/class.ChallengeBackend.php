@@ -34,19 +34,19 @@
 require_once(HACKADEMIC_PATH."/model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
 
-class ChallengeBackend extends Challenge{
+class ChallengeBackend extends Challenge {
 
-	public static function addchallenge($title,$pkg_name,$description,$author,$category,$date_posted,$level,$duration){
+	public static function addchallenge($title,$pkg_name,$description,$author,$category,$date_posted,$level,$duration) {
 		global $db;
-		$description=mysql_escape_string(trim($description));
-		$title=mysql_escape_string(trim($title));
-		$author=mysql_escape_string(trim($author));
-		$params=array(':title'=>$title,':pkg_name'=>$pkg_name,':description'=>$description,
-				':author'=>$author,':category'=>$category,':date_posted'=>$date_posted,
-				':level'=>$level,':duration'=>$duration);
-		$sql="INSERT INTO challenges(title,pkg_name,description,author,category,date_posted,default_points,default_duration)";
+		$description = mysql_escape_string(trim($description));
+		$title = mysql_escape_string(trim($title));
+		$author = mysql_escape_string(trim($author));
+		$params = array(':title'=>$title,':pkg_name'=>$pkg_name,':description'=>$description,
+				        ':author'=>$author,':category'=>$category,':date_posted'=>$date_posted,
+				        ':level'=>$level,':duration'=>$duration);
+		$sql = "INSERT INTO challenges(title,pkg_name,description,author,category,date_posted,default_points,default_duration)";
 		$sql .= "VALUES (:title,:pkg_name,:description,:author,:category,:date_posted,:level,:duration)";
-		$query = $db->query($sql,$params);
+		$query = $db->create($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -56,10 +56,10 @@ class ChallengeBackend extends Challenge{
 
 	public static function updateChallenge($id,$title,$description,$visibility,$publish, $availability,$duration,$level){
 		global $db;
-		$params=array(':id' => $id,':title' => $title,':description' => $description,
-			      ':visibility' => $visibility,':publish' => $publish,':availability'=>$availability,
-			      ':level'=>$level,':duration'=>$duration);
-		$sql="UPDATE challenges SET title=:title,
+		$params = array(':id' => $id,':title' => $title,':description' => $description,
+			            ':visibility' => $visibility,':publish' => $publish,':availability'=>$availability,
+			            ':level'=>$level,':duration'=>$duration);
+		$sql = "UPDATE challenges SET title=:title,
 					    description=:description,
 					    visibility=:visibility,
 					    publish=:publish,
@@ -67,7 +67,7 @@ class ChallengeBackend extends Challenge{
 					    default_points=:level,
 					    default_duration=:duration";
 		$sql .= " WHERE id=:id";
-		$query = $db->query($sql,$params);
+		$query = $db->update($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -76,9 +76,9 @@ class ChallengeBackend extends Challenge{
 	}
 	public static function deleteChallenge($id){
 		global $db;
-		$params=array(':id'=>$id);
+		$params = array(':id'=>$id);
 		$sql = "DELETE FROM challenges WHERE id=:id";
-		$query = $db->query($sql,$params);
+		$query = $db->delete($sql, $params, self::$action_type);
 		ClassChallenges::deleteAllMemberships($id);
 		if ($db->affectedRows($query)) {
 			return true;

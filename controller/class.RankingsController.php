@@ -37,6 +37,7 @@ require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
 
 class RankingsController extends HackademicController {
 
+    private static $action_type = 'rankings';
 
     public function go() {
         $this->setViewTemplate("rankings.tpl");
@@ -57,7 +58,7 @@ class RankingsController extends HackademicController {
             $class = Classes::getClass($class_id);
             if (!$class) {
                 $this->addErrorMessage("Not a valid class");
-                return $this->generateView();
+                return $this->generateView(self::$action_type);
             } else {
                 $rankings = ChallengeAttempts::getClasswiseRankings($class_id);
             }
@@ -66,7 +67,7 @@ class RankingsController extends HackademicController {
         $counter=1;
         $rank=1;
         $rankcount=1;
-        $prevcount=null;
+        $prevcount=NULL;
 
         foreach($rankings as $ranking){
 			if ($counter !=1 && $prevcount == $ranking['count']) {$rank=$rankcount; /*$rankcount++;*/}
@@ -77,6 +78,6 @@ class RankingsController extends HackademicController {
                         array_push($final,$temp);
         }
         $this->addToView('rankings', $final);
-        return $this->generateView();
+        return $this->generateView(self::$action_type);
     }
 }

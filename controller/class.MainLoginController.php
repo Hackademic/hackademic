@@ -37,6 +37,8 @@ require_once(HACKADEMIC_PATH."model/common/class.User.php");
 
 class MainLoginController extends HackademicController {
 
+  private static $action_type = 'main_login';
+
 	public function go() {
 		$this->setViewTemplate('mainlogin.tpl');
 		if(isset($_GET["msg"])){
@@ -51,6 +53,6 @@ class MainLoginController extends HackademicController {
 			}
 		}
 		$this->addPageTitle('Log in');
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

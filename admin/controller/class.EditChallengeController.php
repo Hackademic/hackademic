@@ -36,9 +36,12 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class EditChallengeController extends HackademicBackendController {
+
+  private static $action_type = 'edit_challenge';
+
 	public function go() {
-		if (isset($_GET['id'])) {
-			$id=$_GET['id'];
+		if(isset($_GET['id'])) {
+			$id = $_GET['id'];
 		}
 		if(isset($_POST['submit'])) {
 			if ($_POST['title']=='') {
@@ -73,7 +76,6 @@ class EditChallengeController extends HackademicBackendController {
 		$challenges=Challenge::getChallenge($id);
 		$this->setViewTemplate('editchallenge.tpl');
 		$this->addToView('challenge', $challenges);
-		$this->generateView();
-
+		$this->generateView(self::$action_type);
 	}
 }

@@ -37,6 +37,8 @@ require_once(HACKADEMIC_PATH."model/common/class.User.php");
 
 class LoginController extends HackademicController {
 
+  private static $action_type = 'login';
+
 	public function go() {
 
 		$this->setViewTemplate('landingpage.tpl');
@@ -53,10 +55,10 @@ class LoginController extends HackademicController {
 				if ($_POST['username']=='' || $_POST['pwd']=='') {
 					if ($_POST['username']=='') {
 						$this->addErrorMessage("Username must not be empty");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					} else {
 						$this->addErrorMessage("Password must not be empty");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					}
 				} else {
 					$session = new Session();
@@ -66,10 +68,10 @@ class LoginController extends HackademicController {
 
 					if (!$user) {
 						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=username");
-						//return $this->generateView();
+						//return $this->generateView(self::$action_type);
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
 						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=password");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					} if ($user->is_activated != 1){
 						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=activate");
 					} else {
@@ -87,7 +89,7 @@ class LoginController extends HackademicController {
 				}
 			} else {
 				$this->addPageTitle('Log in');
-				return $this->generateView();
+				return $this->generateView(self::$action_type);
 			}
 		}
 	}

@@ -37,6 +37,8 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class AddClassController extends HackademicBackendController {
 
+  private static $action_type = 'add_class';
+
 	public function go() {
 		$this->setViewTemplate('addclass.tpl');
 		if(isset($_POST['submit'])) {
@@ -55,6 +57,6 @@ class AddClassController extends HackademicBackendController {
 			    }
 			}
 		}
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 } 

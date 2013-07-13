@@ -35,15 +35,17 @@ require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
 
 class ChallengeListController extends HackademicController {
 
+    private static $action_type = 'challenge_list';
+
 	public function go() {
 		$username = $this->getLoggedInUser();
 		$user = User::findByUserName($username);
 		if (!$user) {
 		    return;
 		}
-		$challenges=Challenge::getChallengesFrontend($user->id);
+		$challenges = Challenge::getChallengesFrontend($user->id);
 
-		$menu=array();
+		$menu = array();
 		$message = false;
 		foreach( $challenges as $challenge){
 			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title,
@@ -56,11 +58,12 @@ class ChallengeListController extends HackademicController {
 				$message = true;
 			}
 		}
-		if($message)
-			$this->addSuccessMessage("Note: Unclickable challenges are not yet available");
+		if($message) {
+      $this->addSuccessMessage("Note: Unclickable challenges are not yet available");
+    }
 
 		$this->addToView('list', $menu);
 		$this->setViewTemplate('challenge_list.tpl');
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

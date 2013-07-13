@@ -39,6 +39,9 @@ require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
 require_once(HACKADEMIC_PATH."admin/model/class.UserChallenges.php");
 
 class ProgressReportController extends HackademicController{
+
+  private static $action_type = 'progress_report';
+
 	public function go() {
 		$this->setViewTemplate('progressreport.tpl');
 		if ($this->isAdmin() || $this->isTeacher()) {
@@ -53,10 +56,10 @@ class ProgressReportController extends HackademicController{
 			$user = User::findByUserName($username);
 			if (!$user) {
 				$this->addErrorMessage("You provided an invalid username");
-				return $this->generateView();
+                return $this->generateView(self::$action_type);
 			} elseif ($user->type) {
 				$this->addErrorMessage("Please select a student!");
-				return $this->generateView();
+				return $this->generateView(self::$action_type);
 			}
 			$challenges_of_user = UserChallenges::getChallengesOfUser($user->id);
 			$progress = ChallengeAttempts::getUserProgress($user->id);
@@ -66,7 +69,7 @@ class ProgressReportController extends HackademicController{
 			foreach ($challenges_of_user as $challenge) {
 				$attempts = 0;
 				$cleared = false;
-				$cleared_on = null;
+				$cleared_on = NULL;
 				if(false != $progress)
 				foreach($progress as $chal_prog){
 					if($challenge->id === $chal_prog->challenge_id){
@@ -96,6 +99,6 @@ class ProgressReportController extends HackademicController{
 			$this->addErrorMessage("Please select a student to see his progress");
 		}
 
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

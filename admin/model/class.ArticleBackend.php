@@ -37,37 +37,40 @@ class ArticleBackend extends Article {
 
 	public static function addArticle($title, $content, $date_posted, $created_by, $is_published) {
 		global $db;
-		$params=array( ':title' => $title,
-				':content' => $content,
-				':date_posted' => $date_posted,
-				':created_by' => $created_by,
-				':is_published' => $is_published
-			     );
+		$params = array(
+		  ':title' => $title,
+			':content' => $content,
+			':date_posted' => $date_posted,
+			':created_by' => $created_by,
+			':is_published' => $is_published
+    );
 
-		$sql="INSERT INTO articles(title,content,date_posted,created_by,is_published)";
+		$sql = "INSERT INTO articles(title,content,date_posted,created_by,is_published)";
 		$sql .= "VALUES (:title,:content,:date_posted,:created_by,:is_published)";
 
-		$query = $db->query($sql,$params);
+		$query = $db->create($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
 			return false;
 		}
+
 	}
 
 	public static function updateArticle($id,$title,$content,$date_modified,$last_modified_by){
 		global $db;
-		$params=array(':id' => $id,
-				':title' => $title,
-				':content' => $content,
-				':date_modified' => $date_modified,
-				':last_modified_by' => $last_modified_by
-			     );
+		$params = array(
+      ':id' => $id,
+			':title' => $title,
+			':content' => $content,
+			':date_modified' => $date_modified,
+			':last_modified_by' => $last_modified_by
+    );
 
-		$sql="UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, last_modified_by = :last_modified_by ";
+		$sql = "UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, last_modified_by = :last_modified_by ";
 		$sql .= "WHERE id=:id";
 		//yahan pr se execute ni hora h 
-		$query = $db->query($sql,$params);
+		$query = $db->update($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -77,9 +80,9 @@ class ArticleBackend extends Article {
 
 	public static function deleteArticle($id){
 		global $db;
-		$params=array(':id' => $id);
-		$sql="DELETE FROM articles WHERE id= :id";
-		$query = $db->query($sql,$params);
+		$params = array(':id' => $id);
+		$sql = "DELETE FROM articles WHERE id= :id";
+		$query = $db->delete($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {

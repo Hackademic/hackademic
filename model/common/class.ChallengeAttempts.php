@@ -40,19 +40,22 @@ class ChallengeAttempts {
 	public $count;//total_attempts;
 	//public $dummy;//dummy class var for hacks
 
-	public static function addChallengeAttempt($user_id,$challenge_id,$status){
+  private static $action_type = 'challenge_attempt';
+
+	public static function addChallengeAttempt($user_id, $challenge_id, $status){
 		global $db;
 		$time = date("Y-m-d H:i:s");
-		$params=array(':user_id' => $user_id,
-				':challenge_id' => $challenge_id,
-				':time' => $time,
-				':status' => $status
-			     );
-		$sql="INSERT INTO challenge_attempts(user_id,challenge_id,time,status)";
+		$params = array(
+      ':user_id' => $user_id,
+		  ':challenge_id' => $challenge_id,
+			':time' => $time,
+			':status' => $status
+		);
+		$sql = "INSERT INTO challenge_attempts(user_id,challenge_id,time,status)";
 		$sql .= "VALUES (:user_id,:challenge_id,:time,:status)";
-		$query = $db->query($sql,$params);
+		$query = $db->create($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
-			self::increaseChallengeAttemptCount($user_id,$challenge_id);
+			self::increaseChallengeAttemptCount($user_id, $challenge_id);
 			return true;
 		} else {
 			return false;
@@ -61,21 +64,22 @@ class ChallengeAttempts {
 
 	public static function increaseChallengeAttemptCount($user_id, $challenge_id){
 		global $db;
-		$params=array(':user_id' => $user_id,
-			      ':challenge_id' => $challenge_id,
-			      ':tries' => 1
-			     );
+		$params = array(
+      ':user_id' => $user_id,
+      ':challenge_id' => $challenge_id,
+      ':tries' => 1
+    );
 		$sql = "INSERT INTO challenge_attempt_count (user_id, challenge_id, tries)
 			VALUES (:user_id, :challenge_id, :tries)
 			ON DUPLICATE KEY UPDATE tries = tries + 1";
-		$query = $db->query($sql, $params);
+		$db->create($sql, $params, self::$action_type);
 	}
 
 	public static function deleteChallengeAttemptByUser($user_id){
 		global $db;
-		$params=array(':user_id' => $user_id);
+		$params = array(':user_id' => $user_id);
 		$sql = "DELETE FROM challenge_attempts WHERE user_id=:user_id";
-		$query = $db->query($sql,$params);
+		$query = $db->delete($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			self::deleteChallengeAttemptCountByUser($user_id);
 			return true;
@@ -86,17 +90,16 @@ class ChallengeAttempts {
 
 	public static function deleteChallengeAttemptCountByUser($user_id){
 		global $db;
-		$params=array(':user_id' => $user_id);
+		$params = array(':user_id' => $user_id);
 		$sql = "DELETE FROM challenge_attempt_count WHERE user_id=:user_id";
-		$query = $db->query($sql,$params);
-
+		$db->delete($sql, $params, self::$action_type);
 	}
 
 	public static function deleteChallengeAttemptByChallenge($challenge_id){
 		global $db;
-		$params=array(':challenge_id' => $challenge_id);
+		$params = array(':challenge_id' => $challenge_id);
 		$sql = "DELETE FROM challenge_attempts WHERE challenge_id=:challenge_id";
-		$query = $db->query($sql,$params);
+		$query = $db->delete($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
 			self::deleteChallengeAttemptCountByChallenge($challenge_id);
 			return true;
@@ -107,17 +110,16 @@ class ChallengeAttempts {
 
 	public static function deleteChallengeAttemptCountByChallenge($challenge_id){
 		global $db;
-		$params=array(':challenge_id' => $challenge_id);
+		$params = array(':challenge_id' => $challenge_id);
 		$sql = "DELETE FROM challenge_attempt_count WHERE challenge_id=:challenge_id";
-		$query = $db->query($sql,$params);
+		$db->delete($sql, $params, self::$action_type);
 	}
 
 	public static function getChallengeAttemptDetails($user_id) {
-		global $db;
-		$params=array(':user_id' => $user_id);
+		$params = array(':user_id' => $user_id);
 		$sql = "SELECT challenge_id,status,id,pkg_name FROM challenges INNER JOIN challenge_attempts";
-		$sql .=" WHERE challenge_attempts.challenge_id=challenges.id AND challenge_attempts.user_id=:user_id ";
-		$result_array=self::findBySQL($sql,$params);
+		$sql .= " WHERE challenge_attempts.challenge_id=challenges.id AND challenge_attempts.user_id=:user_id ";
+		$result_array = self::findBySQL($sql, $params);
 		// return !empty($result_array)?array_shift($result_array):false;
 		return $result_array;
 	}
@@ -130,26 +132,26 @@ class ChallengeAttempts {
 		);
 		$sql = "SELECT * FROM challenge_attempts WHERE user_id = :user_id AND ";
 		$sql .= "challenge_id = :challenge_id AND status = 1;";
-		$query = $db->query($sql, $params);
+		$query = $db->read($sql, $params, self::$action_type);
 		if ($db->numRows($query)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 	public static function getUserProgress($user_id) {
-		global $db;
 		$params = array(':user_id' => $user_id );
 
 		/*Count the attempts for all challenges*/
 		$sql = "SELECT challenge_id, count(*) as count FROM challenge_attempts
 				WHERE user_id = :user_id GROUP BY challenge_id;";
-		$result_array = self::findBySQL($sql,$params);
+		$result_array = self::findBySQL($sql, $params);
 
 		/* Get more data for the completed ones*/
 		$sql2 = "SELECT DISTINCT challenge_id, time FROM challenge_attempts
 				 WHERE user_id = :user_id AND status = 1;";
-		$result_2 = self::findBySQL($sql2,$params);
+		$result_2 = self::findBySQL($sql2, $params);
 
 		//var_dump($result_array);echo'</p> 2:</p>';var_dump($result_2);echo'</p>';
 		foreach($result_array as $element){
@@ -163,7 +165,7 @@ class ChallengeAttempts {
 		}
 		//var_dump($result_array);
 		//var_dump(!empty($result_array)?$result_array:false);
-		return !empty($result_array)?$result_array:false;
+		return !empty($result_array) ? $result_array : false;
 	}
 /*	public static function getTotalAttemptsOfUserForEachChallenge($user_id) {
 		global $db;
@@ -187,28 +189,31 @@ class ChallengeAttempts {
 		return !empty($result_array)?$result_array:false;
 	}
 */
-	private static function findBySQL($sql,$params=NULL) {
+	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql,$params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$result_set = $db->read($sql, $params, self::$action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($result_set)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
+
 	public static function instantiate($record) {
-		$object=new self;
-		foreach($record as $attribute=>$value) {
+		$object = new self;
+		foreach($record as $attribute => $value) {
 			if($object->hasAttribute($attribute)) {
-				$object->$attribute=$value;
+				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
-	private function hasAttribute($attribute) {
-		$object_vars=get_object_vars($this);
-		return array_key_exists($attribute,$object_vars);
+
+  private function hasAttribute($attribute) {
+		$object_vars = get_object_vars($this);
+		return array_key_exists($attribute, $object_vars);
 	}
+
 	public static function getUniversalRankings($class_id = NULL) {
 		global $db;
 		$params = array(':class_id' => $class_id );
@@ -223,9 +228,9 @@ class ChallengeAttempts {
 		$sql .= "GROUP BY user_id ORDER BY count(*) DESC, time LIMIT 100;";
 
 		//var_dump($sql);
-		$query = $db->query($sql);
+		$query = $db->read($sql, NULL, self::$action_type); // FIXME: why is params not used?
 		$result_array = array();
-		while($row=$db->fetchArray($query)) {
+		while($row = $db->fetchArray($query)) {
 			array_push($result_array, $row);
 		}
 		return $result_array;
@@ -243,28 +248,28 @@ class ChallengeAttempts {
 				class_challenges.class_id = :class_id AND user_id IN (SELECT user_id FROM challenge_attempts WHERE
 				challenge_attempts.user_id =  class_memberships.user_id AND challenge_attempts.challenge_id = class_challenges.challenge_id)";
 
-		$query = $db->query($users, $params);
+		$query = $db->read($users, $params, self::$action_type);
 		$result_array = array();
-		while($row=$db->fetchArray($query)) {
+		while($row = $db->fetchArray($query)) {
 			array_push($result_array, $row);
 		}
 
 		$score = array();
 		//for each user,challenge pair check if the user has solved the challenge
-			$score_q = "SELECT count(*) as count, user_id, users.username
-							FROM challenge_attempts LEFT JOIN users ON
-					users.id = user_id WHERE status = 1 AND user_id = :user_id AND challenge_id = :challenge_id";
+    $score_q = "SELECT count(*) as count, user_id, users.username
+            FROM challenge_attempts LEFT JOIN users ON
+        users.id = user_id WHERE status = 1 AND user_id = :user_id AND challenge_id = :challenge_id";
 
-		foreach($result_array as $row){
+		foreach($result_array as $row) {
 
 			$user_id = $row['user_id'];
 			$challenge_id = $row['challenge_id'];
 			$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id);
-			$result = $db->query($score_q,$params);
+			$result = $db->read($score_q, $params, self::$action_type);
 
 			//echo'</p>'.$user_id." ".$challenge_id;echo'</p>';var_dump($row);
 			$res = array();
-			while($res=$db->fetchArray($result)) {
+			while($res = $db->fetchArray($result)) {
 				$k = false;
 				if(!empty($score)){
 					foreach($score as &$uscore){
@@ -276,30 +281,31 @@ class ChallengeAttempts {
 						unset($uscore);
 					}
 				}
-				if( false === $k){
-						if($res['username']!=null)
-					array_push($score, $res);
-					}
+				if(false === $k) {
+					if($res['username'] != NULL) {
+              array_push($score, $res);
+          }
+				}
 			}
 		}
 		usort($score, array("ChallengeAttempts", "sort_count"));
 		return $score;
 	}
-	static function sort_count($rankA, $rankB){
 
+	static function sort_count($rankA, $rankB) {
 		if ($rankA['count'] == $rankB['count']) {
 			return 0;
 		}
     return ($rankA['count'] < $rankB['count']) ? 1 : -1;
 	}
-	public static function getScore($user_id, $challenge_id){
-	global $db;
-	$sql = "SELECT default_points, challenges.id, title
-		FROM challenges, challenge_attempts
-		WHERE challenge_attempts.challenge_id = {$challenge_id}
-		AND challenge_attempts.user_id = {$user_id}
-		AND STATUS =1
-		AND challenge_attempts.challenge_id = challenges.id";
 
+	public static function getScore($user_id, $challenge_id) {
+    global $db;
+    $sql = "SELECT default_points, challenges.id, title
+      FROM challenges, challenge_attempts
+      WHERE challenge_attempts.challenge_id = {$challenge_id}
+      AND challenge_attempts.user_id = {$user_id}
+      AND STATUS =1
+      AND challenge_attempts.challenge_id = challenges.id";
 	}
 }

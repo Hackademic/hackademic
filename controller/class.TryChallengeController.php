@@ -39,47 +39,53 @@ require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
 
 class TryChallengeController extends HackademicController {
 
+  private static $action_type = 'try_challenge';
+
 	public function go() {
-		if (isset($_GET['id'])) {
-		    $id=$_GET['id'];
-		    $this->addToView('id', $id);
-		    $challenge=Challenge::getChallenge($id);
-		    if ($this->isLoggedIn() && ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id))) {
-				$challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge->pkg_name."/";
-				$this->addToView('pkg_name', $challenge->pkg_name);
-				$solution = $challenge->solution;
-				if (isset($_POST) && count($_POST)!=0) {
-					//echo '<div style = "color:red">CHALLENGE WAS SUBMITTED</div>';
-				}
-				if (!isset($_GET["path"])) {
-					$url = $challenge_path."index.php";
-				}else {
-					$url = $challenge_path.$_GET['path'];
-				}
-				if(isset($_GET['user']) && $_GET['user'] == $this->getLoggedInUser()){
-					$usr = $this->getLoggedInUser();
-					$url.='?user='.$usr."&id=".$id;
-					$pair = UserHasChallengeToken::findByPair($usr,$id);
-					if($pair === false){
-						error_log("adding new token usr, id".$usr." ".$id);
-						Global $ESAPI_utils;
-						$token = $ESAPI_utils->getRandomizer()->getRandomGUID();
-						$token = $ESAPI_utils->getEncoder()->encodeForURL($token);
-						UserHasChallengeToken::add($usr,$id,$token);
-						$pair = new UserHasChallengeToken();
-						$pair->token = $token;
-					}
-					$url.='&token='.$pair->token;
-					var_dump($pair);
-				}
-				header("Location: ".$url);
-		    }else {
-				error_log("oh noes, miscelaneous error (BUG)");
-				header("Location: ".SITE_ROOT_PATH);
-			}
+		if(isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $this->addToView('id', $id);
+      $challenge=Challenge::getChallenge($id);
+
+      if($this->isLoggedIn() && ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id))) {
+        $challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge->pkg_name."/";
+        $this->addToView('pkg_name', $challenge->pkg_name);
+        $solution = $challenge->solution;
+
+        if (isset($_POST) && count($_POST)!=0) {
+          //echo '<div style = "color:red">CHALLENGE WAS SUBMITTED</div>';
+        }
+
+        if (!isset($_GET["path"])) {
+          $url = $challenge_path."index.php";
+        } else {
+          $url = $challenge_path.$_GET['path'];
+        }
+
+        if(isset($_GET['user']) && $_GET['user'] == $this->getLoggedInUser()) {
+          $usr = $this->getLoggedInUser();
+          $url.='?user='.$usr."&id=".$id;
+          $pair = UserHasChallengeToken::findByPair($usr,$id);
+          if($pair === false) {
+            error_log("adding new token usr, id".$usr." ".$id);
+            Global $ESAPI_utils;
+            $token = $ESAPI_utils->getRandomizer()->getRandomGUID();
+            $token = $ESAPI_utils->getEncoder()->encodeForURL($token);
+            UserHasChallengeToken::add($usr,$id,$token);
+            $pair = new UserHasChallengeToken();
+            $pair->token = $token;
+          }
+          $url .= '&token='.$pair->token;
+          var_dump($pair);
+        }
+        header("Location: ".$url);
+      } else {
+        error_log("oh noes, miscelaneous error (BUG)");
+        header("Location: ".SITE_ROOT_PATH);
+      }
 		}
 		$this->setViewTemplate("trychallenge.tpl");
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 
 	protected static function isAllowed($username, $challenge_id) {
