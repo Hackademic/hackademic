@@ -4,8 +4,8 @@
  * Hackademic-CMS/model/common/class.Loader.php
  *
  * Hackademic Loader Class
- * Class for loading paths
- * 
+ * Class for loading paths and plugin API
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -31,11 +31,13 @@
  *
  */
 require_once("class.Utils.php");
+require_once("class.Plugin.php");
 
 class Loader {
 
-	public static function init() {
-		Utils::defineConstants();
-	}
+  public static function init() {
+    Utils::defineConstants();
+    Plugin::loadPlugins();
+  }
 
 }

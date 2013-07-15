@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS  challenge_attempts  (
    status  int(11) NOT NULL,
   PRIMARY KEY ( id ),
   KEY  user_id  ( user_id , challenge_id , class_id )
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+);
 
 -- --------------------------------------------------------
 
@@ -97,8 +97,7 @@ CREATE TABLE IF NOT EXISTS  challenge_attempt_count  (
    tries  int(11) DEFAULT NULL,
   PRIMARY KEY ( id ),
   UNIQUE KEY  composite_key  ( user_id , challenge_id , class_id )
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
+);
 -- --------------------------------------------------------
 
 --
@@ -167,6 +166,7 @@ CREATE TABLE IF NOT EXISTS  class_memberships  (
 
 -- --------------------------------------------------------
 
+
 --
 -- Table structure for table  scoring_rule
 --
@@ -199,6 +199,24 @@ CREATE TABLE IF NOT EXISTS  scoring_rule  (
 
 INSERT INTO  scoring_rule  (challenge_id ,  class_id ,  attempt_cap ,  attempt_cap_penalty ,  time_between_first_and_last_attempt ,  time_penalty ,  time_reset_limit_seconds ,  request_frequency_per_minute ,  request_frequency_penalty ,  experimentation_bonus ,  multiple_solution_bonus ,  banned_user_agents ,  banned_user_agents_penalty ,  base_score ,  first_try_solves ,  penalty_for_many_first_try_solves ) VALUES
 (-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Indy Library,\r\nlibwww-perl, \r\ncurl, \r\nnikto, \r\nw3af, ', 0, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table options
+--
+
+CREATE TABLE IF NOT EXISTS options (
+  option_name varchar(64) NOT NULL,
+  option_value text NOT NULL,
+  PRIMARY KEY (option_name)
+);
+
+--
+-- Dumping data for table options
+--
+
+INSERT INTO options VALUES (active_plugins,'[]'),(active_user_theme,'\"view\\/\"');
 
 -- --------------------------------------------------------
 

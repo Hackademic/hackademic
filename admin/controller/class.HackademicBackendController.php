@@ -61,6 +61,12 @@ class HackademicBackendController extends HackademicController {
 	 * @param $tmpl str Template name
 	 */
 	public function setViewTemplate($tmp1) {
-		$this->view_template=HACKADEMIC_PATH.'admin/view/'.$tmp1;
+    $admin_path = '/admin/view/' . $tmp1;
+    $path = Plugin::apply_filters_ref_array('set_admin_view_template', array($admin_path));
+    if($path == "") {
+        $path = $admin_path;
+    }
+		$this->view_template = HACKADEMIC_PATH . $path;
 	}
+  
 }

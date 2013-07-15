@@ -49,17 +49,19 @@ class UserMenuController{
 			$link3 = array ('title'=>'Users/Classes', 'url'=>'admin/pages/usermanager.php');
 			$link4 = array ('title'=>'Add New Challenge', 'url'=>'admin/pages/addchallenge.php?type=code');
 			$link5 = array ('title'=>'Challenge Manager', 'url'=>'admin/pages/challengemanager.php');
-			$link6 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
+      $link6 = array ('title'=>'Options', 'url'=>'admin/pages/options.php');
+			$link7 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
 
 			$menu = array(
-					$link0,
-					$link1,
-					$link2,
-					$link3,
-					$link4,
-					$link5,
-					$link6
-				     );
+        $link0,
+        $link1,
+        $link2,
+        $link3,
+        $link4,
+        $link5,
+        $link6,
+        $link7
+      );
 		} elseif(Session::isTeacher()) {
 			/*$link1 = array ('title'=>'Admin Dashboard', 'url'=>'admin');
 			$link2 = array ('title'=>'Article Manager', 'url'=>'admin/pages/articlemanager.php');
@@ -113,5 +115,6 @@ class UserMenuController{
 		}
 		return $menu;
 	}
+  
 }
 

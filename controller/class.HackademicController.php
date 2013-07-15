@@ -136,16 +136,19 @@ abstract class HackademicController {
 	 * @param $tmpl str Template name
 	 */
 	public function setViewTemplate($tmpl) {
-		$this->view_template = HACKADEMIC_PATH.'view/'.$tmpl;
+		$this->view_template = $this->smarty->user_theme_path . $tmpl;
 
 	}
 
 	/**
 	 * Generate View In Smarty
+   * @param string $type the type of view that is being generated. The type is used to trigger
+   * an action of the form 'show_[type]' i.e. 'show_article_manager'
 	 */
-	public function generateView() {
+	public function generateView($type = 'view') {
 		$view_path = $this->view_template;
 		$this->addToView('header_scripts', $this->header_scripts);
+    Plugin::do_action_ref_array('show_' . $type, array($this->smarty));
 		return $this->smarty->display($view_path);
 	}
 
@@ -219,4 +222,5 @@ abstract class HackademicController {
 	public function getLoggedInUser() {
 		return Session::getLoggedInUser();
 	}
+
 }

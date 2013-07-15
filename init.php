@@ -37,8 +37,10 @@ if (defined('ENVIRONMENT') && ENVIRONMENT == "dev") {
 } else {
     ini_set('display_errors', false);
 }
+
+$db = new HackademicDB();
 Loader::init();
-$db=new HackademicDB();
+
 
 require_once("esapi/class.Esapi_Utils.php");
 
