@@ -182,6 +182,24 @@ INSERT INTO `class_memberships` (`user_id`, `class_id`, `date_created`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `options`
+--
+
+CREATE TABLE IF NOT EXISTS `options` (
+  `option_name` varchar(64) NOT NULL,
+  `option_value` text NOT NULL,
+  PRIMARY KEY (`option_name`)
+);
+
+--
+-- Dumping data for table `options`
+--
+
+INSERT INTO `options` VALUES ('active_plugins','[]'),('active_user_theme','\"view\\/\"');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 

@@ -40,9 +40,15 @@ class Utils {
 	 * Define Constants function. These constants are used to locate files on the server
 	 */
 	public static function defineConstants() {
-		if ( !defined('HACKADEMIC_PATH') ) {
+		if (!defined('HACKADEMIC_PATH')) {
 			define('HACKADEMIC_PATH', str_replace("\\",'/', dirname(dirname(dirname(__FILE__)))).'/');
 		}
+    if(!defined('HACKADEMIC_PLUGIN_PATH')) {
+      define('HACKADEMIC_PLUGIN_PATH', HACKADEMIC_PATH . 'user/plugins/');
+    }
+    if(!defined('HACKADEMIC_THEME_PATH')) {
+      define('HACKADEMIC_THEME_PATH', HACKADEMIC_PATH . 'user/themes/');
+    }
 	}
 
 	public function validateEmail($email = '') {
@@ -58,7 +64,7 @@ class Utils {
 	public static function hash($password){
 		$util = new PasswordHash(8, true);
 		$hash = $util->HashPassword($password);
-		if (strlen($hash) <20 ){
+		if (strlen($hash) < 20){
 			throw new Exception('Hash length is less than 20 characters');
 			return false;
 		}
@@ -71,9 +77,8 @@ class Utils {
 	}
 
 	
-	public static function sanitizeInput($input){
-
-	$input = htmlspecialchars($input);
-	return $input;
+	public static function sanitizeInput($input) {
+    $input = htmlspecialchars($input);
+    return $input;
 	}
 }

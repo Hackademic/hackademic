@@ -70,7 +70,7 @@ class HackademicDB {
   public function create($sql, $params = NULL, $type) {
       $this->triggerAction('before_create', $type, array($sql, $params));
       $statement_handle =  $this->query($sql, $params);
-      $this->triggerAction('after_create', $type, array($this->insertId(), $sql, $params));
+      $this->triggerAction('after_create', $type, array($this->insertId(), $params));
       return $statement_handle;
   }
 
@@ -86,7 +86,7 @@ class HackademicDB {
   public function read($sql, $params = NULL, $type) {
       $this->triggerAction('before_read', $type, array($sql, $params));
       $statement_handle =  $this->query($sql, $params);
-      $this->triggerAction('after_read', $type, array($sql, $params));
+      $this->triggerAction('after_read', $type, array($params));
       return $statement_handle;
   }
 
@@ -102,7 +102,7 @@ class HackademicDB {
   public function update($sql, $params = NULL, $type) {
       $this->triggerAction('before_update', $type, array($sql, $params));
       $statement_handle =  $this->query($sql, $params);
-      $this->triggerAction('after_update', $type, array($sql, $params));
+      $this->triggerAction('after_update', $type, array($params));
       return $statement_handle;
   }
 
@@ -118,7 +118,7 @@ class HackademicDB {
   public function delete($sql, $params = NULL, $type) {
       $this->triggerAction('before_delete', $type, array($sql, $params));
       $statement_handle =  $this->query($sql, $params);
-      $this->triggerAction('after_delete', $type, array($sql, $params));
+      $this->triggerAction('after_delete', $type, array($params));
       return $statement_handle;
   }
 
@@ -200,8 +200,7 @@ class HackademicDB {
    * @param $parameter_array an array of parameters that are passed to the plugin
    */
   private function triggerAction($action, $type, $parameter_array) {
-      // Plugin class not implemented yet
-      // Plugin::do_action_ref_array($action . '_ ' . $type, $parameter_array);
+    Plugin::do_action_ref_array($action . '_' . $type, $parameter_array);
   }
 
 }

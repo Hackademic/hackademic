@@ -136,3 +136,42 @@ img {border:none;}
     text-decoration: none;
     color: white;
 }
+
+.options_form {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.options_form h4 {
+    margin-left: 10px;
+}
+
+.options_form h5 {
+    margin-top: 0px;
+}
+
+.options_form .form_section {
+    border-bottom: 3px solid #f4f4f4;
+    margin: 10px;
+    clear: both;
+    overflow: hidden;
+}
+
+.options_form .form_section p {
+    font-size: 12px;
+}
+
+#input_form.options_form .form_section input {
+    width: auto;
+}
+
+.options_form .plugin_information {
+    width: 90%;
+    float: left;
+}
+
+.options_form .form_item {
+    width: 5%;
+    float: left;
+    overflow: hidden;
+}
