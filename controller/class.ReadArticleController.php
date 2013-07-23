@@ -37,7 +37,7 @@ class ReadArticleController extends HackademicController{
 
 		$id=$_GET['id'];
 		$article=Article::getArticle($id);
-		$this->addToView('article', $article[0]);
+		$this->addToView('article', $article);
 		$this->setViewTemplate('readarticle.tpl');
 		$this->generateView();
 	}
