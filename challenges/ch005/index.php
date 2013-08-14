@@ -1,15 +1,15 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <html>
 <head>
@@ -34,10 +34,10 @@
 
 
 <?php
-		include_once dirname(__FILE__).'/../../init.php';		
+		include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+        $monitor->update(CHALLENGE_INIT,$_GET);
 
 if (preg_match("/^p0wnBrowser/",$_SERVER['HTTP_USER_AGENT']))
 {

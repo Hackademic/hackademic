@@ -2,56 +2,54 @@ SHOW WARNINGS;
 --
 -- Table structure for table `articles`
 --
-CREATE TABLE IF NOT EXISTS `articles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `content` longtext,
-  `date_posted` datetime NOT NULL,
-  `created_by` varchar(255) NOT NULL,
-  `last_modified` datetime DEFAULT NULL,
-  `last_modified_by` varchar(255) DEFAULT NULL,
-  `ordering` int(10) DEFAULT '0',
-  `is_published` int(1) DEFAULT '1',
-  PRIMARY KEY (`id`)
+CREATE TABLE IF NOT EXISTS  articles  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   title  varchar(255) DEFAULT NULL,
+   content  longtext,
+   date_posted  datetime NOT NULL,
+   created_by  varchar(255) NOT NULL,
+   last_modified  datetime DEFAULT NULL,
+   last_modified_by  varchar(255) DEFAULT NULL,
+   ordering  int(10) DEFAULT '0',
+   is_published  int(1) DEFAULT '1',
+  PRIMARY KEY ( id )
 );
 
 --
--- Dumping data for table `articles`
+-- Dumping data for table  articles
 --
-
-INSERT INTO `articles` (`title`, `content`, `date_posted`, `created_by`, `last_modified`, `last_modified_by`, `ordering`, `is_published`) VALUES
-('Welcome', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum, felis ac pellentesque feugiat, massa enim sagittis elit, sed dignissim sem ligula non nisl. Sed pulvinar nunc nec eros aliquet non tempus diam vehicula. Nunc tincidunt, leo ut interdum tristique, quam ligula porttitor tellus, at tincidunt magna enim nec arcu. Nunc tempor egestas libero. Vivamus nulla ligula, vehicula vitae mattis quis, laoreet eget urna. Proin eget est quis urna venenatis dictum nec vel lectus. Nullam sit amet vehicula leo. Sed commodo, orci vitae facilisis accumsan, arcu justo sagittis risus, quis aliquet purus neque eu odio. Mauris lectus orci, tincidunt in varius quis, dictum sed nibh. Quisque dapibus mollis blandit. Donec vel tellus nisl, sed scelerisque felis. Praesent ut eros tortor, sed molestie nunc. Duis eu massa at justo iaculis gravida.</p>\r\n<p>In adipiscing dictum risus a tincidunt. Sed nisi ipsum, rutrum sed ornare in, bibendum at augue. Integer ornare semper varius. Integer luctus vehicula elementum. Donec cursus elit quis erat laoreet elementum. Praesent eget justo purus, vitae accumsan massa. Ut tristique, mauris non dignissim luctus, velit justo sollicitudin odio, vel rutrum purus enim eu felis. In adipiscing elementum sagittis. Nam sed dui ante. Nunc laoreet hendrerit nisl vitae porta. Praesent sit amet ligula et nisi vulputate volutpat. Maecenas venenatis iaculis sapien sit amet auctor. Curabitur euismod venenatis velit non tempor. Cras vel sapien purus, mollis fermentum nulla. Mauris sed elementum enim. Donec ultrices urna at justo adipiscing rutrum.</p>', '2012-08-09 01:19:59', 'admin',NULL, NULL, 0, 1);
-
+INSERT INTO articles ( title , content , date_posted , created_by , last_modified , last_modified_by , ordering , is_published ) VALUES
+('Welcome to Hackademic v0.9!', '<p><img width=\"840\" height=\"188\" logo\"=\" alt=\"owasp\" src=\"http://www.techtoweb.com/wp-content/uploads/2012/12/owasp-security.png\"></p> <p>Thank you for installling and using the Hackademic challenges project.</p> <p>You can find our code on github<a href=\"https://github.com/Hackademic/hackademic\">here</a>, for any problems or support, please open an issue on our github repository.</p><p>Hackademic is a FOSS project under the OWASP umbrela organization.</p>', '2013-08-18 00:00:17', 'admin', '2013-08-18 00:04:27', 'admin', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenges`
+-- Table structure for table  challenges
 --
 
-CREATE TABLE IF NOT EXISTS `challenges` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `pkg_name` varchar(255) NOT NULL,
-  `description` text,
-  `author` varchar(255) NOT NULL,
-  `category` varchar(255) NOT NULL,
-  `date_posted` datetime NOT NULL,
-  `visibility` varchar(255) DEFAULT 'private',
-  `publish` int(10) DEFAULT '0',
-  `abstract` varchar(255) DEFAULT NULL,
-  `level` varchar(255) DEFAULT NULL,
-  `duration` int(11) DEFAULT NULL,
-  `goal` varchar(255) DEFAULT NULL,
-  `solution` varchar(255) DEFAULT NULL,
-  `availability` varchar(255) DEFAULT 'private',
-  `default_points` int(11) DEFAULT NULL,
-  `default_duration` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE IF NOT EXISTS  challenges  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   title  varchar(255) DEFAULT NULL,
+   pkg_name  varchar(255) NOT NULL,
+   description  text,
+   author  varchar(255) NOT NULL,
+   category  varchar(255) NOT NULL,
+   date_posted  datetime NOT NULL,
+   visibility  varchar(255) DEFAULT 'private',
+   publish  int(10) DEFAULT '0',
+   abstract  varchar(255) DEFAULT NULL,
+   level  varchar(255) DEFAULT NULL,
+   duration  int(11) DEFAULT NULL,
+   goal  varchar(255) DEFAULT NULL,
+   solution  varchar(255) DEFAULT NULL,
+   availability  varchar(255) DEFAULT 'private',
+   default_points  int(11) DEFAULT NULL,
+   default_duration  int(11) DEFAULT NULL,
+  PRIMARY KEY ( id )
 );
 
 --
--- Dumping data for table `challenges`
+-- Dumping data for table  challenges
 --
 
 INSERT INTO `challenges` (`title`, `pkg_name`, `description`, `author`, `category`, `date_posted`, `visibility`, `publish`, `abstract`, `level`, `duration`, `goal`, `solution`, `availability`, `default_points`, `default_duration`) VALUES
@@ -71,74 +69,76 @@ INSERT INTO `challenges` (`title`, `pkg_name`, `description`, `author`, `categor
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_attempts`
+-- Table structure for table  challenge_attempts
 --
 
-CREATE TABLE IF NOT EXISTS `challenge_attempts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `challenge_id` int(11) NOT NULL,
-  `time` datetime NOT NULL,
-  `status` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-);
+CREATE TABLE IF NOT EXISTS  challenge_attempts  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   user_id  int(11) NOT NULL,
+   challenge_id  int(11) NOT NULL,
+   class_id  int(11) NOT NULL,
+   time  datetime NOT NULL,
+   status  int(11) NOT NULL,
+  PRIMARY KEY ( id ),
+  KEY  user_id  ( user_id , challenge_id , class_id )
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `challenge_attempt_count`
+-- Table structure for table  challenge_attempt_count
 --
 
-CREATE TABLE IF NOT EXISTS `challenge_attempt_count` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `challenge_id` int(11) NOT NULL,
-  `tries` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`),
-  UNIQUE KEY `challenge_id` (`challenge_id`)
-);
+CREATE TABLE IF NOT EXISTS  challenge_attempt_count  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   user_id  int(11) NOT NULL,
+   challenge_id  int(11) NOT NULL,
+   class_id  int(11) NOT NULL,
+   tries  int(11) DEFAULT NULL,
+  PRIMARY KEY ( id ),
+  UNIQUE KEY  composite_key  ( user_id , challenge_id , class_id )
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `classes`
+-- Table structure for table  classes
 --
 
-CREATE TABLE IF NOT EXISTS `classes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `date_created` datetime NOT NULL,
-  `archive` int(1) DEFAULT '0',
-  PRIMARY KEY (`id`)
+CREATE TABLE IF NOT EXISTS  classes  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   name  varchar(255) NOT NULL,
+   date_created  datetime NOT NULL,
+   archive  int(1) DEFAULT '0',
+  PRIMARY KEY ( id )
 );
 
 --
--- Dumping data for table `classes`
+-- Dumping data for table  classes
 --
 INSERT INTO classes ( id , name , date_created , archive ) VALUES
 (1, 'Global Class', '2012-08-09 00:43:48', 0);
 
-;
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `class_challenges`
+-- Table structure for table  class_challenges
 --
 
-CREATE TABLE IF NOT EXISTS `class_challenges` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `challenge_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `date_created` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE IF NOT EXISTS  class_challenges  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   challenge_id  int(11) NOT NULL,
+   class_id  int(11) NOT NULL,
+   date_created  datetime NOT NULL,
+  PRIMARY KEY ( id )
 );
 
 --
--- Dumping data for table `class_challenges`
+-- Dumping data for table  class_challenges
 --
 
-INSERT INTO `class_challenges` (`challenge_id`, `class_id`, `date_created`) VALUES
+
+INSERT INTO  class_challenges  (challenge_id ,  class_id ,  date_created ) VALUES
 (1, 1, '2012-08-09 01:01:07'),
 (2, 1, '2012-08-09 01:01:07'),
 (3, 1, '2012-08-09 01:01:07'),
@@ -146,60 +146,115 @@ INSERT INTO `class_challenges` (`challenge_id`, `class_id`, `date_created`) VALU
 (5, 1, '2012-08-09 01:01:07'),
 (6, 1, '2012-08-09 01:01:07'),
 (7, 1, '2012-08-09 01:01:07'),
-(9, 1, '2012-08-09 01:01:07'),
+(8, 1, '2012-08-09 01:01:07'),
+(9, 1, '2012-10-16 22:32:58'),
 (10, 1, '2012-08-09 01:01:07');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `class_memberships`
+-- Table structure for table  class_memberships
 --
 
-CREATE TABLE IF NOT EXISTS `class_memberships` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `date_created` datetime NOT NULL,
-  PRIMARY KEY (`user_id`,`class_id`),
-  UNIQUE KEY `id` (`id`)
+CREATE TABLE IF NOT EXISTS  class_memberships  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   user_id  int(11) NOT NULL,
+   class_id  int(11) NOT NULL,
+   date_created  datetime NOT NULL,
+  PRIMARY KEY ( user_id , class_id ),
+  UNIQUE KEY  id  ( id )
 );
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table  scoring_rule
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `full_name` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `joined` datetime NOT NULL,
-  `last_visit` datetime DEFAULT NULL,
-  `is_activated` int(1) DEFAULT '0',
-  `type` int(10) DEFAULT '0',
-  `token` int(10) DEFAULT '0',
-  PRIMARY KEY (`username`),
-  UNIQUE KEY `id` (`id`)
+CREATE TABLE IF NOT EXISTS  scoring_rule  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   challenge_id  int(11) NOT NULL,
+   class_id  int(11) NOT NULL,
+   attempt_cap  int(11) NOT NULL DEFAULT '0',
+   attempt_cap_penalty  int(11) NOT NULL DEFAULT '0',
+   time_between_first_and_last_attempt  int(11) NOT NULL DEFAULT '0',
+   time_penalty  int(11) NOT NULL DEFAULT '0',
+   time_reset_limit_seconds  int(11) NOT NULL DEFAULT '0',
+   request_frequency_per_minute  int(11) NOT NULL DEFAULT '0',
+   request_frequency_penalty  int(11) NOT NULL DEFAULT '0',
+   experimentation_bonus  int(11) NOT NULL DEFAULT '0',
+   multiple_solution_bonus  int(11) NOT NULL DEFAULT '0',
+   banned_user_agents  longtext CHARACTER SET ascii COLLATE ascii_bin,
+   banned_user_agents_penalty  int(11) NOT NULL DEFAULT '0',
+   base_score  int(11) NOT NULL DEFAULT '5',
+   first_try_solves  int(11) NOT NULL DEFAULT '0',
+   penalty_for_many_first_try_solves  int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY ( id ),
+  KEY  challenge_id  ( challenge_id , class_id )
 );
 
+--
+-- Dumping data for table  scoring_rule
+--
+
+INSERT INTO  scoring_rule  (challenge_id ,  class_id ,  attempt_cap ,  attempt_cap_penalty ,  time_between_first_and_last_attempt ,  time_penalty ,  time_reset_limit_seconds ,  request_frequency_per_minute ,  request_frequency_penalty ,  experimentation_bonus ,  multiple_solution_bonus ,  banned_user_agents ,  banned_user_agents_penalty ,  base_score ,  first_try_solves ,  penalty_for_many_first_try_solves ) VALUES
+(-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Indy Library,\r\nlibwww-perl, \r\ncurl, \r\nnikto, \r\nw3af, ', 0, 5, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table  users
+--
+
+CREATE TABLE IF NOT EXISTS  users  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   username  varchar(255) NOT NULL,
+   full_name  varchar(255) NOT NULL,
+   email  varchar(100) NOT NULL,
+   password  varchar(255) NOT NULL,
+   joined  datetime NOT NULL,
+   last_visit  datetime DEFAULT NULL,
+   is_activated  int(1) DEFAULT '0',
+   type  int(10) DEFAULT '0',
+   token  int(10) DEFAULT '0',
+  PRIMARY KEY ( username ),
+  UNIQUE KEY  id  ( id )
+);
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
 ('Guest','Guest User','guest@hackademic.com','empty pass this user is never supposed to login normally','2010-01-01 00:00:00','2010-01-01 00:00:00',1,0,0);
+-- --------------------------------------------------------
 
 --
--- Table structure for table `user_has_challenge_token`
+-- Table structure for table  user_has_challenge_token
 --
-DROP TABLE IF EXISTS `user_has_challenge_token`;
-CREATE TABLE IF NOT EXISTS `user_has_challenge_token` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(512) NOT NULL,
-  `challenge_id` varchar(512) NOT NULL,
-  `token` varchar(256) NOT NULL,
-  PRIMARY KEY (`id`)
+
+CREATE TABLE IF NOT EXISTS  user_has_challenge_token  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   user_id  varchar(512) NOT NULL,
+   challenge_id  varchar(512) NOT NULL,
+   token  varchar(256) NOT NULL,
+  PRIMARY KEY ( id )
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table  user_score
+--
+
+CREATE TABLE IF NOT EXISTS  user_score  (
+   id  int(11) NOT NULL AUTO_INCREMENT,
+   user_id  int(11) NOT NULL,
+   challenge_id  int(11) NOT NULL,
+   class_id  int(11) NOT NULL,
+   points  int(11) NOT NULL,
+   penalties_bonuses  longtext CHARACTER SET ascii COLLATE ascii_bin,
+  PRIMARY KEY ( id ),
+  KEY  user_id  ( user_id , challenge_id , class_id )
 );
 
 SHOW WARNINGS;

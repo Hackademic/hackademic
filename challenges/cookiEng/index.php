@@ -60,7 +60,7 @@ form>input:nth-child(2){
 		include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+        $monitor->update(CHALLENGE_INIT,$_GET);
 		$_SESSION['init'] = true;
 		?>
 		<div id="content">
@@ -70,10 +70,10 @@ form>input:nth-child(2){
 				if( $_POST['secretfiles'] === 'easy' ){
 					echo('<h1 class="success" >Congrats!You have successfully completed this challenge</h1>
 							<h2>Call me :p</h2>');
-					$monitor->update(CHALLENGE_SUCCESS,$_GET['user'],$_GET['id'],$_GET['token']);
+					$monitor->update(CHALLENGE_SUCCESS);
 				}elseif ($_POST['secretfiles'] != 'easy' ){
 					echo('<h1 id="fail">Try again</h1>');
-					$monitor->update(CHALLENGE_FAILURE,$_GET['user'],$_GET['id'],$_GET['token']);
+					$monitor->update(CHALLENGE_FAILURE);
 				}
 			}
 			?>

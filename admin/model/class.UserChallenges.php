@@ -31,35 +31,50 @@
  *
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
+require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
 
 class UserChallenges {
 	public $id;//challenge_id
 	public $title;//challenge_title
 	public $pkg_name;
 	public $availability;
+	public $class_id;
 
-	/*@returns: array
- * Get all challenges the use can solve*/
+	/**
+	 * @returns: array
+	 * Get all challenges the user has to solve
+	 * that is all the challenges which are
+	 * challenges of a class the user is in
+   */
 	public static function getChallengesOfUser($user_id) {
 			global $db;
 			$params=array(':user_id' => $user_id);
-			$sql = "SELECT DISTINCT challenges.id, challenges.title,challenges.pkg_name, challenges.availability
-					FROM challenges
-					LEFT JOIN class_challenges ON challenges.id = class_challenges.challenge_id
-					WHERE challenges.publish =1 AND (
-					(visibility = 'public' AND availability = 'public') OR (
-					class_id IN(
-					SELECT class_memberships.class_id AS class_id
-					FROM class_memberships WHERE
-					class_memberships.user_id = :user_id
-					)
-						)
-					)
-					ORDER BY challenges.id
-					";
-			$result_array = self::findBySQL($sql,$params);
-			//Debug::show($result_array,'all',$this,_FUNCTION_);
-			return !empty($result_array)?$result_array:false;
+			$sql = "SELECT DISTINCT
+								class_id,
+								challenges.id, challenges.title,
+								challenges.pkg_name,
+								challenges.availability
+							FROM challenges	LEFT JOIN class_challenges
+								ON challenges.id = class_challenges.challenge_id
+							WHERE challenges.publish =1
+										AND ("
+										/*(visibility = 'public' AND availability = 'public')*/
+												."(	class_challenges.class_id
+												IN (	SELECT class_memberships.class_id AS class_id
+														FROM class_memberships
+														WHERE class_memberships.user_id = :user_id
+														)
+													)
+												)
+							ORDER BY challenges.id";
+		$result_array = self::findBySQL($sql,$params);
+		return !empty($result_array)?$result_array:false;
+	}
+	public static function print_vars($var){
+		$result ="";
+		foreach($var as $key=>$value)
+			$result .= "<p>".$key."=>".$value."</p>";
+		return $result;
 	}
 	private static function findBySQL($sql,$params=NULL) {
 		global $db;
@@ -82,5 +97,20 @@ class UserChallenges {
 	private function hasAttribute($attribute) {
 		$object_vars=get_object_vars($this);
 		return array_key_exists($attribute,$object_vars);
+	}
+	private static function compare_challenges($ch_a, $ch_b) {
+
+	//	var_dump($ch_a->id);var_dump($ch_b->id);echo '</br>';
+
+		if ($ch_a->id === $ch_b->id){
+		//	echo 'equal '. $ch_a->id.'</br>';
+			return 0;
+		}elseif($ch_a->id < $ch_b->id){
+		//	echo 'less '. $ch_a->id.' '.$ch_b->id.'</br>';
+			return -1;
+		}elseif($ch_a->id > $ch_b->id){
+		//	echo 'more '. $ch_a->id.' '.$ch_b->id.'</br>';
+			return 1;
+		}
 	}
 }
