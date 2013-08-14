@@ -37,6 +37,8 @@ require_once(HACKADEMIC_PATH."/model/common/class.User.php");
 require_once(HACKADEMIC_PATH."/model/common/class.ChallengeAttempts.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
 require_once(HACKADEMIC_PATH."admin/model/class.UserChallenges.php");
+require_once(HACKADEMIC_PATH."/model/common/class.UserScore.php");
+require_once(HACKADEMIC_PATH."/model/common/class.Debug.php");
 
 class ProgressReportController extends HackademicController{
 	public function go() {
@@ -58,44 +60,69 @@ class ProgressReportController extends HackademicController{
 				$this->addErrorMessage("Please select a student!");
 				return $this->generateView();
 			}
-			$challenges_of_user = UserChallenges::getChallengesOfUser($user->id);
-			$progress = ChallengeAttempts::getUserProgress($user->id);
+			//$challenges_of_user = UserChallenges::getChallengesOfUser($user->id);
 			$data = array();
-			//var_dump(UserChallenges::getChallengesOfUser($user->id));
-			//echo'</p>';var_dump($progress);
-			foreach ($challenges_of_user as $challenge) {
-				$attempts = 0;
-				$cleared = false;
-				$cleared_on = null;
-				if(false != $progress)
-				foreach($progress as $chal_prog){
-					if($challenge->id === $chal_prog->challenge_id){
-						$attempts = $chal_prog->count;
-						if( 1 === $chal_prog->status){
-							$cleared = true;
-							$cleared_on = $chal_prog->time;
-							//unset($progress[$chal_prog]);
-							break;
-						}
-					}
-				}
-				$arr = array(
-					'id' => $challenge->id,
-					'title' => $challenge->title,
-					'attempts' => $attempts,
-					'cleared' => $cleared,
-					'cleared_on' => $cleared_on
-				);
-				//echo'</p>';var_dump($arr);
-				array_push($data, $arr);
+			$class_ids = array();
+			$class_scores = array();
+			$classes_of_user = ClassMemberships::getMembershipsOfUserObjects($user->id);
 
+			foreach($classes_of_user as $class){
+				$progress = ChallengeAttempts::getUserProgress($user->id, $class->id);
+				$user_scores = UserScore::get_scores_for_user_class($user->id, $class->id);
+				$class_challenges = ClassChallenges::getAllMemberships($class->id);
+				$data = $this->build_scoring_info($class_challenges, $progress, $user_scores);
+				$class_scores[$class->name] = $data;
+				$class_ids[$class->name] = $class->id;
 			}
-			//var_dump($cleared_challenges);
-			$this->addToView('data', $data);
+
+			$this->addToView('data', $class_scores);
+			$this->addToView('ids', $class_ids);
 		} else {
 			$this->addErrorMessage("Please select a student to see his progress");
 		}
 
 		return $this->generateView();
+	}
+	private function build_scoring_info($class_challenges, $progress_arr, $user_scores){
+
+		$data = array();
+		$pts = null;
+		$cleared = null;
+		$cleared_on = null;
+		$attempts = null;
+		if($class_challenges != false)
+		foreach($class_challenges as $challenge){ /* For each class_challenge*/
+			$pts = null;
+			$cleared = null;
+			$cleared_on = null;
+			$attempts = null;
+			if($user_scores != false)
+			foreach($user_scores as $p){/* find its associated points */
+				if($p->challenge_id == $challenge['challenge_id']){
+					$pts = $p->points;
+				}
+			}
+			if($progress_arr != false)
+			foreach($progress_arr as $chal_prog){
+				if($challenge['challenge_id'] == $chal_prog->challenge_id){ /* Find its progress*/
+					$attempts = $chal_prog->tries;/*so we know the attempt count and if and when its cleared*/
+					if( 1 === $chal_prog->status){
+						$cleared = true;
+						$cleared_on = $chal_prog->time;
+						break;
+					}
+				}
+			}
+			$arr = array(
+				'id' => $challenge['challenge_id'],
+				'title' => $challenge['challenge_id'],
+				'attempts' => $attempts,
+				'cleared' => $cleared,
+				'cleared_on' => $cleared_on,
+				'points' => $pts
+			);
+			array_push($data, $arr);
+		}
+		return $data;
 	}
 }

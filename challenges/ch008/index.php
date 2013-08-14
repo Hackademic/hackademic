@@ -1,15 +1,15 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <html>
 <head>
@@ -51,17 +51,17 @@ if (isset($com))
 				  '<input type="submit" name="submit" value="Login">'.
 				  '</form>'.
 				  '</html>';}
-	else 
-	{ 
-		echo "<p>bash: ".$com.": command not found"; 
+	else
+	{
+		echo "<p>bash: ".$com.": command not found";
 	}
 }
 if(isset($root,$password))
 {
-			include_once dirname(__FILE__).'/../../init.php';		
+			include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+        $monitor->update(CHALLENGE_INIT,$_GET);
 
 	if ($root=="root" && $password=="g0tr00t")
 	{
@@ -69,14 +69,14 @@ if(isset($root,$password))
 		echo "<center><p><h3><font color=green>Congratulations!</font></h3>";
 		$monitor->update(CHALLENGE_SUCCESS);
 	}
-	else 
+	else
 	{
 		echo "incorrect username or password";
 		$monitor->update(CHALLENGE_FAILURE);
 	}
 }
 else
-{ 
+{
 	echo "<hr><p>Enter 'help' for available commands.<p>You need to be <font color=red>root</font> to execute most of commands.";
 }
 ?>

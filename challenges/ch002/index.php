@@ -15,17 +15,17 @@
 		include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+        $monitor->update(CHALLENGE_INIT,$_GET);
         $_SESSION['init'] = true;
 
 if(isset($_GET['Result'])){
 	$result =  $_GET['Result'];
 	if ($result === 'enter a coin to play'){
 		echo "<h1><br><center>Congratulations!</br></cetner></h1>";
-		$monitor->update(CHALLENGE_SUCCESS);
+		$monitor->update(CHALLENGE_SUCCESS,$_GET);
 	}
 	else{
-		$monitor->update(CHALLENGE_FAILURE);
+		$monitor->update(CHALLENGE_FAILURE,$_GET);
 	}
 }
 ?>

@@ -38,6 +38,7 @@ class ClassMemberships {
 	public $id;
 	public $user_id;
 	public $class_id;
+	public $name;//class name
 	public $date_created;
 
 	public static function addMembership($user_id,$class_id){
@@ -67,7 +68,10 @@ class ClassMemberships {
 	    }
 	    return $object_array;
 	}
-
+	/*
+	 * Returns an array with
+	 *  all the classes the user is in
+	 * */
 	public static function getMembershipsOfUser($user_id) {
 		global $db;
 		$params=array(':user_id' => $user_id);

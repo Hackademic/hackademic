@@ -1,15 +1,15 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <html>
 <head>
@@ -18,30 +18,30 @@
 <meta http-equiv="Content-Language" content="en-us">
 </head>
 <?php
-		include_once dirname(__FILE__).'/../../init.php';		
+		include_once dirname(__FILE__).'/../../init.php';
         session_start();
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+        $monitor->update(CHALLENGE_INIT,$_GET);
 
 if(isset($_POST['login']))
 {
 	$state = $_POST['LetMeIn'];
 	$password = $_POST['password'];
-	
-	
+
+
 	$serial=$_POST["serial"];
 	if ($serial=="TRVN-67Q2-RU98-546F-H1ZT")
 	{
 		echo "<br><br><br><br><br><center><font color=Green>Congratulations!</font>";
 	}
-	
-	
-	
+
+
+
 	if($password == "t3hpwn3rN1nJ4" or $state == "True"){
 	    $_SESSION['pwned'] = true;
-	
+
 	echo '<script type="text/javascript">alert("%53%65%72%69%61%6C%20%4E%75%6D%62%65%72%3A%20%54%52%56%4E%2D%36%37%51%32%2D%52%55%39%38%2D%35%34%36%46%2D%48%31%5A%54")</script>';
-	
+
 	$login = '
 				<html>
 				<head>
@@ -55,26 +55,26 @@ if(isset($_POST['login']))
 				<form method="POST" action="index.php">
 				<p><font color=RED>To: </p>
 				<input type="text" name="to" value="r00t@n1nj4h4x0rzcrew.com"></font>
-				<p><font color=RED>Subject:</p> 
+				<p><font color=RED>Subject:</p>
 				<input type="text" name="header" value="Serial Number" ></font>
-				<p><font color=RED>From:</p> 
+				<p><font color=RED>From:</p>
 				<input type="text" name="from"></font>
-				<p><font color=RED>Serial Number:</p> 
+				<p><font color=RED>Serial Number:</p>
 				<input type="text" name="serial"></font>
 				<input type="hidden" name="login" value="True">
 				<input type="submit" name="submit" value="send"><br>
-				
-	
-				
+
+
+
 				<hr>
 				</body>
 				</html>';
-	
+
 	echo $login;
 	$monitor->update(CHALLENGE_SUCCESS);
 	exit();
-	
-	} 
+
+	}
 	else {
 		 $monitor->update(CHALLENGE_FAILURE);
 	?>
