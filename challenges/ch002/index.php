@@ -25,6 +25,7 @@ if(isset($_GET['Result'])){
 		$monitor->update(CHALLENGE_SUCCESS,$_GET);
 	}
 	else{
+
 		$monitor->update(CHALLENGE_FAILURE,$_GET);
 	}
 
