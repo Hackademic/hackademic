@@ -75,6 +75,7 @@ class Session {
 		self::init(SESS_EXP_INACTIVE);
 		//setup session vars
 		$_SESSION['hackademic_user'] = $owner->username;
+		$_SESSION['hackademic_user_id'] = $owner->id;
 		$_SESSION['hackademic_user_type'] = $owner->type;
 		$_SESSION['hackademic_path'] = SOURCE_ROOT_PATH;
 		//error_log("HACKADEMIC:SESSION: path".$_SESSION['hackademic_path'], 0);
@@ -96,11 +97,18 @@ class Session {
 		}
 	}
 	/**
-	 * @return str Currently logged-in SocialCalc username (email address)
+	 * @return str Currently logged-in hackademic username
 	 */
 	public static function getLoggedInUser() {
 		if (self::isLoggedIn()) {
 			return $_SESSION['hackademic_user'];
+		} else {
+			return null;
+		}
+	}
+	public static function getLoggedInUserId() {
+		if (self::isLoggedIn()) {
+			return $_SESSION['hackademic_user_id'];
 		} else {
 			return null;
 		}

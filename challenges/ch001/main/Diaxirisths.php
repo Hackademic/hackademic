@@ -1,17 +1,17 @@
-<?php 
-/** 
+<?php
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
 ?>
 
-<?php 
-	include_once dirname(__FILE__).'/../../../init.php';		
+<?php
+	include_once dirname(__FILE__).'/../../../init.php';
     session_start();
     require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
     if(isset($_POST['submit'])) {
@@ -45,13 +45,13 @@
 		  <input type="text" name="name1" size="71"></p>
 		  <p>Message</p>
 		  <textarea rows="8" name="name2" cols="99" ></textarea><br>
-		
-		
+
+
 		  <input type="submit" name="submit" value="Send">
-		
+
 		<p><a href="main.htm">Home</a></p>
 	</form>
-	
+
 </body>
 
 </html>

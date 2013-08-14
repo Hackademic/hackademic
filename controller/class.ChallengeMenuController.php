@@ -30,8 +30,10 @@
  * @copyright 2012 OWASP
  *
  */
+require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
+require_once(HACKADEMIC_PATH."/admin/model/class.Classes.php");
 
 class ChallengeMenuController {
 
@@ -43,17 +45,28 @@ class ChallengeMenuController {
 		}
 		if (Session::isAdmin() || Session::isTeacher()) {
 		    $challenges=Challenge::getChallengesFrontend($user->id);
+		    $ch = array();
+		    $ch[" "] = $challenges;
+		    $challenges = $ch;
 
 		} else {
 		    $challenges=Challenge::getChallengesAssigned($user->id);
 		}
 		$menu=array();
-		//var_dump($challenges);
-		foreach( $challenges as $challenge){
-			$link = array ('id'=>$challenge->id,
-						   'title'=>$challenge->title,
-						   'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
-			array_push($menu,$link);
+		foreach( $challenges as $class_id => $class_challenges){
+			$class = Classes::getClass($class_id);
+			if ($class != false)
+				$menu[$class->name] = array();
+			else
+				continue;
+
+			foreach( $class_challenges as $challenge){
+				$link = array ('id'=>$challenge->id,
+											 'title'=>$challenge->title,
+											 'class_id' => $class_id,
+											 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
+				array_push($menu[$class->name],$link);
+			}
 		}
 		return $menu;
 	}

@@ -14,7 +14,6 @@
 require_once(INSTALLER_PATH . '/Installer_Template.php');
 require_once("class.Utils.php");
 
-
 /**
  * Class installer
  *

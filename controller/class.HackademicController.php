@@ -84,18 +84,18 @@ abstract class HackademicController {
 			//die("not token but session");
 			error_log("HACKADEMIC:: not token but session", 0);
 			header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php");
-			
+
 		}*/
 		if(isset($_SESSION['hackademic_user']) && !Session::isValid()){
 			//die(" session but not valid");
 			//error_log("session but not valid", 0);
 			Session::logout();
 			header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
-			
+
 		}
 			//var_dump($_SESSION);
-			$this->smarty = new SmartyHackademic(); 
-			$this->app_session = new Session(); 
+			$this->smarty = new SmartyHackademic();
+			$this->app_session = new Session();
 			if ($this->isLoggedIn()) {
 				$this->addToView('is_logged_in', true);
 				$this->addToView('logged_in_user', $this->getLoggedInUser());
@@ -105,7 +105,7 @@ abstract class HackademicController {
 			}
 			$menu=FrontendMenuController::go();
 			$this->addToView('main_menu',$menu);
-	
+
 			$challenge_menu=ChallengeMenuController::go();
 			$this->addToView('challenge_menu',$challenge_menu);
 			if($this->isLoggedIn()){

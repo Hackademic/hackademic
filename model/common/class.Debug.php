@@ -5,7 +5,7 @@
  *
  * Hackademic Challenge Class
  * Class for Hackademic's Challenge Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -40,7 +40,7 @@ class Debug {
 			self::var_show_empty($vars,get_class($class), $function);
 			}
 	}
-	
+
 	public static function sql_show_query($query){
 		if ("dev" ==ENVIRONMENT){
 			if (TRUE === SHOW_SQL_QUERIES)
@@ -81,5 +81,22 @@ class Debug {
 		}
 
 
+	}
+	public static function pretty_print($arr, $callback = false){
+    $retStr = '<ul>';
+    if (is_array($arr)){
+        foreach ($arr as $key=>$val){
+            if (is_array($val)){
+                $retStr .= '<li>' . $key . ' => ' . self::pretty_print($val) . '</li>';
+            }else{
+								if($callback != false)
+									$retStr .= '<li>' . $key . ' => ' . call_user_func($callback,$val)  . '</li>';
+                else
+									$retStr .= '<li>' . $key . ' => ' . $val  . '</li>';
+            }
+        }
+    }
+    $retStr .= '</ul>';
+    return $retStr;
 	}
 }

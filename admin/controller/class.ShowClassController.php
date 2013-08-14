@@ -36,7 +36,7 @@ require_once(HACKADEMIC_PATH."admin/model/class.Classes.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
-
+require_once(HACKADEMIC_PATH."model/common/class.ScoringRule.php");
 class ShowClassController extends HackademicBackendController {
 
 	public function go() {
@@ -88,7 +88,13 @@ class ShowClassController extends HackademicBackendController {
 
 		$user_members = ClassMemberships::getAllMemberships($class_id);
 		$challenges_assigned = ClassChallenges::getAllMemberships($class_id);
-
+		$rules_arr = array();
+		foreach($challenges_assigned as $challenge){
+			$rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge['challenge_id'], $class_id);
+			if($rule == NO_RESULTS )
+				$rule = ScoringRule::get_scoring_rule(DEFAULT_RULES_ID);
+			$rules_arr[$challenge['challenge_id']] = ScoringRule::getRuleSummary($rule);
+		}
 		if($change)
 			$class = Classes::getClass($class_id);
 /*
@@ -100,6 +106,7 @@ class ShowClassController extends HackademicBackendController {
 		$this->addToView('challenges_not_assigned',$challenges_not_assigned);
 		$this->addToView('users', $user_members);
 		$this->addToView('challenges', $challenges_assigned);
+		$this->addToView('rules',$rules_arr);
 		return $this->generateView();
 	}
 }

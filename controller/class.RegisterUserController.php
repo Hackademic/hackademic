@@ -41,7 +41,7 @@ class RegisterUserController extends HackademicController {
 	public $username;
 	public $name;
 	public $email;
-	
+
 
 	public function go() {
 		$this->setViewTemplate('register_user.tpl');
@@ -56,7 +56,7 @@ class RegisterUserController extends HackademicController {
 			} elseif ($_POST['confirmpassword']=='') {
 				$this->addErrorMessage("Please confirm password");
 			} elseif ($_POST['email']=='') {
-				$this->addErrorMessage("please enter ur email id");	    
+				$this->addErrorMessage("please enter ur email id");
 			} else {
 				$username = Utils::sanitizeInput($_POST['username']);
 				$password = $_POST['password'];
@@ -80,6 +80,8 @@ class RegisterUserController extends HackademicController {
 					//Mailer::mail($email,$subject,$message);
 					$joined=date("Y-m-d H-i-s");
 					$result = User::addUser($username,$full_name,$email,$password,$joined);
+					$usr = User::findByUserName($username);
+					$res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
 					$this->addSuccessMessage("You have been registered succesfully");
 				}
 			}

@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
 require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
+require_once(HACKADEMIC_PATH."/admin/model/class.Classes.php");
 
 class ChallengeListController extends HackademicController {
 
@@ -41,20 +42,25 @@ class ChallengeListController extends HackademicController {
 		if (!$user) {
 		    return;
 		}
-		$challenges=Challenge::getChallengesFrontend($user->id);
-
+		//$challenges=Challenge::getChallengesFrontend($user->id);
+		$res_array = $this->get_by_class($user);
+		$challenges = $res_array['challenges'];
 		$menu=array();
 		$message = false;
-		foreach( $challenges as $challenge){
-			$link = array ('id'=>$challenge->id, 'title'=>$challenge->title,
-				       'url'=>'challenges/'.$challenge->pkg_name.'/index.php',
-				       'availability'=>$challenge->availability);
-			array_push($menu,$link);
-			//Debug::vars_get_value($link);
-			//var_dump($challenge);echo'</p>';
-			if ('private' == $challenge->availability){
-				$message = true;
+		foreach( $challenges as $class_name => $class_challenges){
+			$menu[$class_name] = array();
+			foreach( $class_challenges as $challenge){//var_dump($challenge);
+				$link = array ('id'=>$challenge->id,
+											 'title'=>$challenge->title,
+											 'availability'=>$challenge->availability,
+											 'class_id' => $res_array['ids'][$class_name],
+											 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
+				array_push($menu[$class_name],$link);
+				if ('private' == $challenge->availability){
+					$message = true;
+				}
 			}
+
 		}
 		if($message)
 			$this->addSuccessMessage("Note: Unclickable challenges are not yet available");
@@ -62,5 +68,19 @@ class ChallengeListController extends HackademicController {
 		$this->addToView('list', $menu);
 		$this->setViewTemplate('challenge_list.tpl');
 		return $this->generateView();
+	}
+	private function get_by_class($user){
+		$result = array();
+		$class_challenges = array();
+		$classes = ClassMemberships::getMembershipsOfUser($user->id);
+		foreach($classes as $cl){
+			$result['ids'][$cl['name']] = $cl['class_id'];
+			$class_challenges[$cl['name']] = ClassChallenges::getAllMemberships($cl['class_id']);
+		}
+		foreach($class_challenges[$cl['name']] as $key=>$challenge){
+			$class_challenges[$cl['name']][$key] = Challenge::getChallenge($challenge['challenge_id']);
+		}
+		$result['challenges'] = $class_challenges;
+		return $result;
 	}
 }

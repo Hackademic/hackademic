@@ -4,7 +4,7 @@
     <div class="header_bar">
 	<div class="page_title"><h3 class="left">Dashboard</h3></div>
     </div><br/>
-    
+
     <table id="dashboard_table">
 	<tr>
 	    <td>
@@ -43,20 +43,20 @@
 	    </td>
 	    <td>
 		<p>
-		    <a href="{$site_root_path}admin/pages/challengemanager.php" title="challenge manager"> 
+		    <a href="{$site_root_path}admin/pages/challengemanager.php" title="challenge manager">
 			<p><img src="{$site_root_path}admin/assets/images/challengemanager.jpg"/></p>
 			Challenge Manager
 		    </a>
 		</p>
 	    </td>
-	    <td> 
+	   <!-- <td>
 		<p>
 		    <a href="{$site_root_path}admin/pages/globalconfiguration.php" title="configuration">
 			<p><img src="{$site_root_path}admin/assets/images/configuration.jpg"/></p>
 			Configuration
 		    </a>
 		</p>
-	    </td>
+	    </td>-->
 	</tr>
     </table>
 </div>

@@ -65,8 +65,9 @@ class ClassChallenges {
 		}
 		return $result_array;
 	}
-/*@returns: array
- * Get all challenges the use can solve*/
+	/** @returns: array
+	 *  Get all challenges the use can solve
+	 */
 	public static function getChallengesOfUser($user_id) {
 		return UserChallenges::getChallengesOfUser($user_id);
 	}
@@ -119,12 +120,14 @@ class ClassChallenges {
 			return false;
 		}
 	}
-
+	/**
+	 * Returns every challenge in the given class_id
+	 */
 	public static function getAllMemberships($class_id) {
 		global $db;
 		$param=array(':class_id' => $class_id);
 		$sql = "SELECT DISTINCT class_challenges.challenge_id, challenges.title FROM class_challenges ";
-		$sql .= "LEFT JOIN challenges on class_challenges.challenge_id = challenges.id WHERE ";
+		$sql .= "LEFT JOIN challenges ON class_challenges.challenge_id = challenges.id WHERE ";
 		$sql .= "class_challenges.class_id = :class_id ORDER BY challenge_id";
 		$query = $db->query($sql,$param);
 		$result_array = array();
