@@ -27,9 +27,10 @@
 	</div>	
 	<div id="content">
 	    {if isset($user_menu)}
-	    	<div id="username">Hi {$logged_in_user},</div><br/>
+	  <!--  	<div id="username">Hi {$logged_in_user},</div><!--<br/>-->
 		<div id="topMenuHeader"> 
 		    <ul id="topMenu">
+			    <em id="username">Hi {$logged_in_user},</em><!--<br/>-->
 			{foreach from=$user_menu item=foo}
 			    <li>
 				<a href="{$site_root_path}{$foo['url']}">{$foo['title']}</a>

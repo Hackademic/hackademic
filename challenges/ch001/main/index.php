@@ -10,13 +10,13 @@
  */
 ?>
 <?php
-session_start();
-require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
+
+
 $name1 = $_POST["name1"];
 $name2 = $_POST["name2"];
 
 if ($name1==='white' and $name2==='rabbit' ){
-	$monitor->update(CHALLENGE_SUCCESS);
+	//$monitor->update(CHALLENGE_SUCCESS);
 ?>
 
 <html>
@@ -46,8 +46,8 @@ if ($name1==='white' and $name2==='rabbit' ){
 <?php  	
 }
 else  
-{
-	$monitor->update(CHALLENGE_FAILURE);
+{	//session_start();
+	//$monitor->update(CHALLENGE_FAILURE);
 ?>
 <head>
 <meta http-equiv="Content-Language" content="en-us">

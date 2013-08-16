@@ -5,7 +5,7 @@
  *
  * Hackademic Challenge Class
  * Class for Hackademic's Challenge Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
+require_once(HACKADEMIC_PATH."model/common/class.Debug.php");
 
 class Challenge {
 	public $id;
@@ -42,8 +43,11 @@ class Challenge {
 	public $author;
 	public $category;
 	public $visibility;
+	public $availability;
 	public $publish;
 	public $solution;
+	public $level;
+	public $duration;
 
 	public function doesChallengeExist($name){
 		global $db;
@@ -56,7 +60,7 @@ class Challenge {
 		} else {
 			return false;
 		}
-	} 
+	}
 
 	public static function getChallenge($id) {
 		global $db;
@@ -65,10 +69,9 @@ class Challenge {
 			       );
 		$sql = "SELECT * FROM challenges WHERE id= :id LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
 	}
-	
+
 	public static function getChallengeByPkgName($pkg_name) {
 		global $db;
 		$params = array(
@@ -76,26 +79,56 @@ class Challenge {
 			       );
 		$sql = "SELECT * FROM challenges WHERE pkg_name= :pkg_name LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
+		//return $result_array;
 	}
 
-	public static function getChallengesFrontend() {
+//get all Visible challenges
+	public static function getChallengesFrontend($user_id) {
 		global $db;
-		$params=array(':publish' => '1');
-		$sql = "SELECT * FROM challenges WHERE publish=:publish";
-		$result_array=self::findBySQL($sql,$params);
-		// return !empty($result_array)?array_shift($result_array):false;
-		return $result_array;
+		$params=array(':user_id' => $user_id);
+		$sql = "SELECT DISTINCT challenges.id, challenges.title,challenges.pkg_name, challenges.availability,
+			CASE WHEN class_id IS NULL THEN 'False' ELSE 'True' END AS class
+			FROM challenges
+			LEFT JOIN class_challenges ON challenges.id = class_challenges.challenge_id
+			WHERE challenges.publish =1 AND (
+			(visibility = 'public')
+			OR (class_id IN(
+			SELECT class_memberships.class_id AS class_id
+			FROM class_memberships WHERE
+			class_memberships.user_id = :user_id
+					)
+			   )
+							)
+			ORDER BY challenges.id
+			";
+		$result_array= self::findBySQL($sql,$params);
+		/*$result_set=$db->query($sql,$params);
+		$object_array=array();
+		$i = 0;
+		while($row=$db->fetchArray($result_set)) {
+
+			$result_array[$i]["id"]= $row['id'];
+			$result_array[$i]["title"] = $row['title'];
+			$result_array[$i]["pkg_name"] = $row["pkg_name"];
+			$result_array[$i]["availability"]=  $row['availability'];
+			$result_array[$i]["class"]= $row['class'];
+			$i++;
+
+		}*/
+		//echo "<p>".var_dump($result_array)."</p>";
+		//Debug::show($result_array,'all',$this,_FUNCTION_);
+		return !empty($result_array)?$result_array:false;
 	}
-	
+
 	public static function getChallengesAssigned($user) {
 		global $db;
 		$challenge_ids = ClassChallenges::getChallengesOfUser($user);
+		//var_dump($challenge_ids);
 		$challenges = array();
-		foreach ($challenge_ids as $id => $title) {
-    		    $challenge = self::getChallenge($id);
-		    array_push($challenges, $challenge[0]);
+		foreach ($challenge_ids as $chal) {
+    		    $challenge = self::getChallenge($chal->id);
+		    array_push($challenges, $challenge);
 		}
 		return $challenges;
 	}

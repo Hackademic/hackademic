@@ -33,6 +33,7 @@
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ChallengeBackend.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class EditChallengeController extends HackademicBackendController {
 	public function go() {
@@ -46,19 +47,32 @@ class EditChallengeController extends HackademicBackendController {
 				$this->addErrorMessage("Description should not be empty");
 			} elseif ($_POST['visibility']=='') {
 				$this->addErrorMessage("Visibility field should not be empty");
+			} elseif ($_POST['level']=='') {
+				$this->addErrorMessage("Level field should not be empty");
+			} elseif ($_POST['duration']=='') {
+				$this->addErrorMessage("Duration field should not be empty");
 			} else {
 
-				$this->title =$_POST['title'];
-				$this->description=$_POST['description'];
-				$this->visibility=$_POST['visibility'];
-				$this->publish=$_POST['publish'];            
-				ChallengeBackend::updateChallenge($id,$this->title,$this->description,$this->visibility,$this->publish);
+				$this->title = Utils::sanitizeInput($_POST['title']);
+				$this->description = $_POST['description'];
+				$this->visibility = Utils::sanitizeInput($_POST['visibility']);
+				$this->publish = Utils::sanitizeInput($_POST['publish']);
+				$this->availability = Utils::sanitizeInput($_POST['availability']);
+				$this->level = Utils::sanitizeInput($_POST['level']);
+				$this->duration = Utils::sanitizeInput($_POST['duration']);
+				ChallengeBackend::updateChallenge($id,$this->title,
+								  $this->description,
+								  $this->visibility,
+								  $this->publish,
+								  $this->availability,
+								  $this->level,
+								  $this->duration);
 				$this->addSuccessMessage("Challenge details have been updated succesfully");
 			}
 		}
 		$challenges=Challenge::getChallenge($id);
 		$this->setViewTemplate('editchallenge.tpl');
-		$this->addToView('challenge', $challenges[0]);
+		$this->addToView('challenge', $challenges);
 		$this->generateView();
 
 	}

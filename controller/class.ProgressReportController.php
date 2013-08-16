@@ -36,6 +36,7 @@ require_once(HACKADEMIC_PATH."/model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."/model/common/class.User.php");
 require_once(HACKADEMIC_PATH."/model/common/class.ChallengeAttempts.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
+require_once(HACKADEMIC_PATH."admin/model/class.UserChallenges.php");
 
 class ProgressReportController extends HackademicController{
 	public function go() {
@@ -57,31 +58,44 @@ class ProgressReportController extends HackademicController{
 				$this->addErrorMessage("Please select a student!");
 				return $this->generateView();
 			}
-			$challenges_of_user = ClassChallenges::getChallengesOfUser($user->id);
-			$attempts = ChallengeAttempts::getTotalAttempts($user->id);
-			$cleared_challenges = ChallengeAttempts::getClearedChallenges($user->id);
+			$challenges_of_user = UserChallenges::getChallengesOfUser($user->id);
+			$progress = ChallengeAttempts::getUserProgress($user->id);
 			$data = array();
-			foreach ($challenges_of_user as $id => $title) {
-				$attempt = isset($attempts[$id])?$attempts[$id]:0;
-				$cleared = isset($cleared_challenges[$id]['cleared'])?$cleared_challenges[$id]['cleared']:false;
-				if ($cleared) {
-					$cleared_on = $cleared_challenges[$id]['cleared_on'];
-				} else {
-					$cleared_on = false;
+			//var_dump(UserChallenges::getChallengesOfUser($user->id));
+			//echo'</p>';var_dump($progress);
+			foreach ($challenges_of_user as $challenge) {
+				$attempts = 0;
+				$cleared = false;
+				$cleared_on = null;
+				if(false != $progress)
+				foreach($progress as $chal_prog){
+					if($challenge->id === $chal_prog->challenge_id){
+						$attempts = $chal_prog->count;
+						if( 1 === $chal_prog->status){
+							$cleared = true;
+							$cleared_on = $chal_prog->time;
+							//unset($progress[$chal_prog]);
+							break;
+						}
+					}
 				}
 				$arr = array(
-					'id' => $id,
-					'title' => $title,
-					'attempts' => $attempt,
+					'id' => $challenge->id,
+					'title' => $challenge->title,
+					'attempts' => $attempts,
 					'cleared' => $cleared,
 					'cleared_on' => $cleared_on
 				);
+				//echo'</p>';var_dump($arr);
 				array_push($data, $arr);
+
 			}
+			//var_dump($cleared_challenges);
 			$this->addToView('data', $data);
 		} else {
 			$this->addErrorMessage("Please select a student to see his progress");
 		}
+
 		return $this->generateView();
 	}
 }

@@ -60,10 +60,10 @@ class LoginController extends HackademicBackendController {
 					$this->addToView('username', $username);
 					$user=User::findByUsername($username);
 					if (!$user) {
-						$this->addErrorMessage("Incorrect username");
+						$this->addErrorMessage("Incorrect username or password");
 						return $this->generateView();
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
-						$this->addErrorMessage("Incorrect password");
+						$this->addErrorMessage("Incorrect username or password");
 						return $this->generateView();
 					} elseif(!$user->type) {
 						$this->addErrorMessage("You are not an administrator");

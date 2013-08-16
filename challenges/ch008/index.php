@@ -58,8 +58,11 @@ if (isset($com))
 }
 if(isset($root,$password))
 {
-	 session_start();
-         require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
+			include_once dirname(__FILE__).'/../../init.php';		
+        session_start();
+        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+
 	if ($root=="root" && $password=="g0tr00t")
 	{
 		echo "<p><font color=red>uid=0(root) gid=0(root) groups=0(root)</font>";

@@ -5,7 +5,7 @@
  *
  * Hackademic Article Class
  * Class for Hackademic's Article Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -50,7 +50,7 @@ class Article {
 				':id' => $id
 			       );
 		$result_array=self::findBySQL($sql, $params);
-		return $result_array;
+		return !empty($result_array)?array_shift($result_array):false;
 	}
 
 	public static function getAllArticles($start, $limit) {
@@ -93,7 +93,7 @@ class Article {
 				case "last_modified_by":
 					$sql = "SELECT * FROM articles WHERE last_modified_by LIKE :search_string LIMIT :start, :limit";
 					break;
-			} 
+			}
 		} else {
 			$sql= "SELECT * FROM articles ORDER BY id LIMIT :start, :limit";
 		}
@@ -102,7 +102,7 @@ class Article {
 	}
 
 	public static function getNumberOfArticles($search=null, $category=null) {
-		global $db; 
+		global $db;
 		if ($search != null && $category != null) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch($category){
@@ -117,7 +117,7 @@ class Article {
 					break;
 			}
 			$query = $db->query($sql,$params);
-		} 
+		}
 		else {
 			$sql = "SELECT COUNT(*) as num FROM articles";
 			$query = $db->query($sql);

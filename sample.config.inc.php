@@ -33,3 +33,39 @@ define('DB_TYPE', 'mysql');
 define('DB_USER', '#YOUR_DBUSER#');
 define('DB_PASSWORD', '#YOUR_DBPASS#');
 define('DB_NAME', '#YOUR_DBNAME#');
+
+
+/*********************************************/
+/** 	Various Config			*****/
+/********************************************/
+
+//default max challenge size
+define('MAX_CHALLENGE_SIZE','2097152');
+
+/*	DEV DEBUG MESSAGE SELECTION */
+
+//Debug message selection
+define('SHOW_SQL_QUERIES', '#TRUE OR FALSE');
+define('SHOW_SQL_RESULTS', '#TRUE OR FALSE');
+define("SHOW_EMPTY_VAR_ERRORS", '#TRUE OR FALSE');
+
+
+
+/***************************************
+**	Default Example Challenge Path**
+***************************************/
+define('EXAMPLE_CHALLENGE','challenges/Example/');
+
+
+/***************************************
+**	"Security" settings "**
+***************************************/
+
+//every session closes after 48 hours
+define('SESS_EXP_ABS',172800); 
+
+//every session closes after 2 hours of inacivity
+define('SESS_EXP_INACTIVE',7200); 
+
+//session cookie name
+define('SESS_NAME',"not_the_cookie_you_are_looking_for"); 

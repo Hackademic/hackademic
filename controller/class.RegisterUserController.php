@@ -38,9 +38,15 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class RegisterUserController extends HackademicController {
 
+	public $username;
+	public $name;
+	public $email;
+	
+
 	public function go() {
 		$this->setViewTemplate('register_user.tpl');
 		if (isset($_POST['submit'])) {
+			$this->saveFormFields();
 			if ($_POST['username']=='') {
 				$this->addErrorMessage("Username should not be empty");
 			} elseif ($_POST['full_name']=='') {
@@ -52,11 +58,11 @@ class RegisterUserController extends HackademicController {
 			} elseif ($_POST['email']=='') {
 				$this->addErrorMessage("please enter ur email id");	    
 			} else {
-				$username = $_POST['username'];
+				$username = Utils::sanitizeInput($_POST['username']);
 				$password = $_POST['password'];
 				$confirmpassword=$_POST['confirmpassword'];
-				$full_name = $_POST['full_name'];
-				$email=$_POST['email'];
+				$full_name = Utils::sanitizeInput($_POST['full_name']);
+				$email=$_POST['email'];//esapi email encode
 				//$is_activated = $_POST['is_activated'];
 				if (User::doesUserExist($username)) {
 					$this->addErrorMessage("Username already exists");
@@ -67,16 +73,26 @@ class RegisterUserController extends HackademicController {
 				elseif(!Utils::validateEmail($email)) {
 					$this->addErrorMessage("Please enter a valid email id");
 				} else {
+					//$this->destroyFormFields();
+					$this->setViewTemplate('mainlogin.tpl');
 					$subject="Hackademic new account";
 					$message="Hackademic account created succesfully";
 					//Mailer::mail($email,$subject,$message);
 					$joined=date("Y-m-d H-i-s");
 					$result = User::addUser($username,$full_name,$email,$password,$joined);
 					$this->addSuccessMessage("You have been registered succesfully");
-					//header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=add");
 				}
 			}
 		}
 		return $this->generateView();
 	}
+
+	public function saveFormFields(){
+
+		$this->username = Utils::sanitizeInput($_POST['username']);
+		$this->name = Utils::sanitizeInput($_POST['full_name']);
+		$this->email = $_POST['email'];
+		$this->addToView('cached', $this);
+	}
+
 }

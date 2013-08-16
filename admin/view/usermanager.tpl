@@ -12,7 +12,7 @@
 			<div class="submenu_btn">
 			    <a href="{$site_root_path}admin/pages/adduser.php">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/adduser.png"/><br/>
-				<span class="caption">New</span>
+				<span class="caption">Add User</span>
 			    </a>
 			</div>
 		    </td>
@@ -41,7 +41,8 @@
 	<form method ="get">
 	    <table class="add_form center">
 		<tr>
-		    <td class="width_40"><input class="width_90" type="text" name="search" id="search"/></td>
+		    <td class="width_40">Search:  <input class="width_90" type="text" name="search" id="search" placeholder="Search Text"/></td>
+			<td class="width_10">Sort By:</td>
 		    <td class="width_25">
 			<select name="category" class="width_90">
 			    <option value="username">Username</option> 
@@ -49,6 +50,7 @@
 			    <option value="email">Email</option> 
 			</select>
 		    </td>
+			<td >Show:</td>
 			<td class="width_25">
 			  <select name="limit" class="width_90">
 	             <option value="">Results Per Page</option>
@@ -65,7 +67,7 @@
         	   </select>
 		     </td>
 		    <td class="submit_btn width_10">
-			<p class="submit"><input type="submit" name="submit" id="submit" value="search" /></p>
+			<p class="submit"><input type="submit" name="submit" id="submit" value="Submit" /></p>
 		    </td>
 		</tr>
 	    </table>

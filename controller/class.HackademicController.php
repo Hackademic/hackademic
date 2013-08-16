@@ -35,6 +35,7 @@ require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.ChallengeMenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.UserMenuController.php");
+require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
 
 abstract class HackademicController {
 
@@ -74,27 +75,43 @@ abstract class HackademicController {
 	public function __construct() {
 		if (!self::$session_exists) {
 			self::$session_exists = 1;
-			session_start();
+			Session::start(SESS_EXP_ABS);
+			//var_dump("no session");
+			//die("no session");
 		}
-
-		$this->smarty = new SmartyHackademic(); 
-		$this->app_session = new Session(); 
-		if ($this->isLoggedIn()) {
-			$this->addToView('is_logged_in', true);
-			$this->addToView('logged_in_user', $this->getLoggedInUser());
+		/*
+		if(!isset($_GET['token']) && isset($_SESSION['hackademic_user'])){
+			//die("not token but session");
+			error_log("HACKADEMIC:: not token but session", 0);
+			header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php");
+			
+		}*/
+		if(isset($_SESSION['hackademic_user']) && !Session::isValid()){
+			//die(" session but not valid");
+			//error_log("session but not valid", 0);
+			Session::logout();
+			header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+			
 		}
-		if ($this->isAdmin()) {
-			$this->addToView('user_type', true);
-		}
-		$menu=FrontendMenuController::go();
-		$this->addToView('main_menu',$menu);
-
-		$challenge_menu=ChallengeMenuController::go();
-		$this->addToView('challenge_menu',$challenge_menu);
-		if($this->isLoggedIn()){
-			$usermenu=UserMenuController::go();
-			$this->addToView('user_menu',$usermenu);
-		}
+			//var_dump($_SESSION);
+			$this->smarty = new SmartyHackademic(); 
+			$this->app_session = new Session(); 
+			if ($this->isLoggedIn()) {
+				$this->addToView('is_logged_in', true);
+				$this->addToView('logged_in_user', $this->getLoggedInUser());
+			}
+			if ($this->isAdmin()) {
+				$this->addToView('user_type', true);
+			}
+			$menu=FrontendMenuController::go();
+			$this->addToView('main_menu',$menu);
+	
+			$challenge_menu=ChallengeMenuController::go();
+			$this->addToView('challenge_menu',$challenge_menu);
+			if($this->isLoggedIn()){
+				$usermenu=UserMenuController::go();
+				$this->addToView('user_menu',$usermenu);
+			}
 	}
 
 	/**

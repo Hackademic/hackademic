@@ -31,7 +31,7 @@
  *
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
-
+require_once(HACKADEMIC_PATH."admin/model/class.UserChallenges.php");
 class ClassChallenges {
 	public $id;
 	public $challenge_id;
@@ -65,19 +65,10 @@ class ClassChallenges {
 		}
 		return $result_array;
 	}
-	
+/*@returns: array
+ * Get all challenges the use can solve*/
 	public static function getChallengesOfUser($user_id) {
-	    global $db;
-	    $sql = "SELECT challenge_id, challenges.title FROM class_challenges ";
-	    $sql .= " LEFT join challenges ON challenges.id = class_challenges.challenge_id ";
-	    $sql .= " WHERE challenges.publish = 1 AND class_id IN (SELECT class_memberships.class_id as class_id FROM class_memberships";
-	    $sql .= " WHERE class_memberships.user_id = $user_id) ORDER BY challenges.date_posted DESC;";
-	    $result_array = array();
-	    $query = $db->query($sql);
-	    while ($row = $db->fetchArray($query)) {
-			$result_array[$row['challenge_id']] = $row['title'];
-		}
-	    return $result_array;
+		return UserChallenges::getChallengesOfUser($user_id);
 	}
 
 	public static function doesMembershipExist($challenge_id,$class_id) {
@@ -134,7 +125,7 @@ class ClassChallenges {
 		$param=array(':class_id' => $class_id);
 		$sql = "SELECT DISTINCT class_challenges.challenge_id, challenges.title FROM class_challenges ";
 		$sql .= "LEFT JOIN challenges on class_challenges.challenge_id = challenges.id WHERE ";
-		$sql .= "class_challenges.class_id = :class_id";
+		$sql .= "class_challenges.class_id = :class_id ORDER BY challenge_id";
 		$query = $db->query($sql,$param);
 		$result_array = array();
 		while ($row = $db->fetchArray($query)) {
@@ -143,9 +134,33 @@ class ClassChallenges {
 		return $result_array;
 	}
 
+	public static function getNotMemberships($class_id){
+
+		global $db;
+		$param=array(':class_id' => $class_id);
+		$sql = 'SELECT challenges.id,challenges.title
+				FROM challenges WHERE challenges.id NOT IN(SELECT challenge_id FROM class_challenges WHERE
+				class_id = :class_id)';
+		$query = $db->query($sql,$param);
+		$result_array = array();
+		while ($row = $db->fetchArray($query)) {
+			array_push($result_array, $row);
+		}
+
+		//var_dump($result_array);
+		return $result_array;
+	}
+
+	//Checks if challenge_id is allowed in any of the classes
 	public static function isAllowed($challenge_id, $classes) {
 		global $db;
 		$in_these_classes = '';
+		if (empty($classes) || "" == $challenge_id){
+			if ("dev" ==ENVIRONMENT && TRUE === SHOW_EMPTY_VAR_ERRORS){
+				echo "<p> error: class.ClassChallenges.isAllowed challenge_id == ".$challenge_id. " and classes == ".print_r($classes,true)."</p>";
+			}
+			return false;
+		}
 		$params=array(':challenge_id' => $challenge_id);
 		foreach ($classes as $class) {
 			if ($in_these_classes != '') {

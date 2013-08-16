@@ -10,14 +10,16 @@
 	<form method ="get">
 	    <table class="add_form center">
 		<tr>
-		    <td class="width_40"><input class="width_90" type="text" name="search" id="search"/></td>
+		    <td class="width_40">Search:  <input class="width_90" type="text" name="search" id="search" placeholder="Search Text"/></td>
+		    <td class="width_10">Sort By:</td>
 		    <td class="width_25">
-			<select name="category" class="width_90">
+			  <select name="category" class="width_90">
 			    <option value="title">Title</option> 
 			    <option value="created_by">Author</option> 
 			    <option value="last_modified_by">Last modified by</option> 
 			</select>
 		    </td>
+		    <td >Show:</td>
 			<td class="width_25">
 			<select name="limit" class="width_90">
 	             <option value="">Results Per Page</option>
@@ -34,7 +36,7 @@
         	</select>
 			</td>
 		    <td class="submit_btn width_10">
-			<p class="submit"><input type="submit" name="submit" id="submit" value="search" /></p>
+			<p class="submit"><input type="submit" name="submit" id="submit" value="Submit" /></p>
 		    </td>
 		</tr>
 	    </table>

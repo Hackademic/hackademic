@@ -9,15 +9,33 @@
    <form id="form" name="form" method="post">
       <table class="manager_table">
               <tr>
-		     <td><label>Edit Class Name  </label></td>
+		     <td><label>Name:  </label></td>
 		     <td><input type="text" name="updateclassname" value="{$class->name}"/></td>
             
                   <td colspan="2">
 		        <p class="submit">
-			   <input type="submit" name="submit" id="submit" value="Edit ClassName" />
+			   
 		        </p>
 		      </td>
+		      <td>
+
+		<!--<a href="challengemanager.php">Add challenges</a>-->
+		<select name="challenges" class="width_90">
+			    <option value="default">Add challenges</option> 
+			    {foreach from=$challenges_not_assigned item=challenge}
+			    <option value="{$challenge['id']}">{$challenge['title']}</option>
+			    {/foreach} 
+			</select>
+	    </td>
+	     <td class="submit_btn width_10">
+			<p class="submit"><input type="submit" name="submit" id="submit" value="Update" /></p>
+		    </td>
+		    
+	     <td>
+		<a href="usermanager.php">Add users</a>
+	    </td>
 	    </tr>
+	    <tr></tr>
       </table>
    </form>  
     <table class="manager_table">

@@ -42,7 +42,9 @@ class LoginController extends HackademicController {
 		$this->setViewTemplate('landingpage.tpl');
 		$this->addPageTitle('Log in');
 
-		if ($this->isLoggedIn()) {
+
+		if ($this->isLoggedIn() && Session::isValid($_GET['token'])) {
+			//die("already logged");
 			$controller = new LandingPageController();
 			return $controller->go();
 		} else  {
@@ -68,11 +70,19 @@ class LoginController extends HackademicController {
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
 						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=password");
 						return $this->generateView();
-					}
-					else {
-						// this sets variables in the session
+					} if ($user->is_activated != 1){
+						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=activate");
+					} else {
+						// start the session
 						$session->completeLogin($user);
-						header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+						if($user->type){
+							//error_log("HACKADEMIC:: admin dashboard SUCCESS", 0);
+							//var_dump($_SESSION);//die();
+							header('Location:'.SOURCE_ROOT_PATH."admin/pages/dashboard.php");
+						}else{
+							//error_log("HACKADEMIC:: USER HOME SUCCESS", 0);
+							header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+						}
 					}
 				}
 			} else {

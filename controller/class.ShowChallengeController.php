@@ -43,22 +43,29 @@ class ShowChallengeController extends HackademicController {
 		    $id=$_GET['id'];
 		    $challenge=Challenge::getChallenge($id);
 		    $this->setViewTemplate('showChallenge.tpl');
-		    $this->addToView('challenge', $challenge[0]);
+		    $this->addToView('challenge', $challenge);
 		    if (!$this->isLoggedIn()) {
 			    $this->addErrorMessage("You must login to be able to take the challenge");
-		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge[0]->id)) {
+		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id)) {
 			    $this->addToView('is_allowed', true);
+			  $this->addToView('username', $this->getLoggedInUser());
 		    } else {
 			    $this->addErrorMessage('You cannot take the challenge as you are not a member
-					    of any class to which this challenge is assigned.');
+					    of any class to which this challenge is assigned and this challenge
+					    is not publicly available for solving .');
 		    }
+		    //error_log("HACKADEMIC:Show Challenge controller: path".$_SESSION['hackademic_path'], 0);
 		    $this->generateView();
 		}
 	}
 
 	protected static function isAllowed($username, $challenge_id) {
 		$user = User::findByUserName($username);
-		$classes = ClassMemberships::getMembershipsOfUser($user->id);
-		return ClassChallenges::isAllowed($challenge_id, $classes);
+		$dbg_array = ClassChallenges::getChallengesOfUser($user->id);
+		foreach($dbg_array as $element){
+			if($element->id === $challenge_id)
+				return true;
+		}
+		return false;
 	}
 }

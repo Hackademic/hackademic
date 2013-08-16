@@ -1,24 +1,25 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <?php
- session_start();
- require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
-$mystring = $_POST["name"]; 
+		include_once dirname(__FILE__).'/../../init.php';
+        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+
+$mystring = $_POST["name"];
 if ($mystring === 'Irene'){
 
 //if(!isset($_COOKIE["userlevel"] ) and ($_POST["name"]==='Irene') ){
-//} 
+//}
 
 	setcookie("username", 'Irene'); // set the cookie for 1 hour
 	setcookie("userlevel", 'user'); // set the cookie for 1 hour
@@ -30,8 +31,8 @@ if ($mystring === 'Irene'){
 
 //echo "==>".$_POST["name"];
 //echo "<br>==>".$_COOKIE["userlevel"];
-	
-?> 
+
+?>
 
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
@@ -51,7 +52,7 @@ body {
 </head>
 
 <body bgcolor="#C0C0C0">
-	
+
 	<table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="101%" id="AutoNumber1" height="104" background="spoudastes/Banner01.bmp">
 	  <tr>
 	    <td width="86%" height="104">
@@ -109,7 +110,7 @@ body {
 			2nd Semester:</div></td>
       </tr>
       <tr>
-        <td width="70%" style="font-weight: bold; color: white; border-left: .75pt solid navy; border-right-style: none; border-top-style: none; border-bottom: .75pt solid navy; background-color: navy"> 
+        <td width="70%" style="font-weight: bold; color: white; border-left: .75pt solid navy; border-right-style: none; border-top-style: none; border-bottom: .75pt solid navy; background-color: navy">
 		Courses</td>
         <td width="30%" style="font-weight: bold; color: white; border-left: .75pt solid navy; border-right-style: none; border-top-style: none; border-bottom: .75pt solid navy; background-color: navy"> <div align="center">
 			Grades</div></td>
@@ -146,17 +147,17 @@ body {
       </tr>
     </table>
     <p>&nbsp;</p>
-	
-	</body> 	
-<?php 
+
+	</body>
+<?php
 }
 else{
                $monitor->update(CHALLENGE_FAILURE);
 ?>
-<p>******************************************************** 
+<p>********************************************************
 <p> ERRONEOUS IMPORT OF DATA!
 <p> Please try again!
 <p>********************************************************
-<?php 
+<?php
 }
 ?></html>

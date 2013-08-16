@@ -31,8 +31,10 @@
  */
 require_once(dirname(dirname(__FILE__))."/init.php");
 require_once(HACKADEMIC_PATH."controller/class.ChallengeMonitorController.php");
+define("CHALLENGE_INIT", 2);
 define("CHALLENGE_SUCCESS", 1);
 define("CHALLENGE_FAILURE", 0);
+
 
 $monitor = new ChallengeMonitorController();
 $monitor->go();

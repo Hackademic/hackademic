@@ -5,7 +5,7 @@
  *
  * Hackademic User Model
  * Class for Hackademic's User Object
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -32,6 +32,9 @@
  */
 require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
+require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
+require_once(HACKADEMIC_PATH."model/common/class.ChallengeAttempts.php");
+require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
 
 class User {
 	public $id;
@@ -62,8 +65,8 @@ class User {
 				':id' => $id
 			       );
 		$result_array=self::findBySQL($sql, $params);
-		return $result_array;
-	}   
+		return !empty($result_array)?array_shift($result_array):false;
+	}
 
 	private static function findBySQL($sql, $params = NULL) {
 		global $db;
@@ -78,7 +81,8 @@ class User {
 	public static function addUser($username=null, $full_name=null, $email=null, $password=null,
 			$joined=null, $is_activated=null, $type=null, $token=0) {
 		global $db;
-		$password = md5($password);
+		$password = Utils::hash($password);
+
 		$params = array(
 				':username' => $username,
 				':full_name' => $full_name,
@@ -96,7 +100,7 @@ class User {
 			$sql = "INSERT INTO users (username, full_name, email, password, joined, token)";
 			$sql .= "VALUES (:username, :full_name, :email, :password, :joined, :token)";
 		}
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -111,7 +115,7 @@ class User {
 				':token' => $token,
 				':username' => $username
 			       );
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -121,13 +125,13 @@ class User {
 
 	public static function updatePassword($password, $username){
 		global $db;
-		$password=md5($password);
+		$password = Utils::hash($password);
 		$sql="UPDATE users SET password=:password, token = 0 WHERE username = :username";
 		$params = array(
 				':password' => $password,
 				':username' => $username
 			       );
-		$query = $db->query($sql, $params); 
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -154,7 +158,7 @@ class User {
 
 
 	public static function getNumberOfUsers($search=null,$category=null) {
-		global $db;  
+		global $db;
 		if ($search != null && $category != null) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
@@ -204,7 +208,20 @@ class User {
 		$result_array=self::findBySQL($sql, $params);
 		return $result_array;
 	}
-
+	public static function isUserActivated($username){
+		global $db;
+		$sql = "SELECT * FROM users WHERE username = :username AND is_activated = 1";
+		$params = array(
+				':username' => $username
+			       );
+		$query = $db->query($sql, $params);
+		$result = $db->numRows($query);
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	public function doesUserExist($username){
 		global $db;
 		$sql = "SELECT * FROM users WHERE username = :username";
@@ -235,7 +252,7 @@ class User {
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " is_activated = :is_activated , type = :type WHERE id = :id";
 		} else {
-			$password = md5($password);
+			$password = Utils::hash($password);
 			$params[':password'] = $password;
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " password=:password, is_activated = :is_activated , type = :type WHERE id = :id";
@@ -254,8 +271,11 @@ class User {
 		$params = array(
 				':id' => $id
 			       );
-		$query = $db->query($sql, $params);
 		ClassMemberships::deleteAllMemberships($id);
+		ChallengeAttempts::deleteChallengeAttemptByUser($id);
+		$user = self::getUser($id);
+		UserHasChallengeToken::deleteByUser($user->username);
+		$query = $db->query($sql, $params);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {

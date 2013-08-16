@@ -30,11 +30,12 @@
 	<div id="content">
 	    {if isset($main_menu_admin)}
 	    <div>
-		<div id="username" class="left">Hi {$logged_in_user},</div>
+		
 	    </div><br/>
 	    <!-- Main Menu -->
 	    <div id="menuHeader"> 
 		<ul id="mainMenu">
+			<em id="username">Hi {$logged_in_user},</em>
 		    {foreach from=$main_menu_admin item=foo}
 		    <li><a href="{$site_root_path}{$foo['url']}">{$foo['title']}</a></li>
 		    {/foreach}

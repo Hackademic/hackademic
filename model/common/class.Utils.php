@@ -30,6 +30,10 @@
  * @copyright 2012 OWASP
  *
  */
+
+require_once("PasswordHash.php");
+//require_once(HACKADEMIC_PATH."/esapi/User.php");
+
 class Utils {
 
 	/**
@@ -45,5 +49,31 @@ class Utils {
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
 		$pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
 		return preg_match($pattern, $email);
+	}
+	
+	public static function getPassUtil(){
+		return $util =  new PasswordHash(8, true);
+	}
+
+	public static function hash($password){
+		$util = new PasswordHash(8, true);
+		$hash = $util->HashPassword($password);
+		if (strlen($hash) <20 ){
+			throw new Exception('Hash length is less than 20 characters');
+			return false;
+		}
+		return $hash;
+	}
+
+	public static function check($input, $hash){
+		$util = new PasswordHash(8, true);
+		return $check = $util->CheckPassword($input, $hash);
+	}
+
+	
+	public static function sanitizeInput($input){
+
+	$input = htmlspecialchars($input);
+	return $input;
 	}
 }
