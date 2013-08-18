@@ -12,7 +12,6 @@
 
 <?php
 	include_once dirname(__FILE__).'/../../../init.php';
-    session_start();
     require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
     if(isset($_POST['submit'])) {
 		$name1 = $_POST["name1"];
