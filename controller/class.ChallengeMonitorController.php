@@ -74,6 +74,7 @@ class ChallengeMonitorController {
 			$_SESSION['token'] = $token;
 			$_SESSION['user_id'] = $user_id;
 			$_SESSION['pkg_name'] = $this->get_pkg_name();
+			$_SESSION['class_id'] = $class_id;
 			$this->calc_score(-1, $user_id, $chid, $class_id);
 			$_SESSION['init'] = true;
 			//var_dump($_SESSION);
@@ -90,6 +91,8 @@ class ChallengeMonitorController {
 			$_SESSION['user_id'] = $user_id;
 		if(!isset($_SESSION['pkg_name']))
 			$_SESSION['pkg_name'] = $pkg_name;
+		if(!isset($_SESSION['class_id']))
+			$_SESSION['class_id'] = $class_id;
 
 		$pair = UserHasChallengeToken::findByPair($user_id,$chid,$token);
 
@@ -112,6 +115,7 @@ class ChallengeMonitorController {
 					$_SESSION['user_id'] = $user_id;
 					$this->calc_score(-1, $user_id, $chid, $class_id);
 					$_SESSION['init'] = false;
+					$_SESSION['class_id'] = $class_id;
 				}
 			}else{
 				//var_dump($_SESSION);//die();
@@ -133,11 +137,17 @@ class ChallengeMonitorController {
 	}
     public function update($status, $request) {
 
-		$user_id = $request['user_id'];
-		$chid = $request['id'];
-		$class_id = $request['class_id'];
-		$token = $request['token'];
-
+		if( !empty($request) ){
+			$user_id = $request['user_id'];
+			$chid = $request['id'];
+			$class_id = $request['class_id'];
+			$token = $request['token'];
+		}else{
+			$user_id = null;
+			$chid = null;
+			$class_id = null;
+			$token = null;
+		}
 		$this->start($user_id,$chid, $class_id, $token,$status);
 		/*
 		 * if status == init we only need to update the SESSION var which we do in start
@@ -212,15 +222,9 @@ class ChallengeMonitorController {
 			$current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
 
 			if ($current_score === false){
-				UserScore::add_user_score( $user_id, $class_id, $challenge_id, 0, "");
-
 				$current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
-
-			//var_dump($challenge_id);die();
-
-			$_SESSION['current_score'] = (array)$current_score;
-
-		}
+				$_SESSION['current_score'] = (array)$current_score;
+			}
 		if ($status == -1){
 
 			foreach($_SESSION['rules'] as $key=>$value)
@@ -228,6 +232,10 @@ class ChallengeMonitorController {
 			unset($_SESSION['rules']);
 
 
+			if ($current_score === false){
+				UserScore::add_user_score( $user_id, $class_id, $challenge_id, 0, "");
+				$current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
+			}
 			$_SESSION['f_atempt'] = date("Y-m-d H:i:s");
 			$_SESSION['last_attempt'] = date("Y-m-d H:i:s");
 			$_SESSION['total_attempt_count'] = 0;
