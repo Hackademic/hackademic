@@ -53,6 +53,7 @@ class ChallengeMenuController {
 		    $challenges=Challenge::getChallengesAssigned($user->id);
 		}
 		$menu=array();
+		if($challenges != false)
 		foreach( $challenges as $class_id => $class_challenges){
 			$class = Classes::getClass($class_id);
 			if ($class != false)

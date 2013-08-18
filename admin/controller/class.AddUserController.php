@@ -82,6 +82,8 @@ class AddUserController extends HackademicBackendController {
 					//Mailer::mail($email,$subject,$message);
 					$joined=date("Y-m-d H-i-s");
 					$result = User::addUser($username,$full_name,$email,$password,$joined,$activated,$type);
+					$usr = User::findByUserName($username);
+					$res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
 					$this->addSuccessMessage("User has been added succesfully");
 					header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=add");
 				}
