@@ -76,9 +76,9 @@ class ChallengeListController extends HackademicController {
 		foreach($classes as $cl){
 			$result['ids'][$cl['name']] = $cl['class_id'];
 			$class_challenges[$cl['name']] = ClassChallenges::getAllMemberships($cl['class_id']);
-		}
-		foreach($class_challenges[$cl['name']] as $key=>$challenge){
-			$class_challenges[$cl['name']][$key] = Challenge::getChallenge($challenge['challenge_id']);
+			foreach($class_challenges[$cl['name']] as $key=>$challenge){
+				$class_challenges[$cl['name']][$key] = Challenge::getChallenge($challenge['challenge_id']);
+			}
 		}
 		$result['challenges'] = $class_challenges;
 		return $result;
