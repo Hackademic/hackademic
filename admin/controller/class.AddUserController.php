@@ -85,7 +85,7 @@ class AddUserController extends HackademicBackendController {
 					$joined=date("Y-m-d H-i-s");
 					$result = User::addUser($username,$full_name,$email,$password,$joined,$activated,$type);
 					$this->addSuccessMessage("User has been added succesfully");
-					header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=add");
+					header('Location:'.SOURCE_ROOT_PATH."?url=admin/usermanager&source=add");
 				}
 			}
 		}

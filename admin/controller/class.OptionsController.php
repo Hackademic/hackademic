@@ -67,15 +67,18 @@ class OptionsController extends HackademicBackendController {
     $this->notifyDisabledPlugins(array_diff(Options::getOption('active_plugins')->value, $this->active_plugins));
 
     // Handle theme
-    if($this->active_user_theme != $_POST['active_user_theme']) {
-      Plugin::do_action_ref_array('enable_user_theme', array($_POST['active_user_theme']));
+    $new_user_theme_path =  $_POST['active_user_theme'];
+    if($this->active_user_theme != $new_user_theme_path) {
+      $this->smarty->clear_all_cache();
+      Plugin::do_action_ref_array('enable_user_theme', array($new_user_theme_path));
       Plugin::do_action_ref_array('disable_user_theme', array($this->active_user_theme));
     }
-    $this->active_user_theme = $_POST['active_user_theme'];
+    $this->active_user_theme = $new_user_theme_path;
 
     // Update options in database
     Options::updateOption('active_plugins', $this->active_plugins);
     Options::updateOption('active_user_theme', $this->active_user_theme);
+    Options::updateOption('active_admin_theme', $this->active_user_theme);
   }
 
   /**
@@ -119,7 +122,7 @@ class OptionsController extends HackademicBackendController {
     $this->addToView('user_themes', $this->get_user_themes());
     $this->addToView('active_plugins', $this->active_plugins);
     $this->addToView('active_user_theme', $this->active_user_theme);
-    $this->addToView('system_theme',  'view/');
+    $this->addToView('system_theme',  '');
   }
 
   /**

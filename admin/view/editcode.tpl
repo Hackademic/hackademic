@@ -27,7 +27,7 @@
                     </td>
                     <td>
 		     	<p class="submit right" id="try_me" style="width: 130px">
-                            <a href="{$site_root_path}admin/pages/download.php?ch={$folder}" name="submit">Download Challange</a>
+                            <a href="{$site_root_path}?url=admin/download&ch={$folder}" name="submit">Download Challange</a>
                         </p>
                     </td>
                 </tr>

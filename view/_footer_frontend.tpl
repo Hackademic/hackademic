@@ -7,7 +7,7 @@
 				    <ul id="mainMenu" class="menu flt">
 					{foreach from=$challenge_menu item=foo}
 					<li>
-					<a class="width100" href="{$site_root_path}pages/showchallenges.php?id={$foo['id']}"><span class="padding_menu">{$foo['title']}</span></a></li>
+					<a class="width100" href="{$site_root_path}?url=showchallenges&id={$foo['id']}"><span class="padding_menu">{$foo['title']}</span></a></li>
 					{/foreach}
 				    </ul>
 				</div>

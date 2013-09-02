@@ -215,7 +215,7 @@ class AddChallengeController extends HackademicBackendController {
           $pkg_name =$name[0];
           $date_posted = date("Y-m-d H-i-s");
           ChallengeBackend::addchallenge($data['title'], $pkg_name, $data['description'], $data['author'], $data['category'], $date_posted, $data['level'], $data['duration']);
-          header('Location: '.SOURCE_ROOT_PATH."admin/pages/challengemanager.php?action=add");
+          header('Location: '.SOURCE_ROOT_PATH."?url=admin/challengemanager&action=add");
         }
       }
     }

@@ -7,8 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{$site_root_path}admin/assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="{$site_root_path}admin/assets/css/base.css" />
    
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="{$site_root_path}admin/assets/js/jquery-1.10.2.min.js"></script>
 </head>
 <body>
     <div id="main">
@@ -34,10 +33,23 @@
 	    </div><br/>
 	    <!-- Main Menu -->
 	    <div id="menuHeader"> 
-		<ul id="mainMenu">
-			<em id="username">Hi {$logged_in_user},</em>
-		    {foreach from=$main_menu_admin item=foo}
-		    <li><a href="{$site_root_path}{$foo['url']}">{$foo['title']}</a></li>
-		    {/foreach}
-		</ul>
-	    </div><br/>{/if}<br/>
+    		<ul id="mainMenu">
+    			<em id="username">Hi {$logged_in_user},</em>
+  		    {foreach from=$main_menu_admin['parents'][0] item=itemId}
+            <li class="menu-item">
+              <a href="{$site_root_path}?url={$main_menu_admin['items'][$itemId]['url']}">{$main_menu_admin['items'][$itemId]['label']}</a>
+              {if isset($main_menu_admin['parents'][$itemId])}
+                <ul class="sub-menu">
+                {foreach from=$main_menu_admin['parents'][$itemId] item=subItemId}
+                  <li>
+                    <a href="{$site_root_path}?url={$main_menu_admin['items'][$subItemId]['url']}">{$main_menu_admin['items'][$subItemId]['label']}</a>
+                  </li>
+                {/foreach}
+                </ul>
+              {/if}
+            </li>
+  		    {/foreach}
+    		</ul>
+	    </div>
+      <br/>{/if}<br/>
+      

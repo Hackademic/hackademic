@@ -44,7 +44,7 @@ tinyMCE.init({
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
 
     <div id="input_form">
-    <form method="post" action="{$site_root_path}admin/pages/editarticle.php?id={$article->id}">
+    <form method="post" action="{$site_root_path}?url=admin/editarticle&id={$article->id}">
         <table class="article_main">
             <tr>
                 <td class="bottom"><label>Title</label></td>

@@ -67,23 +67,23 @@ class LoginController extends HackademicController {
 					$user=User::findByUsername($username);
 
 					if (!$user) {
-						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=username");
+						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=username");
 						//return $this->generateView(self::$action_type);
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
-						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=password");
+						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=password");
 						return $this->generateView(self::$action_type);
 					} if ($user->is_activated != 1){
-						header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php?msg=activate");
+						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=activate");
 					} else {
 						// start the session
 						$session->completeLogin($user);
 						if($user->type){
 							//error_log("HACKADEMIC:: admin dashboard SUCCESS", 0);
 							//var_dump($_SESSION);//die();
-							header('Location:'.SOURCE_ROOT_PATH."admin/pages/dashboard.php");
+							header('Location:'.SOURCE_ROOT_PATH."?url=admin/dashboard");
 						}else{
 							//error_log("HACKADEMIC:: USER HOME SUCCESS", 0);
-							header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+							header('Location:'.SOURCE_ROOT_PATH."?url=home");
 						}
 					}
 				}

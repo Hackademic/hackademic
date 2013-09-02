@@ -332,6 +332,158 @@ class PluginTest extends PHPUnit_Framework_TestCase {
 
         $this->assertTrue(empty($hc_filter[$tag]));
     }
+    
+  
+    /**
+     * Tests adding a menu
+     */
+    public static function test_add_menu() {
+      global $db;
+      $name = 'test_menu';
+      $result = Plugin::add_menu($name);
+      $db->query('delete from menus where name = "' . $name . '"');
+      assert($result === TRUE);
+    }
+  
+    /**
+     * Tests retrieving a menu
+     */
+    public static function test_get_menu() {
+      global $db;
+      $name = 'test_menu';
+      MenuBackend::addMenu($name);
+      $mid = MenuBackend::insertId();
+      $menu = Plugin::get_menu($mid);
+      $db->query('delete from menus where name = "' . $name . '"');
+      assert(is_array($menu->items));
+      assert(sizeof($menu->items) > 0);
+    }
+  
+    /**
+     * Tests updating the menu name
+     */
+    public static function test_update_menu() {
+      global $db;
+      $name = 'test_menu';
+      $name2 = 'test_menu2';
+      MenuBackend::addMenu($name);
+      $mid = MenuBackend::insertId();
+      $result = Plugin::update_menu($mid, $name2);
+      assert($result === TRUE);
+    }
+  
+    /**
+     * Tests deleting a menu
+     */  
+    public static function test_delete_menu() {
+      global $db;
+      $name = 'test_menu';
+      MenuBackend::addMenu($name);
+      $mid = MenuBackend::insertId();
+      $result = Plugin::delete_menu($mid);
+      $db->query('delete from menus where mid = "$mid"');
+      assert($result === TRUE);
+    }
+
+    /**
+     * Tests adding a page
+     */
+    public static function test_add_page() {
+      global $db;
+      $url = 'testurl';
+      $file = 'testfile';
+      $result = Plugin::add_page($url, $file);
+      $db->query('delete from pages where url = "' . $url . '"');
+      assert($result === TRUE);
+    }
+
+    /**
+     * Tests retrieving a file for a url
+     */
+    public static function test_get_file_for_page() {
+      global $db;
+      $url = 'testurl';
+      $file = 'testpage';
+      Plugin::add_page($url, $file);
+      $result = Plugin::get_file_for_page($url);
+      $db->query('delete from pages where url = "' . $url . '"');
+      assert($result['file'] === $file);
+    }
+
+    /**
+     * Tests updating a page
+     */
+    public static function test_update_page() {
+      global $db;
+      $url = 'testurl';
+      $file = 'testfile';
+      $file2 = 'testfile2';
+      Plugin::add_page($url, $file);
+      $result = Plugin::update_page($url, $file2);
+      $db->query('delete from pages where url = "' . $url . '"');
+      assert($result === TRUE);
+    }
+
+    /**
+     * Tests deleting a page
+     */
+    public static function test_delete_page() {
+      global $db;
+      $url = 'testurl';
+      $file = 'testfile';
+      Plugin::add_page($url, $file);
+      $result = Plugin::delete_page($url);
+      $db->query('delete from pages where url = "' . $url . '"');
+      assert($result === TRUE);
+    }
+  
+    /**
+     * Tests adding a menu item to an existing menu
+     */
+  	public static function test_add_menu_item() {
+      global $db;
+      $url = 'testurl';
+      $mid = MenuBackend::ADMIN_MENU;
+      $label = 'testlabel';
+      $parent = 0;
+      $sort = 0;
+  	  $result = Plugin::add_menu_item($url, $mid, $label, $parent, $sort);
+      $db->query('delete from menu_items where url="' . $url . '" and mid="$mid"');
+      assert($result === TRUE);
+  	}
+  
+    /**
+     * Tests updating an existing menu item
+     */
+  	public static function test_update_menu_item() {
+      global $db;
+      $url = 'testurl';
+      $mid = MenuBackend::ADMIN_MENU;
+      $label = 'testlabel';
+      $label2 = 'updated-testlabel';
+      $parent = 0;
+      $sort = 0;
+      MenuBackend::addMenuItem($url, $mid, $label, $parent, $sort);
+      $result = Plugin::update_menu_item($url, $mid, $label2, $parent, $sort);
+      $db->query('delete from menu_items where url="' . $url . '" and mid="$mid"');
+      assert($result === TRUE);
+  	}
+  
+    /**
+     * Tests deleting a menu item
+     */
+  	public static function test_delete_menu_item() {
+      global $db;
+      $url = 'testurl';
+      $mid = MenuBackend::ADMIN_MENU;
+      $label = 'testlabel';
+      $parent = 0;
+      $sort = 0;
+      MenuBackend::addMenuItem($url, $mid, $label, $parent, $sort);
+  	  $result = Plugin::delete_menu_item($url, $mid);
+      $db->query('delete from menu_items where url="' . $url . '" and mid="$mid"');
+      assert($result === TRUE);
+  	}
 
 }
 

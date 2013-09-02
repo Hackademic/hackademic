@@ -51,6 +51,11 @@ class SmartyHackademic extends Smarty {
    * @var string the path to the user theme
    */
   public $user_theme_path = '';
+  
+  /**
+   * @var string the path to the admin theme
+   */
+  public $admin_theme_path = '';
 
 	/**
 	 * Constructor to initialize SmartyHackademic
@@ -61,15 +66,19 @@ class SmartyHackademic extends Smarty {
 	public function __construct() {
 		$src_root_path = SOURCE_ROOT_PATH;
 		$site_root_path = SITE_ROOT_PATH;
-    $user_theme_path = Options::getOption('active_user_theme')->value;
-    $admin_theme_path = 'admin/view/';
 
 		$app_title = APP_TITLE;
-		$debug=DEBUG;
-		$cache_pages=CACHE_PAGES;
+		$debug = DEBUG;
+		$cache_pages = CACHE_PAGES;
 
 		Smarty::__construct();
-		$this->template_dir = array( HACKADEMIC_PATH . $user_theme_path, HACKADEMIC_PATH . $admin_theme_path);
+    $this->user_theme_path = Options::getOption('active_user_theme')->value . 'view/';
+    $this->admin_theme_path = Options::getOption('active_admin_theme')->value . 'admin/view/';
+		//$this->template_dir = array( HACKADEMIC_PATH . $this->user_theme_path, HACKADEMIC_PATH . $this->admin_theme_path);
+    $this->setTemplateDir(array(
+      HACKADEMIC_PATH . $this->user_theme_path,
+      HACKADEMIC_PATH . $this->admin_theme_path)
+    );
 		$this->compile_dir = HACKADEMIC_PATH.'/view/compiled_view';
 		$this->cache_dir =HACKADEMIC_PATH.'cache';
 		$this->caching = ($cache_pages)?1:0;

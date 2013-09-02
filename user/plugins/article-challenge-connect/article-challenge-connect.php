@@ -20,11 +20,11 @@ require_once('class.ArticleChallengeModel.php');
  * @return string the new template
  */
 function custom_uni_set_admin_view_template($new_path) {
-  if($new_path == '/admin/view/editor.tpl') {
+  if(string_contains('admin/view/editor.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/editor.tpl';
-  } else if($new_path == '/admin/view/articlemanager.tpl') {
+  } else if(string_contains('admin/view/articlemanager.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/articlemanager.tpl';
-  } else if($new_path == '/admin/view/editarticle.tpl') {
+  } else if(string_contains('admin/view/editarticle.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/editarticle.tpl';
   }
 }
@@ -135,6 +135,18 @@ Plugin::add_action('enable_plugin', 'custom_uni_enable_plugin', 10, 1);
 
 // Add filter to set custom form template
 Plugin::add_filter('set_admin_view_template', 'custom_uni_set_admin_view_template', 10, 1);
+
+/**
+ * Checks to see if the sub string is part of the original string
+ *
+ * @param $substring the substring you wish to look for
+ * @param $string the string to search for the sub string in
+ * @return true if $substring is found, otherwise false
+ */
+function string_contains($substring, $string) {
+   $pos = strpos($string, $substring);
+   return $pos > -1 ? true : false;
+}
 
 /**
  * Debugging function for printing objects and arrays.

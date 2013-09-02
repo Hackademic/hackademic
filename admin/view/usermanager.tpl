@@ -10,7 +10,7 @@
 		<tr class="center">
 		    <td>
 			<div class="submenu_btn">
-			    <a href="{$site_root_path}admin/pages/adduser.php">
+			    <a href="{$site_root_path}?url=admin/adduser">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/adduser.png"/><br/>
 				<span class="caption">Add User</span>
 			    </a>
@@ -18,7 +18,7 @@
 		    </td>
 		    <td>
 			<div class="submenu_btn">
-			    <a href="{$site_root_path}admin/pages/addclass.php">
+			    <a href="{$site_root_path}?url=admin/addclass">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/addclass.png"/><br/>
 				<span class="caption">Add Class</span>
 			    </a>
@@ -26,7 +26,7 @@
 		    </td>
 		    <td>
 			<div class="submenu_btn">
-			    <a href="{$site_root_path}admin/pages/manageclass.php">
+			    <a href="{$site_root_path}?url=admin/manageclass">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/manageclass.png"/><br/>
 				<span class="caption">Class Manager</span>
 			    </a>
@@ -39,6 +39,7 @@
     
     <div id="input_form">
 	<form method ="get">
+    <input type="hidden" name="url" value="{$smarty.get.url}">
 	    <table class="add_form center">
 		<tr>
 		    <td class="width_40">Search:  <input class="width_90" type="text" name="search" id="search" placeholder="Search Text"/></td>
@@ -90,11 +91,11 @@
 	</thead>
 	{foreach from=$users item=user}
 	    <tr>
-		<td><a href="{$site_root_path}admin/pages/edituser.php?id={$user->id}">{$user->username}</a></td>
+		<td><a href="{$site_root_path}?url=admin/edituser&id={$user->id}">{$user->username}</a></td>
 		<td>{$user->full_name}</td>
 		<td>{$user->email}</td>
 		<td>
-		    <a href="{$site_root_path}admin/pages/classmemberships.php?id={$user->id}">Edit</a>
+		    <a href="{$site_root_path}?url=admin/classmemberships&id={$user->id}">Edit</a>
 		</td>
 		<td>{$user->joined|date_format}</td>
 		<td>{if $user->last_visit}{$user->last_visit|date_format}{else}Never{/if}</td>

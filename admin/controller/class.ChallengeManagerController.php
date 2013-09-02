@@ -60,7 +60,7 @@ class ChallengeManagerController extends HackademicBackendController {
 		}
 
 		$total_pages = ChallengeBackend::getNumberOfChallenges();
-		$targetpage = SOURCE_ROOT_PATH."admin/pages/challengemanager.php";
+		$targetpage = SOURCE_ROOT_PATH."?url=admin/challengemanager";
 		$stages = 3;
 		$page=0;
 		if(isset($_GET['page'])) {
