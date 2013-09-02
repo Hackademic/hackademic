@@ -38,10 +38,12 @@ class Plugin {
 
   /**
    * Loads the active plugins using include_once so we don't crash the site if
-   * a plugin can't be found.
+   * a plugin can't be found. Also loads the required files for the rest of the class.
    */
   public static function loadPlugins() {
     require_once(HACKADEMIC_PATH . "admin/model/class.Options.php");
+    require_once(HACKADEMIC_PATH . "admin/model/class.MenuBackend.php");
+    require_once(HACKADEMIC_PATH . "admin/model/class.PageBackend.php");
     $active_plugins = Options::getOption('active_plugins')->value;
     foreach($active_plugins as $plugin) {
       include_once(HACKADEMIC_PLUGIN_PATH . $plugin);
@@ -295,6 +297,132 @@ class Plugin {
   public static function remove_all_actions($tag, $priority = FALSE) {
     return self::remove_all_filters($tag, $priority);
   }
+  
+  /**
+   * Adds a menu with the given name.
+   *
+   * @param the name of the menu such as 'My menu'
+   * @return true if added
+   */
+  public static function add_menu($name) {
+    return MenuBackend::addMenu($name);
+  }
+  
+  /**
+   * Retrives the menu for the given menu id
+   * 
+   * @param the id of the menu to load
+   * @return an array with the menu items
+   */
+  public static function get_menu($mid) {
+    return MenuBackend::getMenu($mid);
+  }
+  
+  /**
+   * Updates the menu with the given menu id to the given name.
+   *
+   * @param menu id of the menu to update
+   * @param the new name of the menu such as 'My new menu'
+   * @return true if updated
+   */
+  public static function update_menu($mid, $name) {
+    return MenuBackend::updateMenu($mid, $name);
+  }
+  
+  /**
+   * Deletes the menu with the given menu id.
+   *
+   * @param menu id of the menu to delete
+   * @return true if deleted
+   */  
+  public static function delete_menu($mid) {
+    return MenuBackend::deleteMenu($mid);    
+  }
+
+  /**
+   * Adds a page mapping from the given url to the file.
+   *
+   * @param the url to map
+   * @param the path to the file that generates the page view. The path should be relative
+   * to the HACKADEMIC_PATH variable which is the web root as default.
+   * @return true if added
+   */
+  public static function add_page($url, $file) {
+    return PageBackend::addPage($url, $file);
+  }
+
+  /**
+   * Retrives the file for the given url
+   * 
+   * @param the $url to load the file for
+   * @return the path to the file
+   */
+  public static function get_file_for_page($url) {
+    return PageBackend::getFile($url);
+  }
+
+  /**
+   * Updates a page mapping from the given url to the new file.
+   *
+   * @param the url to update the mapping for
+   * @param the new path to the file that generates the page view. The path should be relative
+   * to the HACKADEMIC_PATH variable which is the web root as default.
+   * @return true if updated
+   */
+  public static function update_page($url, $file){
+    return PageBackend::updatePage($url, $file);
+  }
+
+    /**
+   * Deletes a page mapping for the given url.
+   *
+   * @param the url to delete the page mapping for.
+   * @return true if deleted
+   */
+  public static function delete_page($url){
+    return PageBackend::deletePage($url);
+  }
+  
+  /**
+   * Adds a menu item to the menu with the given menu id. The menu item
+   * needs a url to point to, a label to display and a integer to sort on.
+   *
+   * @param the url for the menu item
+   * @param the menu id that the menu item belongs to
+   * @param the label for the menu item that is visible to the user
+   * @param the parent menu item id if there is one, otherwise 0 if root item
+   * @param the sort integer for the menu item, sort is made ascending  
+   * @return true if added
+   */
+	public static function add_menu_item($url, $mid, $label, $parent, $sort) {
+	  return MenuBackend::addMenuItem($url, $mid, $label, $parent, $sort);
+	}
+  
+  /**
+   * Updates a menu item to the menu with the given menu id. The menu item
+   * needs a url to point to, a label to display and a integer to sort on.
+   *
+   * @param the url for the menu item
+   * @param the menu id that the menu item belongs to
+   * @param the new label for the menu item that is visible to the user
+   * @param the parent menu item id if there is one, otherwise 0 if root item
+   * @param the new sort integer for the menu item, sort is made ascending  
+   * @return true if updated
+   */
+	public static function update_menu_item($url, $mid, $label, $parent, $sort) {
+	  return MenuBackend::updateMenuItem($url, $mid, $label, $parent, $sort);
+	}
+  
+  /**
+   * Deletes a menu item to the menu with the given menu id.
+   *
+   * @param the url for the menu item
+   * @param the menu id that the menu item belongs to
+   * @return true if deleted
+   */
+	public static function delete_menu_item($url, $mid) {
+	  return MenuBackend::deleteMenuItem($url, $mid);
+	}
 
   /**
    * Build Unique ID for storage and retrieval.

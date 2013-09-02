@@ -46,7 +46,7 @@ tinyMCE.init({
     <form id="form" name="form" method="post">
 	<table class="article_main">
 	<tr><td>
-		   	<p class="submit left" id="try_me"><a href="{$site_root_path}admin/pages/editcode.php?id={$challenge->id}" name="submit">Edit Code</a></p></td>
+		   	<p class="submit left" id="try_me"><a href="{$site_root_path}?url=admin/editcode&id={$challenge->id}" name="submit">Edit Code</a></p></td>
 		</tr>
 	    <tr>
 		<td><label for="name">Title</label></td>

@@ -28,7 +28,7 @@
  * @copyright 2013 OWASP
  *
  */
-require_once("../../init.php");
+
 require_once(HACKADEMIC_PATH . "admin/controller/class.OptionsController.php");
 
 $controller = new OptionsController();

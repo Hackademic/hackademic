@@ -216,8 +216,144 @@ CREATE TABLE IF NOT EXISTS options (
 -- Dumping data for table options
 --
 
-INSERT INTO options VALUES (active_plugins,'[]'),(active_user_theme,'\"view\\/\"');
+INSERT INTO options VALUES 
+(active_plugins,'[]'),
+(active_user_theme,'""'),
+(active_admin_theme,'""');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table menus
+--
+
+CREATE TABLE IF NOT EXISTS menus (
+  mid int(11) NOT NULL auto_increment,
+  name varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`mid`)
+);
+
+--
+-- Dumping data for table menus
+--
+
+INSERT INTO menus (mid, name) VALUES 
+(1, 'Admin menu'),
+(2, 'Teacher menu'),
+(3, 'Student menu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pages`
+--
+
+CREATE TABLE IF NOT EXISTS `pages` (
+  `url` varchar(250) NOT NULL default '',
+  `file` varchar(250) NOT NULL default '',
+  PRIMARY KEY  (`url`)
+);
+
+--
+-- Dumping data for table `pages`
+--
+
+INSERT INTO `pages` (`url`, `file`) VALUES 
+('admin', 'admin/index.php'),
+('admin/addarticle', 'admin/pages/addarticle.php'),
+('admin/articlemanager', 'admin/pages/articlemanager.php'),
+('admin/dashboard', 'admin/pages/dashboard.php'),
+('admin/usermanager', 'admin/pages/usermanager.php'),
+('admin/addchallenge', 'admin/pages/addchallenge.php'),
+('admin/challengemanager', 'admin/pages/challengemanager.php'),
+('admin/options', 'admin/pages/options.php'),
+('progressreport', 'pages/progress.php'),
+('ranking', 'pages/ranking.php'),
+('challenges', 'pages/challengelist.php'),
+('login', 'pages/login.php'),
+('logout', 'pages/logout.php'),
+('challenge_monitor', 'pages/challenge_monitor.php'),
+('challengelist', 'pages/challengelist.php'),
+('challengesfrontend', 'pages/challengesfrontend.php'),
+('forgotpassword', 'pages/forgotpassword.php'),
+('home', 'pages/home.php'),
+('mainlogin', 'pages/mainlogin.php'),
+('readarticle', 'pages/readarticle.php'),
+('register', 'pages/register.php'),
+('resetpassword', 'pages/resetpassword.php'),
+('showchallenges', 'pages/showchallenges.php'),
+('trychallenge', 'pages/trychallenge.php'),
+('admin/addclass', 'admin/pages/addclass.php'),
+('admin/adduser', 'admin/pages/adduser.php'),
+('admin/classchallenges', 'admin/pages/classchallenges.php'),
+('admin/classmemberships', 'admin/pages/classmemberships.php'),
+('admin/download', 'admin/pages/download.php'),
+('admin/editarticle', 'admin/pages/editarticle.php'),
+('admin/editchallenge', 'admin/pages/editchallenge.php'),
+('admin/editcode', 'admin/pages/editcode.php'),
+('admin/edituser', 'admin/pages/edituser.php'),
+('admin/login', 'admin/pages/login.php'),
+('admin/logout', 'admin/pages/logout.php'),
+('admin/manageclass', 'admin/pages/manageclass.php'),
+('admin/menumanager', 'admin/pages/menumanager.php'),
+('admin/showclass', 'admin/pages/showclass.php');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_items`
+--
+
+CREATE TABLE IF NOT EXISTS `menu_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(250) NOT NULL default '',
+  `mid` int(11) NOT NULL,
+  `label` varchar(50) NOT NULL default '',
+  `parent` int(11) NOT NULL default 0,
+  `sort` int(11) default 0,
+  PRIMARY KEY  (`id`),
+  FOREIGN KEY (`mid`) REFERENCES menus(`mid`)
+);
+
+--
+-- Dumping data for table `menu_items`
+--
+
+INSERT INTO `menu_items` (`url`, `mid`, `label`, `parent`, `sort`) VALUES 
+('admin', 1,  'Home', 0, 0),
+('admin/addarticle', 1, 'Add New Articles', 0, 1),
+('admin/articlemanager', 1, 'Article Manager', 0, 2),
+('admin/usermanager', 1, 'Users/Classes', 0, 3),
+('admin/addchallenge', 1, 'Add New Challenge', 0, 4),
+('admin/challengemanager', 1, 'Challenge Manager', 0, 5),
+('admin/menumanager', 1, 'Menu Manager', 0, 6),
+('admin/options', 1, 'Options', 0, 7),
+('logout', 1, 'Logout', 0, 8),
+('admin', 2, 'Admin Dashboard', 0, 0),
+('admin/addarticle', 2, 'Add New Articles', 0, 1),
+('admin/articlemanager', 2, 'Article Manager', 0, 2),
+('admin/usermanager', 2, 'Users/Classes', 0, 3),
+('admin/addchallenge', 2, 'Add New Challenge', 0, 4),
+('admin/challengemanager', 2, 'Challenge Manager', 0, 5),
+('logout', 2,  'Logout', 0, 6),
+('home', 3, 'Home', 0, 0),
+('progressreport', 3, 'Progress Report', 0, 1),
+('ranking', 3, 'Ranking', 0, 2),
+('challenges', 3, 'Challenges', 0, 3),
+('logout', 3,  'Logout', 0, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Trigger to remove menu items before pages
+--
+DROP TRIGGER IF EXISTS before_delete_pages;
+
+CREATE TRIGGER before_delete_pages
+  BEFORE DELETE ON pages 
+  FOR EACH ROW
+  DELETE FROM menu_items WHERE menu_items.url = OLD.url;
+    
 -- --------------------------------------------------------
 
 --
@@ -239,10 +375,10 @@ CREATE TABLE IF NOT EXISTS  users  (
   UNIQUE KEY  id  ( id )
 );
 --
--- Dumping data for table `users`
+-- Dumping data for table users
 --
 
-INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
+INSERT INTO users (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
 ('Guest','Guest User','guest@hackademic.com','empty pass this user is never supposed to login normally','2010-01-01 00:00:00','2010-01-01 00:00:00',1,0,0);
 -- --------------------------------------------------------
 

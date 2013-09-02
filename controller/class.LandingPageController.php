@@ -32,7 +32,6 @@
  */
 require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
 require_once(HACKADEMIC_PATH."model/common/class.Article.php");
-require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
 
 class LandingPageController extends HackademicController {
 
@@ -40,7 +39,7 @@ class LandingPageController extends HackademicController {
 
 	public function go() {
 		$limit = 10;
-		$targetpage = SOURCE_ROOT_PATH."index.php";
+		$targetpage = SOURCE_ROOT_PATH."?url=index.php";
 		$stages = 3;
 		$page=0;
 

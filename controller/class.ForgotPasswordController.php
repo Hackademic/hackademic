@@ -56,7 +56,7 @@ class ForgotPasswordController extends HackademicController {
 					$token=$ESAPI_utils->getHttpUtilities()->getCSRFToken();
 					$subject="Hackademic new password link activation";
 					$message="Please click on the following link below to reset your password";
-					$message = SOURCE_ROOT_PATH."pages/resetpassword.php?username=$username&token=$token";
+					$message = SOURCE_ROOT_PATH."?url=resetpassword&username=$username&token=$token";
 					error_log($message);
 					//Mailer::mail($email,$subject,$message);
 					$result = User::addToken($username,$token);

@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{$site_root_path}admin/assets/css/login.css" />
 <div id="login">
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
-    <form method="post" action="{$site_root_path}admin/pages/login.php">
+    <form method="post" action="{$site_root_path}?url=admin/login">
     	<h1>Log In</h1>
 	<fieldset id="inputs">
 	    <input name="username" id="username" type="text" placeholder="Username" autofocus required>   

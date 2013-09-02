@@ -48,7 +48,7 @@ class ArticleManagerController extends HackademicBackendController {
 			$total_pages = ArticleBackend::getNumberOfArticles();
 		}
 
-		$targetpage = SOURCE_ROOT_PATH."admin/pages/articlemanager.php";
+		$targetpage = SOURCE_ROOT_PATH."?url=admin/articlemanager";
 		$stages = 5;
 		$page=0;
 

@@ -7,6 +7,7 @@
     <div class="center">
 	<div id="input_form" style="width: 80%; margin:auto;">
 	    <form type="GET">
+        <input type="hidden" name="url" value="{$smarty.get.url}">
 		<table class="add_form center">
 		    <tr>
 			<td style="width:25%"><label>Select Class:</label></td>

@@ -63,7 +63,7 @@ class AddArticleController extends HackademicBackendController {
 				ArticleBackend::addArticle($this->title, $this->content, $this->date_posted, $this->created_by, $this->is_published);
 				$this->addSuccessMessage("Article has been added succesfully");
 				$id = ArticleBackend::insertId();
-				header('Location: ' . SOURCE_ROOT_PATH."admin/pages/editarticle.php?id=$id&source=new");
+				header('Location: ' . SOURCE_ROOT_PATH."?url=admin/editarticle&id=$id&source=new");
 			}
 		}
 		$this->generateView(self::$action_type);

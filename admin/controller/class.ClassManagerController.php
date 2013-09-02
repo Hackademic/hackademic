@@ -67,7 +67,7 @@ class ClassManagerController extends HackademicBackendController {
 		else {
 			$limit=25;
 		}
-		$targetpage = SOURCE_ROOT_PATH."admin/pages/manageclass.php";
+		$targetpage = SOURCE_ROOT_PATH."?url=admin/manageclass";
 		$stages = 3;
 		$page=0;
 		if(isset($_GET['page'])) {

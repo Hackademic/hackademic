@@ -32,7 +32,7 @@
 		    </td>
 
 	     <td>
-		<a href="usermanager.php">Add users</a>
+		<a href="?url=admin/usermanager">Add users</a>
 	    </td>
 	    </tr>
 	    <tr></tr>
@@ -46,7 +46,7 @@
 	{foreach from=$users item=user}
 	    <tr>
 		<td>{$user['username']}</td>
-		<td><a href="{$site_root_path}admin/pages/showclass.php?uid={$user['user_id']}&id={$class->id}&action=del">Remove</a></td>
+		<td><a href="{$site_root_path}?url=admin/showclass&uid={$user['user_id']}&id={$class->id}&action=del">Remove</a></td>
 	    </tr>
 	{/foreach}
     </table>
@@ -60,8 +60,8 @@
 	{foreach from=$challenges item=challenge}
 	    <tr>
 		<td>{$challenge['title']}</td>
-		<td><a href="{$site_root_path}admin/pages/showclass.php?cid={$challenge['challenge_id']}&id={$class->id}&action=del">Remove</a></td>
-		<td><a href="{$site_root_path}admin/pages/scoringrules.php?cid={$challenge['challenge_id']}&class_id={$class->id}">Edit</a></td>
+		<td><a href="{$site_root_path}?url=admin/showclass&cid={$challenge['challenge_id']}&id={$class->id}&action=del">Remove</a></td>
+		<td><a href="{$site_root_path}?url=admin/pages/scoringrules.php&cid={$challenge['challenge_id']}&class_id={$class->id}">Edit</a></td>
 	    </tr>
 	{/foreach}
     </table>

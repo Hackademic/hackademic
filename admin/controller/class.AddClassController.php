@@ -53,7 +53,7 @@ class AddClassController extends HackademicBackendController {
 				}
 				else{
 				Classes::addClass($classname,$date_created);
-				header('Location: '.SOURCE_ROOT_PATH."admin/pages/manageclass.php?source=addclass");
+				header('Location: '.SOURCE_ROOT_PATH."?url=admin/manageclass&source=addclass");
 			    }
 			}
 		}

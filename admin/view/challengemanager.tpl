@@ -10,11 +10,12 @@
 				<tr class="center">
 				<td>
 				<div class="submenu_btn">
-    <a href="addchallenge.php?type=code">
+    <a href="?url=admin/addchallenge&type=code">
     <span class="caption">Add Challenge</span></a></div></td></tr></table>
     </div></div><br/>
     <div id="input_form">
 	<form method ="get">
+    <input type="hidden" name="url" value="{$smarty.get.url}">
 	    <table class="add_form center">
 		<tr><td>Search:</td>
 		    <td class="width_40"> <input class="width_90" type="text" name="search" id="search"/></td>
@@ -65,15 +66,15 @@
 	{foreach from=$challenges item=challenge}
 	    <tr>
 		<td>
-		 <a href="{$site_root_path}admin/pages/editchallenge.php?id={$challenge->id}&action=update">
+		 <a href="{$site_root_path}?url=admin/editchallenge&id={$challenge->id}&action=update">
 		 {$challenge->title}</a>
 		</td>
 		<td>{$challenge->date_posted|date_format}</td>
 		<td>{if $challenge->visibility == "public"}Public{else}Private{/if}</td>
-		<td>{if $challenge->visibility == "public"}N/A{else}<a href="{$site_root_path}admin/pages/classchallenges.php?id={$challenge->id}">Edit</a>{/if}</td>
+		<td>{if $challenge->visibility == "public"}N/A{else}<a href="{$site_root_path}?url=admin/classchallenges&id={$challenge->id}">Edit</a>{/if}</td>
 		<td>{if $challenge->publish == 0}No{else}Yes{/if}</td>
 		<td>   
-		    <a href="{$site_root_path}admin/pages/challengemanager.php?id={$challenge->id}&action=del">Delete challenge?</a>
+		    <a href="{$site_root_path}?url=admin/challengemanager&id={$challenge->id}&action=del">Delete challenge&</a>
 		</td>			
 	    </tr>
 	{/foreach}

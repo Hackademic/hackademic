@@ -43,7 +43,7 @@ class HackademicBackendController extends HackademicController {
 		elseif (!$this->isLoggedIn()) {
 			// Else if not logged in, go to login page
 			//error_log("HACKADEMIC:: admin dashboard FAILURE", 0);
-			header('Location: '.SOURCE_ROOT_PATH."admin/pages/login.php");
+			header('Location: '.SOURCE_ROOT_PATH."?url=admin/login");
 		} elseif ($this->isLoggedIn()) {
 			// Else if is logged in
 		 	if (($this->isAdmin() || ($this->isTeacher()))) {
@@ -61,7 +61,7 @@ class HackademicBackendController extends HackademicController {
 	 * @param $tmpl str Template name
 	 */
 	public function setViewTemplate($tmp1) {
-    $admin_path = '/admin/view/' . $tmp1;
+    $admin_path = $this->smarty->admin_theme_path . $tmp1;
     $path = Plugin::apply_filters_ref_array('set_admin_view_template', array($admin_path));
     if($path == "") {
         $path = $admin_path;

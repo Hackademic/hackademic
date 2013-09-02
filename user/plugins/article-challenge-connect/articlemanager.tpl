@@ -8,6 +8,7 @@
 
     <div id="input_form">
       <form method ="get">
+        <input type="hidden" name="url" value="{$smarty.get.url}">
           <table class="add_form center">
         <tr>
             <td class="width_40">Search:  <input class="width_90" type="text" name="search" id="search" placeholder="Search Text"/></td>
@@ -58,7 +59,7 @@
       </thead>
   {foreach from=$articles item=article}
       <tr>
-        <td><a href="{$site_root_path}admin/pages/editarticle.php?id={$article->id}">{$article->title}</a></td>
+        <td><a href="{$site_root_path}?url=admin/editarticle&id={$article->id}">{$article->title}</a></td>
         <td>{$article->date_posted|date_format}</td>
         <td>{$article->created_by}</td>
         <td>{if $article->last_modified}{$article->last_modified|date_format}{else}-{/if}</td>

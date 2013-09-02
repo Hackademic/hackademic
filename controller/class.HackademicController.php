@@ -83,14 +83,12 @@ abstract class HackademicController {
 		if(!isset($_GET['token']) && isset($_SESSION['hackademic_user'])){
 			//die("not token but session");
 			error_log("HACKADEMIC:: not token but session", 0);
-			header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php");
-
-		}*/
+			header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin");		}*/
 		if(isset($_SESSION['hackademic_user']) && !Session::isValid()){
 			//die(" session but not valid");
 			//error_log("session but not valid", 0);
 			Session::logout();
-			header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+			header('Location:'.SOURCE_ROOT_PATH."?url=home");
 
 		}
 			//var_dump($_SESSION);
@@ -103,11 +101,12 @@ abstract class HackademicController {
 			if ($this->isAdmin()) {
 				$this->addToView('user_type', true);
 			}
-			$menu=FrontendMenuController::go();
-			$this->addToView('main_menu',$menu);
+/*			$menu=FrontendMenuController::go();
+			$this->addToView('main_menu',$menu);*/
 
 			$challenge_menu=ChallengeMenuController::go();
 			$this->addToView('challenge_menu',$challenge_menu);
+      
 			if($this->isLoggedIn()){
 				$usermenu=UserMenuController::go();
 				$this->addToView('user_menu',$usermenu);
@@ -137,7 +136,6 @@ abstract class HackademicController {
 	 */
 	public function setViewTemplate($tmpl) {
 		$this->view_template = $this->smarty->user_theme_path . $tmpl;
-
 	}
 
 	/**
