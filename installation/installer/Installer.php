@@ -82,7 +82,7 @@ class Installer
 			$this->view->error($this->lang['L-01']);
 		}
 
-		$allwed_steps = array('admin'=>'adminAction', 'index' => 'indexAction', 'db' => 'dbAction', 'cfg' => 'configAction', 'database' => 'dbTables', 'config' => 'configWrite', 'finish' => 'finishInstaller');
+		$allwed_steps = array('admin'=>'adminAction', 'index' => 'indexAction', 'db' => 'dbAction', 'cfg' => 'configAction', 'dbdone' => 'dbTables', 'config' => 'configWrite', 'finish' => 'finishInstaller');
 		if(!in_array($_POST['step'], array_keys($allwed_steps)))
 		{
 			$this->nextStep('index');
