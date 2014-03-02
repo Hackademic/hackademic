@@ -74,7 +74,7 @@ class Installer_Template
 	 */
 	public function error($error_string)
 	{
-		if ($_POST['step'] == "database") {
+		if ($_POST['step'] == "dbdone") {
 			$template_name = "error_db";
 		} else {
 			$template_name = 'error';          
@@ -153,18 +153,15 @@ class Installer_Template
 		}
 
 # Links
-		$links = array(1 => 'index', 2 => 'admin', 3 => 'db', 4 => 'cfg', 5 => 'finish');
-		foreach ($links as $key => $value)
+		$links = array('index' => 1, 'admin' => 2, 'db' => 3, 'dbdone' => 3, 'cfg' => 4, 'finish' => 5);
+		foreach ($links as $step => $link_number)
 		{
-			if($_POST['step'] == $value)
+			if($_POST['step'] == $step)
 			{
-				$contents = preg_replace("/{#LINK{$key}#}/i", "class='current'", $contents);
-			}
-			else
-			{
-				$contents = preg_replace("/{#LINK{$key}#}/i", '', $contents);
+				$contents = preg_replace("/{#LINK{$link_number}#}/i", "class='current'", $contents);
 			}
 		}
+		$contents = preg_replace("/{#LINK\d+#}/i", '', $contents);
 
 # Html
 		$contents = str_replace("{#DATA#}", $this->html, $contents);
