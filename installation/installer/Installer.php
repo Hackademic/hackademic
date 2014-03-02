@@ -355,7 +355,7 @@ class Installer
 			$this->addErrorMessage($errmsg);
 			$this->view->vars = array('config'=>$sample,'cpath'=>$path);
 		}
-		$this->view->vars = array("login_path" => $_POST['source_root_path']);
+		$this->view->vars = array("login_path" => '<a href="'.$_POST['source_root_path'].'">'.$_POST['source_root_path'].'</a>');
 		$this->view->render('finish');
 		unset($_SESSION);
 	}
