@@ -14,13 +14,20 @@
 <?php
         session_start();
         require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");
-	$result =  $_GET['Result'];
-	if ($result === 'enter a coin to play'){
-		echo "<h1><br><center>Congratulations!</br></cetner></h1>";
-		$monitor->update(CHALLENGE_SUCCESS);
-	}
-	else{
-		$monitor->update(CHALLENGE_FAILURE);
+	
+	// Checking whether the GET variable 'Result' is set or not , to avoid undefined index notices.
+	if(isset($_GET['Result']))
+	{
+		$result =  $_GET['Result'];
+		if ($result === 'enter a coin to play')
+		{
+			echo "<h1><br><center>Congratulations!</br></cetner></h1>";
+			$monitor->update(CHALLENGE_SUCCESS);
+		}
+		else
+		{
+			$monitor->update(CHALLENGE_FAILURE);
+		}
 	}
 
 ?>
