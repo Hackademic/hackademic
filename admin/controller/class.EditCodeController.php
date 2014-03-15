@@ -52,7 +52,7 @@ class EditCodeController extends HackademicBackendController {
 				$this->addErrorMessage("File does not exist");
 				$file_contents = '';
 			} else {
-				$file_contents = file_get_contents($url);
+				$file_contents = htmlspecialchars(file_get_contents($url), ENT_NOQUOTES | ENT_HTML401);
 			}
 			$folder = $challenges[0]->pkg_name;
 		} else {
