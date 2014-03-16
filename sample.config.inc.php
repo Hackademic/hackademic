@@ -14,7 +14,7 @@ define('APP_TITLE', '#YOUR_APP_TITLE_HERE#');
 // For example, if the  folder is located at http://yourdomain/hackademic/, set to '/hackademic/'.
 define('SITE_ROOT_PATH', "#YOUR_SITE_ROOT_PATH#");
 
-// Full server path to /socialcalc/ folder.
+// Full server path to /hackademic/ folder.
 define('SOURCE_ROOT_PATH', "#YOUR_SOURCE_ROOT_PATH#");
 
 // Toggle Smarty caching. true: Smarty caching on, false: Smarty caching off
