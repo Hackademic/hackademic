@@ -14,16 +14,16 @@
 	include_once dirname(__FILE__).'/../../../init.php';		
     session_start();
     require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-	$name1 = $_POST["name1"];
-	session_start();
-	if ($name1==='Friday13@JasonLives.com' ){
-		$monitor->update(CHALLENGE_SUCCESS);
-		echo "<br><br><br><br><center><font color=Green>Congratulations!</font>";
-		die();
-	}
-	else{
-		$monitor->update(CHALLENGE_FAILURE);
+    if(isset($_POST['submit'])) {
+		$name1 = $_POST["name1"];
+		if ($name1 === 'Friday13@JasonLives.com') {
+			$monitor->update(CHALLENGE_SUCCESS);
+			echo "<br><br><br><br><center><font color=Green>Congratulations!</font>";
+			die();
+		} else {
+			$monitor->update(CHALLENGE_FAILURE);
 		}
+	}
 ?>
 
 <html>
