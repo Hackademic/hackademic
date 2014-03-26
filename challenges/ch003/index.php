@@ -32,8 +32,11 @@
 
 	if(isset($_POST['try_xss'])){
 		$try_xss = $_POST['try_xss'];
-	if  ( ($try_xss == '<script>alert("XSS!");</script>') OR
-		  ($try_xss == "<script>alert('XSS!');</script>") ) {
+	$try_xss= preg_replace('/\s+/', '', $try_xss);
+	$try_xss= preg_replace('/type="text\/javascript"/', '', $try_xss);
+	$try_xss= preg_replace("/type='text\/javascript'/", '', $try_xss);	
+	if (  (preg_match("/<script>alert\(\'XSS!\'\);?<\/script>/",$try_xss)) or
+               (preg_match('/<script>alert\(\"XSS!\"\);?<\/script>/',$try_xss)) ) {
     		echo 'Thank you'.' '.($_POST['try_xss']).'!';
 			echo "<H1>Congratulations!</H1>";
 			$monitor->update(CHALLENGE_SUCCESS,$_GET['user'],$_GET['id'],$_GET['token']);
