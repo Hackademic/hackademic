@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Izon Challenge</title>
+    <author>
+	Vasileios Mplanas (billyblanas2011@hotmail.com)
+    </author>
+    <category>web</category>
+    <description>
+	<![CDATA[
+	<p>After the mysterious disappearance of your best friend, you are contacted by an unknown individual who claims to have information about your friend. This individual identifies himself as "Mister Jax" and claims that is a former colleague of your friend.</p>
+	<p>Your friend was working at Izon Corporation, a weapons manufactured and government contractor as a systems engineer. Mister Jax didn't tell you his role in Izon, but wants you to pass through a series of tests to infiltrate Izon's web security to find the truth about your friend</p>
+	<p>After much consideration you agree with Mister Jax and he, remotely, sets up your computer to look like as if it is a part of Izon's Virtual Private Network in order to access their site. He also said that he'll guide you while you work your way to uncover the truth about your lost friend</p>
+	<p>Here is a copy of Mister Jax's last email:</p><p><pre>
+  The task is simple: You get in, get your information and get out. 
+  Your friend was either a dumb programmer or a brilliant one, he left 
+  many holes to be exploited in order to gain higher access to the site.
+  I'll be guiding you with tips while you try to hack through Izon's site.
+  There are four tasks, some related to each other, some not.
+  You need to use your skills to overcome the obstacles, knowledge will come along.
+  Sixty minutes will suffice. When they're over, I won't be able to offer any 
+  cover to you, and you'll be compromised, with unknown consequences, I'm afraid.
+  I'll be seeing you there.
+   - Jax
+	</pre></p>
+	<p>Once you get in, you'll have sixty minutes to complete this challenge. Use common sense, remember that the most obvious place hides the most important stuff and try to behave as if you were hacking a real system.</p>
+	<p>Good Luck!</p>
+	]]>
+    </description>
+    <level>hide_yo_wife</level>
+	<duration>3600</duration>
+</challenge>
