@@ -39,7 +39,7 @@
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
         $monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
 
-if ( ($_SERVER['HTTP_USER_AGENT'] === 'p0wnBrowser') )
+if (preg_match("/^p0wnBrowser/",$_SERVER['HTTP_USER_AGENT']))
 {
 			echo "<H1>Congratulations!</H1>";
 			$monitor->update(CHALLENGE_SUCCESS);
