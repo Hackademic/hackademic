@@ -62,6 +62,7 @@ class Installer
 			$path = INSTALLER_PATH . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $_POST['lang'] . '.php';
 			if(file_exists($path))
 			{
+				$_SESSION['lang'] = $_POST['lang'];
 				$this->default_lang = $_POST['lang'];
 				@setcookie('lang', $this->default_lang, time() + 60 * 60 * 24);
 				$_POST['lang'] = 0;
@@ -146,15 +147,43 @@ class Installer
 	 */
 	public function dbAction($dbname="",$dbuser="",$dbhost="")
 	{
-		$this->view->vars=array('dbname'=>$dbname);
-		//$this->view->vars=array('dbuser'=>$dbuser);
-		//$this->view->vars=array('dbhost'=>$dbhost);
+		$dbname = '';
+		if(isset($_SESSION['dbname'])) {
+			$dbname = $_SESSION['dbname'];
+		}
+		$dbuser = '';
+		if(isset($_SESSION['dbuser'])) {
+			$dbuser = $_SESSION['dbuser'];
+		}
+		$dbhost = 'localhost';
+		if(isset($_SESSION['dbhost'])) {
+			$dbhost = $_SESSION['dbhost'];
+		}
+		$dbpass = '';
+		if(isset($_SESSION['dbpass'])) {
+			$dbpass = $_SESSION['dbpass'];
+		}
+		$this->view->vars = array('dbname' => $dbname,
+				'dbuser' => $dbuser,
+				'dbhost' => $dbhost,
+				'dbpass' => $dbpass,
+				);
 		$this->view->render('db');
 	}
 
 	public function adminAction()
 	{
-		$this->view->vars= array('username'=>"admin");
+		$email = '';
+		if(isset($_SESSION['admin_email'])) {
+			$email = $_SESSION['admin_email'];
+		}
+		$username = 'admin';
+		if(isset($_SESSION['admin_username'])) {
+			$username = $_SESSION['admin_username'];
+		}
+		$this->view->vars = array('email' => $email,
+				'username' => $username,
+				);
 		$this->view->render('admin');
 	}
 

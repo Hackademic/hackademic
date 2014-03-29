@@ -5,7 +5,7 @@
 <div id="input_form">
 <form action="{#url#}" method="post" class="user_add">
 <input type="hidden" name="step" value="admin" />
-<div class="input"><p>{#I-02#}</p><select name='lang'><option value='0'>{#I-23#}</option>{#options#}</select></div>
+<div class="input"><p>{#I-02#}</p><select name='lang' id="lang"><option value='0'>{#I-23#}</option>{#options#}</select></div>
 
 <!-- begin buttons -->
 <div class="submit_btn">
@@ -14,3 +14,6 @@
 <!-- end buttons -->
 </form>
 </div>
+<script type="text/javascript">
+	document.getElementById('lang').value = "{#lang#}";
+</script>
