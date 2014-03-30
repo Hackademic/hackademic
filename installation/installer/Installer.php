@@ -102,10 +102,12 @@ class Installer
 				$_SESSION['admin_username'] = $_POST['username'];
 				$hash = Utils::hash($_POST['password']);
 				//var_dump($_POST['password']);
-				if($hash)
+				if($hash) {
 					$_SESSION['admin_password'] = $hash;
-				else
-				die("incorrect hash");
+					$_SESSION['admin_password_clear'] = $_POST['password'];
+				} else {
+					die("incorrect hash");
+				}
 
 				$this->dbAction();
 				break;
@@ -181,8 +183,13 @@ class Installer
 		if(isset($_SESSION['admin_username'])) {
 			$username = $_SESSION['admin_username'];
 		}
+		$password = '';
+		if(isset($_SESSION['admin_password_clear'])) {
+			$password = $_SESSION['admin_password_clear'];
+		}
 		$this->view->vars = array('email' => $email,
 				'username' => $username,
+				'password' => $password,
 				);
 		$this->view->render('admin');
 	}
