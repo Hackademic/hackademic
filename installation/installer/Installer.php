@@ -62,6 +62,7 @@ class Installer
 			$path = INSTALLER_PATH . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $_POST['lang'] . '.php';
 			if(file_exists($path))
 			{
+				$_SESSION['lang'] = $_POST['lang'];
 				$this->default_lang = $_POST['lang'];
 				@setcookie('lang', $this->default_lang, time() + 60 * 60 * 24);
 				$_POST['lang'] = 0;
@@ -101,10 +102,12 @@ class Installer
 				$_SESSION['admin_username'] = $_POST['username'];
 				$hash = Utils::hash($_POST['password']);
 				//var_dump($_POST['password']);
-				if($hash)
+				if($hash) {
 					$_SESSION['admin_password'] = $hash;
-				else
-				die("incorrect hash");
+					$_SESSION['admin_password_clear'] = $_POST['password'];
+				} else {
+					die("incorrect hash");
+				}
 
 				$this->dbAction();
 				break;
@@ -146,15 +149,48 @@ class Installer
 	 */
 	public function dbAction($dbname="",$dbuser="",$dbhost="")
 	{
-		$this->view->vars=array('dbname'=>$dbname);
-		//$this->view->vars=array('dbuser'=>$dbuser);
-		//$this->view->vars=array('dbhost'=>$dbhost);
+		$dbname = '';
+		if(isset($_SESSION['dbname'])) {
+			$dbname = $_SESSION['dbname'];
+		}
+		$dbuser = '';
+		if(isset($_SESSION['dbuser'])) {
+			$dbuser = $_SESSION['dbuser'];
+		}
+		$dbhost = 'localhost';
+		if(isset($_SESSION['dbhost'])) {
+			$dbhost = $_SESSION['dbhost'];
+		}
+		$dbpass = '';
+		if(isset($_SESSION['dbpass'])) {
+			$dbpass = $_SESSION['dbpass'];
+		}
+		$this->view->vars = array('dbname' => $dbname,
+				'dbuser' => $dbuser,
+				'dbhost' => $dbhost,
+				'dbpass' => $dbpass,
+				);
 		$this->view->render('db');
 	}
 
 	public function adminAction()
 	{
-		$this->view->vars= array('username'=>"admin");
+		$email = '';
+		if(isset($_SESSION['admin_email'])) {
+			$email = $_SESSION['admin_email'];
+		}
+		$username = 'admin';
+		if(isset($_SESSION['admin_username'])) {
+			$username = $_SESSION['admin_username'];
+		}
+		$password = '';
+		if(isset($_SESSION['admin_password_clear'])) {
+			$password = $_SESSION['admin_password_clear'];
+		}
+		$this->view->vars = array('email' => $email,
+				'username' => $username,
+				'password' => $password,
+				);
 		$this->view->render('admin');
 	}
 
