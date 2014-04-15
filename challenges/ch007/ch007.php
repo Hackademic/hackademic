@@ -15,7 +15,7 @@
 		include_once dirname(__FILE__).'/../../init.php';
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 
-$mystring = $_POST["name"];
+$mystring = isset($_POST["name"]) ? $_POST["name"] : ''; 
 if ($mystring === 'Irene'){
 
 //if(!isset($_COOKIE["userlevel"] ) and ($_POST["name"]==='Irene') ){

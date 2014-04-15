@@ -54,8 +54,8 @@
   </p>
 
   <p align="center">
-  <input type="hidden" value=<?php echo  $name1 ?> name="name1">
-  <input type="hidden" value=<?php echo  $name2; ?> name="name2">
+  <input type="hidden" value=<?php $name1 = isset($_POST['name1']) ? $_POST['name1'] : ''; echo  $name1 ?> name="name1">
+  <input type="hidden" vvalue=<?php $name2 = isset($_POST['name2']) ? $_POST['name2'] : '';echo  $name2; ?> name="name2">
 
   <input type="submit" name="submit" value="Enter!">
   </p>
