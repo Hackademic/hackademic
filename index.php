@@ -36,6 +36,7 @@ if ($version[0] < 5) {
 }
 if (!file_exists('config.inc.php')) {
     header("Location: ./installation/install.php");
+    die();
 }
 require_once('init.php');
 require_once(HACKADEMIC_PATH."controller/class.LandingPageController.php");

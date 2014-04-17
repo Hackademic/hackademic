@@ -41,6 +41,7 @@ class DownloadController extends HackademicBackendController {
 			$dest = HACKADEMIC_PATH."view/compiled_view/".$folder.".zip";
 			self::Zip($source, $dest);
 			header("Content-Type: archive/zip");
+			
 			// filename for the browser to save the zip file
 			header("Content-Disposition: attachment; filename=$folder".".zip");
 			$filesize = filesize($dest);
