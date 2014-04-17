@@ -73,9 +73,11 @@ class TryChallengeController extends HackademicController {
 					var_dump($pair);
 				}
 				header("Location: ".$url);
+				die();
 		    }else {
 				error_log("oh noes, miscelaneous error (BUG)");
 				header("Location: ".SITE_ROOT_PATH);
+				die();
 			}
 		}
 		$this->setViewTemplate("trychallenge.tpl");

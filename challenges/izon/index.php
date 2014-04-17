@@ -8,6 +8,7 @@
 				unset($_SESSION['init_timer']);
 				unsetSession();
 				header("Location: index.php?error=10");
+				die();
 			}
 		} else {
 			$_SESSION['init_timer'] = time();
@@ -26,6 +27,7 @@
 		/* If he's not logged in to hackademic (session's not set), send him back to do so */
 		if (!isset($_COOKIE['PHPSESSID'])) {
 			header("Location: ../../index.php");
+			die();
 		}
 		/* If our cookie's value (our username) is "admin" and at the same time, ch02 session variable hasn't got a value
 		(flag that tells us that second challenge is complete), then give him the easter egg, for he changed the cookie's value
