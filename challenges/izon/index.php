@@ -9,6 +9,7 @@
 				unset($_SESSION['init_timer']);
 				unsetSession();
 				header("Location: index.php?error=10");
+				die();
 			}
 		} else {
 			$_SESSION['init_timer'] = time();
@@ -33,6 +34,7 @@
 		/* αν δεν έχει κάνει login sto hackademic τον γυρνάμε πίσω για να κάνει (μιας και χρειαζόμαστε το cookie) */
 		if (!isset($_COOKIE['PHPSESSID'])) {
 			header("Location: ../../index.php");
+			die();
 		}
 		/* Αν το cookie μας (άρα και το username) έχει την τιμή admin και ταυτόχρονα δεν έχουμε 
 		δώσει τιμή στο $_SESSION['ch02'] (το flag που μας λέει οτι πέρασε το 2ο challenge), τότε τον περνάμε

@@ -8,5 +8,6 @@
 	}
 	//Έπειτα, πες στον browser να ανακατευθύνει τον χρήστη στην τοποθεσία index.php
 	header("Location: index.php");
+	die();
 ?>
 

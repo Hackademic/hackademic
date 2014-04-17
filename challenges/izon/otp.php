@@ -4,7 +4,7 @@
 	/* αν ο χρήστης δεν έχει βάλει τίποτα στο πεδίο, τον ανακατευθύνουμε πίσω */
 	if (!isset($_POST['otp'])) {
 		header("Location: index.php?error=8");
-		
+		die();
 	}
 	/* Το OTP μας ισχύει για 180 δευτερόλεπτα απο την ώρα που θα πάρει τιμή. 
 	Παίρνουμε το timestamp απο την $_SESSION['ch04_stamp'] (η οποία ορίζεται στο index.php)
@@ -31,8 +31,10 @@
 		$_SESSION['ch04']=1;
 		$_SESSION['ch04_timer']=time();
 		header("Location: index.php");
+		die();
 	} else {
 		header("Location: index.php?error=9");
+		die();
 	}
 		
 	
