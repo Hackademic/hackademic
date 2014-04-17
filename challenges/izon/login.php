@@ -164,6 +164,7 @@ class User {
 			/* Αν όλα πήγαν καλά, ανακατευθύνουμε τον χρήστη στο index */
 			if ($cook) {
 				header("Location: index.php");
+				die();
 			} else {
 			/* Πες στον χρήστη οτι υπήρξε πρόβλημα κατα την δημιουργία του cookie */
 				$this->sendPostData(6);
