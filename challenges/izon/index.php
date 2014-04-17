@@ -1,9 +1,8 @@
 <?php
-		/* Απαραίτητα includes και εκκίνηση του session */
+		/* Necessary includes and session starting */
 		include_once dirname(__FILE__).'/../../init.php';		
         session_start();
-		/* Έλεγχος για το αν ο χρήστης προσπαθεί πάνω απο μια ώρα για να τελειώσει το challenge*/
-		/* Αν ναι, τότε κάνουμε reset το session */
+		/* Reset the session if the one hour time limit has passed */
 		if (isset($_SESSION['init_timer'])) {
 			if (time()-$_SESSION['init_timer']>3600) {
 				unset($_SESSION['init_timer']);
@@ -15,43 +14,36 @@
 		}
 
         require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-		/* αν υπάρχει η $_GET['user'] και δεν έχουμε ξεκινήσει το init_timer (που κρατάει τον χρόνο που
-		φόρτωσε για πρώτη φορά η σελίδα, ξεκινάμε το challenge και κρατάμε το timestamp ως σημείο αναφοράς
-		για τον χρόνο που χρειάστηκε ο χρήστης για να τελειώσει τα challenges
 		
-		H $_GET['user'] έχει τιμή, μόνο όταν ένας χρήστης έρχεται απο το hackademic (εκεί που πατάει το 
-		κουμπάκι try it)
-		*/
+		/* $_GET['user'] is set only when user comes through the hackademic page (where user clicks on 'try it' button) */
 		if (isset($_GET['user']) && !(isset($_SESSION['init_timer']))) {
 			$monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
-			
-		/* Αν ο χρήστης έκανε refresh thn σελιδα η ξαναπάτησε το try it, τότε διαγράφουμε τις μεταβλητές 
-		του session και τον αφήνουμε να συνεχίσει */
+		/* If the user refreshed the page (keeping the GET vars), or came through the challenge page,
+		   just reset the session */
 		} else if (isset($_GET['user']) && (isset($_SESSION['init_timer']))){
 			unsetSession();
 		}
-		/* αν δεν έχει κάνει login sto hackademic τον γυρνάμε πίσω για να κάνει (μιας και χρειαζόμαστε το cookie) */
+		/* If he's not logged in to hackademic (session's not set), send him back to do so */
 		if (!isset($_COOKIE['PHPSESSID'])) {
 			header("Location: ../../index.php");
 		}
-		/* Αν το cookie μας (άρα και το username) έχει την τιμή admin και ταυτόχρονα δεν έχουμε 
-		δώσει τιμή στο $_SESSION['ch02'] (το flag που μας λέει οτι πέρασε το 2ο challenge), τότε τον περνάμε
-		γιατί άλλαξε την τιμή του cookie αντί να επιχειρήσει να κάνει injection. */
+		/* If our cookie's value (our username) is "admin" and at the same time, ch02 session variable hasn't got a value
+		(flag that tells us that second challenge is complete), then give him the easter egg, for he changed the cookie's value
+		and didn't inject anything into the database */
 		if ( ($_COOKIE['izon']=="admin") && (!isset($_SESSION['ch02'])) ) {
 			$_SESSION['ch02']=1;
 			if (!isset($_SESSION['ch02_timer'])) { $_SESSION['ch02_timer']=time(); }
 			$_SESSION['ch02_egg']=1;
 			setcookie('izon','admin', time()+3600);
 		}
-		/* μια μικρή συνάρτηση που μας επιστρέφει τον χρόνο σε φορμάτ ΩΩ:ΛΛ:ΔΔ όταν αφαιρούμε timestamps
-		(seconds since unix epoch στην php)*/
+		/* A function that transforms timestamps into a readable HH:MM:SS format */
 		function returnTime($seconds) {
 			$hours = floor($seconds / 3600);
 			$mins = floor(($seconds - ($hours*3600)) / 60);
 			$secs = floor($seconds % 60);
 			return sprintf("%1$02d:%2$02d:%3$02d",$hours,$mins,$secs);
 		}
-		/* Διαγραφή των μεταβλητών του session */	
+		/* function that resets the session variables */
 		function unsetSession() {
 			unset($_SESSION['ch01']);
 			unset($_SESSION['ch02']);
@@ -66,7 +58,7 @@
 			unset($_SESSION['ch02_egg']);
 			unset($_SESSION['random_date']);
 		}
-		/* random αριθμός για την παραγωγή ημερομηνιών στο recent news*/
+		/* Random number to use in recent news*/
 		if (!isset($_SESSION['random_date'])) {
 			$_SESSION['random_date']=rand(12,48);
 		}
@@ -117,7 +109,7 @@ height: 100vh;
               </li>
               <li class="">
                 <?php
-					/* κώδικας για το info popup Κατα περίπτωση */
+					/* Code for Info Popup (depending on the completed challenges)*/
 					if (isset($_SESSION['ch03'])) {
 						echo '<a href="#" class="" data-toggle="popover" data-placement="bottom" data-selector="true" data-content="" title="" id="info-ch04" rel="popover"><i class="icon-info-sign icon-white"></i> Info</a>';
 					} else if (isset ($_SESSION['ch02']) && (!isset($_SESSION['ch03']))) {
@@ -138,7 +130,7 @@ height: 100vh;
 		<ul class="nav pull-right">
 		<li class="">
 			<?php
-				/* κώδικας για το login/logout popup */
+				/* Code for login/logout popup */
 				if (isset($_COOKIE['izon'])) {
 					echo '<a href="#" class="" data-toggle="popover" data-placement="bottom" data-selector="true" data-content="" title="" id="logout" rel="popover"><i class="icon-user icon-white"></i> ' . $_COOKIE['izon'] . '</a>';
 				} else {
@@ -176,7 +168,7 @@ height: 100vh;
 		}
 		?>
 		<?php
-			/* κώδικας που εμφανίζει τα timers στην αριστερή πλευρά της σελίδας όταν ο χρήστης έχει τελειώσει το αντίστοιχο challenge */
+			/* Code to display the challenge timers on the left part of the page */
 			if (isset($_SESSION['ch01'])) {
 				echo '<li class="nav-header">Challenge 1</li>
 				<li class=""><a>Completion Time: ' . returnTime($_SESSION['ch01_timer'] - $_SESSION['init_timer']) . '</a></li>';
@@ -202,13 +194,11 @@ height: 100vh;
 			<hr />
 			<?php
 				if (!isset($_COOKIE['izon'])) {
-					//Οτι φαίνεται πριν απο το login
+					/* Text that is displayed when user is not logged in the site */
 					echo '<p>Our automated system tells us that you are accessing this site from: <pre style="display: block; width: auto; min-width:0; display:table;">' . $_SERVER['REMOTE_ADDR'] . '</pre>Your credentials to login are</p>';
 					echo '<pre style="display: block; width: auto; min-width:0; display:table;">Your username is <b>' . hash('crc32', $_COOKIE['PHPSESSID']) . '</b> and password is <b>' . hexdec(hash('crc32', $_COOKIE['PHPSESSID'])) .'</b></pre><p><p>Notice that these credentials are automatically generated by our system, which is aware of your location and real identity and will log you in to your personal Izon account.</p>'; 
-					}
-					
-				else if (isset($_COOKIE['izon']) && ($_COOKIE['izon'] != 'admin')) {
-					//oti fainetai meta to login kai xwris na einai admin o user
+				} else if (isset($_COOKIE['izon']) && ($_COOKIE['izon'] != 'admin')) {
+					/* Text that is displayed when the user is logged as a regular user */
 					echo '<script>$(document).ready(function() {
 					document.title = "Izon Corp. Welcome ' . $_COOKIE['izon'] . '";	});</script>';
 					echo '<p>Welcome back ' . $_COOKIE['izon'] . ', accessing the site from <i>' . $_SERVER['REMOTE_ADDR'] .'</i></p>';
@@ -220,10 +210,8 @@ height: 100vh;
 					echo '<p><b>' . $date->format('Y-m-d') . '</b>: Internal site will be down for maintenance and the launch of the new and improved interface based on Twitter\'s <a href="http://getbootstrap.com/">Bootstrap</a>.</p>';
 					$date->sub(new DateInterval('P'.$_SESSION['random_date'] .'D'));
 					echo '<p><b>' . $date->format('Y-m-d') . '</b>: Introducting the new coprorate VPN. Now we can locate you and provide you an even better experience while working remotely.</p>';
-					
-					
-				}
-				else if ((isset($_SESSION['ch02'])) && (!isset($_SESSION['ch03']))) { 
+				} else if ((isset($_SESSION['ch02'])) && (!isset($_SESSION['ch03']))) { 
+					/* Text that is displayed when the user is logged as admin */
 					echo '<script>$(document).ready(function() {
 					document.title = "Izon Corp. Admin Panel";
 					});</script>';
@@ -233,12 +221,13 @@ height: 100vh;
 					echo '<script>$(document).ready(function() {
 					document.title = "Izon Corp. OTP Authentication";
 					});</script>';
-					/* Το OTP έχει διάρκεια 180 δευτερόλεπτα. ΑΝ έχουν περάσει, κάνε update με νέα τιμή */
+					/* OTP's valid for 180 seconds. If it has expired, get a new timestamp */
 					if (isset($_SESSION['ch04_stamp'])) {
 						if ((time() - $_SESSION['ch04_stamp']) > 180) {
 							$_SESSION['ch04_stamp'] = time();
 						}
-					} else { /* κι αν δεν έχει τιμή (πρώτη φορά που φτάνει σε αυτό το σημείο ο χρήστης, δώστου μια τιμή */
+					} else { 
+						/* if it hasn't got a value (player's first time to reach this part), set it */
 						$_SESSION['ch04_stamp'] = time();
 					}
 					echo '
@@ -252,7 +241,6 @@ height: 100vh;
 					</form>
 					<p><pre style="text-align:center;" >This page was generated at ' . date("H:i:s", $_SESSION['ch04_stamp']) . '</pre></p>';
 				}
-				
 				?>
 </div>
 		</div>
@@ -350,9 +338,9 @@ if (isset($_GET['error'])) {
 		});
 		</script>";
 }
-/* αν τελείωσε το 4ο challenge τότε, ενημέρωσε το hackademic, σβήσε όλες τις μεταβλητές του Session
-(σε περίπτωση που ο χρήστης θέλει να το ξαναδοκιμάσει θα μοιάζει τερματισμένο μόλις ξανανοίξει το index.php)
-και εμφάνισε το Victory Dialog*/
+/* If the fourth challenge is done, then notify hackademic that the challenge is complete, delete all session variables
+   (in case the user wants to retry it, it will just show the victory modal if we dont do so) and then display the
+   victory modal */
 if ($_SESSION['ch04'] == 1) {
 			unset($_SESSION['init_timer']);
 			unsetSession();
