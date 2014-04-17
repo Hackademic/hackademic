@@ -1,12 +1,10 @@
 <?php
-	//Αν το $_COOKIE['izon'] (δηλαδή το cookie που χρησιμοποιούμε για το Wargame
-	//έχει κάποια τιμή, τότε:
+	/* If $_COOKIE['izon'] has a value then : */
 	if (isset($_COOKIE['izon'])) {
-			//Αχρήστευσε το cookie, δίνοντάς του κενή τιμή και ταυτόχρονα
-			//λέγοντάς του πως έχει ήδη λήξει (η time() επιστρέφει το τρέχον timestamp)
+			/* Delete it, by giving an empty value and making it expire before the current time */
 			setcookie('izon', '', time()-1);
 	}
-	//Έπειτα, πες στον browser να ανακατευθύνει τον χρήστη στην τοποθεσία index.php
+	/* Then redirect us back to index */
 	header("Location: index.php");
+	die();
 ?>
-
