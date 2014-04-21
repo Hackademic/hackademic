@@ -1,3 +1,24 @@
+<script type="text/javascript">
+	var keepValue = 0;
+
+
+	function doCheck(state) {
+		var r1 = document.getElementsByName("empty_database")[0];
+		var r2 = document.getElementsByName("empty_database")[1];
+		if (state==0) {
+			if (r1.checked) { keepValue = 0; }
+			if (r2.checked) { keepValue = 1; }
+			r1.checked = true;
+			r1.disabled=true;
+			r2.disabled=true;
+		} else {
+			if (keepValue==0) { r1.checked = true; }
+			if (keepValue==1) { r2.checked = true; }
+			r1.disabled=false;
+			r2.disabled=false;
+		}
+	}		
+</script>
 <div class="header_bar">
 	<div class="page_title"><h3 class="left">{#I-04#}</h3></div>
 </div><br/>
@@ -25,8 +46,13 @@
 
 <div class="input"><p>{#I-09#}</p>
 <span class="radio">
-<input type="radio" name="create_database" />{#I-11#}
-<input type="radio" name="create_database" checked="checked" />{#I-10#}
+<input type="radio" name="create_database" value="no" onClick="doCheck(0)"/>{#I-11#}
+<input type="radio" name="create_database" checked="checked" value="yes" onClick="doCheck(1)" />{#I-10#}
+</span>
+<div class="input"><p>{#I-33#}</p>
+<span class="radio">
+<input type="radio" name="empty_database" value="no" />{#I-11#}
+<input type="radio" name="empty_database" checked="checked" value="yes" />{#I-10#}
 </span>
 </div>
 

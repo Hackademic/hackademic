@@ -238,38 +238,25 @@ class Installer
 		$this->_options = $options;
 
 # First test the connection
+		/*  MySQLi can get a database name as a parameter, but the main problem is that a database that doesn't exist
+			returns a connection error. Since we will CREATE IF NOT EXISTS, and then USE the database we don't provide
+			a dbname here*/
 		$link = new mysqli($this->_options['dbhost'], $this->_options['dbuser'], $this->_options['dbpass']);
-		#$link = mysql_connect($this->_options['dbhost'], $this->_options['dbuser'], $this->_options['dbpass']);
 		if(!$link) {
 			$this->view->error($this->lang['L-04']);
 		}
 		
-# Select the DB
 
-		#$db_selected = mysql_select_db($this->_options['dbname'], $link);
-#check if hackademic is already installed in that db
-		#if($db_selected){
 		$db = $this->_options['dbname'];
-		//$query = "SELECT * FROM $db.challenges, $db.users, $db.classes, $db.articles";
-		//$query = "SELECT * FROM information_schema.tables WHERE table_schema = '$db';";
-		//var_dump($query);
-		//$res = mysql_query($query, $link);
-		//var_dump($res);
-		//if(mysql_num_rows($res) > 0)
-		//	$this->view->error($this->lang['L-12']);
-		#}
-		//if(!$db_selected && !$this->_options['create_database'])
-		//{
-		//	$this->view->error($this->lang['L-05']);
-		//}
-		//elseif (!$db_selected && $this->_options['create_database'])
-		//{
-		
-		/* 	Create database if it doesn't exist, cannot recreate an existing database. Check if it exists
-			and if so, just skip this step */
-
-# Create the DB
-		$result = $link->query("CREATE DATABASE IF NOT EXISTS " . $db);
+# Create the DB and Select it.
+		$empty = $this->_options['empty_database'];
+		$create = $this->_options['create_database'];
+		if ($empty == "yes") {
+			$result = $link->query("DROP DATABASE " . $db);
+		}
+		if ($create == "yes") {
+			$result = $link->query("CREATE DATABASE IF NOT EXISTS " . $db);
+		} 
 		if ($link->errno)
 		{
 			$this->view->error(sprintf($this->lang['L-06'], $this->_options['dbname'], htmlspecialchars($link->error . "(" . $link->errno . ")")));
@@ -300,9 +287,7 @@ class Installer
 			{
 				$result = $link->query($query);
 				if ($link->errno)
-				{	//var_dump($query);
-					//var_dump(mysql_error());
-					$errors[] = sprintf($this->lang['L-08'], htmlspecialchars($link->error));
+				{	$errors[] = sprintf($this->lang['L-08'], htmlspecialchars($link->error));
 					$errors_count++;
 					continue;
 				}
