@@ -238,38 +238,30 @@ class Installer
 		$this->_options = $options;
 
 # First test the connection
-		$link = mysql_connect($this->_options['dbhost'], $this->_options['dbuser'], $this->_options['dbpass']);
-		if(!$link)
-		{
+		/*  MySQLi can get a database name as a parameter, but the main problem is that a database that doesn't exist
+			returns a connection error. Since we will CREATE IF NOT EXISTS, and then USE the database we don't provide
+			a dbname here*/
+		$link = new mysqli($this->_options['dbhost'], $this->_options['dbuser'], $this->_options['dbpass']);
+		if(!$link) {
 			$this->view->error($this->lang['L-04']);
 		}
+		
 
-# Select the DB
-		$db_selected = mysql_select_db($this->_options['dbname'], $link);
-#check if hackademic is already installed in that db
-		if($db_selected){
 		$db = $this->_options['dbname'];
-		//$query = "SELECT * FROM $db.challenges, $db.users, $db.classes, $db.articles";
-		//$query = "SELECT * FROM information_schema.tables WHERE table_schema = '$db';";
-		//var_dump($query);
-		//$res = mysql_query($query, $link);
-		//var_dump($res);
-		//if(mysql_num_rows($res) > 0)
-		//	$this->view->error($this->lang['L-12']);
+# Create the DB and Select it.
+		$empty = $this->_options['empty_database'];
+		$create = $this->_options['create_database'];
+		if ($empty == "yes") {
+			$result = $link->query("DROP DATABASE " . $db);
 		}
-		if(!$db_selected && !$this->_options['create_database'])
+		if ($create == "yes") {
+			$result = $link->query("CREATE DATABASE IF NOT EXISTS " . $db);
+		} 
+		if ($link->errno)
 		{
-			$this->view->error($this->lang['L-05']);
+			$this->view->error(sprintf($this->lang['L-06'], $this->_options['dbname'], htmlspecialchars($link->error . "(" . $link->errno . ")")));
 		}
-		elseif (!$db_selected && $this->_options['create_database'])
-		{
-# Create the DB
-			$result = mysql_query("CREATE DATABASE {$this->_options['dbname']}", $link);
-			if (!$result)
-			{
-				$this->view->error(sprintf($this->lang['L-06'], $this->_options['dbname'], htmlspecialchars(mysql_error())));
-			}
-		}
+		$result = $link->query("USE " . $db);
 
 # Load the database stuff
 		$path = INSTALLER_PATH . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'database.php' ;
@@ -293,11 +285,9 @@ class Installer
 			$errors = array();
 			foreach ($SQL as $query)
 			{
-				$result = mysql_query($query, $link);
-				if (!$result)
-				{	//var_dump($query);
-					//var_dump(mysql_error());
-					$errors[] = sprintf($this->lang['L-08'], htmlspecialchars(mysql_error()));
+				$result = $link->query($query);
+				if ($link->errno)
+				{	$errors[] = sprintf($this->lang['L-08'], htmlspecialchars($link->error));
 					$errors_count++;
 					continue;
 				}
@@ -318,6 +308,9 @@ class Installer
 # Redirect
 		$this->view->vars = array('message' => sprintf($this->lang['L-09'], $count, $errors_count, $error_string), 'button' => $error_string ? $this->lang['I-16'] : $this->lang['I-03']);
 		$this->view->render('dbdone');
+
+		//And finally, close the link.
+		$link->close();
 
 	}
 
