@@ -206,6 +206,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
+('Guest','Guest User','guest@hackademic.com','empty pass this user is never supposed to login normally','2010-01-01 00:00:00','2010-01-01 00:00:00',1,0,0),
 ('bar', 'mr. bar', 'bar@owasp.com', '$P$BJ8UtXZYqS/Lokm8zFMwcxO8dq797P.', '2012-10-16 22:12:52', '2012-10-16 22:22:39', 0, 0, 0),
 ('foo', 'mr. foo', 'foo@owasp.com', '$P$BxCHeVG1RMF06UxwRbrVQtPA1yOwAq.', '2012-10-16 22:12:34', '2012-10-16 22:59:29', 0, 0, 0),
 ('sensei', 'waspy sifu', 'waspy@owasp.sifu', '$P$Bj/JtLJJR3bUD0LLWXL2UW9DuRVo0I.', '2012-10-16 22:36:06', '2012-10-16 22:37:04', 1, 2, 0);

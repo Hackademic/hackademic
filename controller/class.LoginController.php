@@ -38,16 +38,22 @@ require_once(HACKADEMIC_PATH."model/common/class.User.php");
 class LoginController extends HackademicController {
 
 	public function go() {
-
 		$this->setViewTemplate('landingpage.tpl');
 		$this->addPageTitle('Log in');
-
 
 		if ($this->isLoggedIn() && Session::isValid($_GET['token'])) {
 			//die("already logged");
 			$controller = new LandingPageController();
 			return $controller->go();
 		} else  {
+			if(defined('EXCIBITION_MODE') && EXCIBITION_MODE == true){
+				$session = new Session();
+				$username = 'Guest';
+				// start the session
+				$session->loginGuest();
+				header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+				die("horribly");
+			}
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'
 					&& isset($_POST['username']) && isset($_POST['pwd']) ) {
 				if ($_POST['username']=='' || $_POST['pwd']=='') {
