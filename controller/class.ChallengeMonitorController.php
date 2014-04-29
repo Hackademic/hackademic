@@ -84,6 +84,7 @@ class ChallengeMonitorController {
 		if($pkg_name != $_SESSION['pkg_name']  || $_SESSION['chid'] != $chid){
 			error_log("HACKADEMIC::ChallengeMonitorController::RIGHT token WRONG CHALLENGE it's ".$pkg_name.' it should be '.$_SESSION['pkg_name']);
 			header("Location: ".SITE_ROOT_PATH);
+			die();
 		}
 		/* If token changed AND the challenge changed AND its a valid token
 		 * for that challenge then we are in a new challenge
@@ -100,6 +101,7 @@ class ChallengeMonitorController {
 				//var_dump($_SESSION);//die();
 				error_log("HACKADEMIC::ChallengeMonitorController::Hijacking attempt? ".$_SESSION['pkg_name']);
 				header("Location: ".SITE_ROOT_PATH);
+				die();
 			}
 
 		/*echo"<p>";var_dump($pair);echo "</p>";
@@ -109,6 +111,7 @@ class ChallengeMonitorController {
 		if($pair && $pair->token != $token){
 			error_log("HACKADEMIC::ChallengeMonitorController::pair->token != $token".$pair->token);
 			header("Location: ".SITE_ROOT_PATH);
+			die();
 
 		}
 	}
