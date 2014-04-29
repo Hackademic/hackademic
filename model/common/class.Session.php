@@ -33,7 +33,22 @@
 require_once(HACKADEMIC_PATH."/model/common/class.User.php");
 require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
 class Session {
-
+	
+	/*
+	 * Function to bypass Login
+	 * WARNING!
+	 * To be used only with the excibition mode
+	 * */
+	public static function loginGuest(){
+		if(!defined('EXCIBITION_MODE') || EXCIBITION_MODE != true)
+			die("loginGuest called even though we're not in excibition mode, this is most likely a bug please report it");
+		self::init(7200);
+		//setup session vars
+		$_SESSION['hackademic_user'] = 'Guest';
+		$_SESSION['hackademic_user_type'] = 0;
+		$_SESSION['hackademic_path'] = SOURCE_ROOT_PATH;
+		
+	}
 	public static function isLoggedIn() {
 		if (isset($_SESSION['hackademic_user'])) {
 			return true;

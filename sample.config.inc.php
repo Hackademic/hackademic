@@ -69,3 +69,6 @@ define('SESS_EXP_INACTIVE',7200);
 
 //session cookie name
 define('SESS_NAME',"not_the_cookie_you_are_looking_for"); 
+
+//excibition mode
+define('EXCIBITION_MODE',false);
