@@ -115,10 +115,10 @@ CREATE TABLE IF NOT EXISTS `classes` (
 --
 -- Dumping data for table `classes`
 --
+INSERT INTO classes ( id , name , date_created , archive ) VALUES
+(1, 'Global Class', '2012-08-09 00:43:48', 0);
 
-INSERT INTO `classes` (`name`, `date_created`, `archive`) VALUES
-('Sample Class', '2012-08-09 00:43:48', 0),
-('fooClass', '2012-10-16 22:32:43', 0);
+;
 
 -- --------------------------------------------------------
 
@@ -147,13 +147,7 @@ INSERT INTO `class_challenges` (`challenge_id`, `class_id`, `date_created`) VALU
 (6, 1, '2012-08-09 01:01:07'),
 (7, 1, '2012-08-09 01:01:07'),
 (9, 1, '2012-08-09 01:01:07'),
-(10, 1, '2012-08-09 01:01:07'),
-(1, 2, '2012-10-16 22:32:49'),
-(4, 2, '2012-10-16 22:32:52'),
-(9, 2, '2012-10-16 22:32:53'),
-(10, 2, '2012-10-16 22:32:55'),
-(8, 2, '2012-10-16 22:32:58');
-
+(10, 1, '2012-08-09 01:01:07');
 -- --------------------------------------------------------
 
 --
@@ -168,18 +162,6 @@ CREATE TABLE IF NOT EXISTS `class_memberships` (
   PRIMARY KEY (`user_id`,`class_id`),
   UNIQUE KEY `id` (`id`)
 );
-
---
--- Dumping data for table `class_memberships`
---
-
-INSERT INTO `class_memberships` (`user_id`, `class_id`, `date_created`) VALUES
-( 1, 1, '2012-08-09 00:59:00'),
-( 2, 1, '2012-08-09 00:59:00'),
-( 3, 1, '2012-08-09 00:59:00'),
-( 4, 2, '2012-10-16 22:33:07'),
-( 5, 2, '2012-10-16 22:33:13');
-
 -- --------------------------------------------------------
 
 --
@@ -206,10 +188,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
-('Guest','Guest User','guest@hackademic.com','empty pass this user is never supposed to login normally','2010-01-01 00:00:00','2010-01-01 00:00:00',1,0,0),
-('bar', 'mr. bar', 'bar@owasp.com', '$P$BJ8UtXZYqS/Lokm8zFMwcxO8dq797P.', '2012-10-16 22:12:52', '2012-10-16 22:22:39', 0, 0, 0),
-('foo', 'mr. foo', 'foo@owasp.com', '$P$BxCHeVG1RMF06UxwRbrVQtPA1yOwAq.', '2012-10-16 22:12:34', '2012-10-16 22:59:29', 0, 0, 0),
-('sensei', 'waspy sifu', 'waspy@owasp.sifu', '$P$Bj/JtLJJR3bUD0LLWXL2UW9DuRVo0I.', '2012-10-16 22:36:06', '2012-10-16 22:37:04', 1, 2, 0);
+('Guest','Guest User','guest@hackademic.com','empty pass this user is never supposed to login normally','2010-01-01 00:00:00','2010-01-01 00:00:00',1,0,0);
 
 --
 -- Table structure for table `user_has_challenge_token`
