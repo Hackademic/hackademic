@@ -37,7 +37,7 @@ $lang = array(
 'I-06' => "Database User",
 'I-07' => "Database Password",
 'I-08' => "Database Host",
-'I-09' => "Create Database if it doesn't exists?",
+'I-09' => "Create Database if it doesn't exist?",
 'I-10' => "Yes",
 'I-11' => "No",
 'I-12' => "Error!",
@@ -61,5 +61,6 @@ $lang = array(
 'I-29' => "Email",
 'I-30' => "Application Title",
 'I-31' => "You can now login by visiting the following URL in your browser:",
-'I-32' => "Back"
+'I-32' => "Back",
+'I-33' => "Empty database if exists?"
 );
