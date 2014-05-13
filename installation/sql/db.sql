@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS  scoring_rule  (
 --
 
 INSERT INTO  scoring_rule  (challenge_id ,  class_id ,  attempt_cap ,  attempt_cap_penalty ,  time_between_first_and_last_attempt ,  time_penalty ,  time_reset_limit_seconds ,  request_frequency_per_minute ,  request_frequency_penalty ,  experimentation_bonus ,  multiple_solution_bonus ,  banned_user_agents ,  banned_user_agents_penalty ,  base_score ,  first_try_solves ,  penalty_for_many_first_try_solves ) VALUES
-(-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Indy Library,\r\nlibwww-perl, \r\ncurl, \r\nnikto, \r\nw3af, ', 0, 5, 0, 0);
+(-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Indy Library,\r\nlibwww-perl, \r\ncurl, \r\nnikto, \r\nw3af, ', 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
