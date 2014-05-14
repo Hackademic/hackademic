@@ -38,6 +38,7 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class ForgotPasswordController extends HackademicController {
 
+  private static $action_type = 'forgot_password';
 
 	public function go() {
 		$this->setViewTemplate('forgotpw.tpl');
@@ -55,7 +56,7 @@ class ForgotPasswordController extends HackademicController {
 					$token=$ESAPI_utils->getHttpUtilities()->getCSRFToken();
 					$subject="Hackademic new password link activation";
 					$message="Please click on the following link below to reset your password";
-					$message = SOURCE_ROOT_PATH."pages/resetpassword.php?username=$username&token=$token";
+					$message = SOURCE_ROOT_PATH."?url=resetpassword&username=$username&token=$token";
 					error_log($message);
 					//Mailer::mail($email,$subject,$message);
 					$result = User::addToken($username,$token);
@@ -64,6 +65,6 @@ class ForgotPasswordController extends HackademicController {
 				}
 			}
 		}
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

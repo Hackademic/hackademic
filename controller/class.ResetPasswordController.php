@@ -38,6 +38,7 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class ResetPasswordController extends HackademicController {
 
+  private static $action_type = 'reset_password';
 
 	public function go() {
 		$this->setViewTemplate('resetpw.tpl');
@@ -47,10 +48,10 @@ class ResetPasswordController extends HackademicController {
 		if (isset($_GET['token'])) {
 			$token=$_GET['token'];
 		}
-		if(!(User::validateToken($username,$token))){
+		if(!(User::validateToken($username,$token))) {
 			$this->addErrorMessage("The token is invalid");
 		}
-		else{
+		else {
 			if (isset($_POST['submit'])) {
 				if ($_POST['newpassword']=='') {
 					$this->addErrorMessage("Password should not be empty");
@@ -62,16 +63,16 @@ class ResetPasswordController extends HackademicController {
 					if(!($password==$confirmpassword)) {
 						$this->addErrorMessage("The two passwords dont match!");
 					}
-					else{
-						if(!(User::updatePassword($password,$username)))
-							$this->addErrorMessage("An error occured while updating the password");
-						else{
+					else {
+						if(!(User::updatePassword($password,$username))) {
+              $this->addErrorMessage("An error occured while updating the password");
+            } else {
 							$this->addSuccessMessage("Password has been updated successfully!You can now login with your new password");
 						}
 					}
 				}
 			}
 		}
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

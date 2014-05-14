@@ -10,7 +10,7 @@
 		<tr class="center">
 		    <td>
 			<div class="submenu_btn">
-			    <a href="{$site_root_path}admin/pages/addclass.php">
+			    <a href="{$site_root_path}?url=admin/addclass">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/addclass.png"/><br/>
 				<span class="caption">Add Class</span>
 			    </a>
@@ -23,6 +23,7 @@
 	
     <div id="input_form">
 	<form method ="get">
+    <input type="hidden" name="url" value="{$smarty.get.url}">
 	    <table class="add_form center">
 		<tr>
 		    <td class="width_40">Search: <input placeholder="Class name to search" class="width_90" type="text" name="search" id="search" value="{if isset($search_string)}{$search_string}{/if}"/></td>
@@ -68,17 +69,17 @@
 	</thead>
 	{foreach from=$classes item=class}
 	    <tr>
-		<td><a href="{$site_root_path}admin/pages/showclass.php?id={$class->id}">{$class->name}</a></td>
+		<td><a href="{$site_root_path}?url=admin/showclass&id={$class->id}">{$class->name}</a></td>
 		<td>{$class->date_created|date_format}</td>
 		<td>   
 		{if $class->archive == 0}
-		    <a href="{$site_root_path}admin/pages/manageclass.php?id={$class->id}&source=arch">Click to archive class!</a>
+		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=arch">Click to archive class!</a>
 		{else}	
-		    <a href="{$site_root_path}admin/pages/manageclass.php?id={$class->id}&source=unarch">Click to unarchive class!</a>
+		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=unarch">Click to unarchive class!</a>
 		{/if}	
 		</td>
 		<td>   
-		    <a href="{$site_root_path}admin/pages/manageclass.php?id={$class->id}&source=del">Click to delete class!</a>
+		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=del">Click to delete class!</a>
 		</td>		
 	    </tr>
 	{/foreach}

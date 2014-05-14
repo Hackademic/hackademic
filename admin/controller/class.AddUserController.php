@@ -42,6 +42,8 @@ class AddUserController extends HackademicBackendController {
 	public $type;
 	public $email;
 
+  private static $action_type = 'add_user';
+
 	public function go() {
 		$this->saveFormFields();
 		$this->setViewTemplate('adduser.tpl');
@@ -85,11 +87,11 @@ class AddUserController extends HackademicBackendController {
 					$usr = User::findByUserName($username);
 					$res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
 					$this->addSuccessMessage("User has been added succesfully");
-					header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=add");
+					header('Location:'.SOURCE_ROOT_PATH."?url=admin/usermanager&source=add");
 				}
 			}
 		}
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 	public function saveFormFields(){
 		if(isset($_POST['username']))

@@ -37,22 +37,24 @@ require_once(HACKADEMIC_PATH."model/common/class.User.php");
 
 class LoginController extends HackademicBackendController {
 
+  private static $action_type = 'admin_login';
+
 	public function go() {
 		$this->setViewTemplate('admin_login.tpl');
 		$this->addPageTitle('Log in');
 
 		if ($this->isLoggedIn()) {
-			header('Location: '.SOURCE_ROOT_PATH."admin/pages/dashboard.php");
+			header('Location: '.SOURCE_ROOT_PATH."?url=admin/dashboard");
 		} else  {
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'
 					&& isset($_POST['username']) && isset($_POST['pwd']) ) {
 				if ($_POST['username']=='' || $_POST['pwd']=='') {
 					if ($_POST['username']=='') {
 						$this->addErrorMessage("Username must not be empty");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					} else {
 						$this->addErrorMessage("Password must not be empty");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					}
 				} else {
 					$session = new Session();
@@ -61,22 +63,22 @@ class LoginController extends HackademicBackendController {
 					$user=User::findByUsername($username);
 					if (!$user) {
 						$this->addErrorMessage("Incorrect username or password");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
 						$this->addErrorMessage("Incorrect username or password");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					} elseif(!$user->type) {
 						$this->addErrorMessage("You are not an administrator");
-						return $this->generateView();
+						return $this->generateView(self::$action_type);
 					} else {
 						// this sets variables in the session
 						$session->completeLogin($user);
-						header('Location: '.SOURCE_ROOT_PATH."admin/pages/login.php");
+						header('Location: '.SOURCE_ROOT_PATH."?url=admin/login");
 					}
 				}
 			} else {
 				$this->addPageTitle('Log in');
-				return $this->generateView();
+				return $this->generateView(self::$action_type);
 			}
 		}
 	}

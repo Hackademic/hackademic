@@ -30,9 +30,10 @@
  * @copyright 2012 OWASP
  *
  */
-require_once(HACKADEMIC_PATH."config.inc.php");
-require_once(HACKADEMIC_PATH."extlib/Smarty-3.1.8/libs/Smarty.class.php");
-require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
+require_once(HACKADEMIC_PATH . "config.inc.php");
+require_once(HACKADEMIC_PATH . "extlib/Smarty-3.1.8/libs/Smarty.class.php");
+require_once(HACKADEMIC_PATH . "model/common/class.Utils.php");
+require_once(HACKADEMIC_PATH . "admin/model/class.Options.php");
 
 class SmartyHackademic extends Smarty {
 
@@ -46,6 +47,16 @@ class SmartyHackademic extends Smarty {
 	 */
 	private $template_data = array();
 
+  /**
+   * @var string the path to the user theme
+   */
+  public $user_theme_path = '';
+  
+  /**
+   * @var string the path to the admin theme
+   */
+  public $admin_theme_path = '';
+
 	/**
 	 * Constructor to initialize SmartyHackademic
 	 *
@@ -55,12 +66,19 @@ class SmartyHackademic extends Smarty {
 	public function __construct() {
 		$src_root_path = SOURCE_ROOT_PATH;
 		$site_root_path = SITE_ROOT_PATH;
+
 		$app_title = APP_TITLE;
-		$debug=DEBUG;
-		$cache_pages=CACHE_PAGES;
+		$debug = DEBUG;
+		$cache_pages = CACHE_PAGES;
 
 		Smarty::__construct();
-		$this->template_dir = array( HACKADEMIC_PATH.'view', HACKADEMIC_PATH.'admin/view/');
+    $this->user_theme_path = Options::getOption('active_user_theme')->value . 'view/';
+    $this->admin_theme_path = Options::getOption('active_admin_theme')->value . 'admin/view/';
+		//$this->template_dir = array( HACKADEMIC_PATH . $this->user_theme_path, HACKADEMIC_PATH . $this->admin_theme_path);
+    $this->setTemplateDir(array(
+      HACKADEMIC_PATH . $this->user_theme_path,
+      HACKADEMIC_PATH . $this->admin_theme_path)
+    );
 		$this->compile_dir = HACKADEMIC_PATH.'/view/compiled_view';
 		$this->cache_dir =HACKADEMIC_PATH.'cache';
 		$this->caching = ($cache_pages)?1:0;
@@ -117,4 +135,5 @@ class SmartyHackademic extends Smarty {
 			parent::clear_all_cache($exp_time);
 		}
 	}
+  
 }

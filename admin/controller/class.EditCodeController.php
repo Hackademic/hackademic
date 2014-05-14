@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * Hackademic-CMS/admin/controller/class.EditChallengeController.php
+ * Hackademic-CMS/admin/controller/class.EditCodeController.php
  *
- * Hackademic Edit Challenge Controller
+ * Hackademic Edit Code Controller
  * Class for the Editllenge page in Backend
  *
  * Copyright (c) 2012 OWASP
@@ -36,6 +36,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class EditCodeController extends HackademicBackendController {
 
+  private static $action_type = 'edit_code';
+
 	public function go() {
 		if (isset($_GET['id'])) {
 			$id=$_GET['id'];
@@ -58,14 +60,14 @@ class EditCodeController extends HackademicBackendController {
 		} else {
 			$title = "Unknown Challenge";
 			$file_contents = '';
-			$folder = null;
+			$folder = NULL;
 			$this->addErrorMessage("You need to select a challenge to edit.");
 		}
 		$this->setViewTemplate('editcode.tpl');
 		$this->addToView('file_contents', $file_contents);
 		$this->addToView('title', $title);
 		$this->addToView('folder', $folder);
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 
 }

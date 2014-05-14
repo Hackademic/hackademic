@@ -49,11 +49,13 @@ class Challenge {
 	public $level;
 	public $duration;
 
+  protected static $action_type = 'challenge';
+
 	public function doesChallengeExist($name){
 		global $db;
-		$params=array(':name' => $name);
+		$params = array(':name' => $name);
 		$sql = "SELECT * FROM challenges WHERE pkg_name = :name";
-		$query = $db->query($sql,$params);
+		$query = $db->read($sql, $params, self::$action_type);
 		$result = $db->numRows($query);
 		if ($result) {
 			return true;
@@ -63,14 +65,12 @@ class Challenge {
 	}
 
 	public static function getChallenge($id) {
-		global $db;
-		$params = array(
-				':id' => $id
-			       );
+		$params = array(':id' => $id);
 		$sql = "SELECT * FROM challenges WHERE id= :id LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
 		return !empty($result_array)?array_shift($result_array):false;
 	}
+
 	public static function getPublicChallenges(){
 			global $db;
 			$sql = "SELECT * FROM challenges WHERE availability = 'public' AND visibility = 'public'";
@@ -78,17 +78,14 @@ class Challenge {
 		return !empty($result_array)?array_shift($result_array):false;
 	}
 	public static function getChallengeByPkgName($pkg_name) {
-		global $db;
-		$params = array(
-				':pkg_name' => $pkg_name
-			       );
+		$params = array(':pkg_name' => $pkg_name);
 		$sql = "SELECT * FROM challenges WHERE pkg_name= :pkg_name LIMIT 1";
 		$result_array=self::findBySQL($sql,$params);
 		return !empty($result_array)?array_shift($result_array):false;
 		//return $result_array;
 	}
 
-//get all Visible and solvable challenges
+//get all Visible challenges
 	public static function getChallengesFrontend($user_id) {
 		global $db;
 		$params=array(':user_id' => $user_id);
@@ -105,8 +102,8 @@ class Challenge {
 			FROM class_memberships WHERE
 			class_memberships.user_id = :user_id
 					)
-			   )
-							)
+			  )
+			)
 			ORDER BY challenges.id
 			";
 		$result_array= self::findBySQL($sql,$params);
@@ -116,8 +113,11 @@ class Challenge {
 		$result = array_udiff($res_arr2, $result_array, 'Challenge::compare_challenges');
 		foreach( $result as $el)
 			array_push($result_array,$el);
+		//echo "<p>".var_dump($result_array)."</p>";
+		//Debug::show($result_array,'all',$this,_FUNCTION_);
 		return !empty($result_array)?$result_array:false;
 	}
+
 	/**
 	 * Returns the challenges assigned to the user with user_id $user
 	 * grouped by class_id
@@ -125,19 +125,19 @@ class Challenge {
 	public static function getChallengesAssigned($user) {
 		global $db;
 		$challenge_ids = ClassChallenges::getChallengesOfUser($user);
-
+		//var_dump($challenge_ids);
 		$class_challenges = array();
 		$class_ids = array();
 		if( $challenge_ids != FALSE){
-			foreach ($challenge_ids as $chal) {
+		foreach ($challenge_ids as $chal) {
 				if(!in_array($chal->class_id, $class_ids)){
 					$class_ids[$chal->class_id] = $chal->class_id;
 					$class_challenges[$chal->class_id] = array();
 				}
- 		    $challenge = self::getChallenge($chal->id);
+      $challenge = self::getChallenge($chal->id);
 		    if($chal->class_id != NULL)
 					array_push($class_challenges[$chal->class_id],$challenge);
-			}
+		}
 		}else{
 			return FALSE;
 		}
@@ -149,23 +149,22 @@ class Challenge {
 		return $db->insertId();
 	}
 
-	private static function findBySQL($sql,$params=NULL) {
+	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql,$params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$result_set = $db->read($sql, $params, self::$action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($result_set)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
 
-	public static function getNchallenges($start, $limit,$search=null,$category=null) {
-		global $db;
+	public static function getNchallenges($start, $limit, $search = NULL, $category = NULL) {
 		$params = array(
-				':start' => $start,
-				':limit' => $limit
-			       );
-		if ($search != null && $category != null) {
+			':start' => $start,
+			':limit' => $limit
+    );
+		if($search != NULL && $category != NULL) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
 				case "title":
@@ -175,43 +174,42 @@ class Challenge {
 		} else {
 			$sql= "SELECT * FROM challenges LIMIT :start, :limit";
 		}
-		$result_array=self::findBySQL($sql,$params);
+		$result_array = self::findBySQL($sql, $params);
 		return $result_array;
 	}
 
-	public static function getNumberOfChallenges($search=null,$category=null) {
+	public static function getNumberOfChallenges($search = NULL, $category = NULL) {
 		global $db;
-		if ($search != null && $category != null) {
+		if($search != NULL && $category != NULL) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
 				case "title":
 					$sql = "SELECT COUNT(*) as num FROM challenges WHERE title LIKE :search_string ";
 					break;
 			}
-			$query = $db->query($sql,$params);
+			$query = $db->read($sql, $params, self::$action_type);
 		} else {
 			$sql = "SELECT COUNT(*) as num FROM challenges";
-			$query = $db->query($sql);
+			$query = $db->read($sql, NULL, self::$action_type);
 		}
 		$result = $db->fetchArray($query);
 		return $result['num'];
 	}
 
 	public static function instantiate($record) {
-		$object=new self;
-		foreach($record as $attribute=>$value) {
+		$object = new self;
+		foreach($record as $attribute => $value) {
 			if($object->hasAttribute($attribute)) {
-				$object->$attribute=$value;
+				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
 
 	private function hasAttribute($attribute) {
-		$object_vars=get_object_vars($this);
-		return array_key_exists($attribute,$object_vars);
+		$object_vars = get_object_vars($this);
+		return array_key_exists($attribute, $object_vars);
 	}
-
 	private static function compare_challenges($ch_a, $ch_b) {
 
 	//	var_dump($ch_a->id);var_dump($ch_b->id);echo '</br>';

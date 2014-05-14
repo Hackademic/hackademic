@@ -41,6 +41,8 @@ class EditArticleController extends HackademicBackendController {
 	public $publish;
 	public $article;
 
+  private static $action_type = 'edit_article';
+
 	public function go() {
 		$this->saveFormFields();
 		if (isset($_GET['id'])) {
@@ -71,9 +73,9 @@ class EditArticleController extends HackademicBackendController {
 		$this->addToView('article', $article);
 		if(isset($_POST['deletesubmit'])) {
 			ArticleBackend::deleteArticle($id);
-			header('Location:'.SOURCE_ROOT_PATH."admin/pages/articlemanager.php");
+			header('Location:'.SOURCE_ROOT_PATH."?url=admin/articlemanager");
 		}
-		$this->generateView();
+		$this->generateView(self::$action_type);
 
 	}
 	public function saveFormFields(){

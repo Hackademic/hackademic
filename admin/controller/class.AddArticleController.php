@@ -41,6 +41,8 @@ class AddArticleController extends HackademicBackendController {
 	public $publish;
 	public $article;
 
+  private static $action_type = 'add_article';
+
 	public function go() {
 		$this->saveFormFields();
 		$this->setViewTemplate('editor.tpl');
@@ -58,24 +60,25 @@ class AddArticleController extends HackademicBackendController {
 				$this->content = $_POST['content'];//TODO somehow we must check if this is malicious
 				$this->date_posted = date("Y-m-d H:i:s");
 
-				ArticleBackend::addArticle($this->title,$this->content,$this->date_posted,$this->created_by,$this->is_published);
+				ArticleBackend::addArticle($this->title, $this->content, $this->date_posted, $this->created_by, $this->is_published);
 				$this->addSuccessMessage("Article has been added succesfully");
 				$id = ArticleBackend::insertId();
-				header('Location: '.SOURCE_ROOT_PATH."admin/pages/editarticle.php?id=$id&source=new");
-
+				header('Location: ' . SOURCE_ROOT_PATH."?url=admin/editarticle&id=$id&source=new");
 			}
 		}
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 
 	public function saveFormFields(){
-		if(isset($_POST['title']))
-			$this->title =Utils::sanitizeInput($_POST['title']);
-		if(isset($_POST['is_published']))
-			$this->publish=$_POST['is_published'];
-		if(isset($_POST['content']))
-			$this->article = $_POST['content'];
-
+		if(isset($_POST['title'])) {
+      $this->title = Utils::sanitizeInput($_POST['title']);
+    }
+		if(isset($_POST['is_published'])) {
+      $this->publish = $_POST['is_published'];
+    }
+		if(isset($_POST['content'])) {
+      $this->article = $_POST['content'];
+    }
 		$this->addToView('cached', $this);
 	}
 }

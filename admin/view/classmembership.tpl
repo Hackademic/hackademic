@@ -32,8 +32,8 @@
 	</thead>
 	{foreach from=$class_memberships item=class}
 	    <tr>
-		<td><a href="{$site_root_path}admin/pages/showclass.php?id={$class['class_id']}">{$class['name']}</a></td>
-		<td><a href="{$site_root_path}admin/pages/classmemberships.php?id={$smarty.get.id}&class_id={$class['class_id']}&action=del">Delete</a></td>
+		<td><a href="{$site_root_path}?url=admin/showclass&id={$class['class_id']}">{$class['name']}</a></td>
+		<td><a href="{$site_root_path}?url=admin/classmemberships&id={$smarty.get.id}&class_id={$class['class_id']}&action=del">Delete</a></td>
 	    </tr>
 	{/foreach}
     </table>

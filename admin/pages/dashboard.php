@@ -29,7 +29,7 @@
  * @copyright 2012 OWASP
  *
  */
-require_once("../../init.php");
+
 require_once(HACKADEMIC_PATH."admin/controller/class.DashboardController.php");
 
 $controller = new DashboardController();

@@ -36,16 +36,19 @@ require_once(HACKADEMIC_PATH."/admin/model/class.Classes.php");
 
 class ChallengeListController extends HackademicController {
 
+    private static $action_type = 'challenge_list';
+
 	public function go() {
 		$username = $this->getLoggedInUser();
 		$user = User::findByUserName($username);
 		if (!$user) {
 		    return;
 		}
-		//$challenges=Challenge::getChallengesFrontend($user->id);
+		//$challenges = Challenge::getChallengesFrontend($user->id);
+
 		$res_array = $this->get_by_class($user);
 		$challenges = $res_array['challenges'];
-		$menu=array();
+		$menu = array();
 		$message = false;
 		foreach( $challenges as $class_name => $class_challenges){
 			$menu[$class_name] = array();
@@ -56,19 +59,20 @@ class ChallengeListController extends HackademicController {
 											 'class_id' => $res_array['ids'][$class_name],
 											 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
 				array_push($menu[$class_name],$link);
-				if ('private' == $challenge->availability){
-					$message = true;
-				}
+			//Debug::vars_get_value($link);
+			//var_dump($challenge);echo'</p>';
+			if ('private' == $challenge->availability){
+				$message = true;
 			}
-
+		}
 		}
 		if($message)
-			$this->addSuccessMessage("Note: Unclickable challenges are not yet available");
+      		$this->addSuccessMessage("Note: Unclickable challenges are not yet available");
 
 		$this->addToView('list', $menu);
 		$this->setViewTemplate('challenge_list.tpl');
-		return $this->generateView();
-	}
+		return $this->generateView(self::$action_type);
+		}
 	private function get_by_class($user){
 		$result = array();
 		$class_challenges = array();

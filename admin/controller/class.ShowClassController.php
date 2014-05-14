@@ -1,10 +1,10 @@
 <?php
 /**
  *
- * Hackademic-CMS/admin/controller/class.ClassMembershipsController.php
+ * Hackademic-CMS/admin/controller/class.ShowClassController.php
  *
  * Hackademic Class Memberships Controller
- * Class for the Class Memberships page in Backend
+ * Class for the Class Memberships page in Backend to show the class.
  *
  * Copyright (c) 2012 OWASP
  *
@@ -37,13 +37,16 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 require_once(HACKADEMIC_PATH."model/common/class.Challenge.php");
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 require_once(HACKADEMIC_PATH."model/common/class.ScoringRule.php");
+
 class ShowClassController extends HackademicBackendController {
+
+  private static $action_type = 'show_class';
 
 	public function go() {
 		$this->setViewTemplate('showclass.tpl');
 
 		if (!isset($_GET['id'])) {
-			header('Location: '.SOURCE_ROOT_PATH."admin/pages/manageclass.php");
+			header('Location: '.SOURCE_ROOT_PATH."?url=admin/manageclass");
 		}
 		$class_id=$_GET['id'];
 
@@ -53,7 +56,7 @@ class ShowClassController extends HackademicBackendController {
 		if(isset($_POST['submit'])) {
 			if(isset($_POST['updateclassname'])) {
 				if ($_POST['updateclassname']=='') {
-					header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editerror");
+					header('Location: '.SOURCE_ROOT_PATH."?url=admin/showclass&id=$class_id&action=editerror");
 				}
 				else {
 					if ($_POST['challenges'] !='default') {
@@ -64,7 +67,7 @@ class ShowClassController extends HackademicBackendController {
 						$change = true;
 						$this->name = Utils::sanitizeInput($_POST['updateclassname']);
 						Classes::updateClassName($class_id, $this->name);
-						header('Location: '.SOURCE_ROOT_PATH."admin/pages/showclass.php?id=$class_id&action=editsuccess&message=cname");
+						header('Location: '.SOURCE_ROOT_PATH."?url=admin/showclass&id=$class_id&action=editsuccess&message=cname");
 					}
 				}
 			}
@@ -88,6 +91,7 @@ class ShowClassController extends HackademicBackendController {
 
 		$user_members = ClassMemberships::getAllMemberships($class_id);
 		$challenges_assigned = ClassChallenges::getAllMemberships($class_id);
+
 		$rules_arr = array();
 		foreach($challenges_assigned as $challenge){
 			$rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge['challenge_id'], $class_id);
@@ -106,7 +110,6 @@ class ShowClassController extends HackademicBackendController {
 		$this->addToView('challenges_not_assigned',$challenges_not_assigned);
 		$this->addToView('users', $user_members);
 		$this->addToView('challenges', $challenges_assigned);
-		$this->addToView('rules',$rules_arr);
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

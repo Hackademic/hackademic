@@ -39,68 +39,76 @@ class UserHasChallengeToken {
 	public $token;
 	public $challenge_id;
 
-	public static function add($userid=null, $chid=null, $token=null) {
+  private static $action_type = 'user_has_challenge_token';
+
+	public static function add($userid = null, $chid = null, $token = null) {
 		global $db;
 		$params = array(
-				':user_id' => $userid,
-				':challenge_id' => $chid,
-				':token' => $token
-			     );
-		$exists = self::findByPair($userid,$chid);
+      ':user_id' => $userid,
+      ':challenge_id' => $chid,
+      ':token' => $token
+    );
+		$exists = self::findByPair($userid, $chid);
 		if($exists != NULL){
 			$sql =  'UPDATE  user_has_challenge_token SET token = :token
 					 WHERE user_id = :user_id AND challenge_id = :challenge_id';
-		}else{
+      $query = $db->update($sql, $params, self::$action_type);
+		} else {
 			$sql = 'INSERT INTO user_has_challenge_token(user_id,challenge_id,token) VALUES(
 					:user_id,:challenge_id,:token)';
+      $query = $db->create($sql, $params, self::$action_type);
 		}
-		$query = $db->query($sql, $params);
+
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 	public static function deleteByUser($user_id){
 		global $db;
 		$params = array(':user_id' => $user_id);
 		$sql = 'DELETE FROM user_has_challenge_token WHERE user_id = :user_id;';
 	}
+
 	public static function findByPair($userid,$chid){
 		global $db;
 		$sql = "SELECT * FROM user_has_challenge_token WHERE
 				user_id= :user_id AND challenge_id= :challenge_id
 				LIMIT 1";
 		$params = array(
-				':user_id' => $userid,
-				':challenge_id' => $chid
-			     );
-		$object_array=self::findBySQL($sql, $params);
+      ':user_id' => $userid,
+      ':challenge_id' => $chid
+    );
+		$object_array = self::findBySQL($sql, $params);
 		/*var_dump($userid);
 		var_dump($chid);
 		var_dump($object_array);die();*/
-		return !empty($object_array)?array_shift($object_array):false;
+		return !empty($object_array) ? array_shift($object_array) : false;
 	}
+
 	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql, $params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$result_set = $db->read($sql, $params, self::$action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($result_set)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
+
 	public static function instantiate($record) {
-		$object=new self;
-		foreach($record as $attribute=>$value) {
+		$object = new self;
+		foreach($record as $attribute => $value) {
 			if($object->hasAttribute($attribute)) {
-				$object->$attribute=$value;
+				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
 	private function hasAttribute($attribute) {
-		$object_vars=get_object_vars($this);
-		return array_key_exists($attribute,$object_vars);
+		$object_vars = get_object_vars($this);
+		return array_key_exists($attribute, $object_vars);
 	}
 }
