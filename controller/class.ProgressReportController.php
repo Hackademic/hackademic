@@ -77,7 +77,8 @@ class ProgressReportController extends HackademicController{
 				$class_scores[$class->name] = $data;
 				$class_ids[$class->name] = $class->id;
 			}
-			//echo'</p>';var_dump($progress);
+			//echo'</p>';var_dump($class_scores);
+			//echo'</p>';var_dump($class_scores);
 			$this->addToView('data', $class_scores);
 			$this->addToView('ids', $class_ids);
 		} else {
@@ -119,7 +120,7 @@ class ProgressReportController extends HackademicController{
 				}
 				$arr = array(
 				'id' => $challenge['challenge_id'],
-				'title' => $challenge['challenge_id'],
+				'title' => $challenge['title'],
 					'attempts' => $attempts,
 					'cleared' => $cleared,
 				'cleared_on' => $cleared_on,

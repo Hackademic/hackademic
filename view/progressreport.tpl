@@ -20,24 +20,28 @@
 	</div>
     {/if}
     {if (isset($data))}
-    <table class="manager_table">
+    {foreach from=$data key=class item=progress}
+			
+        <table class="manager_table">
+        <tr><h4 class="align_center">{$class}</h4></tr>
         <tr>
             <th>Title</th>
             <th>No. Of Attempts</th>
             <th>Cleared</th>
             <th>Cleared On</th>
         </tr>
-    {foreach from=$data key=class item=progress}
-			<h4 class="align_center">{$class}</h4>
-			{foreach from=$progress item=foo}
+			{foreach from=$progress key=index item=foo}
         <tr>
-            <td><a href="{$site_root_path}?url=showchallenges&id={$foo['id']}">{$foo['title']}</a></td>
+            <td><a href="{$site_root_path}?url=showchallenges&id={$foo['id']}&class_id={$ids[{$class}]}"">{$foo['title']}</a></td>
             <td>{if $foo['attempts'] == 0}Unattempted{else}{$foo['attempts']}{/if}</td>
             <td>{if $foo['attempts'] == 0}Not Cleared{elseif $foo['cleared'] == false}Not Cleared{else}Cleared{/if}</td>
             <td>{if $foo['cleared'] == true}{$foo['cleared_on']}{else}Not Cleared{/if}</td>
         </tr>
+        
     {/foreach}
+ 
     {/foreach}
+   
     </table>
     {/if}
 </div>

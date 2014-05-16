@@ -67,13 +67,13 @@ class TryChallengeController extends HackademicController {
 					$usr = $_SESSION['hackademic_user_id'];
 					$url.='?user_id='.$usr."&id=".$id;
 					$url.='&class_id='.$class_id;
-          $pair = UserHasChallengeToken::findByPair($usr,$id);
+          $pair = UserHasChallengeToken::find($usr,$id,$class_id);
           if($pair === false) {
             error_log("adding new token usr, id".$usr." ".$id);
             Global $ESAPI_utils;
             $token = $ESAPI_utils->getRandomizer()->getRandomGUID();
             $token = $ESAPI_utils->getEncoder()->encodeForURL($token);
-            UserHasChallengeToken::add($usr,$id,$token);
+            UserHasChallengeToken::add($usr,$id,$class_id,$token);
             $pair = new UserHasChallengeToken();
             $pair->token = $token;
           }

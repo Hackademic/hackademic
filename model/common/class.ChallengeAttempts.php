@@ -179,6 +179,7 @@ class ChallengeAttempts {
 		}
 		//var_dump($result_array);
 		//var_dump(!empty($result_array)?$result_array:false);
+		//var_dump($sql);
 		return !empty($result_array) ? $result_array : false;
 	}
 /*	public static function getTotalAttemptsOfUserForEachChallenge($user_id) {
@@ -337,23 +338,21 @@ class ChallengeAttempts {
 						WHERE challenge_attempts.user_id =  class_memberships.user_id
 						AND challenge_attempts.challenge_id = class_challenges.challenge_id)";
 
-		$query = $db->read($users, $params, self::$action_type);
+		$query = $db->read($sql, $params, self::$action_type);
 		$result_array = array();
 		while($row = $db->fetchArray($query)) {
 			array_push($result_array, $row);
 		}
-
 		$score = array();
 		//for each user,challenge pair check if the user has solved the challenge
     $score_q = "SELECT count(*) as tries, user_id, users.username
             FROM challenge_attempts LEFT JOIN users ON
-        users.id = user_id WHERE status = 1 AND user_id = :user_id AND challenge_id = :challenge_id";
-
+        users.id = user_id WHERE status = 1 AND user_id = :user_id AND challenge_id = :challenge_id AND class_id = :class_id"; 
 		foreach($result_array as $row) {
 
 			$user_id = $row['user_id'];
 			$challenge_id = $row['challenge_id'];
-			$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id);
+			$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id, ":class_id" => $class_id);
 			$result = $db->read($score_q, $params, self::$action_type);
 
 			//echo'</p>'.$user_id." ".$challenge_id;echo'</p>';var_dump($row);
@@ -378,6 +377,7 @@ class ChallengeAttempts {
 			}
 		}
 		usort($score, array("ChallengeAttempts", "sort_count"));
+		var_dump($score);die();
 		return $score;
 	}
 

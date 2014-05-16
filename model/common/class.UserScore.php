@@ -33,12 +33,12 @@
 
 class UserScore{
 
-	public $id;
-	public $challenge_id;
-	public $class_id;
-	public $user_id;
-	public $points;
-	public $penalties_bonuses;
+	public $id = NULL;
+	public $challenge_id = NULL;
+	public $class_id = NULL;
+	public $user_id = NULL;
+	public $points = NULL;
+	public $penalties_bonuses = "";
 
 	/**
 	 * Adds a score entry for a user solving the specific challenge
@@ -48,6 +48,7 @@ class UserScore{
 																					$challenge_id, $points,
 																				 $penalties_bonuses){
 		global $db;
+			//echo " add use score ";var_dump( func_get_args ());die();
 		$params=array(':user_id'=>$user_id, ':challenge_id'=>$challenge_id,
 									':class_id'=>$class_id,	':points'=>$points,
 									':penalties_bonuses'=>$penalties_bonuses);
@@ -76,15 +77,15 @@ class UserScore{
 																						$class_id, $points,
 																						$penalties_bonuses){
 		global $db;
+		if(self::get_scores_for_user_class_challenge($user_id,$class_id,$challenge_id) === false){
+			
+			return self::add_user_score( $user_id, $class_id,$challenge_id,$points,"");
+		}
 		$params=array(':user_id'=>$user_id, ':challenge_id'=>$challenge_id,
-									':class_id'=>$class_id,	':points'=>$points,
-									':penalties_bonuses'=>$penalties_bonuses,':id'=>$id);
-		$sql="UPDATE user_score SET user_id = :user_id,
-																challenge_id = :challenge_id,
-																class_id = :class_id,
-																points = :points,
-																penalties_bonuses= :penalties_bonuses
-																WHERE id = :id";
+				':class_id'=>$class_id,	':points'=>$points,
+				':penalties_bonuses'=>$penalties_bonuses,':id'=>$id);
+		$sql="UPDATE user_score SET user_id = :user_id,	challenge_id = :challenge_id,class_id = :class_id,points = :points,					penalties_bonuses= :penalties_bonuses															WHERE id = :id";
+//		var_dump( func_get_args ());die();
 		$query = $db->query($sql,$params);
 		if ($db->affectedRows($query)) {
 			return true;
@@ -157,6 +158,7 @@ class UserScore{
 		$params = array (':user_id' => $user_id,
 										 ':class_id' => $class_id,
 										 ':challenge_id' => $challenge_id);
+		
 		$sql = "SELECT * FROM user_score
 						WHERE user_id= :user_id
 						AND class_id= :class_id

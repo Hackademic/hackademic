@@ -41,21 +41,22 @@ class UserHasChallengeToken {
 
   private static $action_type = 'user_has_challenge_token';
 
-	public static function add($userid = null, $chid = null, $token = null) {
+	public static function add($userid = null, $chid = null, $class_id = null, $token = null) {
 		global $db;
 		$params = array(
       ':user_id' => $userid,
+      ':class_id' => $class_id,
       ':challenge_id' => $chid,
       ':token' => $token
     );
-		$exists = self::findByPair($userid, $chid);
+		$exists = self::find($userid, $chid, $class_id);
 		if($exists != NULL){
 			$sql =  'UPDATE  user_has_challenge_token SET token = :token
-					 WHERE user_id = :user_id AND challenge_id = :challenge_id';
+					 WHERE user_id = :user_id AND challenge_id = :challenge_id AND class_id = :class_id';
       $query = $db->update($sql, $params, self::$action_type);
 		} else {
-			$sql = 'INSERT INTO user_has_challenge_token(user_id,challenge_id,token) VALUES(
-					:user_id,:challenge_id,:token)';
+			$sql = 'INSERT INTO user_has_challenge_token(user_id,class_id,challenge_id,token) VALUES(
+					:user_id,:class_id,:challenge_id,:token)';
       $query = $db->create($sql, $params, self::$action_type);
 		}
 
@@ -72,13 +73,14 @@ class UserHasChallengeToken {
 		$sql = 'DELETE FROM user_has_challenge_token WHERE user_id = :user_id;';
 	}
 
-	public static function findByPair($userid,$chid){
+	public static function find($userid,$chid,$class_id){
 		global $db;
 		$sql = "SELECT * FROM user_has_challenge_token WHERE
-				user_id= :user_id AND challenge_id= :challenge_id
+				user_id= :user_id AND challenge_id= :challenge_id AND class_id = :class_id
 				LIMIT 1";
 		$params = array(
       ':user_id' => $userid,
+      ':class_id' => $class_id,
       ':challenge_id' => $chid
     );
 		$object_array = self::findBySQL($sql, $params);

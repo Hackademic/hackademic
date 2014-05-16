@@ -53,7 +53,7 @@ class ShowChallengeController extends HackademicController {
 		    } else if ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id)) {
 			    $this->addToView('is_allowed', true);
 			    $this->addToView('username', $this->getLoggedInUser());
-					$this->addToView('class_id', $class_id);
+ 			    $this->addToView('class_id', $class_id);
 		    } else {
 			    $this->addErrorMessage('You cannot take the challenge as you are not a member
 					    of any class to which this challenge is assigned and this challenge

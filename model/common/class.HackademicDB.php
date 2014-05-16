@@ -49,6 +49,7 @@ class HackademicDB {
 			$this->connection = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
 		} catch(PDOException $e) {
 			echo $e->getMessage();
+			die();
 		}
 		$this->connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

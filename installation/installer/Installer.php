@@ -385,6 +385,7 @@ class Installer
 		}
 		$this->view->vars = array("login_path" => '<a href="'.$_POST['source_root_path'].'">'.$_POST['source_root_path'].'</a>');
 		$this->view->render('finish');
+		$_SESSION = array();
 		unset($_SESSION);
 	}
 

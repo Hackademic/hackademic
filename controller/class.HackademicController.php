@@ -32,7 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."model/common/class.SmartyHackademic.php");
 require_once(HACKADEMIC_PATH."model/common/class.Session.php");
-require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
+//require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.ChallengeMenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.UserMenuController.php");
 require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");

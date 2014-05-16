@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS  articles  (
 -- Dumping data for table  articles
 --
 INSERT INTO articles ( title , content , date_posted , created_by , last_modified , last_modified_by , ordering , is_published ) VALUES
-('Welcome to Hackademic v0.9!', '<p><img width=\"840\" height=\"188\" logo\"=\" alt=\"owasp\" src=\"http://www.techtoweb.com/wp-content/uploads/2012/12/owasp-security.png\"></p> <p>Thank you for installling and using the Hackademic challenges project.</p> <p>You can find our code on github<a href=\"https://github.com/Hackademic/hackademic\">here</a>, for any problems or support, please open an issue on our github repository.</p><p>Hackademic is a FOSS project under the OWASP umbrela organization.</p>', '2013-08-18 00:00:17', 'admin', '2013-08-18 00:04:27', 'admin', 0, 1);
+('Welcome to Hackademic v0.9!', '<p><img width=\"840\" height=\"188\" logo\"=\" alt=\"owasp\" src=\"http://www.techtoweb.com/wp-content/uploads/2012/12/owasp-security.png\"></p> <p>Thank you for installling and using the Hackademic challenges project.</p> <p>You can find our code on github <a href=\"https://github.com/Hackademic/hackademic\">here</a>, for any problems or support, please open an issue on our github repository.</p><p>Hackademic is a FOSS project under the OWASP umbrela organization.</p>', '2013-08-18 00:00:17', 'admin', '2013-08-18 00:04:27', 'admin', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -217,9 +217,9 @@ CREATE TABLE IF NOT EXISTS options (
 --
 
 INSERT INTO options VALUES 
-(active_plugins,'[]'),
-(active_user_theme,'""'),
-(active_admin_theme,'""');
+('active_plugins','[]'),
+('active_user_theme','""'),
+('active_admin_theme','""');
 
 -- --------------------------------------------------------
 
@@ -260,6 +260,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 INSERT INTO `pages` (`url`, `file`) VALUES 
 ('admin', 'admin/index.php'),
+('admin/scoringrules', 'admin/pages/scoringrules.php'),
 ('admin/addarticle', 'admin/pages/addarticle.php'),
 ('admin/articlemanager', 'admin/pages/articlemanager.php'),
 ('admin/dashboard', 'admin/pages/dashboard.php'),
@@ -389,6 +390,7 @@ INSERT INTO users (`username`, `full_name`, `email`, `password`, `joined`, `last
 CREATE TABLE IF NOT EXISTS  user_has_challenge_token  (
    id  int(11) NOT NULL AUTO_INCREMENT,
    user_id  varchar(512) NOT NULL,
+    class_id varchar(512) NOT NULL,
    challenge_id  varchar(512) NOT NULL,
    token  varchar(256) NOT NULL,
   PRIMARY KEY ( id )

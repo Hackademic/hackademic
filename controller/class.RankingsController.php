@@ -70,11 +70,14 @@ class RankingsController extends HackademicController {
         $rank=1;
         $rankcount=1;
         $prevcount=NULL;
-
         foreach($rankings as $ranking){
 				if($ranking['user_id'] != NULL){
-					if ($counter !=1 && $prevcount == $ranking['tries']) {$rank=$rankcount; /*$rankcount++;*/}
-					if  ($counter !=1 && $prevcount != $ranking['tries']) {$rankcount++; $rank=$rankcount;}
+					if ($counter !=1 && $prevcount == $ranking['tries']) {
+						$rank=$rankcount; /*$rankcount++;*/
+					}
+					if  ($counter !=1 && $prevcount != $ranking['tries']) {
+						$rankcount++; $rank=$rankcount;
+					}
 					$user_points = $this->calc_user_pts($ranking['user_id'], $class_id);
 					$prevcount=$ranking['tries'];
                         $counter++;
