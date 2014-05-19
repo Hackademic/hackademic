@@ -1,10 +1,7 @@
 <?php
 /**
  *
- * Hackademic-CMS/controller/class.LandingPageController.php
  *
- * Hackademic Landing Page Controller
- * Class for generating the home page of the website
  *
  * Copyright (c) 2012 OWASP
  *

@@ -50,12 +50,12 @@ class LoginController extends HackademicController {
 			$controller = new LandingPageController();
 			return $controller->go();
 		} else  {
-			if(defined('EXCIBITION_MODE') && EXCIBITION_MODE == true){
+			if(defined('EXHIBITION_MODE') && EXHIBITION_MODE == true){
 				$session = new Session();
 				$username = 'Guest';
 				// start the session
 				$session->loginGuest();
-				header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+				header('Location:'.SOURCE_ROOT_PATH."?url=home");
 				die("horribly");
 			}
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'

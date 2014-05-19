@@ -40,7 +40,7 @@ class Session {
 	 * To be used only with the excibition mode
 	 * */
 	public static function loginGuest(){
-		if(!defined('EXCIBITION_MODE') || EXCIBITION_MODE != true)
+		if(!defined('EXHIBITION_MODE') || EXHIBITION_MODE != true)
 			die("loginGuest called even though we're not in excibition mode, this is most likely a bug please report it");
 		self::init(7200);
 		//setup session vars
@@ -220,7 +220,10 @@ class Session {
 	 */
 	public static function isValid($token = null){
 
-		//return true;
+		//security bypas
+		// in case of exhibition mode there are no individual users
+		if(defined('EXHIBITION_MODE') && EXHIBITION_MODE === true)
+			return true;
 
 		if( isset($_SESSION['OBSOLETE']) && (!isset($_SESSION['EXPIRES']) || !isset($_SESSION['LAST_ACCESS'])) ){
 			error_log("HACKADEMIC:: Session validation: OBSOLETE session detected", 0);
