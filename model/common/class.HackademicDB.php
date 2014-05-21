@@ -41,12 +41,17 @@ class HackademicDB {
 		$user = DB_USER;
 		$pass = DB_PASSWORD;
 		try {
-			$this->connection = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+			$this->connection = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
 		} catch(PDOException $e) {
 			echo $e->getMessage();
 		}
 		$this->connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$php_ver = explode(".", phpversion());
+		if ( ($php_ver[0] < 5) || ($php_ver[0]==5 && $php_ver[1]<=3) ) {
+			/* if php < 5.3.6, charset=utf8 in the connection string is ignored */
+			$this->connection->exec("set names utf8");
+		}
 	}
 
 	public function __construct() {
