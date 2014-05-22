@@ -241,7 +241,7 @@ class Installer
 			returns a connection error. Since we will CREATE IF NOT EXISTS, and then USE the database we don't provide
 			a dbname here*/
 		$link = new mysqli($this->_options['dbhost'], $this->_options['dbuser'], $this->_options['dbpass']);
-		if(!$link) {
+		if(!$link || $link->connect_errno) {
 			$this->view->error($this->lang['L-04']);
 		}
 		
