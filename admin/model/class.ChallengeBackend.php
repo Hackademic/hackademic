@@ -54,7 +54,7 @@ class ChallengeBackend extends Challenge {
 		}
 	}
 
-	public static function updateChallenge($id,$title,$description,$visibility,$publish, $availability,$duration,$level){
+	public static function updateChallenge($id,$title,$description,$visibility,$publish, $availability, $level, $duration) {
 		global $db;
 		$params = array(':id' => $id,':title' => $title,':description' => $description,
 			            ':visibility' => $visibility,':publish' => $publish,':availability'=>$availability,
