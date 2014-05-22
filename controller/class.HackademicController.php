@@ -135,7 +135,12 @@ abstract class HackademicController {
 	 * @param $tmpl str Template name
 	 */
 	public function setViewTemplate($tmpl) {
-		$this->view_template = $this->smarty->user_theme_path . $tmpl;
+		$path = $this->smarty->user_theme_path . $tmpl;
+		$new_path = Plugin::apply_filters_ref_array('set_view_template', array($path));
+		if($new_path != '') {
+			$path = $new_path;
+		}
+		$this->view_template = HACKADEMIC_PATH . $path;
 	}
 
 	/**
