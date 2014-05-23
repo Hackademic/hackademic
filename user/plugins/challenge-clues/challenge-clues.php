@@ -9,6 +9,7 @@
  */
 require_once('class.Clue.php');
 require_once('class.UserCluesModel.php');
+require_once(HACKADEMIC_PATH . "model/common/class.Session.php");
 
 /**
  * Sets a custom made template for the specific page.
@@ -41,6 +42,27 @@ function challenge_clues_set_view_template($new_path) {
 function challenge_clues_show_edit_challenge($smarty) {
   $challenge_id = $smarty->tpl_vars['challenge']->value->id;
   $clues = Clue::getClues($challenge_id);
+  $smarty->assign('clues', $clues);
+}
+
+/**
+ * Retrieves the clues of a challenge to display them for the student.
+ * @param $smarty the smarty object
+ */
+function challenge_clues_show_challenge($smarty) {
+  $user_id = Session::getLoggedInUserId();
+
+  if(isset($_POST['clue']) && is_numeric($_POST['clue'])) {
+  // The student asked to see a clue.
+    $openedClue = Clue::getEnabledClue($_POST['clue']);
+    if($openedClue != null) {
+      UserCluesModel::addClue($user_id, $openedClue);
+    }
+  }
+
+  $challenge_id = $smarty->tpl_vars['challenge']->value->id;
+  $clues = Clue::getEnabledClues($challenge_id);
+  UserCluesModel::markOpenedClues($user_id, $clues);
   $smarty->assign('clues', $clues);
 }
 
@@ -131,6 +153,7 @@ function challenge_clues_enable_plugin($plugin) {
 
 // Adds 'show' actions
 Plugin::add_action('show_edit_challenge', 'challenge_clues_show_edit_challenge', 10, 1);
+Plugin::add_action('show_show_challenge', 'challenge_clues_show_challenge', 10, 1);
 
 // Adds 'CRUD' actions
 Plugin::add_action('after_create_challenge', 'challenge_clues_after_create_challenge', 10, 2);
@@ -143,6 +166,7 @@ Plugin::add_action('enable_plugin', 'challenge_clues_enable_plugin', 10, 1);
 
 // Adds filter to set custom form template
 Plugin::add_filter('set_admin_view_template', 'challenge_clues_set_admin_view_template', 10, 1);
+Plugin::add_filter('set_view_template', 'challenge_clues_set_view_template', 10, 1);
 
 /**
  * Checks to see if the sub string is part of the original string

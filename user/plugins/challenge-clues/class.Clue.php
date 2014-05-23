@@ -41,6 +41,51 @@ class Clue {
   }
 
   /**
+   * Gets clues from the database from the challenge specified challenge_id.
+   * @param $clue_id The clue id.
+   * @return The clue objects.
+   */
+  public static function getEnabledClue($clue_id) {
+    global $db;
+    $params = array(':clue_id' => $clue_id);
+    $sql = "SELECT * FROM clues WHERE enabled AND id = :clue_id";
+    $clue = null;
+    $statement_handle = $db->read($sql, $params, self::$action_type);
+    if($row = $db->fetchArray($statement_handle)) {
+      $clue = new Clue();
+      $clue->challenge = $row['challenge'];
+      $clue->id = $clue_id;
+      $clue->clue_text = $row['clue_text'];
+      $clue->penalty = $row['penalty'];
+      $clue->enabled = $row['enabled'];
+    }
+    return $clue;
+  }
+
+  /**
+   * Gets clues from the database from the challenge specified challenge_id.
+   * @param $challenge_id The challenge id.
+   * @return The clue objects.
+   */
+  public static function getEnabledClues($challenge_id) {
+    global $db;
+    $params = array(':challenge_id' => $challenge_id);
+    $sql = "SELECT id, clue_text, penalty, enabled FROM clues WHERE enabled AND challenge = :challenge_id";
+    $clues = array();
+    $statement_handle = $db->read($sql, $params, self::$action_type);
+    while($row = $db->fetchArray($statement_handle)) {
+      $clue = new Clue();
+      $clue->challenge = $challenge_id;
+      $clue->id = $row['id'];
+      $clue->clue_text = $row['clue_text'];
+      $clue->penalty = $row['penalty'];
+      $clue->enabled = $row['enabled'];
+      $clues[] = $clue;
+    }
+    return $clues;
+  }
+
+  /**
    * Gets clues' id from the database from the challenge specified challenge_id.
    * @param $challenge_id The challenge id.
    * @return The id of the clues.
