@@ -55,21 +55,16 @@ class EditChallengeController extends HackademicBackendController {
 			} elseif ($_POST['duration']=='') {
 				$this->addErrorMessage("Duration field should not be empty");
 			} else {
-
-				$this->title = Utils::sanitizeInput($_POST['title']);
-				$this->description = $_POST['description'];
-				$this->visibility = Utils::sanitizeInput($_POST['visibility']);
-				$this->publish = Utils::sanitizeInput($_POST['publish']);
-				$this->availability = Utils::sanitizeInput($_POST['availability']);
-				$this->level = Utils::sanitizeInput($_POST['level']);
-				$this->duration = Utils::sanitizeInput($_POST['duration']);
-				ChallengeBackend::updateChallenge($id,$this->title,
-								  $this->description,
-								  $this->visibility,
-								  $this->publish,
-								  $this->availability,
-								  $this->level,
-								  $this->duration);
+				$challenge = new Challenge();
+				$challenge->id = $id;
+				$challenge->title = Utils::sanitizeInput($_POST['title']);
+				$challenge->description = $_POST['description'];
+				$challenge->visibility = Utils::sanitizeInput($_POST['visibility']);
+				$challenge->publish = Utils::sanitizeInput($_POST['publish']);
+				$challenge->availability = Utils::sanitizeInput($_POST['availability']);
+				$challenge->level = Utils::sanitizeInput($_POST['level']);
+				$challenge->duration = Utils::sanitizeInput($_POST['duration']);
+				ChallengeBackend::updateChallenge($challenge);
 				$this->addSuccessMessage("Challenge details have been updated succesfully");
 			}
 		}

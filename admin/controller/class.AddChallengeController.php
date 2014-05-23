@@ -213,9 +213,17 @@ class AddChallengeController extends HackademicBackendController {
       if(move_uploaded_file($source, $target . $filename)) {
         $data = $this->installChallenge($saved_file_location, $target, $name[0]);
         if($data == true) {
-          $pkg_name =$name[0];
-          $date_posted = date("Y-m-d H-i-s");
-          ChallengeBackend::addchallenge($data['title'], $pkg_name, $data['description'], $data['author'], $data['category'], $date_posted, $data['level'], $data['duration']);
+          $pkg_name = $name[0];
+          $challenge = new Challenge();
+          $challenge->title = $data['title'];
+          $challenge->pkg_name = $pkg_name;
+          $challenge->description = $data['description'];
+          $challenge->author = $data['author'];
+          $challenge->category = $data['category'];
+          $challenge->date_posted = date("Y-m-d H-i-s");
+          $challenge->level = $data['level'];
+          $challenge->duration = $data['duration'];
+          ChallengeBackend::addChallenge($challenge);
           header('Location: '.SOURCE_ROOT_PATH."?url=admin/challengemanager&action=add");
         }
       }
