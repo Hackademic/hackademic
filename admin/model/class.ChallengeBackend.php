@@ -43,9 +43,6 @@ class ChallengeBackend extends Challenge {
 	 */
 	public static function addChallenge($challenge) {
 		global $db;
-		$description = mysql_escape_string(trim($challenge->description));
-		$title = mysql_escape_string(trim($challenge->title));
-		$author = mysql_escape_string(trim($challenge->author));
 		$params = array(':title' => $challenge->title, ':pkg_name' => $challenge->pkg_name, ':description'=>$challenge->description,
 						':author' => $challenge->author, ':category' => $challenge->category, ':date_posted' => $challenge->date_posted,
 						':level' => $challenge->level, ':duration' => $challenge->duration);
