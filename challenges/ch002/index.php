@@ -115,7 +115,7 @@ if(isset($_GET['Result'])){
 	var p = madhouuuuuuuseeee.charAt(4)
 	var Wrong = (d+""+j+""+k+""+d+""+x+""+t+""+o+""+t+""+h+""+i+""+l+""+j+""+t+""+k+""+i+""+t+""+s+""+q+""+f+""+y)
 
-	if (document.forms[0].Password1.value == btoa(Wrong) )
+	if (document.forms[0].Password1.value == Wrong )
 		location.href="index.php?Result=" + Wrong;
 	else
 		location.href="index.php";
