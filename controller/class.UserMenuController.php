@@ -34,7 +34,7 @@ require_once(HACKADEMIC_PATH . 'model/common/class.Menu.php');
 
 class UserMenuController{
 
-	public function go() {
+	public static function go() {
 		$menu = self::createMainMenu();
 		return $menu;
 	}
@@ -42,13 +42,13 @@ class UserMenuController{
 	/**
 	 * Create Main Menu
 	 */
-	protected function createMainMenu() {
+	protected static function createMainMenu() {
 		if(Session::isAdmin()){
-      $menu = Menu::getMenu(Menu::ADMIN_MENU)->items;
+			$menu = Menu::getMenu(Menu::ADMIN_MENU)->items;
 		} elseif(Session::isTeacher()) {
 			$menu = Menu::getMenu(Menu::TEACHER_MENU)->items;
 		} else { 
-      $menu = Menu::getMenu(Menu::STUDENT_MENU)->items;        
+			$menu = Menu::getMenu(Menu::STUDENT_MENU)->items;        
 		}
 		return $menu;
 	}

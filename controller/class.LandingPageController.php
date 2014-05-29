@@ -70,8 +70,8 @@ class LandingPageController extends HackademicController {
 				);
 
 		$articles=Article::getAllArticles($start,$limit);
-		if ($this->isLoggedIn()) {
-			$this->addToView('username', $this->getLoggedInUser());
+		if (self::isLoggedIn()) {
+			$this->addToView('username', self::getLoggedInUser());
 		}
 		$this->addToView('articles', $articles);
 		$this->addToView('total_pages', $total_pages);

@@ -34,7 +34,7 @@ require_once(HACKADEMIC_PATH."controller/class.UserMenuController.php");
 
 class MenuController {
 
-	public function go() {
+	public static function go() {
 		$menu = UserMenuController::go();
 		return $menu;
 	}
