@@ -33,6 +33,8 @@
 
 class UserScore{
 
+	private static $action_type = 'user_score';
+
 	public $id = NULL;
 	public $challenge_id = NULL;
 	public $class_id = NULL;
@@ -43,129 +45,135 @@ class UserScore{
 	/**
 	 * Adds a score entry for a user solving the specific challenge
 	 * this function is called each time the user tries the challenge
-	 * and it's updated with the bonuses or penalties the user has*/
-	public static function add_user_score( $user_id, $class_id,
-																					$challenge_id, $points,
-																				 $penalties_bonuses){
+	 * and it's updated with the bonuses or penalties the user has.
+	 */
+	public static function add_user_score($user_id, $class_id, $challenge_id, $points, $penalties_bonuses) {
 		global $db;
-			//echo " add use score ";var_dump( func_get_args ());die();
-		$params=array(':user_id'=>$user_id, ':challenge_id'=>$challenge_id,
-									':class_id'=>$class_id,	':points'=>$points,
-									':penalties_bonuses'=>$penalties_bonuses);
-		$sql="INSERT INTO user_score(user_id,challenge_id,class_id,points,penalties_bonuses)";
-		$sql .= "VALUES (:user_id,:challenge_id,:class_id,:points,:penalties_bonuses)";
-		$query = $db->query($sql,$params);
-		if ($db->affectedRows($query)) {
+		$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id, ':class_id' => $class_id,
+						':points' => $points, ':penalties_bonuses' => $penalties_bonuses);
+		$sql = "INSERT INTO user_score(user_id, challenge_id, class_id, points, penalties_bonuses) ";
+		$sql .= "VALUES(:user_id, :challenge_id, :class_id, :points, :penalties_bonuses)";
+		$statement_handle = $db->create($sql, $params, self::$action_type);
+		if ($db->affectedRows($statement_handle)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public static function delete_user_score($id){
+
+	/**
+	 * Deletes an user's score.
+	 * @param $id The id of the score.
+	 */
+	public static function delete_user_score($id) {
 		global $db;
-		$params=array(':id'=>$id);
-		$sql = "DELETE FROM user_score WHERE id=:id";
-		$query = $db->query($sql,$params);
+		$params = array(':id' => $id);
+		$sql = "DELETE FROM user_score WHERE id = :id";
+		$statement_handle = $db->delete($sql, $params, self::$action_type);
 		ClassChallenges::deleteAllMemberships($id);
-		if ($db->affectedRows($query)) {
+		if ($db->affectedRows($statement_handle)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public static function update_user_score( $id, $user_id, $challenge_id,
-																						$class_id, $points,
-																						$penalties_bonuses){
+
+	/**
+	 * Update a score.
+	 * @param $id The id of the score.
+	 * @param $user_id The id of the user.
+	 * @param $challenge_id The id of the challenge.
+	 * @param $class_id The id of the class.
+	 * @param $points The number of points won.
+	 * @param $penalties_bonuses The number of penalties bonuses.
+	 */
+	public static function update_user_score($id, $user_id, $challenge_id, $class_id, $points, $penalties_bonuses) {
 		global $db;
-		if(self::get_scores_for_user_class_challenge($user_id,$class_id,$challenge_id) === false){
-			
-			return self::add_user_score( $user_id, $class_id,$challenge_id,$points,"");
+		if(self::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id) === false) {
+			return self::add_user_score($user_id, $class_id, $challenge_id, $points, "");
 		}
-		$params=array(':user_id'=>$user_id, ':challenge_id'=>$challenge_id,
-				':class_id'=>$class_id,	':points'=>$points,
-				':penalties_bonuses'=>$penalties_bonuses,':id'=>$id);
-		$sql="UPDATE user_score SET user_id = :user_id,	challenge_id = :challenge_id,class_id = :class_id,points = :points,					penalties_bonuses= :penalties_bonuses															WHERE id = :id";
-//		var_dump( func_get_args ());die();
-		$query = $db->query($sql,$params);
-		if ($db->affectedRows($query)) {
+		$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id, ':class_id' => $class_id,
+						':points' => $points, ':penalties_bonuses' => $penalties_bonuses, ':id' => $id);
+		$sql = "UPDATE user_score SET user_id = :user_id, challenge_id = :challenge_id, class_id = :class_id, ";
+		$sql .= "points = :points,	penalties_bonuses = :penalties_bonuses WHERE id = :id";
+		$statement_handle = $db->update($sql, $params, self::$action_type);
+		if ($db->affectedRows($statement_handle)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-  /**
+
+	/**
 	 * Returns the score with id $id
 	 */
-	public static function get_user_score($id){
+	public static function get_user_score($id) {
 		global $db;
-		$params = array (':id' => $id );
-		$sql = "SELECT * FROM user_score WHERE id= :id LIMIT 1";
-		$result_array=self::findBySQL($sql,$params);
-		return !empty($result_array)?array_shift($result_array):false;
+		$params = array(':id' => $id);
+		$sql = "SELECT * FROM user_score WHERE id = :id LIMIT 1";
+		$result_array = self::findBySQL($sql, $params);
+		return !empty($result_array)? array_shift($result_array) : false;
 	}
+
 	/**
 	 * Returns the score information for users with id = user_id
 	 * or false if the id does not exist
 	 */
-	public static function get_scores_for_user($user_id){
+	public static function get_scores_for_user($user_id) {
 		global $db;
-		$params = array (':user_id' => $user_id );
-		$sql = "SELECT * FROM user_score WHERE user_id= :user_id LIMIT 1";
-		$result_array=self::findBySQL($sql,$params);
-		return !empty($result_array)?$result_array:false;
-		}
+		$params = array(':user_id' => $user_id);
+		$sql = "SELECT * FROM user_score WHERE user_id = :user_id LIMIT 1";
+		$result_array = self::findBySQL($sql, $params);
+		return !empty($result_array)? $result_array : false;
+	}
+
 	/**
 	 * Returns the scores for the challenge_id
 	 * or false if the id does not exist
 	 */
-	public static function get_scores_for_challenge($challenge_id){
+	public static function get_scores_for_challenge($challenge_id) {
 		global $db;
-		$params = array (':challenge_id' => $challenge_id );
-		$sql = "SELECT * FROM user_score WHERE challenge_id= :challenge_id LIMIT 1";
-		$result_array=self::findBySQL($sql,$params);
-		return !empty($result_array)?array_shift($result_array):false;
-		}
+		$params = array(':challenge_id' => $challenge_id);
+		$sql = "SELECT * FROM user_score WHERE challenge_id = :challenge_id LIMIT 1";
+		$result_array = self::findBySQL($sql, $params);
+		return !empty($result_array)? array_shift($result_array) : false;
+	}
+
 	/**
 	 * Returns the class scores
 	 */
-	public static function get_scores_for_class($class_id){
+	public static function get_scores_for_class($class_id) {
 		global $db;
-		$params = array (':class_id' => $class_id );
-		$sql = "SELECT * FROM user_score WHERE class_id= :class_id LIMIT 1";
-		$result_array=self::findBySQL($sql,$params);
-		return !empty($result_array)?array_shift($result_array):false;
-		}
-		/**
+		$params = array(':class_id' => $class_id);
+		$sql = "SELECT * FROM user_score WHERE class_id = :class_id LIMIT 1";
+		$result_array = self::findBySQL($sql, $params);
+		return !empty($result_array)? array_shift($result_array) : false;
+	}
+
+	/**
 	 * Returns the score information for the specific user in
 	 * specific class for all challenges
 	 */
-	public static function get_scores_for_user_class($user_id, $class_id){
+	public static function get_scores_for_user_class($user_id, $class_id) {
 		global $db;
-		$params = array (':user_id' => $user_id,
-										 ':class_id' => $class_id);
-		$sql = "SELECT * FROM user_score
-						WHERE user_id= :user_id
-						AND class_id= :class_id";
-		$result_array=self::findBySQL($sql,$params);
-		return !empty($result_array)?$result_array:false;
+		$params = array(':user_id' => $user_id, ':class_id' => $class_id);
+		$sql = "SELECT * FROM user_score WHERE user_id = :user_id AND class_id= :class_id";
+		$result_array = self::findBySQL($sql, $params);
+		return !empty($result_array)? $result_array : false;
 	}
+
 	/**
 	 * Returns the score information for the specific user in
 	 * the specific class for the specific challenge
 	 */
-	public static function get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id){
+	public static function get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id) {
 		global $db;
-		$params = array (':user_id' => $user_id,
-										 ':class_id' => $class_id,
-										 ':challenge_id' => $challenge_id);
-		
-		$sql = "SELECT * FROM user_score
-						WHERE user_id= :user_id
-						AND class_id= :class_id
-						AND challenge_id= :challenge_id";
-		$result_array=self::findBySQL($sql,$params);
-		return !empty($result_array)?array_shift($result_array):false;
+		$params = array (':user_id' => $user_id, ':class_id' => $class_id, ':challenge_id' => $challenge_id);
+		$sql = "SELECT * FROM user_score WHERE user_id = :user_id AND class_id = :class_id AND challenge_id = :challenge_id";
+		$result_array = self::findBySQL($sql,$params);
+		return !empty($result_array)? array_shift($result_array) : false;
 	}
+
 	public static function instantiate($record) {
 		$object=new self;
 		foreach($record as $attribute=>$value) {
@@ -180,12 +188,19 @@ class UserScore{
 		$object_vars=get_object_vars($this);
 		return array_key_exists($attribute,$object_vars);
 	}
-		private static function findBySQL($sql,$params=NULL) {
+
+	/**
+	 * Retrieves scores from the database.
+	 * @param $sql The SQL query.
+	 * @param $params The parameters for the query.
+	 * @return An array of UserScore objects.
+	 */
+	private static function findBySQL($sql, $params = NULL) {
 		global $db;
-		$result_set=$db->query($sql,$params);
-		$object_array=array();
-		while($row=$db->fetchArray($result_set)) {
-			$object_array[]=self::instantiate($row);
+		$statement_handle = $db->read($sql, $params, $action_type);
+		$object_array = array();
+		while($row = $db->fetchArray($statement_handle)) {
+			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
