@@ -32,7 +32,10 @@
         // <script>alert(String.fromCharCode(88,88,83,33))</script>
 	if(isset($_POST['try_xss'])){
 	$try_xss = $_POST['try_xss'];
-	if($try_xss == '<script>alert(String.fromCharCode(88,83,83,33))</script>') {
+	$try_xss= preg_replace('/\s+/', '', $try_xss);
+	$try_xss= preg_replace('/type="text\/javascript"/', '', $try_xss);
+	$try_xss= preg_replace("/type='text\/javascript'/", '', $try_xss);	
+	if(preg_match('/<script>alert\(String.fromCharCode\(88,83,83,33\)\);?<\/script>/',$try_xss)){
     		echo 'Thank you '.$try_xss.'';
 			echo "<H1>Congratulations!</H1>";
 			$monitor->update(CHALLENGE_SUCCESS,$_GET);
