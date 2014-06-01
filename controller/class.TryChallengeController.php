@@ -45,7 +45,7 @@ class TryChallengeController extends HackademicController {
       $this->addToView('id', $id);
       $challenge=Challenge::getChallenge($id);
 
-      if($this->isLoggedIn() && ($this->isAdmin() || self::IsAllowed($this->getLoggedInUser(), $challenge->id))) {
+      if(self::isLoggedIn() && (self::isAdmin() || self::IsAllowed(self::getLoggedInUser(), $challenge->id))) {
         $challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge->pkg_name."/";
         $this->addToView('pkg_name', $challenge->pkg_name);
         $solution = $challenge->solution;
@@ -60,7 +60,7 @@ class TryChallengeController extends HackademicController {
           $url = $challenge_path.$_GET['path'];
         }
 
-        if(isset($_GET['user']) && $_GET['user'] == $this->getLoggedInUser()) {
+        if(isset($_GET['user']) && $_GET['user'] == self::getLoggedInUser()) {
 					$usr = $_SESSION['hackademic_user_id'];
 					$url.='?user_id='.$usr."&id=".$id;
 					$url.='&class_id='.$class_id;

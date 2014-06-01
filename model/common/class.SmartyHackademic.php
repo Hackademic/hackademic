@@ -93,9 +93,10 @@ class SmartyHackademic extends Smarty {
 	 * If debug is true, stores it for access by tests or developer.
 	 * @param string $key
 	 * @param mixed $value
+	 * @param boolean $nocache
 	 */
-	public function assign($key, $value = null) {
-		parent::assign($key, $value);
+	public function assign($key, $value = null, $nocache = false) {
+		parent::assign($key, $value, $nocache);
 		if ($this->debug) {
 			$this->template_data[$key] = $value;
 		}

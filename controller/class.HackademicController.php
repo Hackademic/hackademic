@@ -94,11 +94,11 @@ abstract class HackademicController {
 			//var_dump($_SESSION);
 			$this->smarty = new SmartyHackademic();
 			$this->app_session = new Session();
-			if ($this->isLoggedIn()) {
+			if (self::isLoggedIn()) {
 				$this->addToView('is_logged_in', true);
-				$this->addToView('logged_in_user', $this->getLoggedInUser());
+				$this->addToView('logged_in_user', self::getLoggedInUser());
 			}
-			if ($this->isAdmin()) {
+			if (self::isAdmin()) {
 				$this->addToView('user_type', true);
 			}
 /*			$menu=FrontendMenuController::go();
@@ -107,7 +107,7 @@ abstract class HackademicController {
 			$challenge_menu=ChallengeMenuController::go();
 			$this->addToView('challenge_menu',$challenge_menu);
       
-			if($this->isLoggedIn()){
+			if(self::isLoggedIn()){
 				$usermenu=UserMenuController::go();
 				$this->addToView('user_menu',$usermenu);
 			}
@@ -127,7 +127,7 @@ abstract class HackademicController {
 	 * @param $title str Page Title
 	 */
 	public function addPageTitle($title) {
-		self::addToView('controller_title', $title);
+		$this->addToView('controller_title', $title);
 	}
 
 	/**
@@ -151,7 +151,7 @@ abstract class HackademicController {
 	public function generateView($type = 'view') {
 		$view_path = $this->view_template;
 		$this->addToView('header_scripts', $this->header_scripts);
-    Plugin::do_action_ref_array('show_' . $type, array($this->smarty));
+		Plugin::do_action_ref_array('show_' . $type, array($this->smarty));
 		return $this->smarty->display($view_path);
 	}
 
@@ -186,7 +186,7 @@ abstract class HackademicController {
 	 *
 	 * @return bool whether or not user is logged in
 	 */
-	protected function isLoggedIn() {
+	protected static function isLoggedIn() {
 		return Session::isLoggedIn();
 	}
 
@@ -204,7 +204,7 @@ abstract class HackademicController {
 	 *
 	 * @return bool whether or not logged-in user is an admin
 	 */
-	protected function isAdmin() {
+	protected static function isAdmin() {
 		return Session::isAdmin();
 	}
 
@@ -213,7 +213,7 @@ abstract class HackademicController {
 	 *
 	 * @return bool whether or not logged-in user is an admin
 	 */
-	protected function isTeacher() {
+	protected static function isTeacher() {
 		return Session::isTeacher();
 	}
 
@@ -222,7 +222,7 @@ abstract class HackademicController {
 	 *
 	 * @return str username
 	 */
-	public function getLoggedInUser() {
+	public static function getLoggedInUser() {
 		return Session::getLoggedInUser();
 	}
 

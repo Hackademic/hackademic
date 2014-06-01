@@ -39,7 +39,7 @@ class ChallengeListController extends HackademicController {
     private static $action_type = 'challenge_list';
 
 	public function go() {
-		$username = $this->getLoggedInUser();
+		$username = self::getLoggedInUser();
 		$user = User::findByUserName($username);
 		if (!$user) {
 		    return;

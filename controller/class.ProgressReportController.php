@@ -46,7 +46,7 @@ class ProgressReportController extends HackademicController{
 
 	public function go() {
 		$this->setViewTemplate('progressreport.tpl');
-		if ($this->isAdmin() || $this->isTeacher()) {
+		if (self::isAdmin() || self::isTeacher()) {
 			$this->addToView('search_box', true);
 			if (isset($_GET['username'])) {
 				$username = $_GET['username'];

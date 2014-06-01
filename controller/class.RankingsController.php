@@ -42,8 +42,8 @@ class RankingsController extends HackademicController {
 
     public function go() {
         $this->setViewTemplate("rankings.tpl");
-        if ($this->isLoggedIn()) {
-            $username = $this->getLoggedInUser();
+        if (self::isLoggedIn()) {
+            $username = self::getLoggedInUser();
             if (Session::isAdmin() || Session::isTeacher()) {
                 $classes = Classes::getAllClasses();
             } else {
