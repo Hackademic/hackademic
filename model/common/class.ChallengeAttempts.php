@@ -125,6 +125,7 @@ class ChallengeAttempts {
 		$db->delete($sql, $params, self::$action_type);
 	}
 
+	/* Not Used
 	public static function getChallengeAttemptDetails($user_id) {
 		$params = array(':user_id' => $user_id);
 		$sql = "SELECT challenge_id,status,id,pkg_name FROM challenges INNER JOIN challenge_attempts";
@@ -133,7 +134,7 @@ class ChallengeAttempts {
 		// return !empty($result_array)?array_shift($result_array):false;
 		return $result_array;
 	}
-
+*/
 	public static function isChallengeCleared($user_id, $challenge_id, $class_id = '%') {
 		global $db;
 		$params = array(
@@ -282,6 +283,30 @@ class ChallengeAttempts {
 		return array_key_exists($attribute, $object_vars);
 	}
 
+	/*
+	 * Get all the rankings for all the students
+	 */
+	public static function getUniversalRankings($class_id = NULL) {
+		global $db;
+		$params = array(':class_id' => $class_id );
+
+		$sql = "SELECT count(*) as tries, user_id, users.username
+				FROM challenge_attempts LEFT JOIN users ON
+				users.id = user_id WHERE status = 1 ";
+		if ($class_id) {
+			$sql .= "AND challenge_id IN (SELECT id as challenge_id
+					 FROM class_challenges WHERE class_id = :class_id)";
+		}
+		$sql .= "GROUP BY user_id ORDER BY count(*) DESC, time LIMIT 100;";
+
+		//var_dump($sql);
+		$query = $db->read($sql, NULL, self::$action_type); // FIXME: why is params not used?
+		$result_array = array();
+		while($row = $db->fetchArray($query)) {
+			array_push($result_array, $row);
+		}
+		return $result_array;
+	}
 	/**
 	 * Returns how many challenges have been solved by the user
 	 * with id $user_id on the first try.
