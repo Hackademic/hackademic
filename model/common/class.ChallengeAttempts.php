@@ -71,7 +71,7 @@ class ChallengeAttempts {
 	/**
 	 * Adds another challenge attempt or increases the existing ones
 	 */
-	public static function increaseChallengeAttemptCount($user_id,	 $challenge_id, $class_id){
+	private static function increaseChallengeAttemptCount($user_id,	 $challenge_id, $class_id){
 		global $db;
 		$params = array(':user_id' => $user_id,
       ':challenge_id' => $challenge_id,
@@ -98,7 +98,7 @@ class ChallengeAttempts {
 		}
 	}
 
-	public static function deleteChallengeAttemptCountByUser($user_id){
+	private static function deleteChallengeAttemptCountByUser($user_id){
 		global $db;
 		$params = array(':user_id' => $user_id);
 		$sql = "DELETE FROM challenge_attempt_count WHERE user_id=:user_id";
@@ -118,13 +118,14 @@ class ChallengeAttempts {
 		}
 	}
 
-	public static function deleteChallengeAttemptCountByChallenge($challenge_id){
+	private static function deleteChallengeAttemptCountByChallenge($challenge_id){
 		global $db;
 		$params = array(':challenge_id' => $challenge_id);
 		$sql = "DELETE FROM challenge_attempt_count WHERE challenge_id=:challenge_id";
 		$db->delete($sql, $params, self::$action_type);
 	}
 
+	/* Not Used
 	public static function getChallengeAttemptDetails($user_id) {
 		$params = array(':user_id' => $user_id);
 		$sql = "SELECT challenge_id,status,id,pkg_name FROM challenges INNER JOIN challenge_attempts";
@@ -133,7 +134,7 @@ class ChallengeAttempts {
 		// return !empty($result_array)?array_shift($result_array):false;
 		return $result_array;
 	}
-
+*/
 	public static function isChallengeCleared($user_id, $challenge_id, $class_id = '*') {
 		global $db;
 		$params = array(
@@ -282,6 +283,9 @@ class ChallengeAttempts {
 		return array_key_exists($attribute, $object_vars);
 	}
 
+	/*
+	 * Get all the rankings for all the students
+	 */
 	public static function getUniversalRankings($class_id = NULL) {
 		global $db;
 		$params = array(':class_id' => $class_id );
