@@ -125,7 +125,6 @@ class ChallengeAttempts {
 		$db->delete($sql, $params, self::$action_type);
 	}
 
-	/* Not Used
 	public static function getChallengeAttemptDetails($user_id) {
 		$params = array(':user_id' => $user_id);
 		$sql = "SELECT challenge_id,status,id,pkg_name FROM challenges INNER JOIN challenge_attempts";
@@ -134,7 +133,7 @@ class ChallengeAttempts {
 		// return !empty($result_array)?array_shift($result_array):false;
 		return $result_array;
 	}
-*/
+
 	public static function isChallengeCleared($user_id, $challenge_id, $class_id = '%') {
 		global $db;
 		$params = array(
