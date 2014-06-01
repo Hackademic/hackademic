@@ -10,6 +10,7 @@
 require_once('class.Clue.php');
 require_once('class.UserCluesModel.php');
 require_once(HACKADEMIC_PATH . "model/common/class.Session.php");
+require_once(HACKADEMIC_PATH."model/common/class.UserScore.php");
 
 /**
  * Sets a custom made template for the specific page.
@@ -81,6 +82,32 @@ function challenge_clues_after_create_challenge($challenge_id, $params) {
     $clue->challenge = $challenge_id;
     Clue::addClue($clue);
   }
+}
+
+/**
+ * Adds the penalty to the student's score.
+ * @param $score_id the id of the score
+ * @param $params the params to the query
+ */
+function challenge_clues_after_create_user_score($score_id, $params) {
+  $score = UserScore::get_user_score($score_id);
+  $clues = Clue::getClues($score->challenge_id);
+  UserCluesModel::markOpenedClues($score->user_id, $clues);
+  foreach ($clues as $clue) {
+    if($clue->opened && strpos($score->penalties_bonuses, 'clue'.$clue->id) === false) {
+      $score->points -= $clue->penalty;
+      $score->penalties_bonuses .= 'clue'.$clue->id.',';
+    }
+  }
+  UserScore::update_user_score($score->id, $score->user_id, $score->challenge_id, $score->class_id, $score->points, $score->penalties_bonuses);
+}
+
+/**
+ * Adds the penalty to the student's score.
+ * @param $params the params to the query
+ */
+function challenge_clues_after_update_user_score($params) {
+  challenge_clues_after_create_user_score($params[':id'], $params);
 }
 
 /**
@@ -160,6 +187,8 @@ Plugin::add_action('after_create_challenge', 'challenge_clues_after_create_chall
 Plugin::add_action('after_update_challenge', 'challenge_clues_after_update_challenge', 10, 1);
 Plugin::add_action('before_delete_challenge', 'challenge_clues_before_delete_challenge', 10, 2);
 Plugin::add_action('before_delete_user', 'challenge_clues_before_delete_user', 10, 2);
+Plugin::add_action('after_create_user_score', 'challenge_clues_after_create_user_score', 10, 1);
+Plugin::add_action('after_update_user_score', 'challenge_clues_after_update_user_score', 10, 1);
 
 // Adds action for enabling plugin
 Plugin::add_action('enable_plugin', 'challenge_clues_enable_plugin', 10, 1);
