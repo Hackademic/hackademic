@@ -249,7 +249,13 @@ class ChallengeMonitorController {
 			unset($_SESSION['rules']);
 
 			if ($current_score === false){
-				UserScore::add_user_score( $user_id, $class_id, $challenge_id, 0, "");
+				$current_score = new UserScore();
+				$current_score->user_id = $user_id;
+				$current_score->class_id = $class_id;
+				$current_score->challenge_id = $challenge_id;
+				$current_score->points = 0;
+				$current_score->penalties_bonuses = '';
+				UserScore::add_user_score($current_score);
 				$current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
 			}
 			$_SESSION['f_atempt'] = date("Y-m-d H:i:s");
@@ -397,11 +403,7 @@ class ChallengeMonitorController {
 				}
 			}
 		}
-//	echo "<p> Update User Score:class_id=";var_dump($class_id);die();
-	UserScore::update_user_score( $current_score->id, $user_id,
-								  $challenge_id, $class_id,
-								  $current_score->points,
-								  $current_score->penalties_bonuses);
+		UserScore::update_user_score($current_score);
 	}
 
 }
