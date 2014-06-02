@@ -54,13 +54,13 @@ class AddArticleController extends HackademicBackendController {
 			} elseif ($_POST['content']=='') {
 				$this->addErrorMessage("Article post should not be empty");
 			} else {
-				$this->created_by= Session::getLoggedInUser();
-				$this->title = Utils::sanitizeInput($_POST['title']);
-				$this->is_published = $_POST['is_published'];
-				$this->content = $_POST['content'];//TODO somehow we must check if this is malicious
-				$this->date_posted = date("Y-m-d H:i:s");
-
-				ArticleBackend::addArticle($this->title, $this->content, $this->date_posted, $this->created_by, $this->is_published);
+				$article = new Article();
+				$article->created_by = Session::getLoggedInUser();
+				$article->title = Utils::sanitizeInput($_POST['title']);
+				$article->is_published = $_POST['is_published'];
+				$article->content = $_POST['content'];//TODO somehow we must check if this is malicious
+				$article->date_posted = date("Y-m-d H:i:s");
+				ArticleBackend::addArticle($article);
 				$this->addSuccessMessage("Article has been added succesfully");
 				$id = ArticleBackend::insertId();
 				header('Location: ' . SOURCE_ROOT_PATH."?url=admin/editarticle&id=$id&source=new");

@@ -37,8 +37,8 @@ require_once(HACKADEMIC_PATH."/admin/model/class.Classes.php");
 
 class ChallengeMenuController {
 
-	public function go() {
-		$username = $this->getLoggedInUser();
+	public static function go() {
+		$username = HackademicController::getLoggedInUser();
 		$user = User::findByUserName($username);
 		if (!$user) {
 		    return;

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://hackademic.dev/" />
+<title>test-click-through</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">test-click-through</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add New Articles</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=title</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='is_published'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>tinyMCE.activeEditor.setContent('Content')</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Article Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=is_published</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=title</td>
+	<td>testa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Article Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=search</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users/Classes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add User</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=username</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=full_name</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>test@test.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=confirmpassword</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=full_name</td>
+	<td>testa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users/Classes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'Edit')])[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users/Classes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add New Challenge</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Upload Code</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=title</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=authors</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=category</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=level</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=duration</td>
+	<td>5 </td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>tinyMCE.activeEditor.setContent('Content')</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=continue</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Challenge Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=search</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Challenge Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Options</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Welcome</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=span.padding_menu</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Article Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=testa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=deletesubmit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Users/Classes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=deletesubmit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='content']/div[3]/div/div[2]/table/tbody/tr/td[3]/div/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Sample Class</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add users</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='content']/div[3]/div/div[2]/table/tbody/tr/td[3]/div/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Home</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

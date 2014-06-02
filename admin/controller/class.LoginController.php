@@ -43,7 +43,7 @@ class LoginController extends HackademicBackendController {
 		$this->setViewTemplate('admin_login.tpl');
 		$this->addPageTitle('Log in');
 
-		if ($this->isLoggedIn()) {
+		if (self::isLoggedIn()) {
 			header('Location: '.SOURCE_ROOT_PATH."?url=admin/dashboard");
 		} else  {
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'

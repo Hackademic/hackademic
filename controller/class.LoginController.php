@@ -45,7 +45,7 @@ class LoginController extends HackademicController {
 		$this->addPageTitle('Log in');
 
 
-		if ($this->isLoggedIn() && Session::isValid($_GET['token'])) {
+		if (self::isLoggedIn() && Session::isValid($_GET['token'])) {
 			//die("already logged");
 			$controller = new LandingPageController();
 			return $controller->go();

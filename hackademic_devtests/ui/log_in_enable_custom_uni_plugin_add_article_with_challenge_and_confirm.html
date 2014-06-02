@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://hackademic.dev/" />
+<title>Log in enable custom uni plugin add article with challenge and confirm</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Log in enable custom uni plugin add article with challenge and confirm</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Options</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=plugin_article-challenge-connect/article-challenge-connect.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name=plugin_article-challenge-connect/article-challenge-connect.php</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Add New Articles</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=title</td>
+	<td>test article</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=cid</td>
+	<td>label=Challenge 1</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>tinyMCE.activeEditor.setContent('Content')</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='is_published'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Article has been added succesfully</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Article Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Challenges</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>test article</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Challenge 1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=test article</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=cid</td>
+	<td>label=Challenge 3</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Article has been updated succesfully</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Article Manager</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=test article</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=deletesubmit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Options</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=plugin_article-challenge-connect/article-challenge-connect.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

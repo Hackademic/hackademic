@@ -46,13 +46,15 @@ class UserScore{
 	 * Adds a score entry for a user solving the specific challenge
 	 * this function is called each time the user tries the challenge
 	 * and it's updated with the bonuses or penalties the user has.
+	 * @param $score The score object to add.
 	 */
-	public static function add_user_score($user_id, $class_id, $challenge_id, $points, $penalties_bonuses) {
+	public static function add_user_score($score) {
 		global $db;
-		$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id, ':class_id' => $class_id,
-						':points' => $points, ':penalties_bonuses' => $penalties_bonuses);
+		$params = array(':user_id' => $score->user_id, ':challenge_id' => $score->challenge_id,
+						':class_id' => $score->class_id, ':points' => $score->points,
+						':penalties_bonuses' => $score->penalties_bonuses);
 		$sql = "INSERT INTO user_score(user_id, challenge_id, class_id, points, penalties_bonuses) ";
-		$sql .= "VALUES(:user_id, :challenge_id, :class_id, :points, :penalties_bonuses)";
+		$sql .= "VALUES (:user_id, :challenge_id, :class_id, :points, :penalties_bonuses)";
 		$statement_handle = $db->create($sql, $params, self::$action_type);
 		if ($db->affectedRows($statement_handle)) {
 			return true;
@@ -79,21 +81,17 @@ class UserScore{
 	}
 
 	/**
-	 * Update a score.
-	 * @param $id The id of the score.
-	 * @param $user_id The id of the user.
-	 * @param $challenge_id The id of the challenge.
-	 * @param $class_id The id of the class.
-	 * @param $points The number of points won.
-	 * @param $penalties_bonuses The number of penalties bonuses.
+	 * Update a score entry in the database.
+	 * @param $score The score to update.
 	 */
-	public static function update_user_score($id, $user_id, $challenge_id, $class_id, $points, $penalties_bonuses) {
+	public static function update_user_score($score) {
 		global $db;
-		if(self::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id) === false) {
-			return self::add_user_score($user_id, $class_id, $challenge_id, $points, "");
+		if(self::get_scores_for_user_class_challenge($score->user_id, $score->class_id, $score->challenge_id) === false) {
+			return self::add_user_score($score);
 		}
-		$params = array(':user_id' => $user_id, ':challenge_id' => $challenge_id, ':class_id' => $class_id,
-						':points' => $points, ':penalties_bonuses' => $penalties_bonuses, ':id' => $id);
+		$params = array(':user_id' => $score->user_id, ':challenge_id' => $score->challenge_id,
+						':class_id' => $score->class_id, ':points' => $score->points,
+						':penalties_bonuses' => $score->penalties_bonuses,':id' => $score->id);
 		$sql = "UPDATE user_score SET user_id = :user_id, challenge_id = :challenge_id, class_id = :class_id, ";
 		$sql .= "points = :points,	penalties_bonuses = :penalties_bonuses WHERE id = :id";
 		$statement_handle = $db->update($sql, $params, self::$action_type);
