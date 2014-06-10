@@ -173,8 +173,21 @@ function challenge_clues_before_delete_user($sql, $params) {
  */
 function challenge_clues_enable_plugin($plugin) {
   if($plugin == 'challenge-clues/challenge-clues.php') {
-    Clue::createTable();
-    UserCluesModel::createTable();
+    $host = DB_HOST;
+    $dbname = DB_NAME;
+    $user = DB_USER;
+    $pass = DB_PASSWORD;
+    try {
+      $connection = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+    } catch(PDOException $e) {
+      echo $e->getMessage();
+      die();
+    }
+    $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sqlQueries = file_get_contents('user/plugins/challenge-clues/install-plugin.sql');
+    $connection->exec($sqlQueries);
   }
 }
 

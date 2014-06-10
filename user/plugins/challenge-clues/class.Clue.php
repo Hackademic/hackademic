@@ -144,21 +144,4 @@ class Clue {
     $sql = $sql = "DELETE FROM clues WHERE id = :id";
     $db->delete($sql, $params, self::$action_type);
   }
-
-  /**
-   * Creates the clue table for the plugin if doesn't exist yet.
-   */
-  public static function createTable() {
-    global $db;
-    $sql = "CREATE TABLE IF NOT EXISTS `clues` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `challenge` int(11) NOT NULL,
-      `clue_text` text NOT NULL,
-      `penalty` int(11) DEFAULT '0',
-      `enabled` int(1) DEFAULT '1',
-      PRIMARY KEY (`id`),
-      FOREIGN KEY(`challenge`) REFERENCES challenges(`id`)
-    )";
-    $db->query($sql);
-  }
 }

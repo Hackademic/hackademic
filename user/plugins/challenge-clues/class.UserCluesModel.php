@@ -60,20 +60,4 @@ class UserCluesModel {
     $sql = "DELETE FROM user_clues WHERE id IN (SELECT id FROM challenges WHERE id = :cid)";
     $db->delete($sql, $params, self::$action_type);
   }
-
-  /**
-   * Creates the user-clue table for the plugin if doesn't exist yet.
-   * It will contain the clues used by each user.
-   */
-  public static function createTable() {
-    global $db;
-    $sql = "CREATE TABLE IF NOT EXISTS `user_clues` (
-      `user` int(11) NOT NULL,
-      `clue` int(11) NOT NULL,
-      PRIMARY KEY (`user`, `clue`),
-      FOREIGN KEY(`user`) REFERENCES users(`id`),
-      FOREIGN KEY(`clue`) REFERENCES clues(`id`)
-    )";
-    $db->query($sql);
-  }
 }
