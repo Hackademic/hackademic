@@ -1,0 +1,57 @@
+
+
+User has to upload  a zip file which contains an .xml with the following
+
+<module>
+	<name>
+		Some title for the module
+	</name>
+	<artifact>
+		<type>Challenge/Article</type>
+		<name>name of the zip file containing the challenge or the html file containing the article</name>
+		<pathname>where in the zip file's structure we can find the relevant file for this artifact
+			That is either a .zip file containing a valid challenge or a .html file containing an article
+		</pathname>
+		<order> int starting from 0 indicating the order this artifact should be presented</order>
+	</artifact>
+	<artifact>
+		<type>Challenge/Article</type>
+		<name>name of the zip file containing the challenge or the html file containing the article</name>
+		<pathname>where in the zip file's structure we can find the relevant file for this artifact
+			That is either a .zip file containing a valid challenge or a .html file containing an article
+		</pathname>
+		<order> int starting from 0 indicating the order this artifact should be presented</order>
+	</artifact>
+</module>
+
+So for example:
+
+<<module>
+	<name>
+		Advanced Crypto
+	</name>
+	<artifact>
+		<type>Article</type>
+		<name>Attacking aes 32 ciphers</name>
+		<pathname>articles/attacking32aes.html</pathname>
+		<order>0</order>
+	</artifact>
+	<artifact>
+		<type>Challenge</type>
+		<name>AES 32 Cipher attack</name>
+		<pathname>chalenges/aes32.zip</pathname>
+		<order>1</order>
+	</artifact>
+	<artifact>
+		<type>Article</type>
+		<name>Attacking aes 32 ciphers Further Reading</name>
+		<pathname>articles/attacking32aesfurther.html</pathname>
+		<order>2</order>
+	</artifact>
+</module>
+Will create 2 articles with the contents of the files "articles/attacking32aes.html" and "articles/attacking32aesfurther.html"
+in that order and a challenge with the name AES 32 Cipher attack and the contents of the zip file located in challenges/aes32.zip
+
+
+The user can then manage the module and it's contents from the manage modules page
+
