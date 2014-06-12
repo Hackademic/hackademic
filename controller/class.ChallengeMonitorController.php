@@ -278,8 +278,8 @@ class ChallengeMonitorController {
 					$current_score->penalties_bonuses .= EXPERIMENTATION_BONUS_ID;
 					$current_score->penalties_bonuses .= ",";
 				}
+				break;
 			}
-
 			if ($_SESSION['total_attempt_count'] > $attempt_cap){
 				/* apply total attempt penalty*/
 				if(strpos($current_score->penalties_bonuses,TOTAL_ATTEMPT_PENALTY_ID) === false && $attempt_cap_penalty > 0){
@@ -328,7 +328,6 @@ class ChallengeMonitorController {
 
 			}
 		}elseif ($status == 1){
-			$current_score->points += $base_score;
 			if (ChallengeAttempts::isChallengeCleared($user_id, $challenge_id, $class_id)){
 				/* apply multiple solutions bonus*/
 				if(strpos($current_score->penalties_bonuses,MULT_SOL_BONUS_ID) === false && $mult_sol_bonus > 0){
@@ -337,6 +336,7 @@ class ChallengeMonitorController {
 					$current_score->penalties_bonuses .= ",";
 				}
 			}else{
+				$current_score->points += $base_score;
 				/* 	get the tries from the database */
 				$first = ChallengeAttempts::getUserFirstChallengeAttempt($user_id, $challenge_id, $class_id);
 				$last_db = ChallengeAttempts::getUserLastChallengeAttempt($user_id, $challenge_id, $class_id);
@@ -405,5 +405,4 @@ class ChallengeMonitorController {
 		}
 		UserScore::update_user_score($current_score);
 	}
-
 }
