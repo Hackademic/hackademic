@@ -33,13 +33,21 @@
 require_once(HACKADEMIC_PATH."/model/common/class.ChallengeAttempts.php");
 require_once(HACKADEMIC_PATH."/model/common/class.User.php");
 require_once(HACKADEMIC_PATH."/model/common/class.UserScore.php");
-require_once(HACKADEMIC_PATH."/admin/model/class.ClassMemberships.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
+require_once(HACKADEMIC_PATH."/admin/model/class.ClassMemberships.php");
+require_once(HACKADEMIC_PATH."/admin/model/class.Classes.php");
 
 class RankingsController extends HackademicController {
 
     private static $action_type = 'rankings';
-
+   
+    static  function sort_count($rankA, $rankB) {
+	if ($rankA['score'] == $rankB['score']) {
+			return 0;
+	}
+        return ($rankA['score'] < $rankB['score']) ? 1 : -1;
+    }
+   
     public function go() {
         $this->setViewTemplate("rankings.tpl");
         if (self::isLoggedIn()) {
@@ -49,6 +57,10 @@ class RankingsController extends HackademicController {
             } else {
                 $user = User::findByUserName($username);
                 $classes = ClassMemberships::getMembershipsOfUserObjects($user->id);
+		$show_global_rankings = new Classes();
+		$show_global_rankings->id = "";
+		$show_global_rankings->name = "Show Universal Rankings";
+		array_unshift($classes, $show_global_rankings);
             }
             $this->addToView('classes', $classes);
         }
@@ -65,42 +77,9 @@ class RankingsController extends HackademicController {
                 $rankings = ChallengeAttempts::getClasswiseRankings($class_id);
             }
         }
-        $final=array();
-        $counter=1;
-        $rank=1;
-        $rankcount=1;
-        $prevcount=NULL;
-        foreach($rankings as $ranking){
-				if($ranking['user_id'] != NULL){
-					if ($counter !=1 && $prevcount == $ranking['tries']) {
-						$rank=$rankcount; /*$rankcount++;*/
-					}
-					if  ($counter !=1 && $prevcount != $ranking['tries']) {
-						$rankcount++; $rank=$rankcount;
-					}
-					$user_points = $this->calc_user_pts($ranking['user_id'], $class_id);
-					$prevcount=$ranking['tries'];
-                        $counter++;
-					$temp=array('user_id'=>$ranking['user_id'],'count' =>$ranking['tries'],'username'=>$ranking['username'],'rank'=>$rank,'score' => $user_points);
-                        array_push($final,$temp);
-        }
-      }
-        $this->addToView('rankings', $final);
-        return $this->generateView(self::$action_type);
-    }
-    private function calc_user_pts($user_id, $class_id = -1){
-			$points = 0;
-
-			if($class_id == -1){
-				$scores = UserScore::get_scores_for_user($user_id);
-			}else{
-				$scores = UserScore::get_scores_for_user_class($user_id, $class_id);
-			}
-			if( $scores != false){
-				foreach($scores as $score_obj){
-					$points += $score_obj->points;
-				}
-			}
-			return $points;
+       usort($rankings, array("RankingsController", "sort_count"));
+	$this->addToView('rankings', $rankings);
+        $this->addSuccessMessage("Showing Active Users Only");
+	return $this->generateView(self::$action_type);
     }
 }
