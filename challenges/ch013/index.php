@@ -28,13 +28,13 @@ Your machine has already decoded some part of the message.
 <br />
 <br />
 <center>
-Svool Hlowrvih (Hello Soldiers)
+!Svool Hlowrvih! ("Hello Soldiers")
 <br />
 <br />
-Ovg fh Nzixs (Let us March)
+Ovg fh Nzixs~ (Let us March.)
 <br />
 <br />
-Ivnvnyvi gsv ulooldrmt,gsrh rh z hvxivg zmw srtsob xlmurwvmgrzo nvhhztv.Glwzb rh gsv wzb dv ziv dzrgrmt uli,dv droo wvhgilb gsv kozmvg.Blf zoo droo ivxrvev gsv liwvih uiln nb xlmgilo illn zg &lt;z sivu= "jhzaopw.ksk"&gt;Zorvm Svzwjfzigvih
+Ivnvnyvi gsv ulooldrmt,gsrh rh z hvxivg zmw srtsob xlmurwvmgrzo nvhhztv~Glwzb rh gsv wzb dv ziv dzrgrmt uli,dv droo wvhgilb gsv kozmvg~Blf zoo droo ivxrvev gsv liwvih uiln nb xlmgilo illn zg &lt;z sivu= !jhzaopw~ksk!&gt;Zorvm Svzwjfzigvih&lt;/z&gt;
 <br />
 <br />
 </center>
