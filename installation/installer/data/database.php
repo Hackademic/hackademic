@@ -19,4 +19,11 @@
 	$SQL[] = $query;
 	$query = "INSERT INTO class_memberships (user_id,class_id) VALUES (0,1)";
 	$SQL[] = $query;
+	//user for sql injection
+	$query = "CREATE USER 'hackademic_MYSQL'@'".$_SESSION['dbhost']."' identified by '".$_SESSION['dbpass']."';";
+	$SQL[] = $query;
+	$query = "GRANT SELECT ON ".$_SESSION['dbname'].".MobiStore_Members TO 'hackademic_MYSQL'@".$_SESSION['dbpass'].";";
+	$SQL[] = $query;
+	$query = "GRANT SELECT ON ".$_SESSION['dbname'].".MobiStore_Mobiles TO 'hackademic_MYSQL'@".$_SESSION['dbpass'].";";
+	$SQL[] = $query;
 ?>
