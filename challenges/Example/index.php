@@ -41,11 +41,14 @@ This is a simple challenge template to illustrate the only two constraints of an
 <pre>
 2. In order to update a user's score in the hackademic database one must include the following
 	This include (once the session has started)
-	<code>require_once($_SESSION['hackademic_path']."pages/challenge_monitor.php");</code>
-	The following on challenge success
-	<code>$monitor->update(CHALLENGE_SUCCESS);</code>
-	And the following for every challenge failure
-	<code>$monitor->update(CHALLENGE_FAILURE);</code>
+	<code>require_once($_SESSION['hackademic_path']."controller/class.ChallengeValidatorController.php");</code>
+	The following to create a challenge validator
+	<code>
+		$solution = 'secret_password';
+		$validator = new ChallengeValidatorController($solution);
+	</code>
+	And the following to verify a solution submitted by an user
+	<code>if($validator->validateSolution($solution)) {</code>
 Simple?
 Enjoy
 

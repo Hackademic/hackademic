@@ -59,21 +59,24 @@ form>input:nth-child(2){
 		<?php
 		include_once dirname(__FILE__).'/../../init.php';
         session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET);
+        require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
+
+		$solution = 'easy';
+        $validator = new ChallengeValidatorController($solution);
+        $validator->startChallenge();
 		$_SESSION['init'] = true;
 		?>
 		<div id="content">
 			<h1 style="color:white;text-align:center">The official Underground Shop!</h1>
 			<?php
 			if(isset($_POST['secretfiles']) && $_POST['secretfiles']!= ''){
-				if( $_POST['secretfiles'] === 'easy' ){
+				$answer = $_POST['secretfiles'];
+				$valid = $validator->validateSolution($answer);
+				if ($valid) {
 					echo('<h1 class="success" >Congrats!You have successfully completed this challenge</h1>
 							<h2>Call me :p</h2>');
-					$monitor->update(CHALLENGE_SUCCESS);
-				}elseif ($_POST['secretfiles'] != 'easy' ){
+				} else {
 					echo('<h1 id="fail">Try again</h1>');
-					$monitor->update(CHALLENGE_FAILURE);
 				}
 			}
 			?>

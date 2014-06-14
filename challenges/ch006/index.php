@@ -17,18 +17,19 @@
 <font color="green">
 <br><br><br>
 <?php
-		include_once dirname(__FILE__).'/../../init.php';
-        session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET);
-if(isset($_GET['Result'])){
-	$result =  $_GET['Result'];
-	if ($result === 'easyyyyyyy!'){
-		echo "<h1><center>Congratulations!</cetner></h1>";
-		$monitor->update(CHALLENGE_SUCCESS);
-	}
-	else{
-	     $monitor->update(CHALLENGE_FAILURE);
+include_once dirname(__FILE__).'/../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+
+$solution = 'easyyyyyyy';
+$validator = new ChallengeValidatorController($solution);
+$validator->startChallenge();
+
+if(isset($_GET['Result'])) {
+	$answer =  $_GET['Result'];
+	$valid = $validator->validateSolution($answer);
+	if ($valid) {
+		echo "<h1><center>Congratulations!</center></h1>";
 	}
 }
 ?>

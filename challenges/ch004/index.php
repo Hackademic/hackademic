@@ -25,41 +25,28 @@
 <h2>
 <hr>
 <?php
-		include_once dirname(__FILE__).'/../../init.php';		
-        session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET);
-        // <script>alert(String.fromCharCode(88,88,83,33))</script>
-	if(isset($_POST['try_xss'])){
-	$try_xss = $_POST['try_xss'];
-	$try_xss= preg_replace('/\s+/', '', $try_xss);
-	//Semicolon might or might not be present at the end of statement.Match both the cases.
-	if(preg_match('/<script>alert\(String.fromCharCode\(88,83,83,33\)\);?<\/script>/',$try_xss)) 
-	{
-    		echo 'Thank you '.$try_xss.'';
-			echo "<H1>Congratulations!</H1>";
-			$monitor->update(CHALLENGE_SUCCESS,$_GET);
-    		
-    } 
-	else {
-		$monitor->update(CHALLENGE_FAILURE,$_GET);
-?>
-	Try to XSS me...Again! <br />
-	<form method="POST">
-	<input type="text" name="try_xss" />
-	<input type="submit" value="XSS Me!" />
-	</form>
-<?php 
+include_once dirname(__FILE__).'/../../init.php';		
+session_start();
+require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
+
+$solution = new RegexSolution(RegexSolution::JS_BEGIN.'alert\(String.fromCharCode\(88,83,83,33\)\)'.RegexSolution::JS_END);
+$validator = new ChallengeValidatorController($solution);
+$validator->startChallenge();
+
+if(isset($_POST['try_xss'])) {
+	$answer = $_POST['try_xss'];
+	$valid = $validator->validateSolution($answer);
+	if ($valid) {
+		echo $answer;
+		echo "<H1>Congratulations!</H1>";
 	}
-	}else{
+}
 ?>
 	Try to XSS me...Again! <br />
 	<form method="POST">
-	<input type="text" name="try_xss" />
-	<input type="submit" value="XSS Me!" />
+		<input type="text" name="try_xss" />
+		<input type="submit" value="XSS Me!" />
 	</form>
-<?php }
-?>
 <hr>
 </h2>
 </body>

@@ -11,18 +11,21 @@
 ?>
 
 <?php
-	include_once dirname(__FILE__).'/../../../init.php';
-    require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-    if(isset($_POST['submit'])) {
-		$name1 = $_POST["name1"];
-		if ($name1 === 'Friday13@JasonLives.com') {
-			$monitor->update(CHALLENGE_SUCCESS);
-			echo "<br><br><br><br><center><font color=Green>Congratulations!</font>";
-			die();
-		} else {
-			$monitor->update(CHALLENGE_FAILURE);
-		}
+include_once dirname(__FILE__).'/../../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
+
+$solution = 'Friday13@JasonLives.com';
+$validator = new ChallengeValidatorController($solution);
+
+if(isset($_POST['submit'])) {
+	$answer = $_POST["name1"];
+	$valid = $validator->validateSolution($answer);
+	if ($valid) {
+		echo "<br><br><br><br><center><font color=Green>Congratulations!</font>";
+		die();
 	}
+}
 ?>
 
 <html>
