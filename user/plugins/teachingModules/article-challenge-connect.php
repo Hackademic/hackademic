@@ -1,17 +1,16 @@
 <?php
 /**
  *
- * Plugin Name: Article Challenge Connect
- * Plugin URI: http://example.com/article-challenge-connect
- * Description: This plugin connects articles to challenges. It is solely meant as a demonstration on how a plugin could be created using the Hackademic Challenges API and should not be used in a production environment since it lacks proper testing, security and quality assurances. You are encouraged to use it as a base for developing your own custom plugins.
- * Version: 1.1
- * Author: Daniel Kvist
- * Author URI: http://danielkvist.net
+ * Plugin Name: Teaching Module
+ * Plugin URI: http://example.com/teachingModule
+ * Description:  This plugin allows the user to bundle several articles nad challenges together and manage them as one
+ * Version: 0.1
+ * Author: Spyros Gasteratos
  * License: GPL2
  *
  */
 
-require_once('class.ArticleChallengeModel.php');
+require_once('class.TeachingModule.php');
 
 /**
  * Sets a custom made template for the specific page.
@@ -20,8 +19,8 @@ require_once('class.ArticleChallengeModel.php');
  * @return string the new template
  */
 function custom_uni_set_admin_view_template($new_path) {
-  if(string_contains('admin/view/editor.tpl', $new_path)) {
-    return 'user/plugins/article-challenge-connect/editor.tpl';
+  if(string_contains('admin/view/manageModules.tpl', $new_path)) {
+    return 'user/plugins//editor.tpl';
   } else if(string_contains('admin/view/articlemanager.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/articlemanager.tpl';
   } else if(string_contains('admin/view/editarticle.tpl', $new_path)) {
