@@ -73,9 +73,6 @@ class ChallengeMonitorController {
 		if(!isset($_SESSION))
 			session_start();
 
-	
-		
-			
 		if($status == CHALLENGE_INIT && !isset($_SESSION['init'])){
 			$_SESSION['chid'] = $chid;
 			$_SESSION['token'] = $token;
@@ -115,6 +112,16 @@ class ChallengeMonitorController {
     private function check_values($user_id = null, $chid = null, $class_id = null, $token = null){
 	
 		//TODO full of ugly hacks needs refactoring start by putting an else with redirect after the if $pair
+		var_dump(func_get_args());
+		
+		if($user_id === NULL)
+			$user_id = $_SESSION['user_id'];
+		if($chid === NULL)
+			$chid = $_SESSION['chid'];
+		if($class_id === NULL)
+			$class_id = $_SESSION['class_id'];
+		if($token === NULL)
+			$token = $_SESSION['token'];
 
 		$pair = UserHasChallengeToken::find($user_id,$chid,$class_id);
 		$pkg_name = $this->get_pkg_name();
@@ -135,7 +142,7 @@ class ChallengeMonitorController {
 			//User is doing the same challenge for a different class
 			if($_SESSION['class_id'] != $class_id && $class_id != null){
 				if(!$pair){
-					invalid_challenge();	
+					$this->invalid_challenge();	
 				}else{
 					$_SESSION['class_id'] = $class_id;
 				}
@@ -144,14 +151,14 @@ class ChallengeMonitorController {
 			// if the user_id changed but the token for the user/class/challenge is correct update
         	        if($_SESSION['user_id'] != $user_id && $user_id != null){
 	                        if(!$pair){
-					invalid_challenge();
+					$this->invalid_challenge();
 				}else{
                                 	$_SESSION['user_id'] = $user_id;
 				}
                 	}
 		}else{
 			if($pair && $pair->token == $token){
-                                $_SESSION['token'] = $token;
+                $_SESSION['token'] = $token;
 			}else{
 				error_log( "Token provided: ". $token."</br>Token on session ".$_SESSION['token']. "</br>Token for user/class");
 				header("Location:".SITE_ROOT_PATH); die();
@@ -281,8 +288,9 @@ class ChallengeMonitorController {
 					$current_score->penalties_bonuses .= EXPERIMENTATION_BONUS_ID;
 					$current_score->penalties_bonuses .= ",";
 				}
+				UserScore::update_user_score($current_score);
+				return;
 			}
-
 			if ($_SESSION['total_attempt_count'] > $attempt_cap){
 				/* apply total attempt penalty*/
 				if(strpos($current_score->penalties_bonuses,TOTAL_ATTEMPT_PENALTY_ID) === false && $attempt_cap_penalty > 0){
@@ -331,7 +339,6 @@ class ChallengeMonitorController {
 
 			}
 		} elseif ($status == CHALLENGE_SUCCESS) {
-			$current_score->points += $base_score;
 			if (ChallengeAttempts::isChallengeCleared($user_id, $challenge_id, $class_id)){
 				/* apply multiple solutions bonus*/
 				if(strpos($current_score->penalties_bonuses,MULT_SOL_BONUS_ID) === false && $mult_sol_bonus > 0){
@@ -340,6 +347,7 @@ class ChallengeMonitorController {
 					$current_score->penalties_bonuses .= ",";
 				}
 			}else{
+				$current_score->points += $base_score;
 				/* 	get the tries from the database */
 				$first = ChallengeAttempts::getUserFirstChallengeAttempt($user_id, $challenge_id, $class_id);
 				$last_db = ChallengeAttempts::getUserLastChallengeAttempt($user_id, $challenge_id, $class_id);
@@ -408,5 +416,4 @@ class ChallengeMonitorController {
 		}
 		UserScore::update_user_score($current_score);
 	}
-
 }

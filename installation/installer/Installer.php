@@ -428,7 +428,7 @@ class Installer
 		$files = array();
 		foreach($dirs as $file)
 		{
-			if ($file == '.' || $file == '..')
+			if ($file == '.' || $file == '..'|| $file == "index.php")
 			{
 				continue;
 			}
