@@ -336,7 +336,7 @@ class ChallengeAttempts {
 			while($row = $db->fetchArray($cc)){
 				$cleared_count = $row["count"];
 			}
-			array_push($res_score,["id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count]);
+			array_push($res_score,array("id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count));
 		}
 		return $res_score;
 	}
@@ -372,7 +372,7 @@ class ChallengeAttempts {
 			while($row = $db->fetchArray($cc)){
 				$cleared_count = $row["count"];
 			}
-			array_push($res_score,["id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count]);
+			array_push($res_score,array("id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count));
 		}
 		return $res_score;
 	}
