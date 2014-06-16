@@ -43,7 +43,7 @@ class RegexSolution {
 	 * @param $regex The regular expression to validate the challenge's answer.
 	 */
 	public function RegexSolution($regex) {
-		$this->regex = $regex;
+		$this->regex = '/'.$regex.'/';
 		$this->regex = str_replace('"', '\'', $this->regex);
 	}
 
