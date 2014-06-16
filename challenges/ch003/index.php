@@ -39,11 +39,11 @@
                (preg_match('/<script>alert\(\"XSS!\"\);?<\/script>/',$try_xss)) ) {
     		echo 'Thank you'.' '.($_POST['try_xss']).'!';
 			echo "<H1>Congratulations!</H1>";
-			$monitor->update(CHALLENGE_SUCCESS, $_GET);
+			$monitor->update(CHALLENGE_SUCCESS);
 	
     } 
 	else {
-		$monitor->update(CHALLENGE_FAILURE, $_GET);
+		$monitor->update(CHALLENGE_FAILURE);
 ?>
 	Try to XSS me using the straight forward way... <br />
 	<form method="POST">

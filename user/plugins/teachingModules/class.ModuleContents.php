@@ -90,7 +90,13 @@ class ModuleContents {
     $db->delete($sql, $params, self::$action_type);
   }
 
-
+ 
+  public static function dropTable() {
+  	global $db;
+  	$sql = "Drop TABLE IF  EXISTS `module_contents`";
+  	$db->query($sql);
+  }
+  
   /**
    * Creates the plugin's table if it does not already exist.
    */

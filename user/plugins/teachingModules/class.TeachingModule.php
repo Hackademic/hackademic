@@ -88,7 +88,12 @@ class TeachingModule {
     $sql = $sql = "DELETE FROM teaching_modules WHERE id = :id";
     $db->delete($sql, $params, self::$action_type);
   }
-
+  
+  public static function dropTable() {
+  	global $db;
+  	$sql = "Drop TABLE IF  EXISTS `teaching_modules`";
+  	$db->query($sql);
+  }
 
   /**
    * Creates the plugin's table if it does not already exist.
@@ -99,7 +104,7 @@ class TeachingModule {
 		`id` int(11) NOT NULL,
  		 `name` varchar(128) NOT NULL,
 		  `added_on` date NOT NULL,
-		  `added_by` int(11) NOT NULL"
+		  `added_by` int(11) NOT NULL
  	     PRIMARY KEY (`id`))";
     $db->query($sql);
   }
