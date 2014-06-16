@@ -11,7 +11,7 @@
 ?>
 <?php
 
-include_once dirname(__FILE__).'/../../init.php';
+include_once dirname(__FILE__).'/../../../init.php';
 session_start();
 require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
 
