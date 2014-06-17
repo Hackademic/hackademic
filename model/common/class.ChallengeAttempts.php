@@ -134,7 +134,7 @@ class ChallengeAttempts {
 		return $result_array;
 	}
 
-	public static function isChallengeCleared($user_id, $challenge_id, $class_id = '*') {
+	public static function isChallengeCleared($user_id, $challenge_id, $class_id = '%') {
 		global $db;
 		$params = array(
 			':user_id' => $user_id,
@@ -144,7 +144,7 @@ class ChallengeAttempts {
 		$sql = "SELECT * FROM challenge_attempts
 				WHERE user_id = :user_id
 				AND	challenge_id = :challenge_id
-				AND class_id = :class_id
+				AND class_id LIKE :class_id
 				AND status = 1;";
 		$query = $db->read($sql, $params, self::$action_type);
 		if ($db->numRows($query)) {
