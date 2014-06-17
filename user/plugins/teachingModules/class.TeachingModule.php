@@ -51,11 +51,24 @@ class TeachingModule {
   public static function get($id) {
     global $db;
     $params = array(':id' => $id);
-    $sql = "SELECT * FROM teaching_modules WHERE id = id";
+    $sql = "SELECT * FROM teaching_modules WHERE id = :id";
     $result_array = self::findBySQL($sql, $params);
     return !empty($result_array) ? array_shift($result_array) : false;	
   }
 
+  /**
+   * Gets module with the specified name from the database.
+   *
+   * @param $id
+   * @return object $self
+   */
+  public static function get_by_name($name) {
+  	global $db;
+  	$params = array(':name' => $name);
+  	$sql = "SELECT * FROM teaching_modules WHERE name = :name";
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? array_shift($result_array) : false;
+  }
   /**
    * Updates the module info.
    *

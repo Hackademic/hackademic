@@ -12,6 +12,9 @@
 
 require_once(HACKADEMIC_PATH . "model/common/class.HackademicDB.php");
 
+define("ARTIFACT_TYPE_CHALLENGE",1);
+define("ARTIFACT_TYPE_ARTICLE",0);
+
 class ModuleContents {
 
   private static $action_type = 'teaching_module_contents';
@@ -55,7 +58,46 @@ class ModuleContents {
     $result_array = self::findBySQL($sql, $params);
     return !empty($result_array) ? array_shift($result_array) : false;	
   }
-
+  /**
+   * Gets all artifacts for the module with the specified id.
+   *
+   * @param $id
+   * @return mixed $self
+   */
+  public static function get_by_module_id($id) {
+  	global $db;
+  	$params = array(':id' => $id);
+  	$sql = "SELECT * FROM module_contents WHERE module_id = :id";
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? $result_array : false;
+  }
+  /**
+   * Gets all challenges for the module with the specified id.
+   *
+   * @param $id
+   * @return mixed $self
+   */
+  public static function get_module_challenges($id) {
+  	global $db;
+  	$params = array(':id' => $id);
+  	$sql = "SELECT * FROM module_contents WHERE module_id = :id AND artifact_type =".ARTIFACT_TYPE_CHALLENGE;
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? $result_array : false;
+  }
+  /**
+   * Gets all articles for the module with the specified id.
+   *
+   * @param $id
+   * @return mixed $self
+   */
+  public static function get_module_challenges($id) {
+  	global $db;
+  	$params = array(':id' => $id);
+  	$sql = "SELECT * FROM module_contents WHERE module_id = :id AND artifact_type =".ARTIFACT_TYPE_ARTICLE;
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? $result_array : false;
+  }
+  
   /**
    * Updates the artifact info
    *
