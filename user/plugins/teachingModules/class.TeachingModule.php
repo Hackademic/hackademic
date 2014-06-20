@@ -31,12 +31,12 @@ class TeachingModule {
    * @param $name the module name
    * @param $added_by the username who added it
    */
-  public static function add($name, $added_on, $added_by) {
+  public static function add($module) {
     global $db;
     $params = array(
-      ':name' => $name,
-      ':added_on' => $added_on,
-      ':added_by' => $added_by
+      ':name' => $module->name,
+      ':added_on' => $module->added_on,
+      ':added_by' => $module->added_by
     );
     $sql = "INSERT INTO teaching_modules(name, added_on, added_by) VALUES (:name, :added_on, :added_by)";
     $db->create($sql, $params, self::$action_type);
@@ -107,7 +107,18 @@ class TeachingModule {
   	$sql = "Drop TABLE IF  EXISTS `teaching_modules`";
   	$db->query($sql);
   }
-
+  /**
+   * Checks if the given module already exists
+   *
+   * @param $module a module objecct with the correct id OR name
+   */
+  public static function exists($module) {
+  	global $db;
+  	$params = array(':id' => $module->id, ':name'=>$module->name);
+  	$sql = $sql = "SELECT * FROM teaching_modules WHERE id=:id OR name LIKE :name ";
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? array_shift($result_array) : false;
+  }
   /**
    * Creates the plugin's table if it does not already exist.
    */

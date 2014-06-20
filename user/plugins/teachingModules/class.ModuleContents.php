@@ -85,19 +85,46 @@ class ModuleContents {
   	return !empty($result_array) ? $result_array : false;
   }
   /**
+   * Gets all challenges which do not belong to the module with the specified id.
+   *
+   * @param $id
+   * @return mixed $self
+   */
+  public static function get_achallenges_not_in_the_module($id) {
+  	global $db;
+  	$params = array(':id' => $id);
+  	$sql = "SELECT * FROM module_contents WHERE module_id = :id NOT
+  			 IN(SELECT * FROM module_contents WHERE module_id = :id AND artifact_type =".ARTIFACT_TYPE_CHALLENGE.")";
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? $result_array : false;
+  }
+  /**
    * Gets all articles for the module with the specified id.
    *
    * @param $id
    * @return mixed $self
    */
-  public static function get_module_challenges($id) {
+  public static function get_module_articles($id) {
   	global $db;
   	$params = array(':id' => $id);
   	$sql = "SELECT * FROM module_contents WHERE module_id = :id AND artifact_type =".ARTIFACT_TYPE_ARTICLE;
   	$result_array = self::findBySQL($sql, $params);
   	return !empty($result_array) ? $result_array : false;
   }
-  
+  /**
+   * Gets all articles which do not belong to the module with the specified id.
+   *
+   * @param $id
+   * @return mixed $self
+   */
+  public static function get_articles_not_in_the_module($id) {
+  	global $db;
+  	$params = array(':id' => $id);
+  	$sql = "SELECT * FROM module_contents WHERE module_id = :id NOT
+  			 IN(SELECT * FROM module_contents WHERE module_id = :id AND artifact_type =".ARTIFACT_TYPE_ARTICLE.")";
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? $result_array : false;
+  }
   /**
    * Updates the artifact info
    *

@@ -9,9 +9,9 @@ require_once(HACKADEMIC_PLUGIN_PATH."teachingModules/class.ModuleContents.php");
 class AddModuleControllerTest extends PHPUnit_Framework_TestCase {
 
     public function setUp(){
-	 $_GET['modname'] = "TestModule1";
-	 $_GET['articles'] =array(1,2,3);
-	 $_GET['challenges'] = array(1,2,3,4);
+	 $_POST['modname'] = "TestModule1";
+	 $_POST['articles'] =array(1,2,3);
+	 $_POST['challenges'] = array(1,2,3,4);
     }
 	public function testAddModuleController(){
 		$controller = new AddModuleController();
@@ -40,3 +40,4 @@ class AddModuleControllerTest extends PHPUnit_Framework_TestCase {
 	}
     public function tearDown(){ }
 }
+?>

@@ -9,7 +9,12 @@ require_once(HACKADEMIC_PLUGIN_PATH."teachingModules/class.ModuleContents.php");
 class ViewModuleControllerTest extends PHPUnit_Framework_TestCase {
 
     public function setUp(){
-	 	TeachingModule::add("TestModule1", "2014-06-15 12:19:16", 0);
+    	$module = new TeachingModule();
+    	$module->name = "TestModule1";
+    	$module->date_added = "2014-06-15 12:19:16";
+    	$module->added_by = 0;
+    	
+	 	TeachingModule::add($module);
     	$module = TeachingModule::get_by_name("TestModule1");
 		$_GET['modId'] = $module->id;
     }
