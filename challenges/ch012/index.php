@@ -61,7 +61,7 @@ $_SESSION['init'] = true;
 
 
 <body style="background-color: green">
-<h1><center>Finance Helper.com.<br /></cetner></h1>
+<h1><center>Finance Helper<br /></cetner></h1>
 <img style="margin-left:100px;float:right" width="300"  src="help.jpg" />  <br /><br />
 
 <form style="margin-left:100px;" method="post">
