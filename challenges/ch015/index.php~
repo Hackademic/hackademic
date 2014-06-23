@@ -1,0 +1,46 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html>
+<head>
+<title>Challenge 15</title>
+<center>
+<body bgcolor="" style="margin-left:35px">
+<img/>
+</center>
+<font color="">
+</head>
+<body>
+
+<h2>
+<hr>
+<?php
+
+include_once dirname(__FILE__).'/../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+$monitor->update(CHALLENGE_INIT, $_GET);
+$_SESSION['init'] = true;
+echo $_SERVER['HTTP_REFERER']."<br/>";
+
+if (preg_match('/https?:\/\/example\.com/',$_SERVER['HTTP_REFERER']))
+{
+if (preg_match('/^https?:\/\/example\.com/',$_SERVER['HTTP_REFERER']))
+{
+	echo 'It appears that you have spoofed the referred header.The secure browser helps us identify Referer Spoofing.
+	<br />Hint: An Insecure Regular Expression is used to validate the referrer address.<br/>';  
+}
+else if (preg_match('/challenges\/ch015\/index.php/',$_SERVER['HTTP_REFERER']))
+{
+echo 'Conratulations<br />';
+}
+
+}
+else
+{
+echo 'Access Denied<br/>';
+
+}
+?>
+<a href="javascript:window.location.href=window.location.href">Try Again</a>
+
+</body>
+</html>
