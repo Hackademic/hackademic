@@ -61,10 +61,14 @@ class ArticleBackend extends Article {
 	 */
 	public static function updateArticle($article) {
 		global $db;
-		$params = array(':id' => $article->id, ':title' => $article->title, ':content' => $article->content,
-						':date_modified' => $article->date_modified, ':last_modified_by' => $article->last_modified_by);
+		$params = array(':id' => $article->id,
+						 ':title' => $article->title,
+						':content' => $article->content,
+						':date_modified' => $article->last_modified,
+						 ':last_modified_by' => $article->last_modified_by,
+						':is_published' =>$article->is_published);
 		$sql = "UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, ";
-		$sql .= "last_modified_by = :last_modified_by WHERE id = :id";
+		$sql .= "last_modified_by = :last_modified_by, is_published = :is_published WHERE id = :id";
 		//yahan pr se execute ni hora h 
 		$query = $db->update($sql, $params, self::$action_type);
 		if ($db->affectedRows($query)) {
