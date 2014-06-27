@@ -35,7 +35,7 @@ class TeachingModule {
     global $db;
     $params = array(
       ':name' => $module->name,
-      ':added_on' => $module->added_on,
+      ':added_on' => $module->date_added,
       ':added_by' => $module->added_by
     );
     $sql = "INSERT INTO teaching_modules(name, added_on, added_by) VALUES (:name, :added_on, :added_by)";
@@ -81,8 +81,8 @@ class TeachingModule {
       ':name' => $module->name,
       ':added_by' => $module->added_by
     );
-    $sql = "UPDATE teaching_modules  SET name = :name, added_bt = :added_by  WHERE id = :id";
-    $db->update($sql, $params, self::$action_type);
+    $sql = "UPDATE teaching_modules  SET name = :name, added_by = :added_by  WHERE id = :id";
+    $query = $db->update($sql, $params, self::$action_type);
     if ($db->affectedRows($query)) {
     	return true;
     } else {
@@ -104,7 +104,7 @@ class TeachingModule {
   
   public static function dropTable() {
   	global $db;
-  	$sql = "Drop TABLE IF  EXISTS `teaching_modules`";
+  	$sql = "Drop TABLE IF  EXISTS  teaching_modules ";
   	$db->query($sql);
   }
   /**
@@ -124,15 +124,67 @@ class TeachingModule {
    */
   public static function createTable() {
     global $db;
-    $sql = "CREATE TABLE IF NOT EXISTS `teaching_modules` (
-		`id` int(11) NOT NULL,
- 		 `name` varchar(128) NOT NULL,
-		  `added_on` date NOT NULL,
-		  `added_by` int(11) NOT NULL
- 	     PRIMARY KEY (`id`))";
+    $sql = "CREATE TABLE IF NOT EXISTS  teaching_modules  (
+		 id  int(11) NOT NULL AUTO_INCREMENT,
+ 		  name  varchar(128) NOT NULL,
+		   added_on  date NOT NULL,
+		   added_by  int(11) NOT NULL,
+ 	     PRIMARY KEY ( id ))";
     $db->query($sql);
   }
   
+  public static function getNModules ($start, $limit, $search=null, $category=null) {
+  	global $db;
+  	$params = array(
+  			':start' => $start,
+  			':limit' => $limit
+  	);
+  	if($search != null && $category != null) {
+  		$params[':search_string'] = '%'.$search.'%';
+  		switch($category) {
+  			case "name":
+  				$sql = "SELECT * FROM teaching_modules WHERE name LIKE :search_string LIMIT :start, :limit";
+  				break;
+  			case "added_by":
+  				$sql = "SELECT * FROM teaching_modules WHERE added_by LIKE :search_string LIMIT :start, :limit";
+  				break;
+  			case "added_on":
+  				$sql = "SELECT * FROM teaching_modules WHERE added_on LIKE :search_string LIMIT :start, :limit";
+  				break;
+  		}
+  	} else {
+  		$sql= "SELECT * FROM teaching_modules ORDER BY id LIMIT :start, :limit";
+  	}
+  	$result_array = self::findBySQL($sql, $params);
+  	return !empty($result_array) ? $result_array : false;
+  }
+  
+  
+  public static function getNumberOfModules($search = null, $category = null) {
+  	global $db;
+  	
+  	if ($search != null && $category != null) {
+  		$params[':search_string'] = '%'.$search.'%';
+  		switch($category){
+  			case "name":
+  				$sql = "SELECT COUNT(*) as num FROM teaching_modules WHERE name LIKE '%:search_string%'";
+  				break;
+  			case "added_by":
+  				$sql = "SELECT COUNT(*) as num FROM teaching_modules WHERE added_by LIKE '%:search_string%'";
+  				break;
+  			case "added_on":
+  				$sql = "SELECT COUNT(*) as num FROM teaching_modules WHERE added_on LIKE '%:search_string%'";
+  				break;
+  		}
+  		$query = $db->read($sql, $params, self::$action_type);
+  	}
+  	else {
+  		$sql = "SELECT COUNT(*) as num FROM teaching_modules";
+  		$query = $db->read($sql, null, self::$action_type);
+  	}
+  	$result = $db->fetchArray($query);
+  	return $result['num'];
+  }
   private static function findBySQL($sql, $params = NULL) {
 		global $db;
 		$result_set = $db->read($sql, $params, self::$action_type);
@@ -150,6 +202,10 @@ class TeachingModule {
 			}
 		}
 		return $object;
+  }
+  private function hasAttribute($attribute) {
+  	$object_vars = get_object_vars($this);
+  	return array_key_exists($attribute,$object_vars);
   }
 
 }

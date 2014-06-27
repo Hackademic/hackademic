@@ -10,9 +10,9 @@
 		<tr class="center">
 		    <td>
 			<div class="submenu_btn">
-			    <a href="{$site_root_path}?url=admin/addclass">
+			    <a href="{$site_root_path}?url=admin/addmodule">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/addclass.png"/><br/>
-				<span class="caption">Add Class</span>
+				<span class="caption">Add module</span>
 			    </a>
 			</div>
 		    </td>
@@ -26,11 +26,11 @@
     <input type="hidden" name="url" value="{$smarty.get.url}">
 	    <table class="add_form center">
 		<tr>
-		    <td class="width_40">Search: <input placeholder="Class name to search" class="width_90" type="text" name="search" id="search" value="{if isset($search_string)}{$search_string}{/if}"/></td>
+		    <td class="width_40">Search: <input placeholder="Module name to search" class="width_90" type="text" name="search" id="search" value="{if isset($search_string)}{$search_string}{/if}"/></td>
 			<td class="width_10">Sort By:</td>
 		    <td class="width_25">
 			 <select name="category" class="width_90">
-			    <option value="name">Class Name</option> 
+			    <option value="name">Module Name</option> 
 			</select>
 		    </td>
 		    <td class="width_10">Show:</td>
@@ -62,24 +62,16 @@
     
     <table class="manager_table">
 	<thead> 
-	    <th align = "left">Class name</th>
+	    <th align = "left">Module name</th>
 	    <th align = "left">Date created</th>
-	    <th align = "left">Archive?</th>
 	    <th align = "left">Delete?</th>
 	</thead>
-	{foreach from=$classes item=class}
+	{foreach from=$modules item=module}
 	    <tr>
-		<td><a href="{$site_root_path}?url=admin/showclass&id={$class->id}">{$class->name}</a></td>
-		<td>{$class->date_created|date_format}</td>
+		<td><a href="{$site_root_path}?url=admin/editmodule&id={$module->id}">{$module->name}</a></td>
+		<td>{$module->date_created|date_format}</td>
 		<td>   
-		{if $class->archive == 0}
-		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=arch">Click to archive class!</a>
-		{else}	
-		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=unarch">Click to unarchive class!</a>
-		{/if}	
-		</td>
-		<td>   
-		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=del">Click to delete class!</a>
+		    <a href="{$site_root_path}?url=admin/managemodules&id={$module->id}&source=del">Click to delete module!</a>
 		</td>		
 	    </tr>
 	{/foreach}

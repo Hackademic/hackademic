@@ -1,20 +1,18 @@
 <?php
 
 require_once("config.inc.php");
-require_once(HACKADEMIC_PLUGIN_PATH."teachingModules/class.TeachingModules.php");
+require_once(HACKADEMIC_PLUGIN_PATH."teachingModules/class.TeachingModule.php");
 require_once(HACKADEMIC_PLUGIN_PATH."teachingModules/class.ModuleContents.php");
-require_once(HACKADEMIC_PLUGIN_PATH."teachingModules/controllers/class.ManageModules.php");
+require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
 
-
-
-class ModuleManagerController extends HackademicBackendController {
+class ManageModulesController extends HackademicBackendController {
 
   private static $action_type = 'teaching_modules_manager';
 
 	public function go() {
-		if (isset($_POST["action"]) && ($_POST["action"]=="del")) {
+		if (isset($_GET["source"]) && ($_GET["source"]=="del")) {
 			$module = new TeachingModule();
-			$module->id = $_POST['id'];
+			$module->id = $_GET['id'];
 			
 			TeachingModule::delete($module);
 			$this->addSuccessMessage("Module has been deleted succesfully");
@@ -71,7 +69,12 @@ class ModuleManagerController extends HackademicBackendController {
 			$this->addToView('search_string', $_GET['search']);
 		}
 		//var_dump($classes);
-		$this->addToView('modules', $modules);
+		//var_dump($modules);
+		$empty = array();
+		if(false != $modules)
+			$this->addToView('modules', $modules);
+		else 
+			$this->addToView('modules', $empty);
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('modulemanager.tpl');

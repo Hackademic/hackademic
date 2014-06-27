@@ -26,7 +26,7 @@ User has to upload  a zip file which contains an .xml with the following
 
 So for example:
 
-<<module>
+<module>
 	<name>
 		Advanced Crypto
 	</name>
