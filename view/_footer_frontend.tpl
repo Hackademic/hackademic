@@ -10,10 +10,10 @@
 							<ul id="classChallenges" class="menu flt">
 							{foreach from=$class_challenges item=foo}
 					<li>
-					<a class="width100" href="{$site_root_path}?url=showchallenges&id={$foo['id']}&class_id={$foo['class_id']}"><span class="padding_menu">{$foo['title']}</span></a></li>
-										<span class="padding_menu">
-											{$foo['title']}
-										</span>
+						<a class="width100" href="{$site_root_path}?url=showchallenges&id={$foo['id']}&class_id={$foo['class_id']}">
+							<span class="padding_menu">{$foo['title']}</span>
+						</a>
+					</li>
 									</a>
 								</li>
 							{/foreach}
