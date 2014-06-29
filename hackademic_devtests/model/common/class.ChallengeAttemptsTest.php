@@ -16,7 +16,7 @@ class ChallengeAttemptsTest extends PHPUnit_Framework_TestCase {
 	private $fail_chal_id = -21;
 	private $fail_class_id = -22;
 
-	private $time = '2000-01-01 00:00:00'
+	private $time = '2000-01-01 00:00:00';
 	private static $action_type = 'challenge_attempt_testing';
 
 	//add a new failed and a new succesfull challenge attempt with unique ids e.t.c.
