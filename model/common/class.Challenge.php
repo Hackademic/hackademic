@@ -51,7 +51,7 @@ class Challenge {
 
   protected static $action_type = 'challenge';
 
-	public function doesChallengeExist($name){
+	public static function doesChallengeExist($name){
 		global $db;
 		$params = array(':name' => $name);
 		$sql = "SELECT * FROM challenges WHERE pkg_name = :name";
