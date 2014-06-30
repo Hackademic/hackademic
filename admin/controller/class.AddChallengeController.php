@@ -59,8 +59,14 @@ class AddChallengeController extends HackademicBackendController {
 	  rmdir($dir);
   }
 
+  /*
+   * Installs a new challenge
+   * @param $file_to_open the .zip file of the challenge
+   * @param $target path:where to extract the challenge
+   * @param $name the name of the challenge
+   * */
   public function installChallenge($file_to_open,$target,$name) {
-	  $zip = new ZipArchive();
+  	  $zip = new ZipArchive();
 	  $x = $zip->open($file_to_open);
 
     if($x === true) {
@@ -74,15 +80,16 @@ class AddChallengeController extends HackademicBackendController {
 	    } else {
 		    $xml_exists = file_exists($target."$name".".xml");
 	    }
-
       if (!file_exists($target."index.php") || !$xml_exists) {
 		    if (!file_exists($target."index.php")) {
 		      $this->addErrorMessage("Not a valid challenge! Index.php file doesn't exist");
+		      error_log("HACKADEMIC:ADDCHALLENGE->Not a valid challenge! Index.php file doesn't exist");
   		    if (isset($_GET['type']) && $_GET['type'] == "code") {
 		      	$this->addToView('step', 'step2');
 		      }
 		    } else {
 		      $this->addErrorMessage("Not a valid challenge! Can't find XML file.");
+		      error_log("HACKADEMIC:ADDCHALLENGE->Not a valid challenge! Can't find XML file.");
   		  }
 		    self::rrmdir(HACKADEMIC_PATH."challenges/".$name);
 		    return false;
@@ -94,10 +101,10 @@ class AddChallengeController extends HackademicBackendController {
       }
 
       $xml = simplexml_load_file($target."$name".".xml");
-
 	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)||
 		 !isset($xml->level)|| !isset($xml->duration)){
         $this->addErrorMessage("The XML file is not valid.");
+        error_log("HACKADEMIC:ADDCHALLENGE->The XML file is not valid.");
         self::rrmdir(HACKADEMIC_PATH."challenges/".$name);
         return false;
       }
@@ -113,6 +120,7 @@ class AddChallengeController extends HackademicBackendController {
       return $a;
     } else {
       $this->addErrorMessage("There was a problem. Please try again!");
+      error_log("HACKADEMIC:ADDCHALLENGE->could not open zip file");
       return false;
 	  }
   }
