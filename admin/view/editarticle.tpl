@@ -53,10 +53,10 @@ tinyMCE.init({
             <tr>
                 <td><label>Publish Article</label></td>
                 <td class="radio">
-                    {if $article->is_published}
-                        <input type="radio" name="is_published" value="1" checked="true" /> yes
-                        <input type="radio" name="is_published" value="0" /> no
-                    {else}
+                    {if 1 == $article->is_published}
+                        <input type="radio" name="is_published" value="1" checked="true"/> yes
+                        <input type="radio" name="is_published" value="0"/> no
+                    {else if 0 == $article->ispublished}
                         <input type="radio" name="is_published" value="1"  /> yes
                         <input type="radio" name="is_published" value="0" checked="true" /> no
                     {/if}
