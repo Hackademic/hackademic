@@ -31,7 +31,7 @@
  */
 
 class RegexSolution {
-	const PHP_BEGIN = '<\?(php )? ?';
+	const PHP_BEGIN = '<\?((php|=) )? ?';
 	const PHP_END = ' ?;? ?\?>';
 	const JS_BEGIN = '< ?script( type="text\/javascript")? ?> ?';
 	const JS_END = ' ?;? ?< ?\/ ?script ?>';
