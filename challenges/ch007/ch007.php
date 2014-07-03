@@ -152,7 +152,7 @@ body {
 
 } else {
 	// That's a fail.
-	$validator->validateSolution(null);
+	$validator->failChallenge();
 
 ?>
 <p>********************************************************

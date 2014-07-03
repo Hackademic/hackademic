@@ -59,7 +59,7 @@ if (isset($_POST['LetMeIn']) && isset($_POST['password'])) {
 		exit();
 	} else {
 		// Failure in this case.
-		$validator->validateSolution(null);
+		$validator->failChallenge();
 ?>
 		<script type="text/javascript">
 			alert('Wrong Password!!\nTry harder if you wanna be a member of n1nJ4.h4x0r.CreW')

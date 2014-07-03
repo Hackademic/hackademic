@@ -53,7 +53,7 @@ if ($name1==='white' and $name2==='rabbit') {
 
 } else {
 	// That's a failure.
-	$validator->validateSolution(null);
+	$validator->failChallenge();
 
 ?>
 <head>
