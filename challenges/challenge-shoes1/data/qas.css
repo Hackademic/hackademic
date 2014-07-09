@@ -1,0 +1,8 @@
+#TB_window{border:13px solid #a7a8ac}
+#TB_window .qas-title{border-bottom:0;background:#FFF;color:#763300;padding:15px 4px 7px 28px;width:800px}
+#TB_window .qas-prompt{border:0;background:#ebebeb}
+#TB_window .qas-prompt .heading{color:#e82c80}
+#TB_window .qas-dialog button{background:#f99300;color:#fff;border:0}
+#TB_window .qas-original-address .warning{color:#e82c80}
+#TB_window .qas-original-address a.qas-edit{color:#E82C80}
+button.qas-add-subpremise-button,button.qas-override,button.qas-change-street-number-button,button.qas-confirm{cursor:pointer}

@@ -1,0 +1,375 @@
+#TTaddMoreEmailsForm a{text-decoration:none!important}
+#TTaddMoreEmailsForm a:hover{text-decoration:underline!important}
+#TTaddMoreEmailsFormSubmit{border:0!important}
+.TT3youBadge{background-color:#666!important}
+.TT2questionRegSel1{background:#f9f9f8!important}
+#TT3error{background-color:#f0820b!important;color:#fff!important}
+#TT3error span{color:#fff!important}
+#TT2acceptDup{background-color:#666!important;border:0!important}
+#TT2cancelDup{background-color:#666!important;border:0!important}
+#TTtraWindow p{clear:none}
+#TurnToContent a img,#TTtraWindow a img{border:0;display:inline}
+#TurnToContent img,#TTtraWindow img{border:0;display:inline}
+#TurnToContent a,#TTtraWindow a,#ttMobileContainer a{text-decoration:none;color:#9a5c84!important}
+#TurnToContent a:hover,#TTtraWindow a:hover,#ttMobileContainer a:hover{text-decoration:underline}
+.TTdialog{z-index:999;padding:0;background-color:#fff;font-family:"Arial",helvetica,arial,sans-serif;font-size:12px;border:5px solid #ccc;text-align:left}
+.TTdialog div{font-family:"Arial",helvetica,arial,sans-serif;font-size:12px;text-align:left;color:#000}
+.TTdialog{border:0;border-top:1px solid #ccc}
+.TTdialog{padding:0;height:22px;border:0;outline:0;text-align:left}
+.TTdialog body,.TTdialog dl,.TTdialog dt,.TTdialog dd,.TTdialog ul,.TTdialog ol,.TTdialog li,.TTdialog h1,.TTdialog h2,.TTdialog h3,.TTdialog h4,.TTdialog h5,.TTdialog h6,.TTdialog pre,.TTdialog form,.TTdialog fieldset,.TTdialog input,.TTdialog textarea,.TTdialog p,.TTdialog blockquote,.TTdialog th,.TTdialog td{margin:0;padding:0;background-color:#fff}
+.TTdialog table{border-collapse:collapse;border-spacing:0}
+.TTdialog fieldset img{border:0;display:inline}
+.TTdialog address,.TTdialog caption,.TTdialog cite,.TTdialog code,.TTdialog dfn,.TTdialog em,.TTdialog strong,.TTdialog th,.TTdialog var{font-style:normal;font-weight:400}
+.TTdialog ol,.TTdialog ul{list-style:none none}
+.TTdialog caption,.TTdialog th{text-align:left}
+.TTdialog h1,.TTdialog h2,.TTdialog h3,.TTdialog h4,.TTdialog h5,.TTdialog h6{font-size:100%;font-weight:400;display:block;visibility:visible}
+.TTdialog q:before,.TTdialog q:after{content:''}
+.TTdialog abbr,.TTdialog acronym{border:0}
+.TTdialog select,.TTdialog input,.TTdialog textarea{background-color:#fcfcfc;border:1px solid #ccc;margin-bottom:2px;font-size:11px}
+.TTdialog input{padding:1px 3px}
+.TTdialog textarea,#TurnToContent textarea,#TTtraWindow textarea{padding:4px;font-family:"Arial",helvetica,arial,sans-serif;font-size:12px;box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box}
+.TTdefaultInput{color:#ccc}
+.TTexternalLink:hover{text-decoration:underline}
+.TTspinner{background:url(spinner.png) no-repeat center;width:13px;height:15px;line-height:22px;padding:6px 0 0 5px;float:left;display:block}
+#TTloginMessage{color:#a00;font-weight:400;padding:1px;margin:0 0 10px;height:auto;font-size:11px;text-align:center}
+#TTsigninWrapper h1{color:#4074cc;padding:6px 15px 0;font-weight:700}
+#TTsigninWrapper a:link{text-decoration:none;color:#004ab7}
+#TTsigninWrapper a:hover{text-decoration:underline;color:#004ab7}
+#TTloginSubmit{float:right;width:66px;height:26px;border:0;cursor:pointer;display:block;margin:0 10px 0 0;background-color:#999;color:#fff}
+#TTsignUpLink{color:#fff;text-decoration:underline}
+a.TTloginLink,a.TTshowMatchesLink{text-decoration:none}
+.errors{background:#fff3f3;border:1px solid red;color:#c00;margin:10px 0 5px;padding:5px}
+.TTred{color:#c00}
+.TTlogo{display:inline;border:0;vertical-align:-6%;padding-right:2px}
+#TTloginScreen{background-color:#fff}
+#TTcheckFormDiv{background-color:#fff}
+#TTcheckFmMessage{color:#a00;font-weight:400;padding:1px;margin:0 10px 5px 14px;height:auto}
+#TTcheckForm .TTinputBoxError{border:1px solid red}
+#TTaddMoreEmailsForm .TTinputBoxError{border:1px solid red}
+#TTregForm .TTinputBoxError{border:1px solid red}
+#TTregForm input{width:300px;height:20px}
+#TTcheckForm input{background-color:#fcfcfc;border:1px solid #ccc;margin-bottom:2px}
+#TTcheckForm #TTcheckSubmit{background:transparent url(TTchecksubmit.png) no-repeat top;width:78px;height:26px;border:0;cursor:pointer;display:block;margin:15px 10px 5px 14px}
+#TTgenMessageScreen{display:none;padding:14px 12px 25px 15px;text-align:left}
+.TTdialog{list-style:url(ttmatchdetail-bullet.png);margin-left:20px;font-size:11px}
+.TTWebEvent{position:absolute;left:-100px}
+.TT2mainDialog{font-family:"Arial",helvetica,arial,sans-serif;font-size:12px;text-align:left}
+div.TT2sectionHeader{color:#777}
+#TT2myNetworkSection{background-color:#fff;margin:5px 0;padding:0 0 10px 10px}
+#TT2MainSection{margin-bottom:10px}
+.TTclear{clear:both}
+.TTSubDialog{padding:0;background:transparent;width:580px}
+#TT2footer{color:#fff;clear:both;text-align:right;height:40px;padding:.5em 10px .3em 1em;background:url(mainbot1.png) no-repeat!important}
+#TTmainContent{background:url(mainstretch1.png) repeat-y left top!important;border:0;padding:13px 20px 0;margin:0;overflow-x:hidden;position:relative;margin-left:0}
+.TTui-widget-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:#fff url(overlay.png) 50% 50% repeat-x;opacity:0;filter:Alpha(Opacity = 00)}
+.TTsub-ui-widget-overlay{position:absolute;top:0;left:0;width:120%;height:1000px;background:#aaa url(overlay.png) 50% 50% repeat-x;opacity:.4;filter:Alpha(Opacity = 40)}
+#TTtraDialogTitle{color:#000;display:inline;float:left}
+#TTtraDialogTitleBar{padding:.5em .2em .3em 1em;position:relative;color:#000;height:21px;background:url(maintop1.png) no-repeat top!important}
+#TTtraDialogTitleBar2{position:relative;color:#000;height:47px;background:url(maintop1.png)!important no-repeat!important}
+#TTtraDialogTitleBar a{color:#9a5c84!important;text-decoration:none}
+#TTtraWindowClose{position:absolute;right:.3em;top:50%;width:25px;margin:-15px 0 0;padding:1px;height:25px}
+#TTtraWindowClose span{display:block;margin:1px}
+#TTtraWindowClose:hover,#TTtraWindowClose:focus{padding:0}
+#TTtraWindowClose{cursor:pointer;display:inline}
+#TTtrasubtop{background:transparent url(subbaktop.png) no-repeat!important;background-image:url(subbaktop.png)!important;width:100%;height:38px;float:left}
+#TTtrasubmid{background:transparent url(subbakmid.png)!important;margin:0;float:left;width:575px}
+#TTtrasubbot{background:transparent url(subbakbot.png)!important;margin:0;width:100%;height:27px;float:left}
+#TTSubWindowClose{position:absolute;right:1px;top:3px;padding:0;width:25px;height:25px}
+#TTSubWindowClose span{display:block;margin:1px}
+#TTSubWindowClose:hover,#TTSubWindowClose:focus{padding:0}
+#TTSubWindowClose{cursor:pointer;display:inline}
+#TTSubDialogSection{padding:0 9px;margin:0 20px}
+#TTSubDialogErrors{list-style:none;padding:10px 0;color:#c00;display:none;font-size:11px}
+#TT3NickNameErrors{list-style:none;padding:10px 0;color:#c00;display:none;font-size:11px}
+#TTimportSrc1{width:140px}
+.TTsubmitButton{background-color:#999;font-size:10px;color:#fff;font-weight:700;cursor:pointer}
+.TTtra-ui-dialog{position:relative;padding:0;width:700px}
+.TTtra-ui-dialog .TTtra-ui-dialog-content{border:0;padding:.5em 1em 5px;background:0;overflow-y:auto;zoom:1}
+.TT-ui-helper-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.TT-ui-helper-clearfix{display:inline-block}
+* html .TT-ui-helper-clearfix{height:1%}
+.TT-ui-helper-clearfix{display:block}
+.TTclearN{clear:both;height:0;font-size:1px;line-height:0}
+.TTsectionBox{background-color:#fff;padding-top:10px}
+#TTtraFooterLogo{cursor:pointer;display:inline;padding-left:130px;text-decoration:none;color:#fff;width:107px;height:28px}
+div.TTtip{display:none}
+div.TTtipCopy{border:#999 solid 5px;padding:8px;position:absolute;background-color:#fff;color:#111;display:none;font-size:11px;z-index:5000;text-align:left}
+#TTtraWindow input,#TTtraWindow select,#TTtraWindow option{font-size:11px}
+#TT-spinner{background:#fff center url(traspin.png) no-repeat scroll;width:620px;height:32px}
+a#TTaddFriendsHdrLink{color:#777}
+#TT2loginicon1{background:url(loginicon1.png) no-repeat;width:42px;height:42px;display:inline;float:left;margin-right:10px;margin-top:3px;margin-left:8px}
+#TTpickone{background:url(pickone.png) no-repeat;width:269px;height:100px;margin-left:5%;margin-top:55px}
+#TTfbConnect2{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 0;text-indent:-300px}
+#TT2importSrcLink1{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -40px;text-indent:-300px}
+#TT2importSrcLink5{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -80px;text-indent:-300px}
+#TT2importSrcLink6{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -120px;text-indent:-300px}
+#TT2importSrcLink14{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -160px;text-indent:-300px}
+#TT2importSrcLink7{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -200px;text-indent:-300px}
+#TT2importSrcLink2{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -240px;text-indent:-300px}
+#TT2importSrcLink9{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -280px;text-indent:-300px}
+#TT2importSrcLink11{background:url(importlogos.png) no-repeat;width:120px;height:40px;display:block;background-position:0 -320px;text-indent:-300px}
+#TTimportLogos>li{width:120px;height:42px;border-top:#ddd solid 1px;list-style:none}
+#TT2importHistory{margin-left:40%;margin-top:10%}
+#TT2importedMsg{padding:3px;margin-left:35%;margin-right:10%;font-size:11px;border:2px solid #add8e6;background-color:#ffffe0}
+#TT2importedEmptyMsg{padding:3px;margin-left:35%;margin-right:10%;font-size:11px;border:2px solid #fff}
+.TT2textColor1{color:#8b6cb1}
+#TT2NoImportLink{font-weight:700;color:#3994d8;text-decoration:underline}
+#TT2regFormDesc{margin-bottom:15px;font-weight:700;font-size:15px}
+#TT2regformTable td{padding:5px}
+#TT2questionRegFormTable td{padding:0 0 5px}
+#TT2regImgUpload{font-size:10px}
+input#TT2userImgFile{width:auto}
+#TT2pastPurchases{overflow:auto}
+#TT2pastPurchases div{margin:0}
+div.TT2ppBtnGroup{text-align:center}
+.TT2ppBtnGroup input{font-size:16px;border:1px solid #9a5c84!important;padding:4px}
+input#TT2managePastPurchaseBtn{background-color:#9a5c84!important;color:#fff;font-size:18px;border-color:#fff;cursor:pointer;height:40px}
+#TT2ppDoneBtn{background-color:#9a5c84!important;color:#fff;font-size:18px;border-color:#fff;cursor:pointer}
+#TTimportSourceSkip{background-color:#9a5c84!important;color:#fff;font-size:18px;border-color:#fff;cursor:pointer}
+#TT2NotManagePastPurchaseLink{text-decoration:underline}
+#TT2pastPurchasesHeader{font-weight:700}
+#TT2pastPurchasesHeader .TT2ppReminderText{font-size:16px;line-height:20px}
+#TT2pastPurchasesDisplay{font-weight:700;width:100%}
+#TT2pastPurchasesHeader a#TT2pastPurchasesTips{font-size:10px;color:#9a5c84!important}
+#TT2pastPurchasesDisplay table{border-collapse:collapse;width:100%}
+#TT2pastPurchasesDisplay tr{border-top:1px solid #ccc;font-size:11px}
+#TT2pastPurchasesDisplay td{padding:8px}
+#TT2pastPurchasesDisplay .TT2ppDescription{vertical-align:text-top;width:100%}
+#TT2pastPurchasesDisplay .TT2ppName{font-weight:700;color:#9a5c84!important}
+#TT2pastPurchasesDisplay .TT2ppDate{font-weight:700}
+#TT2pastPurchasesDisplay .TT2ppSaveCommentButton{font-size:16px;border:0 solid #4e3790;background-color:#9a5c84!important;color:#fff;font-size:11px;float:right;display:none;cursor:pointer;margin-top:2px;margin-right:8px}
+#TT2pastPurchasesDisplay a.TT2ppDelCommentLink{font-size:11px;float:right;display:none;font-family:"Arial",helvetica,arial,sans-serif;font-weight:400;margin-right:5px}
+#TT2pastPurchasesDisplay a.TT2ppEditCommentLink{font-size:11px;float:right;display:none;margin-right:10px;font-family:"Arial",helvetica,arial,sans-serif;font-weight:400}
+#TT2pastPurchasesDisplay textarea{width:95%;height:20px;word-wrap:break-word;border-color:#c0c6d7;background-color:#fff}
+#TT2pastPurchasesDisplay .textareaFilled{width:95%;height:40px;overflow:auto}
+#TT2pastPurchasesDisplay textarea:focus{width:95%;height:40px;overflow:auto}
+#TT2pastPurchasesDisplay .TT2postCheckboxGroup{display:none;color:#838383;font-size:10px;margin-top:0}
+#TT2pastPurchasesDisplay .TT2postCheckboxGroup div{height:100%;float:left;margin-top:0}
+#TT2pastPurchasesDisplay .TT2postCheckboxGroup table{width:30%;float:left}
+#TT2pastPurchasesDisplay .TT2postCheckboxGroup tr{border-top:0 none}
+#TT2pastPurchasesDisplay .TT2postCheckboxGroup td{padding:0;font-size:10px;color:#838383}
+#TT2pastPurchasesDisplay .TT2postCheckboxGroup td img{vertical-align:bottom}
+.TT2bold{font-weight:700}
+.TT2ppImage{text-align:center}
+#TT2pastPurchasesDisplay .TT2ppImage img{height:100px}
+#TT2pastPurchasesDisplay .TT2limitReminder{margin-left:10px;font-size:9px;display:none}
+.TT2topbarLI{font-size:11px;margin:22px 0 0 8px}
+a.TTblue1{color:#9a5c84!important}
+#TT2userSetting{overflow:auto}
+#TT2userSetting div{font:Arial,verdana,arial,helvetica,sans-serif;font-size:11px}
+#TT2userSetting .prop{padding:5px}
+#TT2userSetting .prop .nameRF{text-align:right;white-space:nowrap;width:125px}
+#TT2userSetting .prop .valueL{text-align:left;width:140px}
+#TT2userSetting{border:0 none}
+#TT2userSetting td,#TT2userSetting th{font:11px/12px verdana,arial,helvetica,sans-serif;padding:5px 6px;text-align:left;vertical-align:top}
+#TT2userSetting a:link,#TT2userSetting a:visited{color:#9a5c84!important;text-decoration:none;font-size:11px}
+#TT2userSetting a:hover{text-decoration:underline!important}
+#userSettingErrors{color:red;display:none}
+#photoEditor .prop .nameRF{text-align:right;white-space:nowrap;width:125px}
+#photoEditor .prop .valueL{text-align:left;width:370px}
+#photoEditor td,#photoEditor th{font:11px / 12px verdana,arial,helvetica,sans-serif;padding:5px 6px;text-align:left;vertical-align:top}
+a#TTloginForgotPwd{text-decoration:none}
+#TTresetPwdBtn{background-color:#999;border:0 none;color:#fff;cursor:pointer;display:block;float:left;height:26px;margin:0 0 0 10px}
+#TTresetPwdMessage{color:#a00;font-weight:400;padding:1px;margin:0 0 10px;height:auto;font-size:11px;text-align:center}
+#TTLImessageArea{width:95%;background:#ff0;border:#ddd solid 1px;padding:5px;margin:5px}
+.TT2LoggedInItemMessageArea{width:590px;background:#ff0;border:#ddd solid 1px;padding:4px;margin:-20px 0 25px;float:right}
+.TT2pastPurchasesTipsDesc{width:95%;background:#ffffd7;border:#ddd solid 1px;padding:10px;margin:5px}
+a#TT2seeMorePurchases{float:left;font-size:10px}
+#TT2addEmailBtn{background-color:#4e3790;color:#fff;font-size:18px;border-color:#fff;cursor:pointer}
+#TT2addtionalEmail{clear:both;display:none}
+#TT2doneAddedEmail{clear:both;display:none;background:#ff0;border:#ddd solid 1px;padding:5px;margin:5px}
+a.TTclosexyello{background:url(closexyello.png);height:16px;width:16px}
+a.TTclosexyello:hover{background-position:0 16px}
+img.TT2messageSymbol{float:left;margin-bottom:2px;margin-right:2px}
+input.TT2button{background-color:#4e3790;color:#fff;font-size:18px;border-color:#fff;cursor:pointer}
+input.TT2buttonSub{background:url(submitbttn.png) no-repeat scroll left center #fff!important;cursor:pointer;width:89px;height:27px}
+#TTregSubmit{background:url(submitbttn.png) no-repeat scroll left center #fff!important;cursor:pointer;width:89px;height:27px}
+input.TT2doneSub{background:url(donebttn.png) no-repeat scroll left center #fff!important;cursor:pointer;width:77px;height:25px}
+div.TT2yellowMessageLine1{padding:4px}
+.TT2ppSavedComment{font-size:12px;font-family:"Arial",helvetica,arial,sans-serif;font-weight:400}
+#TT2footerFeedback{float:left;margin-left:25px;margin-top:5px;color:#7b7b7b}
+#TT2remindGroup{clear:both;display:none;background:#ff0;border:#ddd solid 1px;padding:5px;margin:5px}
+#TT2ignoreCommentBtn{background-color:#4e3790;color:#fff;font-size:18px;border-color:#fff;cursor:pointer}
+#TT2goBackCommentBtn{background-color:#4e3790;color:#fff;font-size:18px;border-color:#fff;cursor:pointer}
+.TT2commentArea{background-color:#F9F9F8!important;padding:9px}
+#TTnetworkTitle h1{font-size:16px;font-weight:700;text-align:center}
+#TT2fbHeader{width:626px}
+#TT2askWidget h3{font-size:18px;font-weight:700}
+#TT2askWidget .TT2productImg{display:block;float:left;position:relative}
+#TT2askWidget .TT2cqa{clear:left;margin-top:0;border-bottom:solid 1px #ddd;bormargin-top:0;margin-bottom:5px}
+#TT2askWidget a{color:#9a5c84!important}
+#TT2myAsk a{color:#9a5c84!important}
+.TT2asked{display:inline;padding:3px 5px;width:auto}
+.TT3answersBlock{background:#F9F9F8!important;padding:6px 8px 3px 6px;margin:5px 0 5px 80px}
+.TT3replyInputBlock{padding:0 8px 3px 0}
+.TT2askedUserPhoto{display:inline;float:left;position:relative;margin:3px 10px 10px 8px}
+.TT2askedUserPhoto img{width:45px;height:45px;display:inline}
+.TT2bold{font-weight:700}
+.TT2clearBoth{clear:both}
+#TT2questionSection{background:#fff!important;padding:15px;margin-top:20px;border:solid 1px gray}
+#TT2questionSection textarea{margin:0 0 5px}
+#TT2answerBtnPanel{text-align:right}
+div.TT2awHeader{border-bottom:1px solid #ccc;font-size:16px;margin-bottom:10px;padding-bottom:10px}
+div.TT2userInputArea{background:#F9F9F8!important;padding:10px 10px 5px;margin-top:10px}
+div.TT2userInputArea textArea{width:100%}
+div#TT2awQuestionSection{float:left;width:460px;position:relative}
+div#TT2questionRegFlow{overflow:auto}
+.TT2right{float:right;position:relative}
+.TT2left{float:left;position:relative}
+#TT2error{color:red}
+.TT2border{margin-top:10px;margin-bottom:10px;border-top:1px solid #CCC}
+#TT2questionReg #TTregForm #TTemail{width:412px}
+#TT2questionReg #TTregForm input{height:20px;width:200px}
+a.TT2link{text-decoration:underline}
+img.TT3buttonImg{cursor:pointer;border:0}
+ul.TT2askReminder{list-style-type:disc;margin-left:15px;margin-top:5px;font-size:10px}
+#TT2askDelAuthLink1{background:url(facebook-logo.png) no-repeat scroll 0 0 transparent;display:block;text-indent:-600px;width:67px;height:22px;margin:10px 40px}
+#TT2askDelAuthLink2{background:url(gmail-logo.png) no-repeat scroll 0 0 transparent;display:block;text-indent:-600px;margin-right:40px;width:49px;height:22px;margin-top:10px;margin-bottom:10px}
+#TT2askDelAuthLink3{background:url(windows-live-logo.png) no-repeat scroll 0 0 transparent;display:block;text-indent:-600px;margin-right:40px;width:119px;height:22px;margin-top:10px;margin-bottom:10px}
+#TT2askDelAuthLink4{background:url(msn-logo.png) no-repeat scroll 0 0 transparent;display:block;text-indent:-600px;width:53px;height:22px;margin-top:10px;margin-bottom:10px}
+.TT2inlineMessage{background:none repeat scroll 0 0 #ff0;margin-bottom:10px;margin-top:-10px;padding:5px;display:none}
+a.TT2resendConfirmation{color:#3994d8}
+a.TT2itemLink:link,a.TT2itemLink:visited,a.TT2itemLink:active,a.TT2itemLink:hover,a.TT2itemLink:focus{color:#314c9b}
+.TT2verticalSeparator{color:#000;margin-left:4px;margin-right:4px}
+#TT2siteVisitsAdmin{text-align:center}
+#TT2siteVisitsAdmin h3{font-size:18px;font-weight:700}
+#TT2mainMessage{text-align:center}
+#TT2mainMessage h3{font-size:18px;font-weight:700}
+#TT2questionWidgetMessageArea{background:#ff0;border:#ddd solid 1px;padding:5px;margin-bottom:5px}
+.turnotoQuestionSubHed{font-size:14px}
+.TT3itemBox{margin:0 0 7px 35px}
+.TT3replyBorder{border-bottom:1px solid #fff}
+.TT3itemBox2{margin-left:28px;padding-bottom:6px}
+.TT3questCntr{margin-top:10px}
+.TT3questWrp{padding-bottom:7px}
+.TT3questBorder{border-bottom:1px solid #e4ebf6}
+.TT3ansCntr{margin-top:5px;padding:5px 5px 0}
+.TT3ansArea{background-color:#F9F9F8!important;margin-left:80px}
+.TT3borderBtm{border-bottom:1px solid #777}
+.TT3linkLine,#TTtraWindow .TT3linkLine{margin-top:10px;font-size:10px;text-decoration:none;color:#aaa}
+.TT3IQContainer{display:none}
+.TT3vcnt{text-align:center;font-size:10px;margin-top:-2px;margin-bottom:-2px}
+.TTdialog .TT3vcnt{text-align:center;font-size:10px;margin-top:-2px;margin-bottom:-2px}
+.TT3,.TTdialog .TT3{background-color:#9a5c84!important;padding:8px;font-size:14px;color:#fff}
+.TT4{padding:20px 0 0;height:35px}
+.TT5,.TTdialog .TT5{background-color:#9a5c84!important;color:#fff;padding:10px;width:120px;font-weight:700;cursor:pointer;float:left;font-size:12px;text-align:center}
+.TT6{float:left;margin:10px 0 0 15px;font-size:14px}
+.TT7{font-weight:700;margin-left:3px;width:65%;word-wrap:break-word;display:inline-block}
+.TT8{background-color:#F9F9F8!important;padding:8px;clear:both;margin:20px 0}
+.TTpoweredby,.TTdialog .TTpoweredby{float:left;font-size:9px;color:#aaa;padding:5px 5px 0 0}
+#TurnToContent .TTpoweredby a{color:#aaa}
+#TurnToContent,#TTtraWindow{font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px}
+.TT3tabClose{background-image:url(tabClose.png);background-size:12px 12px;display:inline-block;height:12px;width:12px}
+#TT3allAnsLinks{margin-top:10px}
+#TT3IQContainer{margin-top:20px}
+#TT2stfRadioDiv{margin:9px 0 20px 30px}
+#TT2staffMsg{float:left;margin:20px 0 5px;display:none}
+.TT3itemText{min-height:30px}
+#TT3toplinks{margin-right:16px;margin-top:7px}
+.TTdialog .TT3ugcCnt{color:#4c68bf;font-size:14px;margin-top:7px;padding-bottom:3px}
+.TT3ugcVoteCnt{color:#000}
+.TT3Indent{margin-left:63px}
+.TT3rplyCntr{padding-bottom:8px;padding-top:8px;margin-right:5px}
+.TT3commentCntr{margin:5px 0 0 80px;padding:5px;background-color:#F9F9F8!important}
+#TT3RightLinks{float:right;text-align:right;margin-bottom:10px}
+.TT3tmbOn{font-weight:700!important}
+#TurnToContent .TT3questCntr:hover .TT3noVote,#TurnToContent .TT3ansArea:hover .TT3noVote,#TTtraWindow .TT3questCntr:hover .TT3noVote,#TTtraWindow .TT3ansArea:hover .TT3noVote{color:red!important}
+#TurnToContent .TT3questCntr:hover .TT3yesVote,#TurnToContent .TT3ansArea:hover .TT3yesVote,#TTtraWindow .TT3questCntr:hover .TT3yesVote,#TTtraWindow .TT3ansArea:hover .TT3yesVote{color:green!important}
+#TurnToContent .TT3linkLine a,#TTtraWindow .TT3linkLine a,#ttMobileContainer .TT3LinkLine a{color:#aaa}
+#TurnToContent .TT3commentCntr:hover a,#TurnToContent .TT3expand:hover a,#TurnToContent .TT3questCntr:hover .TT3linkLine a,#TurnToContent .TT3ansArea:hover .TT3linkLine a,#TurnToContent .TT3questCntr:hover .TT3askedBy a,#TurnToContent .TT3ansArea:hover .TT3askedBy a,#TTtraWindow .TT3commentCntr:hover a,#TTtraWindow .TT3expand:hover a,#TTtraWindow .TT3questCntr:hover .TT3linkLine a,#TTtraWindow .TT3ansArea:hover .TT3linkLine a,#TTtraWindow .TT3questCntr:hover .TT3askedBy a,#TTtraWindow .TT3ansArea:hover .TT3askedBy a{color:#9a5c84!important}
+.TT3expandImg{background-image:url(expand.png);display:inline-block;height:10px;width:21px;*display:inline;zoom:1}
+.TT3collapseImg{background-image:url(collapse.png);display:inline-block;height:10px;width:21px;*display:inline;zoom:1}
+#TTtraWindow .TT3expand:hover .TT3expandImg,#TurnToContent .TT3expand:hover .TT3expandImg{background-image:url(expandhover.png)}
+#TTtraWindow .TT3expand:hover .TT3collapseImg,#TurnToContent .TT3expand:hover .TT3collapseImg{background-image:url(collapsehover.png)}
+.TT3ProfileName{font-size:18px;font-weight:700;margin-left:5px}
+#TT3goToProfile{margin-top:8px;font-size:11px}
+#TTmatchesHi{font-size:18px}
+.TTlogoutLink{font-size:11px}
+.TT3aboutLine,.TTdialog .TT3aboutLine{font-size:11px;margin:10px 0 -6px;color:#666}
+.TT3Qleft{float:left;width:78%}
+.TT3right{float:right}
+.TT3expand,#TTtraWindow .TT3expand{background-color:#F9F9F8!important;margin:5px 0 0 80px;font-size:10px;color:#666;padding:5px}
+.TT3hiMsgTxt{font-weight:700;font-size:13px}
+#TT3UPAnsSec{margin-left:3px}
+#TT3UPquestSec{margin-left:3px}
+#TT3UPCommentSec{margin-left:3px}
+#TurnToContent .TT3AmqLink,#TTtraWindow .TT3AmqLink{font-size:10px}
+#TT3AmqHeader{font-size:14px;font-weight:700;display:none}
+#TT3AmqThank{font-size:16px;font-weight:700}
+.TT3ShowMore,#TTtraWindow .TT3ShowMore{text-align:center;display:none;background-color:#f5f5f5;font-size:10px;color:#666;padding:5px;margin:5px 0 10px}
+.TT3ShowMore a{color:#666}
+.TT3ShowMore:hover a{color:#9a5c84!important}
+.TT3cAnchorLeft{float:left;margin-right:10px;background-image:url(questAnchor.png)!important;background-repeat:no-repeat;display:inline-block;height:32px;width:32px;*display:inline;zoom:1}
+.TT3qAnchorLeft{float:left;margin-right:10px;background-image:url(questAnchor.png)!important;background-repeat:no-repeat;display:inline-block;height:32px;width:32px;*display:inline;zoom:1}
+.TT3aAnchorLeft{float:left;margin-right:10px;background-image:url(ansAnchor.png)!important;background-repeat:no-repeat;display:inline-block;height:18px;width:20px;*display:inline;zoom:1}
+#TT2askRewardMsg{margin:5px 0 -15px}
+.TT3askButtonText,.TTdialog .TT3askButtonText{font-size:13px}
+.TT3askButtonDetails,.TTdialog .TT3askButtonDetails{font-size:13px}
+.TT3customerQaLabel{float:left}
+.TT3answerLink{font-weight:700}
+#TT2askInstText{font-size:10px;color:gray}
+#TT3questCustText{float:left;margin-left:8px;margin-top:3px;width:90%}
+#TT3questStfText{float:left;margin-left:8px;margin-top:5px;width:90%}
+#TT2questCust{float:left;margin-top:3px}
+#TT2questStf{float:left;clear:left;margin-top:5px}
+#TT2askOwnersBtn{background-image:url(askbttn.png)!important}
+.TT2answerBtn{background-image:url(submitbttn.png)!important}
+#TurnToContent em{font-style:normal;font-weight:700!important;background-color:#ff0}
+#TT3searchTerm{width:250px;outline:transparent;padding:0;border:0}
+#TT3searchResults{color:gray;display:none}
+#TT3advancedDiv{display:none;background-color:#e1edfa;padding:5px;margin:10px 0;width:500px}
+.TT3fixedWidth{width:23px;float:left;font-weight:700}
+#TT3searchBox{background-color:#fff;border:solid 1px #000;margin-top:-4px;width:270px}
+#TT3searchBtn{margin-left:10px;float:right;background:url(searchbttn.png) no-repeat center!important;cursor:pointer}
+#TT3clearSearch{padding-right:5px;visibility:hidden}
+#TT3relatedQuestionsWrp{margin-top:40px}
+.TT3storeBadge{font-weight:400;background-color:#9a5c84!important;color:#eee;padding:0 6px;margin:0 4px;font-size:10px}
+.TT3staffBadge{font-weight:400;background-color:#6a93ca;color:#eee;padding:0 6px;margin:0 0 0 4px;font-size:10px}
+.TT3expertBadge{font-weight:400;background-color:#4e3790;color:#eee;padding:0 6px;margin:0 0 0 4px;font-size:10px}
+.TT3askedBy{font-weight:700}
+#TurnToContent .TT3askedBy a,#TTtraWindow .TT3askedBy a{color:#000}
+#TurnToContent .TT3expand a,#TTtraWindow .TT3expand a{color:#aaa}
+.TT3helpful{float:right}
+.TT3questCntr:hover .TT3helpful,.TT3ansArea:hover .TT3helpful{color:#000}
+.TT3timeStamp{color:#aaa;font-size:10px;font-style:italic;font-weight:400;display:inline-block;zoom:1;*display:inline}
+#TTexUgcL{float:left}
+#TTexUgcR{float:right;margin-top:5px}
+#TT3answLnks{float:left}
+#TT3searchDiv{float:right}
+.TT3chatterFullBox{font-size:10px;background-color:#fff;padding:8px;border:solid 1px #aaa;box-shadow:5px 5px 5px -2px rgba(34,25,25,0.4);-moz-box-shadow:5px 5px 5px -2px rgba(34,25,25,0.4);-webkit-box-shadow:5px 5px 5px -2px rgba(34,25,25,0.4)}
+#TT3chatterBox h2{margin:0 0 3px 5px}
+#TT3chatterBox a{text-decoration:none}
+#TT3whatsThisDialog{position:absolute;right:0;width:80%;padding:5px;color:#000;border:solid 1px #000;background-color:#fff;text-align:left;z-index:1;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;-khtml-border-radius:5px;-moz-box-shadow:0 0 5px #888;-webkit-box-shadow:0 0 5px #888;box-shadow:0 0 5px #888;display:none}
+.TT3chatterComment{margin-bottom:5px}
+#TT3nextBtn,#TT3prevBtn{display:none;z-index:2}
+#TT3nextBtn img{background:url(arrows.png) no-repeat -150px}
+#TT3nextBtn:hover img{background:url(arrows.png) no-repeat -100px}
+#TT3prevBtn img{background:url(arrows.png) no-repeat -50px}
+#TT3prevBtn:hover img{background:url(arrows.png) no-repeat}
+.TT3ccTimeStamp{color:#777;padding-left:5px}
+#TT3fetchMore{text-align:center;background-color:#fff}
+#TTpartnerRegWindowClose{float:right;padding:2px;text-decoration:none;font-family:"Arial",helvetica,arial,sans-serif;font-size:12px}
+#ttMobileContainer #TT3searchTerm{width:150px}
+#ttMobileContainer .TT2topbarLI{float:none}
+#ttMobileContainer #TurnToContent .TT3 .TT7{float:left;width:auto}
+#ttMobileContainer #TurnToContent .TT3 .TTpoweredby{float:none;clear:both}
+#ttMobileContainer #TT3askBtnBlock{height:auto}
+#ttMobileContainer #TT3askBtnBlock .TT5{float:none}
+#ttMobileContainer #TT3askBtnBlock .TT6{float:none;clear:both;margin:10px 0 0}
+#ttMobileContainer #TurnToContent .TT8{margin:10px 0}
+#ttMobileContainer #TTexUgcL,#ttMobileContainer #TTexUgcR{float:none}
+#ttMobileContainer #TT3answLnks{float:none}
+#ttMobileContainer #TT3searchDiv{float:none;margin-top:5px}
+#ttMobileContainer .TT3qAnchorLeft,#ttMobileContainer .TT3cAnchorLeft,#ttMobileContainer .TT3aAnchorLeft{display:none}
+#ttMobileContainer .TT3itemBox{margin:0 0 7px}
+#ttMobileContainer .TT3commentCntr{margin:5px 0 0}
+#ttMobileContainer .TT3answersBlock{margin:5px 0}
+#ttMobileContainer .TT3ansArea,#ttMobileContainer .TT3itemBox2{margin-left:0}
+#ttMobileContainer .TT3helpful{display:block;float:none}
+#ttMobileContainer .TT3expand{margin-left:0}
+#ttMobileContainer.TTdialog{margin:0;height:auto}
+#ttMobileContainer #TT2questionSection .TT2bold{height:auto}
+#ttMobileSubDialog.TTdialog{margin:0;height:auto}
+#ttMobileSubDialog #TT2questionRegFlow{overflow:visible}
+#ttMobileSubDialog #TT2questionReg #TTregForm #TTemail{width:200px}
+#ttMobileSubDialog #TTregForm #TTlastName,#ttMobileSubDialog #TTregForm #TTrePasswordText{display:block;margin-top:10px}
