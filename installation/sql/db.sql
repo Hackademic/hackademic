@@ -257,4 +257,6 @@ CREATE TABLE IF NOT EXISTS  user_score  (
   KEY  user_id  ( user_id , challenge_id , class_id )
 );
 
+
+
 SHOW WARNINGS;

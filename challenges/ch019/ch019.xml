@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 19</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        <![CDATA[
+        XOR cipher is one of the most secure ciphers and provides unconditional security. YOu are now given a task to break this cipher.Find the message corresponding to a xor encrypted cipher text.
+        ]]>
+    </description>
+</challenge>

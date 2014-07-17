@@ -78,7 +78,7 @@ if(isset($_GET['Result'])){
 		<legend>Enter Password</legend>
 		<input name="Password1" type="password" style="width: 378px" /><br />
 		<br />
-		<input name="Button1" type="button" value="Enter" style="width: 95px" onclick="GetPassInfo()" /></fieldset><br />
+		<input name="Button1" type="submit" value="Enter" style="width: 95px" onclick="GetPassInfo();return false;" /></fieldset><br />
 	</form>
 </div>
 <div id="footer" class="style1">
@@ -115,10 +115,15 @@ if(isset($_GET['Result'])){
 	var p = madhouuuuuuuseeee.charAt(4)
 	var Wrong = (d+""+j+""+k+""+d+""+x+""+t+""+o+""+t+""+h+""+i+""+l+""+j+""+t+""+k+""+i+""+t+""+s+""+q+""+f+""+y)
 
-	/*if (document.forms[0].Password1.value == Wrong)
+	if (document.forms[0].Password1.value == Wrong )
 		location.href="index.php?Result=" + Wrong;
-	*/
+	else
+		location.href="index.php";
+
+	
+	/*
 	location.href="index.php?Result=" + document.forms[0].Password1.value;
+	*/
 	}
 
 

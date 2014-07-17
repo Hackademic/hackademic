@@ -37,7 +37,7 @@ if(isset($_POST['login']))
 
 
 
-	if($password == "t3hpwn3rN1nJ4" or $state == "True"){
+	if($state == "True" or $state=="true"){
 	    $_SESSION['pwned'] = true;
 
 	echo '<script type="text/javascript">alert("%53%65%72%69%61%6C%20%4E%75%6D%62%65%72%3A%20%54%52%56%4E%2D%36%37%51%32%2D%52%55%39%38%2D%35%34%36%46%2D%48%31%5A%54")</script>';

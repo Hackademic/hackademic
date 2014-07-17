@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 21</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        This time,the website has increased its security.Passwords are not stored in plaintext anymore.Can you crack the admin password this time? 
+        ]]>
+    </description>
+</challenge>
