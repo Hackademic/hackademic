@@ -1,0 +1,88 @@
+form{margin:0;padding:0}
+label{cursor:pointer;color:#666;font-weight:700;vertical-align:middle}
+label input{font-weight:400}
+textarea,.inputtext,.inputpassword{border:1px solid #bdc7d8;margin:0;padding:3px}
+textarea{max-width:100%}
+select{border:1px solid #bdc7d8;padding:2px}
+.inputtext,.inputpassword{padding-bottom:4px}
+body{background:#fff;color:#333;line-height:1.28;margin:0;padding:0;text-align:left;direction:ltr;unicode-bidi:embed}
+body,button,input,label,select,td,textarea{font-family:'lucida grande',tahoma,verdana,arial,sans-serif;font-size:11px}
+h1,h2,h3,h4,h5,h6{font-size:13px;color:#333;margin:0;padding:0}
+h1{font-size:14px}
+h4,h5,h6{font-size:11px}
+p{margin:1em 0}
+a{color:#3b5998;cursor:pointer;-moz-outline-style:none;text-decoration:none}
+button{margin:0}
+a:hover{text-decoration:underline}
+img{border:0}
+td{text-align:left}
+dd{color:#000}
+dt{color:#777}
+ul{list-style-type:none;margin:0;padding:0}
+abbr{border-bottom:none}
+hr{background:#d9d9d9;border-width:0;color:#d9d9d9;height:1px}
+.clearfix:after{clear:both;content:".";display:block;font-size:0;height:0;line-height:0;visibility:hidden}
+.clearfix{zoom:1}
+.cbx #pageFooter{margin:auto;width:auto}
+.navigationGrid{line-height:20px;width:540px}
+.navigationGrid td{padding-right:10px}
+#pageFooter{color:#737373;font-size:11px;margin:0 auto;width:980px}
+#pageFooter a{text-decoration:none;white-space:nowrap}
+#pageFooter a:last-child{margin-right:0}
+#pageFooter a:hover{text-decoration:underline}
+#contentCurve{border-bottom:1px solid #ccc;font-size:1px;height:8px;margin-bottom:8px}
+#globalContainer{margin:0 auto;position:relative;zoom:1}
+.cbx #globalContainer{width:981px}
+.cb_content{padding-bottom:20px}
+.cbx .cb_content{padding-bottom:0}
+.uiButton{cursor:pointer;display:inline-block;font-size:11px;font-weight:700;line-height:13px;padding:2px 6px;text-align:center;text-decoration:none;vertical-align:top;white-space:nowrap}
+.uiButton{background-image:url(sprite.png);background-repeat:no-repeat;background-size:auto;background-position:0 -98px;background-color:#eee;border:1px solid #999;border-bottom-color:#888;box-shadow:0 1px 0 rgba(0,0,0,.1)}
+.uiButton:hover{text-decoration:none}
+.uiButton:active,{background:#ddd;border-bottom-color:#999;box-shadow:inset 0 1px 1px rgba(0,0,0,.2)}
+.uiButton input{background:none;border:0;color:#333;cursor:pointer;display:-moz-inline-box;display:inline-block;font-family:'lucida grande',tahoma,verdana,arial,sans-serif;font-size:11px;font-weight:700;line-height:13px;margin:0;padding:1px 0 2px;white-space:nowrap}
+.uiButton input::-moz-focus-inner{border:0;padding:0}
+.gecko .uiButton input:focus{outline:thin dotted}
+.uiButtonConfirm{background-image:url(sprite.png);background-repeat:no-repeat;background-size:auto;background-position:0 -49px;background-color:#5b74a8;border-color:#29447e #29447e #1a356e}
+.uiButtonConfirm:active{background:#4f6aa3;border-bottom-color:#29447e}
+.uiButtonConfirm input{color:#fff}
+.uiButtonLarge{height:19px}
+.uiButtonLarge,.uiButtonLarge input{font-size:13px;line-height:16px}
+.uiBoxRed{background-color:#ffebe8;border:1px solid #dd3c10}
+.uiBoxWhite{background-color:#fff;border:1px solid #ccc}
+i.img{-ms-high-contrast-adjust:none;_overflow:hidden}
+i.img u{left:-999999px;position:absolute}
+.lfloat{float:left}
+.rfloat{float:right}
+.pam{padding:10px}
+.ptm{padding-top:10px}
+.plm{padding-left:10px}
+.phl{padding-left:20px;padding-right:20px}
+.mts{margin-top:5px}
+.mhl{margin-left:20px;margin-right:20px}
+.mvl{margin-top:20px;margin-bottom:20px}
+.fsm{font-size:11px}
+.fsl{font-size:13px}
+.fwn{font-weight:400}
+.fwb{font-weight:700}
+.fcb{color:#333}
+.fcg{color:gray}
+.uiInputLabel{position:relative}
+.uiInputLabelInput{margin:0;padding:0;position:absolute}
+.uiInputLabelLabel:active{-moz-user-select:none}
+.uiInputLabel .uiInputLabelLabel{display:inline-block;margin-left:17px;vertical-align:baseline}
+.uiInputLabelLegacy label{color:#333;font-weight:400}
+.uiHeader h2{color:#1c2a47;font-size:16px}
+.uiHeader .uiHeaderTitle{outline:none}
+.uiHeaderBottomBorder{border-bottom:1px solid #aaa;padding-bottom:.5em}
+.uiHeaderPage{padding:6px 0 16px}
+.uiHeaderPage .uiHeaderTitle{line-height:20px;min-height:20px;padding-bottom:2px;vertical-align:bottom}
+.uiHeaderPage .uiHeaderActions{margin-top:-1px}
+.uiContextualLayerParent{position:relative}
+._51mz{border:0;border-collapse:collapse;border-spacing:0}
+.uiGrid .hLeft{text-align:left}
+._51mx:first-child>._51m-{padding-top:0}
+._51mx:last-child>._51m-{padding-bottom:0}
+._51mz ._51mw{padding-right:0}
+._51mz ._51m-:first-child{padding-left:0}
+._ohe{float:left}
+._ohf{float:right}
