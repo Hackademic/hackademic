@@ -1,0 +1,13 @@
+#menu{font-size:12px;letter-spacing:-1px;margin:2px 0 10px}
+#menu img{padding:0;margin:0}
+#menu table{width:210px;border-collapse:collapse;border:1px;margin:0;padding:0;cursor:pointer;cursor:hand}
+#menu td.topleft{background:url(topleft.png) no-repeat left top;margin:0;padding:0;width:9px;height:8px}
+#menu td.top{background:url(top.png) repeat-x top;margin:0;padding:0;height:8px}
+#menu td.topright{background:url(topright.png) no-repeat right top;margin:0;padding:0;width:10px;height:8px}
+#menu td.left{background:url(left.png) repeat-y left;margin:0;padding:0;width:9px}
+#menu td.right{background:url(right.png) repeat-y right;margin:0;padding:0;width:10px;height:9px}
+#menu td.sepleftbig{background:url(leftsepbig.png) no-repeat left bottom;margin:0;padding:0;width:9px;height:40px}
+#menu td.sepactbig{background:url(sepbig.png) repeat-x bottom;margin:0;padding:0;height:40px;text-align:right;vertical-align:bottom;font-size:11px;font-weight:700}
+#menu td.bottomleft{background:url(bottomleft.png) no-repeat left bottom;margin:0;padding:0;width:9px;height:12px}
+#menu td.bottom{background:url(bottom.png) repeat-x bottom;margin:0;padding:0;height:12px}
+#menu td.bottomright{background:url(bottomright.png) no-repeat right bottom;margin:0;padding:0;width:10px;height:12px}

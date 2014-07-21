@@ -1,0 +1,9 @@
+table.main td.header{padding:0;margin:0;border-bottom:1px solid #cacaca}
+#header{position:relative;padding:0;margin:0;width:730px;height:60px}
+#header h4{position:absolute;left:25px;font-family:Helvetica Neue LT Std,Arial,sans-serif;font-size:44px;line-height:60px;margin:0;padding:0;color:#009856}
+#header ul{position:absolute;height:35px;margin:0;padding:0;top:26px;left:210px;list-style-type:none}
+#header li{position:absolute;width:138px;height:35px;font-family:Arial,Helvetica,sans-serif;font-size:16px;color:#333;line-height:35px;text-align:center;background-repeat:no-repeat;background-position:top left;cursor:pointer;cursor:hand}
+#header li.right_rub{background-image:url(right_down.png)}
+#header li.left_rub_selected{background-image:url(left_up.png);color:#009856;z-index:5}
+.authempty{height:8px}
+.help{color:#009856;font-family:Verdana,Arial,sans-serif;font-size:16px;font-style:inherit;font-weight:700;position:absolute;text-align:left;text-decoration:none;top:22px;margin-left:-40px}
