@@ -1,0 +1,15 @@
+h1.firstHeading{overflow:visible}
+code{background:transparent}
+pre{overflow-x:auto}
+abbr{color:inherit}
+dfn{font-style:normal;font-weight:700}
+sup,sub{line-height:1em}
+@media print {
+	#footer{border:none}
+	.printfooter{margin-top:3.5em}
+	#footer li{list-style-type:none;padding-left:0}
+	#footer ul{padding-left:0}
+	ul{padding-left:.8em}
+	h2,h3,h4,h5{page-break-after:avoid}
+	h2:first-child,h3:first-child{page-break-before:avoid}
+}
