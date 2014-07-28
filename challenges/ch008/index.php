@@ -33,7 +33,7 @@
 
 <?php
 error_reporting(0);
-$com=$_POST["command"];
+$com= htmlspecialchars($_POST["command"]);
 $root=$_POST["username"];
 $password=$_POST["password"];
 

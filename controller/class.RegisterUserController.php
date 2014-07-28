@@ -63,7 +63,7 @@ class RegisterUserController extends HackademicController {
 				$password = $_POST['password'];
 				$confirmpassword=$_POST['confirmpassword'];
 				$full_name = Utils::sanitizeInput($_POST['full_name']);
-				$email=$_POST['email'];//esapi email encode
+				$email= Utils::sanitizeInput($_POST['email']);  //esapi email encode
 				//$is_activated = $_POST['is_activated'];
 				if (User::doesUserExist($username)) {
 					$this->addErrorMessage("Username already exists");
