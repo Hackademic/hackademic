@@ -55,7 +55,7 @@ if((!isset($shiz)) && (!isset($page))){
 	 <html>
 	 <head>
 	 </head>
-	 <form method="GET" action="'.$_SERVER['PHP_SELF'].'">
+	 <form method="GET">
 	 <font color=yellow>Name:</font><br>
 	 <input type="text" name="name"><br>
 	 <font color=yellow>Last Name:</font><br>
