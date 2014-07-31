@@ -13,6 +13,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 	// We don't validate the answer from the student directly.
 	// We first run it through an SQL database to see if the injection works.
 	// Then we validate the number of results returned.
+	// ' OR 1=1 LIMIT 1-- would be a valid answer here.
 	$nbResults = testSQLQuery($_POST['username'], $_POST['password']);
 	$valid = $validator->validateSolution($nbResults);
 	if(!$valid) {
