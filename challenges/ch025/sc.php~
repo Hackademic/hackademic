@@ -1,0 +1,19 @@
+<?php
+if(!isset($_SERVER['HTTP_X_REQUESTED_WITH']) or ! ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'))
+{
+	echo 'Not a valid ajax request';
+	exit();
+}
+if($_GET["recovery"]=="user234@email.com" and $_GET["token"]=="861b62467e9a0b491f269c3c3f0d80784ab5c885")
+{
+setcookie("cookie-ch025","pOEw3VmaZYeoz0ooyMqd5PxTrcXIB9O9y");
+}
+else if($_GET["recovery"]=="user962@email.com" and $_GET["token"]=="403c50a8cf865d9610b0711e2c7e7e54c6656423")
+{
+setcookie("cookie-ch025","Mqd5PxTrcXIB9O9ypOEw3VmaZYeoz0ooy");
+}
+else
+{
+	echo 'Token/hash doesn\'t match';
+}
+?>
