@@ -10,15 +10,20 @@ require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 $monitor->update(CHALLENGE_INIT, $_GET);
 $_SESSION['init'] = true;
 ?>
+<center>
+<img src="forum.png"/></center>
 <hr/>
+<h3 align="center">Recent Posts</h3>
 <?php
 	
 if(isset($_POST["submit"]))
 {
-	echo 'Your issue has been posted.<br/>';
-	echo 'Posted by: <b>'.$_POST["email"].'</b><br/>';
+	echo '<center>Your issue has been posted.<br/></center>';
+	echo '
+<div style="margin:0px 40px;border:1px solid black;padding:10px">
+Posted by: <b> '.$_POST["email"].' </b><br/>Time: Just Now<br/><br/>';
 	echo htmlentities($_POST["text"]);
-	echo '<img src="'.addslashes($_POST["image_url"]).'"/> <br/><br/>';
+	echo '<img src="'.addslashes($_POST["image_url"]).'"/> <br/></div><br/>';
 	$split = explode('?', $_POST["image_url"]);
 	$new_url = $split[0];
 	parse_str($split[1], $output);
@@ -52,15 +57,28 @@ if(isset($_POST["submit"]))
 	}
 	echo '<!-- Check your bank account to see whether the csrf has succeeded or not. -->';
 }
-echo 'Posted by: <b> banking_user907@onlinebankmail.com </b><br/>';
-	echo 'Hi, I am new to online banking. Can some please help me with the process?. Please reply me soon, I will be constantly looking at the forum for the help.<br/>';
-?>
-<h4>Post in this forum:</h4>
-<b>Guidelines: </b> Do not try to tamper with the forum.Using html/javascript in the post is not allowed.Optionally, you can add an image describing the problem (for example, a screenshot of the issue). Using script anywhere, in anyform is not allowed.
-<form method="post">
-Email: <input type="text" name="email"/><br/>
-Text: <textarea name="text" ></textarea><br/>
-Image Url: <input type="text" name="image_url"/><br/>
-<input type="submit" name="submit" value="Submit"/>
-</form>
 
+echo '
+<div style="margin:0px 40px;border:1px solid black;padding:10px">
+Posted by: <b> banking_user907@onlinebankmail.com </b><br/>Time: Just Now<br/><br/>';
+	echo 'Hi, I am new to online banking. Can some please help me with the process?. Please reply me soon, I will be looking at the forum for the help.<br/>
+</div><br/>	';
+echo '
+<div style="margin:0px 40px;border:1px solid black;padding:10px">
+Posted by: <b> banking_user767@onlinebankmail.com </b><br/>Time: 3 days ago<br/><br/>';
+	echo 'Hello all,<br/> How to activate mobile sms banking service for my account? Is there be any standard procedure to apply for it? Thanks.<br/>
+</div><br/>	';
+?>
+<h4 align="center">Post in this forum:</h4>
+<style>
+label {  vertical-align: middle;display: inline-block; width:100px;text-align: right;}
+input {width:23%;margin:2px 0px;}
+textarea {width:23%; vertical-align: middle;}
+</style>
+<center><form method="post">
+<label>Email: </label> <input type="text" name="email"/><br/>
+<label>Text: </label> <textarea rows="5" name="text" ></textarea><br/>
+<label>Image Url: </label> <input type="text" name="image_url"/><br/><br/>
+<input style="width:10%"type="submit" name="submit" value="Submit"/>
+</form>
+</center>
