@@ -10,6 +10,10 @@ require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 $monitor->update(CHALLENGE_INIT, $_GET);
 $_SESSION['init'] = true;
 
+
+echo '<body style="background-image:url(\'logo.png\');background-size:22%;" ><br/><center>
+<div style="margin:10%;background-color:white;margin-top:15%;padding:10px;vertical-align:middle;border:1px solid  black">
+<h2>';
 if(isset($_POST["plaintext"]))
 {
 	if($_POST["plaintext"]=="IS RSA BROKEN?")
@@ -23,13 +27,16 @@ if(isset($_POST["plaintext"]))
 	}
 }
 ?>
-<body>
-Public key can be downloaded <a href='public.txt'>here</a>. The cipher text is <a href='cipher.txt'>here</a>.
 
+Public key : <a href='public.txt'>public.txt</a><br/> Cipher text : <a href='cipher.txt'>cipher.txt</a>
 
+<br/>
 <form method="post">
 <input type="text" name="plaintext" />
 <input type="submit" value="Submit Plaintext"/>
 </form>
+</h2>
+</div>
+<center>
 </body>
 </html>
