@@ -109,7 +109,6 @@ class ChallengeMonitorController {
     private function check_values($user_id = null, $chid = null, $class_id = null, $token = null){
 	
 		//TODO full of ugly hacks needs refactoring start by putting an else with redirect after the if $pair
-		var_dump(func_get_args());
 		
 		if($user_id === NULL)
 			$user_id = $_SESSION['user_id'];
