@@ -27,7 +27,7 @@ td{padding:15px}
 <td><img src="alice.png"/></td>
 <th><h3 style="color:green"> KEY 1</h3>58ad36a3a88352fae339bfb9fe0de1d3</th>
 <td><img style="width:128" src="eve.png"/></td>
-<th><h3 style="color:#8F3107"> KEY 1</h3>fd7941b217a308461b6ec046aaf9060b</th>
+<th><h3 style="color:#8F3107"> KEY 2</h3>fd7941b217a308461b6ec046aaf9060b</th>
 <td><img src="alice.png"/></td>
 </tr>
 <tr>
