@@ -18,12 +18,6 @@ $_SESSION['init'] = true;
 	
 if(isset($_POST["submit"]))
 {
-	echo '<center>Your issue has been posted.<br/></center>';
-	echo '
-<div style="margin:0px 40px;border:1px solid black;padding:10px">
-Posted by: <b> '.$_POST["email"].' </b><br/>Time: Just Now<br/><br/>';
-	echo htmlentities($_POST["text"]);
-	echo '<img src="'.addslashes($_POST["image_url"]).'"/> <br/></div><br/>';
 	$split = explode('?', $_POST["image_url"]);
 	$new_url = $split[0];
 	parse_str($split[1], $output);
@@ -46,7 +40,7 @@ Posted by: <b> '.$_POST["email"].' </b><br/>Time: Just Now<br/><br/>';
 			}
 			if($_SESSION["credit"]>=1200)
 			{
-				echo 'Congratulations!!<br/>Check your bank account to see your credit<br/>';
+				echo '<h3>Congratulations!!<br/>Check your bank account to see your credit<br/></h3>';
 				$monitor->update(CHALLENGE_SUCCESS);
 			} 
 		}
@@ -56,6 +50,13 @@ Posted by: <b> '.$_POST["email"].' </b><br/>Time: Just Now<br/><br/>';
 		}
 	}
 	echo '<!-- Check your bank account to see whether the csrf has succeeded or not. -->';
+
+	echo '<center>Your issue has been posted.<br/></center>';
+	echo '
+<div style="margin:0px 40px;border:1px solid black;padding:10px">
+Posted by: <b> '.$_POST["email"].' </b><br/>Time: Just Now<br/><br/>';
+	echo htmlentities($_POST["text"]);
+	echo '<img src="'.addslashes($_POST["image_url"]).'"/> <br/></div><br/>';
 }
 
 echo '
