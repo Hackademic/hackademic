@@ -3,7 +3,7 @@
 <head>
 <title>Challenge 25</title>
 </head>
-<body style="background-image:url('back.jpg');">
+<body style="background-image:url('back.jpg');margin:0 0;">
 <center>
 
 
