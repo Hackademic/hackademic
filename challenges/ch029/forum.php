@@ -46,7 +46,7 @@ Posted by: <b> '.$_POST["email"].' </b><br/>Time: Just Now<br/><br/>';
 			}
 			if($_SESSION["credit"]>=1200)
 			{
-				echo 'Congratulations!!<br/>';
+				echo 'Congratulations!!<br/>Check your bank account to see your credit<br/>';
 				$monitor->update(CHALLENGE_SUCCESS);
 			} 
 		}
