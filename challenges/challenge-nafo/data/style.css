@@ -1,0 +1,51 @@
+﻿html,body{background-color:#DCDCDC;margin:0;padding:0;border:solid #DCDCDC 1px;font-family:sans-serif;height:100%;color:#FFF5EF;font-size:16px}
+section{padding:20px 20px 0;margin:0}
+section#page{position:relative;margin-left:200px;margin-top:105px;border-radius:20px 0 0 0;background-color:#223645;border:solid #DCDCDC 1px;min-height:81%;padding-bottom:50px}
+section#body{width:95%;height:90%}
+section.column{display:inline-block;vertical-align:top;width:50%;padding:0}
+section.three_column{display:inline-block;vertical-align:top;width:30%;padding-left:0}
+section.three_column p{margin:0;padding:0}
+nav#slave{width:200px;float:left;margin:0;margin-top:115px;padding-top:20px}
+nav#slave ul{list-style-type:none;padding-left:40px;margin-left:0}
+nav#slave li{margin-bottom:2px}
+nav#slave a{color:#223645}
+nav#master{display:inline-block;position:absolute;right:5%;top:0;background-color:#DCDCDC;padding:2px 6px;border-radius:0 0 10px 10px;list-style-type:none;display:inline}
+nav#master ul{margin:0;padding:0;list-style-type:none}
+nav#master li{display:inline-block}
+nav#master a{color:#1A1D26;font-weight:700;font-size:small}
+header{position:absolute;top:0;width:99%;text-align:center;padding:0;color:#1A1D26}
+header h1{margin-bottom:8px}
+footer{position:absolute;bottom:0}
+article{position:relative;padding:1px 20px 10px;margin:0 0 20px 10px;background-color:#2e495f;border-radius:5px 5px 5px 5px}
+article#last_article{margin-bottom:4em}
+.three_column article{margin-left:0}
+a{text-decoration:none;color:#FFF5EF}
+a:hover{text-decoration:underline}
+h1 a:hover{text-decoration:none}
+h1 a,h1{color:#1A1D26;font-weight:300;font-size:32px}
+h2,h3{color:#FFF5EF}
+fieldset{padding-top:0}
+h4{margin-top:10px;padding-top:0;margin-bottom:5px;padding-bottom:0}
+label{display:block;width:200px;float:left}
+input,select{margin-left:5px}
+legend{color:#FFF5EF}
+td{text-align:center}
+th{text-align:center;height:30px}
+a img{border:none}
+img{margin:0 5px}
+.error{color:#B83A1B}
+#logo{height:98px;width:125px;position:absolute;left:25px;top:5px}
+p.button_add{height:50px;border:solid 1px #223645}
+p.button_add a img{float:left}
+p.button_add a:hover img{text-decoration:none}
+p.button_add a span{display:block;margin-top:7px}
+article h3{font-size:1em;margin-bottom:0}
+article p{margin-top:5px}
+ul#sommaire li{padding-top:5px;font-weight:700}
+ul#sommaire li li{padding-top:0;font-weight:400}
+fieldset.well{padding-top:0;background-color:#DCDCDC;color:#000}
+fieldset.well h3{color:#000}
+fieldset.well a{color:#08c}
+fieldset.well p{margin-left:10px}
+.hidden-file-input{visibility:hidden;position:absolute;z-index:-1}
+#new_email_box{border:3px solid blue;padding:10px;width:500px;height:100px;background-color:white;color:black !important;position:absolute;bottom:0px;right:0px;}
