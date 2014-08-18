@@ -18,7 +18,9 @@ require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 $monitor->update(CHALLENGE_INIT, $_GET);
 $_SESSION['init'] = true;
 
-$connect=mysqli_connect(DB_HOST,"Hackademic_MYSQL",DB_PASSWORD,DB_NAME);
+include "start_db.php";
+
+$connect=mysqli_connect(DB_HOST,$database_name,'hackademic_password',$database_name);
 
 echo '<center>';
 echo '<h1 style="display:inline">Enter A Brand:</h1>
@@ -91,6 +93,8 @@ Email:<input type="text" name="new_user" value="example@example.com"/>
 <input type="submit" value="Get Membership" style="display:inline;"/>
 </form>
 ';
+
+include "stop_db.php";
 ?>
 
 

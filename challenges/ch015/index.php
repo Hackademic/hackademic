@@ -24,7 +24,7 @@ if (preg_match('/https?:\/\/example\.com/',$_SERVER['HTTP_REFERER']))
 	if (preg_match('/^https?:\/\/example\.com/',$_SERVER['HTTP_REFERER']) OR !(preg_match('/challenges\/ch015\/index.php/',$_SERVER['HTTP_REFERER'])) )
 	{
 	echo 'Access Denied<br/>';
-		echo 'It appears that you have spoofed the referred header.The secure browser helps us identify Referer Spoofing.
+		echo 'It appears that you have spoofed the referred header.The secure browser helps us identify Referer Spoofing.You cannot change your domain name.
 			<br />Hint: An Insecure Regular Expression is used to validate the referrer address.<br/>';  
 	}
 	else if (preg_match('/challenges\/ch015\/index.php/',$_SERVER['HTTP_REFERER']))

@@ -19,12 +19,12 @@ if(isset($_GET['abort']))
 	$monitor->update(CHALLENGE_SUCCESS, $_GET);
 }
 else{
-	$connect=mysqli_connect(DB_HOST,"Hackademic_MYSQL",DB_PASSWORD,DB_NAME);
+	$connect=mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 
 	if(isset($_POST['com_pass']))
 	{
 		//user can not update/delete anything,also no result is shown to him,multiple sql statements separated by semi-colonare disabled by the use of mysqli_query()
-		$query="SELECT * FROM MobiStore_Members WHERE  id=1 and Password='".$_POST['com_pass']."';";
+		$query="SELECT * FROM users WHERE id=1 and password='".$_POST['com_pass']."';";
 		$result= mysqli_query($connect,$query);
 		if($result->num_rows>0)
 		{
