@@ -1,0 +1,8 @@
+@font-face{font-family:"ui-icons";src:url(ui-icons.eot);src:url(ui-icons.eot?#iefix) format("embedded-opentype"),url(ui-icons.ttf) format("truetype"),url(ui-icons.svg#ui-icons) format("svg"),url(ui-icons.woff) format("woff");font-weight:400;font-style:normal}
+.outofstock .PD_outofstock:before,.mobile .outofstock .outofstock:before{font-family:"ui-icons";content:"W "}
+.outofstock .chooseBox .step1{height:auto}
+.outofstock .PD_outofstock,.mobile .outofstock .outofstock{color:#6A93CA}
+.outofstock .PD_outofstock,.outofstock .stepOpt{white-space:nowrap}
+.mobile .outofstock .outofstock{font-size:16px;font-weight:700;margin-top:10px}
+.outofstock .rightCol-top{padding:0}
+.outofstock #ctl00_cphPageMain_pnlTurnTo{clear:both}
