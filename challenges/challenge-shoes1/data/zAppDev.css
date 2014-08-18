@@ -1,0 +1,269 @@
+div.breadCrumbs h2{font-size:11px;font-weight:400;margin:0;padding-left:10px}
+input.watermark{color:#CCC}
+body.instocknoticerequestPage div.logoAndText,body.instocknoticerequestPage div.logoAndText div#topnav-upper,div.noticeInputsWrapper{width:530px}
+body.instocknoticerequestPage div.logoAndText,div.noticeInputsWrapper{padding:10px}
+body.instocknoticerequestPage div.logoAndText{background-color:#ccc}
+body.instocknoticerequestPage div.logoAndText #topnav-logo,body.instocknoticerequestPage div.logoAndText #topnav-banner{margin:0}
+body.instocknoticerequestPage div#content-body{height:510px}
+body.instocknoticerequestPage #qs-size-womens,body.instocknoticerequestPage #qs-size-mens,body.instocknoticerequestPage #qs-size-girls,body.instocknoticerequestPage #qs-size-boys,body.instocknoticerequestPage #qs-size-bags{display:block}
+div.noticeInputsWrapper{text-align:center}
+#SizeNotify div.noticeInputsWrapper{width:400px}
+div.noticeInputsWrapper table.noticeInputs{margin:0 auto 10px}
+table.noticeInputs{background-color:#ccc;padding:5px}
+table.noticeInputs td.leftColumn{text-align:right;vertical-align:top;width:150px}
+table.noticeInputs td.rightColumn{text-align:left;width:200px}
+.hidden{display:none}
+.noticeInputs #qs-size-womens,.noticeInputs #qs-size-mens,.noticeInputs #qs-size-girls,.noticeInputs #qs-size-boys,.noticeInputs #qs-size-bags{padding:0}
+#dvLanguage{width:960px;margin:8px auto 0}
+#switchToEnglish{background:transparent url(US.png) no-repeat scroll 0 0;display:inline;float:right;height:23px;width:35px;text-indent:-9999px;margin-right:5px}
+#switchToFrench{background:transparent url(FR.png) no-repeat scroll 0 0;display:inline;float:right;height:23px;width:35px;text-indent:-9999px}
+#dvLanguage .inactive{-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=20);filter:alpha(opacity=20);opacity:.2}
+.frenchContent{background-color:#faa}
+.trackingInput{color:#57575B;font-family:Arial,Helvetica,sans-serif!important;font-size:12px;font-weight:400}
+.trackingInput input{border:solid 1px #000}
+.orderStatDefs{margin:1px}
+.orders-listContainer{margin:10px 0 0}
+.orders-listTable th{text-align:left;font-weight:700;font-size:1.15em}
+.orderSearchSelectors{color:#aa152a;font-family:Arial,Helvetica,sans-serif;font-size:8pt}
+.orderSearchSelectors a{color:#aa152a}
+.orderSearchSelectors a.active{font-weight:700;text-decoration:none}
+.trackingOptions{padding:0 0 0 22px;overflow-y:hidden}
+.radioLabel{vertical-align:top}
+.leftOrderTrackingPanel{padding:0 0 0 10px}
+.orderDetailHeader{text-transform:uppercase}
+#detailData{float:left}
+#detailInfo{float:left;width:450px;margin-left:25px}
+#orders-loading-wrapper{display:none;margin:80px auto}
+#resultsDisplay{font:13px/18px Arial,Helvetica,sans-serif}
+#resultsDisplay a{font-size:1.2em;line-height:2em;color:#526AD1}
+#resendOrderConfirmationMessage{color:#9a5c84;display:block;font-size:1.2em;font-weight:700;padding-bottom:10px}
+#orders-loading-wrapper .orders-loading-text{font-size:1.2em;font-weight:400;margin:10px 0;color:#D1D2D4;text-align:center}
+#orders-loading-wrapper .orders-loading-gif{background:transparent url(ajax-loader-bar.png) no-repeat scroll center;height:19px}
+#orderStatusButton{cursor:pointer;background-image:url(btn-or-status.png);background-repeat:no-repeat;width:146px;height:33px}
+.orders-contentBox h5{margin:0}
+.TrackOrderContainer{line-height:normal!important}
+.orders-hdr-trkMyOrder h3{display:inline!important}
+.ValidateError a{color:#940101;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-size-adjust:none;font-stretch:normal;font-style:normal;font-variant:normal;font-weight:700;line-height:18px;text-decoration:underline}
+body.loginPage td#content-nav,body.loginPage h2.acct-subHdr,body.loginPage div.radioButtonsWrapper{display:none}
+body.loginPage div#returnCustLoginBox,body.loginPage div#newCustWrap{float:left;border:3px solid #dddbd4;height:250px}
+body.loginPage div#newCustWrap{width:490px}
+body.loginPage div#returnCustLoginBox{width:315px;margin:0 25px}
+body.loginPage #content-shop{width:auto}
+body.loginPage .cBPad div#newCustWrap ul{list-style-type:disc}
+body.loginPage div#returnCustLoginBox,body.loginPage div#newCustWrap{padding:15px 20px}
+body.loginPage div#returnCustLoginBox h2,body.loginPage div#newCustWrap h2{margin-top:0;color:#9a5c84;font-size:18px;line-height:18px}
+body.loginPage a.forgotPassword{font-size:10px}
+body.loginPage div#returnCustLoginBox{background-color:#F0EFED}
+body.loginPage table.returnCustLoginBox{margin:0;padding:0;width:auto}
+body.loginPage td.step1login_pwd{vertical-align:top}
+body.loginPage div.contentWrap_gradient{width:980px;padding:0}
+body.loginPage div#newCustWrap input.btn_Proceed,body.loginPage div#returnCustLoginBox input.btn_Proceed{float:right;margin-right:47px}
+body.loginPage div#newCustWrap input.btn_Proceed{background:transparent url(btn_signup.png) no-repeat scroll 0 0}
+body.loginPage div#returnCustLoginBox input.btn_Proceed{background:transparent url(btn_signin.png) no-repeat scroll 0 0}
+body.loginPage td.step1login_pwdField a{display:block;text-decoration:underline}
+body.loginPage #SubFooter{margin-top:15px}
+.embeddedLoginBox div{margin-right:4px}
+.Horizontal .email,.Horizontal .order-number{float:left}
+.Horizontal .password,.Horizontal .ship-to-zip{float:left}
+.Horizontal .submit,.Horizontal .submit-panel{float:left;margin-top:20px}
+#returns-error-messages{font-size:18px;font-weight:700;color:red;text-align:center;display:none;clear:both}
+#returns-wrap{width:860px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+#returns-wrap h3{float:left;font-size:28px;margin:0 0 30px;padding:0}
+#returns-wrap input{width:200px}
+#returns-wrap .trackingOptions{padding:0}
+#returns-international a{float:right;font-size:18px;font-weight:700;width:300px;color:#00f;text-decoration:none;margin:10px 0 0}
+#returns-international a:hover{text-decoration:underline}
+#returns-walkthrough{width:610px;margin:0 auto;clear:both;text-align:left;font-weight:700}
+#current-step{margin:0 0 5px;text-align:left;padding:0;font-size:18px}
+#returns-walkthrough ul{list-style:none;margin:0 0 50px;padding:0}
+#returns-walkthrough li{display:block;width:150px;height:18px;font-size:14px;padding:7px 0;text-align:center;border:1px solid #333;float:left}
+.current{display:block;width:145px;font-weight:700;background-color:#333;color:#FFF;text-transform:lowercase}
+.returns-find{margin:20px auto 10px;background-color:#ebebeb;width:820px;text-align:left;height:250px;padding:30px 20px 10px}
+.returns-search{width:300px;float:left}
+.step-2{height:200px;width:510px;float:left}
+.step-2 .returns-search{width:510px}
+.step-2 .returns-search-header{float:left}
+.step-2 .returns-search-control{float:left;margin:-14px 0 0 20px}
+.returns-choose{width:200px;float:left;font-size:24px;text-align:center;margin:60px 0 0}
+.returns-login{width:300px;float:left}
+.returns-login .contentWrap_gradient{padding:0}
+.returns-login h1{margin:0 0 20px;color:#000}
+.returns-login .password{margin:20px 0}
+.returns-find h4{margin:0 0 5px;padding:0;font-size:18px}
+#ctl00_cphPageMain_ucFindAnOrder_pnlReturnsSearchHeader h4{font-size:14px}
+#returns-search-order{margin:25px 0 0}
+.returns-search #returns-search-shipping{margin:15px 0 0}
+.returns-search .trackingInput,.returns-search .label,.returns-login .email-label,.returns-login .pwd-label{font-size:14px;font-weight:700;color:#000;text-transform:capitalize}
+#returns-search-wrap{margin:15px 0 0}
+.returns-search-button,.returns-search #orderStatusButton{background:url(btn-findorder.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:21px;width:175px;text-indent:-9999px}
+.returns-tip a{color:#00f;font-size:11px;text-decoration:none;font-weight:400;margin:0 0 0 20px}
+.forgot-pwd a{color:#00f;font-size:11px;text-decoration:none;font-weight:400;margin:5px 0 0}
+#returns-login-password{margin:15px 0 0}
+#returns-login-wrap{margin:15px 0 0}
+.returns-login .btn_Proceed{background:url(btn-login.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:21px;width:175px;text-indent:-9999px}
+.returns-policy{margin:0 0 20px 20px;text-align:left;clear:both}
+.returns-policy a{font-size:16px;font-weight:700;color:#00f;text-decoration:none}
+.returns-video{text-align:left;height:200px;width:200px;border:solid 1px #000}
+.step2-video{float:left;margin:20px}
+#returns-wrap{width:860px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:12px}
+#returns-wrap h3{float:left;font-size:28px;letter-spacing:-1px;margin:0;padding:0}
+#returns-wrap input.radio{width:50px}
+#returns-international a{float:right;font-size:18px;font-weight:700;width:300px;color:#00f;text-decoration:none;margin:10px 0 0}
+#returns-international a:hover{text-decoration:underline}
+#returns-walkthrough{width:610px;margin:0 auto;padding:20px 0 0}
+#returns-walkthrough h4{margin:0 0 5px;padding:0;font-size:18px}
+#returns-walkthrough ul{list-style:none;margin:10px 0 50px;padding:0}
+#returns-walkthrough li{display:block;width:150px;height:25px;font-size:14px;padding:7px 0 0;text-align:center;border:1px solid #333;float:left}
+.current{display:block;width:145px;font-weight:700;background-color:#333;color:#FFF}
+#returns-choose{width:200px;float:left;font-size:24px;text-align:center;margin:60px 0 0}
+#returns-login{width:300px;float:left}
+#returns-find h4{margin:0 0 5px;padding:0;font-size:18px}
+#returns-search-order{margin:25px 0 0}
+#returns-search-shipping{margin:15px 0 0}
+.label{font-size:14px;font-weight:700}
+#returns-search-wrap{margin:15px 0 0}
+.returns-search-button{background:url(btn-findorder.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:21px;width:175px;text-indent:-9999px}
+.returns-tip a{color:#00f;font-size:11px;text-decoration:none;font-weight:400;margin:0 0 0 20px}
+.returns-tip-password a{color:#00f;font-size:11px;text-decoration:none;font-weight:400;margin:5px 0 0}
+#returns-login-password{margin:15px 0 0}
+#returns-login-wrap{margin:15px 0 0}
+.returns-login-button{background:url(btn-login.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:21px;width:175px;text-indent:-9999px}
+#returns-policy{margin:0 0 20px 20px}
+#returns-policy a{font-size:16px;font-weight:700;color:#00f;text-decoration:none}
+#returns-edit ul{font-weight:700;font-size:14px}
+#returns-head-instructions{clear:left;width:500px;line-height:14px;margin:10px 0 0}
+#returns-needhelp{text-align:center;float:right;font:20px Arial,Helvetica,sans-serif;font-weight:bolder;color:#57575b}
+#returns-needhelp span{color:#9a5c84}
+.returns-orders-onfile{clear:left;margin:20px auto 10px;position:relative;background-color:#ebebeb;width:820px;height:25px;padding:5px 20px 10px}
+#returns-orders-onfile-past{clear:left;margin:40px auto 10px;width:820px;border-top:1px solid #000;padding:5px 20px 10px}
+#returns-select-heading{margin:10px 0 0}
+.returns-orders-onfile h4{margin:0 0 5px;padding:0;font-size:24px;color:#333}
+#returns-sortby{position:absolute;top:10px;right:20px;width:250px}
+#returns-sortby span{font-weight:700}
+#selected-items-header{font-size:22px;font-weight:700;color:#CC146A;display:none;margin:20px 0 0}
+#returns-orders-details{clear:left}
+#returns-order-details ul{margin:0;padding:0;list-style:none}
+#returns-order-details li{margin:0;display:block;float:left;text-align:center;width:286px;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:700}
+#returns-order-details li span{font-weight:400}
+#returns-find-order{background-color:#ebebeb;height:200px;width:500px;float:left;margin:10px 0 0}
+#returns-search-bottom{width:250px;float:right;margin:0 0 0 10px}
+#returns-search h4{margin:10px 0 5px 10px;padding:0;font-size:24px;color:#333}
+#returns-search-order-bottom{margin:0}
+#returns-edit h3{margin:0 0 10px}
+#returns-video-bottom{float:right;width:320px;margin:10px 0 0 10px}
+#returns-video-bottom h4{margin:0 0 10px;padding:0}
+.returns-tip-bottom a{color:#00f;font-size:11px;text-decoration:none;font-weight:400;margin:0 0 0 20px}
+.returns-item-select{float:860px left;width:200px}
+#returns-product-items{float:left;width:30px;height:28em;margin:10px 0 0 5px;font-weight:700;font-family:Arial,Helvetica,sans-serif}
+.returns-item-select a{background:url(btn-select-this-order.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:36px;width:136px;text-indent:-9999px;margin:0 0 0 30px}
+table.data-list{width:100%}
+table.data-list td{width:33%}
+table.data-list tr{height:180px}
+table.data-list td.occupied{border:solid 1px #000}
+table.order-select{width:100%}
+table.order-select td.order-selector{width:25%}
+table.order-select td.items-label{width:50px}
+table.order-select td.items-label div{margin:8px 15px 0 0;font-weight:700}
+.return-overlay{position:absolute;background-color:#666;z-index:101;opacity:.4;filter:alpha(opacity=40);width:181px;height:190px}
+.return-overlay-header{position:absolute;z-index:102;font-size:16px;font-weight:700;color:#000;float:left;text-align:center;height:20px;width:181px;margin:5px 0 0}
+table.return-items th{font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:400}
+#returns-product-horizontal{float:left;margin:0 0 0 10px}
+.returns-item-select-horizontal,.returns-item-deselect-horizontal{width:218px;float:left;height:135px;text-align:center;font-weight:700}
+.returns-item-select-horizontal a,.returns-item-deselect-horizontal a.returns-item-deselect-image{cursor:pointer;display:block;height:36px;width:136px;text-indent:-9999px;margin:50px 0 0 40px}
+.returns-item-select-horizontal a{background:url(btn-select-this-item.png) no-repeat scroll 0 0 transparent}
+.returns-item-deselect-horizontal a.returns-item-deselect-image{background:url(btn-item-selected.png) no-repeat scroll 0 0 transparent}
+.returns-item-deselect-horizontal a.click-to-remove{color:#000;text-decoration:none}
+.returns-item-deselect-horizontal a.click-to-remove:hover{text-decoration:underline}
+.returns-item-return-horizontal{width:218px;float:left;height:135px}
+.returns-item-return-horizontal a,.returns-item-return-horizontal div{margin:50px 0 0 40px}
+.returns-item-return-horizontal div{font-weight:700}
+.returns-item-return-horizontal a{background:url(btn-reprint.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:36px;width:136px;text-indent:-9999px;margin:50px 0 0 40px}
+.item-checked{background:url(item-selected-check.png) no-repeat scroll 0 0 transparent;width:25px;height:21px}
+.no-reason-selected{display:none;color:red;font-weight:700;text-align:center;width:150px}
+#returns-product-horizontal-details{float:left;width:205px}
+#returns-product-horizontal-details ul{list-style:none;font-family:Arial,Helvetica,sans-serif;font-size:12px;float:left;line-height:16px}
+#returns-product-horizontal-details li{margin:0;padding:0}
+#returns-product-horizontal-details span{font-weight:700}
+.returns-product-reason{width:280px;float:left;text-align:center;font-weight:700}
+.returns-product-reason-inner{text-align:left;margin:auto;width:184px}
+.returns-reason-dropdown{width:184px}
+.returns-product-reason span{font-weight:400}
+.returns-tell-us-why{display:none}
+#returns-footer{clear:left;margin:20px auto 10px;position:relative;width:820px;height:25px;border-top:1px solid #000;padding:5px 20px 10px}
+#returns-goback a{position:absolute;width:176px;height:21px;background:url(btn-back.png) no-repeat scroll 0 0 transparent;cursor:pointer;left:0;top:15px;text-indent:-9999px}
+#returns-next a{position:absolute;width:176px;height:21px;right:0;top:15px;text-indent:-9999px}
+.next-on a{background:url(btn-next-on.png) no-repeat scroll 0 0 transparent;cursor:pointer}
+.next-off a{background:url(btn-next-off.png) no-repeat scroll 0 0 transparent;cursor:default}
+.address-validation-fail,#returns-find-validation-errors,.return-item-errors,#returns-footer-error-message{color:red}
+#returns-find-validation-errors,.return-item-errors,#returns-footer-error-message{font-weight:700;clear:both;padding-top:20px}
+.address-validation-fail,#returns-footer-error-message{display:none}
+#returns-footer-error-message{margin:16px 0 0;text-align:center}
+#returns-orders-clean{clear:left;margin:20px auto 10px;position:relative;height:25px;padding:5px 20px 10px}
+#returns-orders-clean h4{margin:0 0 5px;padding:0;font-size:24px;color:#333}
+#returns-choices{font-weight:700}
+#returns-select-choose{font-size:24px;margin:10px 0}
+#infoUSPS{font-weight:400;width:500px;position:relative;margin:10px 10px 10px 100px}
+.finish-on a{background:url(btn-finish.png) no-repeat scroll 0 0 transparent;cursor:pointer}
+.finish-off a{background:url(btn-next-off.png) no-repeat scroll 0 0 transparent;cursor:default}
+#PrintLabels h4{margin:0 0 5px;padding:0;font-size:24px;color:#333}
+#PrintLabels{position:relative}
+#NoPrinter h4{margin:0 0 5px;padding:0;font-size:24px;color:#333}
+#returns-labels-select-choose{font-size:24px;margin:50px 0 10px;position:relative}
+#EmailMe{margin:10px 0 10px 30px}
+#MailMe{margin:10px 0 10px 30px}
+#returns-print-label{width:400px;position:relative;margin:10px 0 0}
+#returns-print-label a{position:absolute;width:176px;height:36px;cursor:pointer}
+#returns-print-instructions{width:200px;position:absolute;left:150px;top:5px}
+.ReturnLableImg{width:740px;height:423px}
+.returns-choose-carrier input{width:50px!important}
+.rdbMailMe,.returns-check-box,.returns-radio-button{width:50px!important}
+#returns-your-return{font-size:24px;color:#d80e6e;font-weight:700;clear:left;width:450px}
+#returns-final-copy{margin:10px 0 0 30px;line-height:18px;font-size:14px}
+#returns-final-copy h5{font-size:20px}
+#returns-goto-shoes a{color:#00f;font-size:24px;font-weight:700;text-decoration:none}
+#EmailMe{margin:10px 0}
+#FileEmail{margin:10px 0}
+#OtherEmailAddress{margin:10px 0}
+#return-email-me{margin:10px 0}
+#return-email-me .return-email-me-button{witdth:157px;height:21px;background:url(btn-email-me.png) no-repeat scroll 0 0 transparent;cursor:pointer;border:0;margin:10px 0 0 30px}
+#return-mail-me .return-mail-me-button{witdth:157px;height:21px;background:url(btn-mail-me.png) no-repeat scroll 0 0 transparent;cursor:pointer;border:0;margin:10px 0 0 30px}
+#ShippingAddress{margin:10px 0 10px 60px}
+#BillingAddress{margin:10px 0 10px 60px}
+#OtherAddress{margin:10px 0 10px 60px}
+#return-label-addr1{margin:5px 0 0}
+#txtAddressLine1{margin:5px 0 0}
+#return-label-addr2{margin:5px 0 0}
+#return-label-city{margin:5px 0 0}
+#return-label-state{margin:5px 5px 0 0}
+#return-label-zip{margin:5px 5px 0 0;width:120px}
+#return-email-validation-fail{font-size:14px;font-weight:700;color:#C00}
+#return-label-validation-fail{font-size:14px;font-weight:700;color:#C00}
+#EmailSuccess{font-size:14px;font-weight:700;color:#060}
+#MailSuccess{font-size:14px;font-weight:700;color:#060}
+div.return-labels{page-break-after:always;page-break-inside:avoid;margin:0 0 20px}
+div.return-labels table{clear:both}
+#return-cover-letter{page-break-after:always;page-break-inside:avoid;margin:0 0 20px}
+#returns-loading-wrapper{display:none;text-align:center;margin:70px 0 0}
+#returns-loading-wrapper .orders-loading-text{font-size:1.2em;font-weight:700;margin:10px 0}
+#returns-loading-wrapper .orders-loading-gif{background:transparent url(ajax-loader-bar.png) no-repeat scroll;height:19px;margin:0 0 0 320px}
+div.alternategenderbanner{display:none}
+#bml-learn-more{margin:0 0 0 40px}
+#bml-learn-more a,.chkout-bmlEnroll-form a{color:#9a5c84;text-decoration:none;font-size:12px}
+#bml-learn-more a:hover,chkout-bmlEnroll-form a:hover{text-decoration:underline}
+.chkout-bmlEnroll-subHdr{font-weight:700;border-bottom:solid 2px #000}
+.bmlBoxWrap{cursor:pointer}
+.bml-terms{float:right;color:#004080;font-family:arial,sans-serif;text-transform:uppercase;font-size:6pt;margin-right:20px}
+#paymentform-method .method-billmelater a{font-size:11px;color:#9a5c84}
+#paymentform-method .method-billmelater label{background:url(card-bml.png) no-repeat}
+.StoreLocator-GetDirectionsContainer{float:right;margin:0 80px 0 0}
+#store-detail .StoreLocator-EmbeddedMapContainer{clear:both}
+.ajaxHide{width:1px;height:1px;overflow:hidden}
+.ajaxShow{visibility:visible;width:auto;height:auto;display:none}
+#store-detail a{color:#AC1A2F;text-decoration:none}
+div#ResultZone2_wrapper div.genderless div.productCell{display:none;height:28em!important}
+div#ResultZone2_wrapper div.genderless div.pnlGenderResults div.productCell{display:block}
+div#ResultZone2_wrapper div.genderless div.productCell{display:none;height:28em!important}
+div#ResultZone2_wrapper div.genderless div.pnlGenderResults div.productCell{display:block}
+div#doesntExist123{display:none}
+span.StatsCount{display:none}
+.refineList .productCell{width:auto;font:1em/1.6em Arial,Helvetica,sans-serif;padding:0}
