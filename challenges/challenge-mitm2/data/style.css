@@ -1,0 +1,61 @@
+body {
+	width: 970px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+#mitm_form {
+	margin-left: 230px;
+	width: 500px;
+}
+
+#server {
+	float: left;
+	position: relative;
+}
+
+#smartphone {
+	float: right;
+	margin-left: 25px;
+	position: relative;
+}
+
+#smartphone_image {
+	width: 200px;
+}
+
+#server_image {
+	margin-top: 27px;
+	width: 200px;
+}
+
+img.loading {
+	width: 50px;
+	position: absolute;
+}
+
+#server img.loading {
+	top: 170px;
+	right: 40px;
+}
+
+#smartphone img.loading {
+	left: 75px;
+	top: 130px;
+}
+
+#clickable_layer_smartphone {
+	position: absolute;
+	width: 200px;
+	height: 333px;
+	cursor: pointer;
+	top: 0px;
+	z-index: 1;
+}
+
+#access_denied {
+	width: 150px;
+	position: absolute;
+	top: 100px;
+	left: 30px;
+}
