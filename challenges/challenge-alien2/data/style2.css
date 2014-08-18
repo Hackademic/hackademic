@@ -1,0 +1,44 @@
+html{width:1000px;margin-left:auto;margin-right:auto}
+body{border:0;margin:0;height:100%;font-family:Ubuntu,Trebuchet MS,sans-serif;font-size:17px;font-weight:300;line-height:21px;text-decoration:none;width:1000px}
+a{text-decoration:none}
+a:hover{text-decoration:none}
+.H3{font-size:.85em;line-height:.65em;font-weight:500}
+input[type="submit"]{min-width:90px;padding:0 12px;font-size:.75em;text-align:center;height:30px;font-family:Ubuntu,Trebuchet MS;font-weight:500;border-radius:15px 15px;cursor:hand;cursor:pointer}
+.homeicon{opacity:.6}
+.homeicon:hover{opacity:1!important}
+nav{margin-bottom:5px;max-width:1000px;margin-left:auto;margin-right:auto;position:relative;z-index:9999}
+header{padding:10px;width:980px;height:90px;margin-left:auto;margin-right:auto;border-top:2px #000 solid;clear:both}
+.blacktopmenu{height:45px;width:100%;position:relative;margin:0;z-index:9999;border-top:2px gray solid;border-bottom:2px #404040 solid;background:#666462}
+.blacktopmenu ul{list-style:none;margin:0;padding:0;float:left}
+.blacktopmenu li{float:left;list-style:none;padding:10px 9px 0;height:37px;font-size:.9em;text-decoration:none;font-weight:300}
+.submenu{display:none}
+.submenu ul{margin:0;z-index:999;width:100%;clear:both;list-style:none;margin:0;padding:0;float:left;height:40px;margin-bottom:5px}
+.submenu li{padding:5px 0 5px 12px;height:30px;font-size:.9em;text-decoration:none;margin-left:5px;font-weight:300;float:left;list-style:none;display:block}
+.submenu ul a{text-decoration:none}
+.login{margin:0;z-index:999;width:100%;clear:both;display:inline-block;margin:0;padding:4px 0 0;float:left;height:40px;margin-bottom:5px}
+#mainHome,#mainTop,#mainHot,#mainNew,#mainRecent,#mainArchive,#mainForums,#mainMyats,#mainLogout{display:inline}
+#subTop,#subHot,#subNew,#subArchive,#subLogout{display:none}
+#resbody{width:1000px;min-height:900px;margin-left:auto;margin-right:auto;margin-bottom:0;padding:0;text-align:left;overflow:auto;clear:both}
+[class^="icon-"],[class*=" icon-"]{text-align:center;vertical-align:middle}
+.hide{display:none}
+.colorC{padding:0;border-radius:32px 32px;width:64px;height:64px;float:left;margin-right:8px}
+.item{float:left;margin:12px 20px 12px 0;padding:0}
+.col2{width:290px;max-height:300px;position:relative;z-index:1}
+.colT{width:640px;max-height:250px;text-overflow:ellipsis;position:relative;z-index:1}
+.colad{margin:10px;padding:0p;width:300px;height:70px;border:none}
+.forums{margin:4px 0 4px 8px;float:left}
+.tabOff{font-size:.9em;line-height:1em;font-weight:300;text-decoration:none;padding:0;letter-spacing:normal;cursor:hand;cursor:pointer}
+.tabBtn{float:right;width:52px;height:40px;margin:10px 2px 0;border-radius:10px 10px;text-align:center}
+.tabBtn:hover{width:52px;height:40px}
+.rsinfo2{font-size:2em;line-height:1em;padding:20px 0 5px;font-weight:300;letter-spacing:-1px;text-align:right}
+.rsinfo3{font-size:1.5em;line-height:1em;letter-spacing:-.5px;font-weight:300}
+.rsinfo4{font-size:.85em;font-weight:300;padding:5px 0 0 15px}
+.rsinfo6{font-size:.7em;line-height:1.5em;font-weight:300}
+.rsinfo8{font-size:.6em;line-height:1em}
+.rsbold{font-weight:500}
+.textform{font-family:Trebuchet MS,sans-serif;font-size:18px;line-height:20px;width:260px;height:24px;padding:4px 0 4px 12px;border-radius:12px 12px}
+.smaller{font-size:15px;width:100px;height:20px;padding:2px 0 2px 5px;margin:0 0 6px}
+.board{border-radius:10px 10px;width:200px;height:82px;padding:3px}
+#boardLeft{float:left;width:300px;margin:0 5px 50px;padding:15px 5px;height:auto;border-radius:15px 15px}
+#boardRight{float:left;width:660px;padding:0 0 10px}
+.login{margin-top:20px}
