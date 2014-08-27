@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Blinding Signatures</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        We have a message m, for which we want a valid signature. While we have access to a Sign Oracle to query signatures, it will not respond and sign the challenge message for which we want the signature.
+        Your Mission, should you choose to accept it, is to forge a signature on the challenge message, using the oracle (or otherwise). 
+
+    </description>
+    <level>6</level>
+	<duration>60</duration>
+</challenge>
