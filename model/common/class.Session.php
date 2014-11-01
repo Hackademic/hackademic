@@ -160,6 +160,7 @@ class Session {
 					$ESAPI_utils = new Esapi_Utils();
 				}
 				session_id($ESAPI_utils->getHttpUtilities()->getCSRFToken());
+				ini_set( 'session.cookie_httponly', 1 );
 				session_start();
 				//error_log(session_id(),0);
 				$_SESSION['TOKEN'] = $ESAPI_utils->getHttpUtilities()->getCSRFToken();
@@ -187,6 +188,7 @@ class Session {
 			error_log("HACKADEMIC:: Regenerating session id possible bug detected", 0);
 			self::regenerateSession();
 		}else{
+			ini_set( 'session.cookie_httponly', 1 );
 			session_start();
 
 			/*If this is a guest session (init hasn't been called first)*/
@@ -195,7 +197,7 @@ class Session {
 			}
 			// Reset the expiration time upon page load
 			if (isset($_COOKIE[SESS_NAME])){
-				setcookie(SESS_NAME, session_id(), time() + $limit, $path);
+				setcookie(SESS_NAME, session_id(), time() + $limit, $path, true);
 			}
 		}
 		//currently we are only checking the session for logged in users
@@ -296,6 +298,7 @@ class Session {
 
 		// Set session ID to the new one, and start it back up again
 		session_id($newSession);
+		ini_set( 'session.cookie_httponly', 1 );
 		session_start();
 
 		// Now we unset the obsolete and expiration values for the session we want to keep
