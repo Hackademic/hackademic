@@ -197,7 +197,7 @@ class Session {
 			}
 			// Reset the expiration time upon page load
 			if (isset($_COOKIE[SESS_NAME])){
-				setcookie(SESS_NAME, session_id(), time() + $limit, $path, true);
+				setcookie(SESS_NAME, session_id(), time() + $limit, $path, null, null, true);
 			}
 		}
 		//currently we are only checking the session for logged in users
