@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Crypto-Challenge</title>
+    <author>
+        Stavros Miras
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       An encryption system has been set up, which uses an unknown algorithm to change the text given. <br /> <a href="ch011/index.php" target="_blank">SITE</a>. <br /> Requirements: Persistence, some general cryptography knowledge.
+        ]]>
+    </description>
+</challenge>
