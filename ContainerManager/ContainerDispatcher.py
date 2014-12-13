@@ -73,8 +73,8 @@ class ContainerDispatcher:
         self.container_list.append(temp)
 
 
-        #create container using virt-install
-        subprocess.call("virt-install -connect lxc:// --name ",name," --ram ",ram," --filesystem ",self.container_root_path,"/",name,"")
+        #create container using virt-install --noautoconsole ensures cirt-install does not open console for the container
+        subprocess.call("virt-install -connect lxc:// --name ",name," --ram ",ram," --filesystem ",self.container_root_path,"/",name," --noautoconsole")
 
 
         #save changes to container_file
