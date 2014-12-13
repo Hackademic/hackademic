@@ -1,3 +1,5 @@
+import shutil
+
 __author__ = 'root'
 
 class Container:
@@ -30,7 +32,8 @@ class Container:
 
     def reloadContainer(self):
 
-        #remove /var/www/html
+        #remove /<container path>/var/www/html/hackademic
+        shutil.rmtree(self.path + "/var/www/html/hackademic")
 
         #remove session files
 
@@ -39,6 +42,10 @@ class Container:
         #change
 
         return
+
+    def isFree(self):
+        return self.free
+
 
 
 
