@@ -6,7 +6,10 @@ class Container:
 
     def __init__(self,name,path):
         self.name = name
+
         self.path = path
+        #path is from / at qemu     "/container/lxc1"
+
         self.free = False
 
     # def initiateContainer(self):
