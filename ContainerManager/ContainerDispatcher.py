@@ -65,7 +65,8 @@ class ContainerDispatcher:
         #create new folder at  container_root_path for new container
         src = self.hackadmic_root_path + '/master'
         dst = self.container_root_path + '/' + name    #replace some_id with random id for new container
-        shutil.copytree(src,dst)
+        #shutil.copytree(src,dst)       may not copy special files
+        subprocess.call('cp -a ' + src + ' ' + dst)
 
         #add to container list
         temp = Container(some_id,dst)
