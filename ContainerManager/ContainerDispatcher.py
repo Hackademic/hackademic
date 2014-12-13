@@ -77,13 +77,27 @@ class ContainerDispatcher:
 
 
         #save changes to container_file
+        self.saveContainerList();
         return
 
 
     def getFreeContainer(self):
         #return a container that is not being used
+        for i in self.container_list:
+            if i.isFree():
+                #remove i from list
+                temp = i
+                self.container_list.remove(i)
 
+                #update container as not free
+                temp.free = false
+                self.container_list.append(temp)
 
+                #return container details
+                return temp
+
+        tempcontainer = self.createContainer()
+        return tempcontainer
 
 
     def startall(self):
