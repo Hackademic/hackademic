@@ -29,9 +29,9 @@ http://localhost/<the path to your hackademic installation>/
 Road Map and Getting Involved
 -----------------------------
 
-We maintain an up to date list of open issues on the platform on our (issues)[https://github.com/Hackademic/hackademic/issues here]
+We maintain an up to date list of open issues on the platform on our [issues](https://github.com/Hackademic/hackademic/issues here)
 
-For a list of features we would like implemented you can see either the issues page or our (Google Summer Of Code ideas page)[https://www.owasp.org/index.php/GSoC2013_Ideas#OWASP_Hackademic_Challenges_-_New_challenges_and_Improvements_to_the_existing_ones]
+For a list of features we would like implemented you can see either the issues page or our [Google Summer Of Code ideas page](https://www.owasp.org/index.php/GSoC2013_Ideas#OWASP_Hackademic_Challenges_-_New_challenges_and_Improvements_to_the_existing_ones)
 
 Involvement in the development and promotion of the Hackademic Challenges is actively encouraged!
 You do not have to be a security expert in order to contribute.
@@ -58,7 +58,7 @@ Contact Us
 If you have any questions or would like to chat 
 you can find us on the #hackademic-dev channel on Freenode
 Also our mailing list is owasp-hackademic-challenges@lists.owasp.org
-you can join here https://lists.owasp.org/mailman/listinfo/owasp-hackademic-challenges
+you can join [here](https://lists.owasp.org/mailman/listinfo/owasp-hackademic-challenges)
 
 Both channels are very low traffic
 
