@@ -2,6 +2,7 @@ import ConfigParser
 from encodings.punycode import selective_find
 import shutil
 from symbol import import_as_name
+from firstboot import config
 
 __author__ = 'root'
 import Container
@@ -23,11 +24,17 @@ class ContainerDispatcher:
 
     def getConfig(self):
 
-        #open config file
-        conf = open("container.conf","r")
+        #check if file exists
+        if os.path.exists("container.conf"):
 
-        #read config into configparser
-        configparser = ConfigParser.ConfigParser()
+            configparser = ConfigParser.ConfigParser()
+
+            #open config file
+            configparser.read("container.conf")
+
+            #read configration
+            self.container_root_path = configparser.get('global','container root path')
+            self.hackademic_root_path = configparser.get('global','hackademic root path')
 
         return
 
