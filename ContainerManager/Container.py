@@ -1,4 +1,5 @@
 import shutil
+import subprocess
 
 __author__ = 'root'
 
@@ -11,13 +12,6 @@ class Container:
         #path is from / at qemu     "/container/lxc1"
 
         self.free = False
-
-    # def initiateContainer(self):
-    #
-    #     #copy hackademic folder
-    #     #copy session files
-    #     #copy database files
-    #     return
 
 
     def startContainer(self):
@@ -39,11 +33,6 @@ class Container:
         shutil.rmtree(self.path + "/var/www/html/hackademic")
 
         #remove session files
-
-        #remove /var/lib/mysql/hack database
-        #or
-        #change
-
         return
 
     def isFree(self):

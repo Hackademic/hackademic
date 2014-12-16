@@ -36,6 +36,10 @@ class ContainerDispatcher:
             self.container_root_path = configparser.get('global','container root path')
             self.hackademic_root_path = configparser.get('global','hackademic root path')
 
+        else:
+            #add some kind of failsafe
+            return
+
         return
 
 
@@ -87,19 +91,22 @@ class ContainerDispatcher:
 
     def createContainer(self,name,ram):
 
+        #load container configuration from config file?
         #create new folder at  container_root_path for new container
         src = self.hackadmic_root_path + '/master'
         dst = self.container_root_path + '/' + name    #replace some_id with random id for new container
         #shutil.copytree(src,dst)       may not copy special files
         subprocess.call('cp -a ' + src + ' ' + dst)
 
+        #call bash script to initialise container
+
         #add to container list
-        temp = Container(some_id,dst)
+        temp = Container(name,dst)
         self.container_list.append(temp)
 
 
         #create container using virt-install --noautoconsole ensures cirt-install does not open console for the container
-        subprocess.call("virt-install -connect lxc:// --name ",name," --ram ",ram," --filesystem ",self.container_root_path,"/",name," --noautoconsole")
+        subprocess.call("virt-install --connect lxc:// --name ",name," --ram ",ram," --filesystem ",self.container_root_path,"/",name," --noautoconsole")
 
 
         #save changes to container_file
@@ -116,7 +123,7 @@ class ContainerDispatcher:
                 self.container_list.remove(i)
 
                 #update container as not free
-                temp.free = false
+                temp.free = False
                 self.container_list.append(temp)
 
                 #return container details
