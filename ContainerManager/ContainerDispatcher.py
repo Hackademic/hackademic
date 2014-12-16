@@ -1,10 +1,12 @@
 import ConfigParser
 from encodings.punycode import selective_find
 import shutil
+from symbol import import_as_name
 
 __author__ = 'root'
 import Container
 import subprocess
+import os
 
 class ContainerDispatcher:
 #
@@ -22,7 +24,7 @@ class ContainerDispatcher:
     def getConfig(self):
 
         #open config file
-        conf = open("container.conf",)
+        conf = open("container.conf","r")
 
         #read config into configparser
         configparser = ConfigParser.ConfigParser()
@@ -40,20 +42,36 @@ class ContainerDispatcher:
 
     def saveContainerList(self):
 
+        #open file
         containerlist_file = open('containerlist.txt','w')
 
-        #save containerlist to file
-        #if file does not exist make one
+        #load paths into containerlist
+        for path in self.container_list:
+            containerlist_file.write(path + '/n')
+
+        #close file
+        containerlist_file.close()
         return
 
 
     def getContainerList(self):
 
+        #open containerfile
         containerlistfile = open("containerlist.txt",'r');
 
+        #read individual paths from file
+        for line in containerlistfile:
+            self.container_list.append(line.strip('\n'))
 
-        #load containerlist from file
+        #close file
+        containerlistfile.close()
+
         #check if folder exists if not remove the container from list
+        for path in self.container_list:
+            if not os.path.exists(path):
+                self.container_list.remove(path)
+
+
         return
 
 
@@ -79,7 +97,7 @@ class ContainerDispatcher:
 
         #save changes to container_file
         self.saveContainerList();
-        return
+        return temp
 
 
     def getFreeContainer(self):
