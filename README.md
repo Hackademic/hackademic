@@ -73,6 +73,6 @@ Contact Us
 
 Feel free to connect with us over #hackademic-dev channel in the Freenode.
 We also run a mailing list which is owasp-hackademic-challenges@lists.owasp.org
-and you can join [here](https://lists.owasp.org/mailman/listinfo/owasp-hackademic-challenges)
+that you can join [here](https://lists.owasp.org/mailman/listinfo/owasp-hackademic-challenges)
 
 
