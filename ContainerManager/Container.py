@@ -33,6 +33,7 @@ class Container:
         shutil.rmtree(self.path + "/var/www/html/hackademic")
 
         #remove session files
+        self.free = True
         return
 
     def isFree(self):
