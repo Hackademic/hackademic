@@ -1,23 +1,79 @@
+import asyncore
 import ContainerDispatcher
-import Forwarder
+import socket
+import sys
 
 __author__ = 'root'
-#get requests from hackademic page
-#for every request use ContainerDispatcher to get a free container
-#use Forwarder to forward ip address
 
 
-def loadChallenge(self):
-    #load challenge into container
-    #get details from php
+containerDispatcher = ContainerDispatcher.ContainerDispatcher()
+
+def loadChallenge(data):
+
+    #get a free container from ContainerDispatcher
+    free = containerDispatcher.getFreeContainer()
+
+    #get challenge details from php
+    #load hackademic into container
+
     #change site root ip in config.inc.php file
     return
 
 
+def serve(conn):
+    data=''
+
+    try:
+        while True:
+            data = data +conn.recv(1024)
+
+            #recived data could be of 2 types
+            #   1. requesting a new container
+            #   2. signal that challenge is over and container be freed
+
+            if data.endswith(u"\r\n"):
+                #print data
+
+                #get free container from dispatcher
+                container_name = loadChallenge(data)
+
+                #send port to php
+                conn.send(containerDispatcher.portmap[container_name])
+
+    except socket.error:
+        print 'Connection error'
+
+    finally:
+        conn.close()
+
+
+
 if __name__ == '__main__':
 
-    containerdispatcher = ContainerDispatcher()
-    forwarder = Forwarder()
 
-    portmap={}
+    #start all containers
+
+
+
+    host = ''
+    port = 51001
+    connectionSevered=0
+
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind((host,port))
+        s.listen(1)
+
+    except socket.error:
+        print 'Failed to create socket'
+        sys.exit()
+
+    print '[+] Listening for connections on port: {0}'.format(port)
+
+    while True:
+        conn, address = s.accept()
+        #open in a seperate thread
+        serve(conn)
+        
+    asyncore.loop()
 
