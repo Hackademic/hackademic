@@ -1,8 +1,5 @@
 import ConfigParser
-from encodings.punycode import selective_find
-import shutil
-from symbol import import_as_name
-from firstboot import config
+import Forwarder
 
 __author__ = 'root'
 import Container
@@ -12,7 +9,10 @@ import os
 class ContainerDispatcher:
 #
     def __init__(self):
-        self.container_list=[]      #saved as a file at container_root_path
+        self.container_paths=[]      #saved as a file at container_root_path
+        self.running_containers=[]  # contains list of running containers
+        self.portmap={}             #has list of port mappings --> (container name,port)
+
         self.num_containers = 0
         self.container_root_path = ''    #get from config file
         self.hackademic_root_path = ''   #get from config file
@@ -44,12 +44,6 @@ class ContainerDispatcher:
 
 
 
-    # def setConfig(self):
-    #
-    #     conf = open("container.conf",'w')
-    #     configparser = ConfigParser.ConfigParser()
-    #     return
-
 
     def saveContainerList(self):
 
@@ -57,7 +51,7 @@ class ContainerDispatcher:
         containerlist_file = open('containerlist.txt','w')
 
         #load paths into containerlist
-        for path in self.container_list:
+        for path in self.container_paths:
             containerlist_file.write(path + '/n')
 
         #close file
@@ -72,15 +66,16 @@ class ContainerDispatcher:
 
         #read individual paths from file
         for line in containerlistfile:
-            self.container_list.append(line.strip('\n'))
+            self.container_paths.append(line.strip('\n'))
 
         #close file
         containerlistfile.close()
 
         #check if folder exists if not remove the container from list
-        for path in self.container_list:
+        for path in self.container_paths:
             if not os.path.exists(path):
-                self.container_list.remove(path)
+                self.container_paths.remove(path)
+                print 'Container not found at: '+ path
 
 
         return
@@ -100,9 +95,15 @@ class ContainerDispatcher:
 
         #call bash script to initialise container
 
-        #add to container list
+        #add to running_containers list
         temp = Container(name,dst)
-        self.container_list.append(temp)
+        self.running_containers.append(temp)
+
+        #map to port
+        self.mapToPort(temp)
+
+        #add to container_list
+        self.container_paths.append(dst)
 
 
         #create container using virt-install --noautoconsole ensures cirt-install does not open console for the container
@@ -114,17 +115,33 @@ class ContainerDispatcher:
         return temp
 
 
+
+    def mapToPort(self,container):
+
+        local_port=0
+        #get a free port
+
+        #get container ip from dnsleases file
+        remote_ip=''
+
+        #forward port
+        port_forward = Forwarder.forwarder('127.0.0.1',local_port,remote_ip,80)
+
+        #add mapping
+        self.portmap[container.name] = local_port
+
+
     def getFreeContainer(self):
         #return a container that is not being used
-        for i in self.container_list:
+        for i in self.running_containers:
             if i.isFree():
                 #remove i from list
                 temp = i
-                self.container_list.remove(i)
+                self.running_containers.remove(i)
 
                 #update container as not free
                 temp.free = False
-                self.container_list.append(temp)
+                self.running_containers.append(temp)
 
                 #return container details
                 return temp
@@ -132,10 +149,19 @@ class ContainerDispatcher:
         tempcontainer = self.createContainer()
         return tempcontainer
 
+    def freeContainer(self):
+        #when a challenge is finished this is called so that the container is refreshed and made free
+        return
+
 
     def startall(self):
-        for i in self.container_list:
+        for i in self.running_containers:
+            
+            #start containers
             i.startContainer();
+
+            #assign forwarded ports
+            self.mapToPort(i)
 
 
 
