@@ -28,7 +28,7 @@ git clone https://github.com/Hackademic/hackademic.git
 After successful cloning of the Hackademic project,copy the contents into /var/www
 We need to change the permissions of the file now,
 
-sudo chmod 777 hackademic
+sudo chmod -R 777 hackademic
 
 Once done start your web server in your machine by,
 
