@@ -11,18 +11,18 @@ class Container:
         self.path = path
         #path is from / at qemu     "/container/lxc1"
 
-        self.free = False
+        self.free = True
 
 
     def startContainer(self):
 
-        cmd = "virsh -c lxc:// start ",self.name
+        cmd = "virsh -c lxc:// start " + self.name
         subprocess.call(cmd,shell = True)
         return
 
     def stopContainer(self):
 
-        cmd = "virsh -c lxc:// destroy",self.name
+        cmd = "virsh -c lxc:// destroy " + self.name
         subprocess.call(cmd,shell = True)
         return
 
@@ -38,6 +38,12 @@ class Container:
 
     def isFree(self):
         return self.free
+
+if __name__=='__main__':
+
+    temp = Container('rootfs','/container/rootfs')
+    temp.startContainer()
+    temp.stopContainer()
 
 
 
