@@ -1,21 +1,31 @@
 import ConfigParser
+import asyncore
+from random import randint
+import threading
 import Forwarder
-
-__author__ = 'root'
 import Container
 import subprocess
 import os
 
+__author__ = 'root'
+
+
 class ContainerDispatcher:
-#
+
+    #add logging capability
+
     def __init__(self):
         self.container_paths=[]      #saved as a file at container_root_path
+        self.containers=[]          #contains list of deifined containers
         self.running_containers=[]  # contains list of running containers
         self.portmap={}             #has list of port mappings --> (container name,port)
 
         self.num_containers = 0
         self.container_root_path = ''    #get from config file
         self.hackademic_root_path = ''   #get from config file
+        self.master_copy_name=''
+        self.ram_size=''
+        self.free_ports = []             #get from config file
 
         self.getConfig()
         self.getContainerList()
@@ -36,8 +46,18 @@ class ContainerDispatcher:
             self.container_root_path = configparser.get('global','container root path')
             self.hackademic_root_path = configparser.get('global','hackademic root path')
 
+            self.master_copy_name = configparser.get('container','master name')
+            self.ram_size = configparser.get('container','ram size')
+
+            #read free port configurations
+            start = configparser.get('port range','start')
+            stop = configparser.get('port range','stop')
+            self.free_ports = range(int(start),int(stop))
+            print self.free_ports
+
         else:
             #add some kind of failsafe
+            print 'Config file not found'
             return
 
         return
@@ -52,7 +72,7 @@ class ContainerDispatcher:
 
         #load paths into containerlist
         for path in self.container_paths:
-            containerlist_file.write(path + '/n')
+            containerlist_file.write(path + '\n')
 
         #close file
         containerlist_file.close()
@@ -86,47 +106,67 @@ class ContainerDispatcher:
 
     def createContainer(self,name,ram):
 
-        #load container configuration from config file?
-        #create new folder at  container_root_path for new container
-        src = self.hackadmic_root_path + '/master'
-        dst = self.container_root_path + '/' + name    #replace some_id with random id for new container
-        #shutil.copytree(src,dst)       may not copy special files
-        subprocess.call('cp -a ' + src + ' ' + dst)
+        #name = self.master_copy_name + str(randint(1,10))               # every new container will have name like lxc56
+        name='rootfs1'
+        ram = self.ram_size
 
-        #call bash script to initialise container
+        #create new folder at  container_root_path for new container
+        src = self.container_root_path + '/' + self.master_copy_name
+        dst = self.container_root_path + '/' + name
+
+        #shutil.copytree(src,dst)       may not copy special files
+        print 'copying files will take a long time'
+        #use bash script for achiving these
+        #csubprocess.call('cp -a ' + src + ' ' + dst, shell=True)
+
+        subprocess.call('sed /s/LXC_NAME/' + name + '/ ' + dst + '/etc/sysconfig/network-scripts/ifcfg-eth0', shell=True)
+
+        #create container using virt-install --noautoconsole ensures virt-install does not open console for the container
+        print 'running virt-install'
+        subprocess.call("virt-install --connect lxc:// --name " + name + " --ram " + ram + " --filesystem " + self.container_root_path + "/" + name + "/" +  ",/" + " --noautoconsole",shell=True)
+
 
         #add to running_containers list
-        temp = Container(name,dst)
+        temp = Container.Container(name,dst)
         self.running_containers.append(temp)
+
 
         #map to port
         self.mapToPort(temp)
+
 
         #add to container_list
         self.container_paths.append(dst)
 
 
-        #create container using virt-install --noautoconsole ensures cirt-install does not open console for the container
-        subprocess.call("virt-install --connect lxc:// --name ",name," --ram ",ram," --filesystem ",self.container_root_path,"/",name," --noautoconsole")
-
-
         #save changes to container_file
-        self.saveContainerList();
+        self.saveContainerList()
         return temp
 
 
-
+    #check
     def mapToPort(self,container):
 
-        local_port=0
         #get a free port
+        local_port=self.free_ports.pop()
+        print 'port ',local_port
+
 
         #get container ip from dnsleases file
+        dnsfile = open('/var/lib/libvirt/dnsmasq/default.leases')
+
         remote_ip=''
+        for line in dnsfile:
+            print container.name
+            if container.name in line.split(' '):
+                remote_ip=line.split(' ')[2]
+                print remote_ip,';',local_port
 
         #forward port
-        port_forward = Forwarder.forwarder('127.0.0.1',local_port,remote_ip,80)
-
+        Forwarder.forwarder('127.0.0.1',local_port,remote_ip,80)
+        thread = threading.Thread(target=asyncore.loop,kwargs={'map':Forwarder.gmap})
+        thread.start()
+        #thread.join()
         #add mapping
         self.portmap[container.name] = local_port
 
@@ -146,22 +186,56 @@ class ContainerDispatcher:
                 #return container details
                 return temp
 
-        tempcontainer = self.createContainer()
+        print "none free creating new container"
+        tempcontainer = self.createContainer('rootfs2','64')
         return tempcontainer
 
+
+    #check
     def freeContainer(self):
         #when a challenge is finished this is called so that the container is refreshed and made free
+        #update free ports
+        #update container and reload
         return
 
 
+
     def startall(self):
-        for i in self.running_containers:
+
+        #generate containers list
+        for path in self.container_paths:
+
+            #extract container name from path
+            name = path.replace(self.container_root_path,'')
+            name = name.replace('/','')
+
+            self.containers.append(Container.Container(name,path))
+
+
+        for i in self.containers:
             
             #start containers
             i.startContainer();
 
             #assign forwarded ports
             self.mapToPort(i)
+
+            #append to running containers
+            self.running_containers.append(i)
+
+
+
+if __name__ == '__main__':
+
+    dispatcher = ContainerDispatcher()
+
+    dispatcher.startall()
+
+    print dispatcher.getFreeContainer().name
+    #print dispatcher.getFreeContainer().name
+
+    #for i in dispatcher.running_containers:
+        #i.stopContainer()
 
 
 

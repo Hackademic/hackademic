@@ -1,9 +1,12 @@
+
+
 __author__ = 'root'
 import socket,asyncore
 
+gmap={}
 class forwarder(asyncore.dispatcher):
     def __init__(self, ip, port, remoteip,remoteport,backlog=5):
-        asyncore.dispatcher.__init__(self)
+        asyncore.dispatcher.__init__(self,map=gmap)
         self.remoteip=remoteip
         self.remoteport=remoteport
         self.create_socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -18,7 +21,7 @@ class forwarder(asyncore.dispatcher):
 
 class receiver(asyncore.dispatcher):
     def __init__(self,conn):
-        asyncore.dispatcher.__init__(self,conn)
+        asyncore.dispatcher.__init__(self,conn,map=gmap)
         self.from_remote_buffer=''
         self.to_remote_buffer=''
         self.sender=None
@@ -46,7 +49,7 @@ class receiver(asyncore.dispatcher):
 
 class sender(asyncore.dispatcher):
     def __init__(self, receiver, remoteaddr,remoteport):
-        asyncore.dispatcher.__init__(self)
+        asyncore.dispatcher.__init__(self,map=gmap)
         self.receiver=receiver
         receiver.sender=self
         self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
