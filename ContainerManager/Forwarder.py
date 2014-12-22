@@ -1,4 +1,4 @@
-
+import threading
 
 __author__ = 'root'
 import socket,asyncore
@@ -13,6 +13,9 @@ class forwarder(asyncore.dispatcher):
         self.set_reuse_addr()
         self.bind((ip,port))
         self.listen(backlog)
+
+        self.thread = threading.Thread(target=asyncore.loop,kwargs={'map' : gmap, 'timeout' : 1})
+        self.thread.start()
 
     def handle_accept(self):
         conn, addr = self.accept()

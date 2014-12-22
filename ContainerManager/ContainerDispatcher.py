@@ -9,7 +9,6 @@ import os
 
 __author__ = 'root'
 
-
 class ContainerDispatcher:
 
     #add logging capability
@@ -104,7 +103,7 @@ class ContainerDispatcher:
 
 
 
-    def createContainer(self,name,ram):
+    def createContainer(self):
 
         #name = self.master_copy_name + str(randint(1,10))               # every new container will have name like lxc56
         name='rootfs1'
@@ -117,13 +116,12 @@ class ContainerDispatcher:
         #shutil.copytree(src,dst)       may not copy special files
         print 'copying files will take a long time'
         #use bash script for achiving these
-        #csubprocess.call('cp -a ' + src + ' ' + dst, shell=True)
-
-        subprocess.call('sed /s/LXC_NAME/' + name + '/ ' + dst + '/etc/sysconfig/network-scripts/ifcfg-eth0', shell=True)
+        #subprocess.call('cp -a ' + src + ' ' + dst, shell=True)
+        #subprocess.call('sed /s/LXC_NAME/' + name + '/ ' + dst + '/etc/sysconfig/network-scripts/ifcfg-eth0', shell=True)
 
         #create container using virt-install --noautoconsole ensures virt-install does not open console for the container
         print 'running virt-install'
-        subprocess.call("virt-install --connect lxc:// --name " + name + " --ram " + ram + " --filesystem " + self.container_root_path + "/" + name + "/" +  ",/" + " --noautoconsole",shell=True)
+        #subprocess.call("virt-install --connect lxc:// --name " + name + " --ram " + ram + " --filesystem " + self.container_root_path + "/" + name + "/" +  ",/" + " --noautoconsole",shell=True)
 
 
         #add to running_containers list
@@ -144,12 +142,12 @@ class ContainerDispatcher:
         return temp
 
 
-    #check
+
     def mapToPort(self,container):
 
         #get a free port
         local_port=self.free_ports.pop()
-        print 'port ',local_port
+        #print 'port ',local_port
 
 
         #get container ip from dnsleases file
@@ -157,16 +155,13 @@ class ContainerDispatcher:
 
         remote_ip=''
         for line in dnsfile:
-            print container.name
             if container.name in line.split(' '):
                 remote_ip=line.split(' ')[2]
-                print remote_ip,';',local_port
+                print container.name,remote_ip,';',local_port
 
         #forward port
         Forwarder.forwarder('127.0.0.1',local_port,remote_ip,80)
-        thread = threading.Thread(target=asyncore.loop,kwargs={'map':Forwarder.gmap})
-        thread.start()
-        #thread.join()
+
         #add mapping
         self.portmap[container.name] = local_port
 
@@ -187,7 +182,7 @@ class ContainerDispatcher:
                 return temp
 
         print "none free creating new container"
-        tempcontainer = self.createContainer('rootfs2','64')
+        tempcontainer = self.createContainer()
         return tempcontainer
 
 
@@ -215,6 +210,7 @@ class ContainerDispatcher:
         for i in self.containers:
             
             #start containers
+            print 'starting ',i.name
             i.startContainer();
 
             #assign forwarded ports
@@ -232,7 +228,9 @@ if __name__ == '__main__':
     dispatcher.startall()
 
     print dispatcher.getFreeContainer().name
-    #print dispatcher.getFreeContainer().name
+    print dispatcher.getFreeContainer().name
+
+    asyncore.close_all(Forwarder.gmap)
 
     #for i in dispatcher.running_containers:
         #i.stopContainer()
