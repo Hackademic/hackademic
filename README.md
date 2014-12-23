@@ -30,11 +30,7 @@ We need to change the permissions of the file now,
 
 sudo chmod -R 765 hackademic
 
-Once done start your web server in your machine by,
-
-service start apache2 start
-
-Ensure that the apache is started and sql connection is also active. Point your browser towards https://localhost/
+Ensure that the apache is started and sql connection is also active.Point your browser towards https://localhost/
 You will be prompted with Hackademic page. In case you have many sub-directories in /var/www/,the browser would throw up all the directories.
 Choose hackademic from that.
 
