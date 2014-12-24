@@ -1,7 +1,6 @@
 import ConfigParser
 import asyncore
 from random import randint
-import threading
 import Forwarder
 import Container
 import subprocess
@@ -14,7 +13,6 @@ class ContainerDispatcher:
     #add logging capability
 
     def __init__(self):
-        self.container_paths=[]      #saved as a file at container_root_path
         self.containers=[]          #contains list of deifined containers
         self.running_containers=[]  # contains list of running containers
         self.portmap={}             #has list of port mappings --> (container name,port)
@@ -27,7 +25,7 @@ class ContainerDispatcher:
         self.free_ports = []             #get from config file
 
         self.getConfig()
-        self.getContainerList()
+        self.getContainerlist()
 
 
 
@@ -62,43 +60,19 @@ class ContainerDispatcher:
         return
 
 
+    def getContainerlist(self):
 
+        subprocess.call('virsh -c lxc:// list --all | tail -n +3 > containerlist.txt',shell = True)
 
-    def saveContainerList(self):
+        #open containerlist file
+        containerlistfile = open('containerlist.txt');
 
-        #open file
-        containerlist_file = open('containerlist.txt','w')
-
-        #load paths into containerlist
-        for path in self.container_paths:
-            containerlist_file.write(path + '\n')
-
-        #close file
-        containerlist_file.close()
-        return
-
-
-    def getContainerList(self):
-
-        #open containerfile
-        containerlistfile = open("containerlist.txt",'r');
-
-        #read individual paths from file
         for line in containerlistfile:
-            self.container_paths.append(line.strip('\n'))
+            if len(line.split()) > 0 :
+                container_name = line.split()[1]
 
-        #close file
-        containerlistfile.close()
-
-        #check if folder exists if not remove the container from list
-        for path in self.container_paths:
-            if not os.path.exists(path):
-                self.container_paths.remove(path)
-                print 'Container not found at: '+ path
-
-
-        return
-
+                if len(container_name) > 0:
+                    self.containers.append(Container.Container(container_name,self.container_root_path + '/' + container_name))
 
 
 
@@ -197,26 +171,10 @@ class ContainerDispatcher:
 
     def startall(self):
 
-        #generate containers list
-        for path in self.container_paths:
-
-            #extract container name from path
-            name = path.replace(self.container_root_path,'')
-            name = name.replace('/','')
-
-            self.containers.append(Container.Container(name,path))
-
-
         for i in self.containers:
-            
-            #start containers
-            print 'starting ',i.name
-            i.startContainer();
-
-            #assign forwarded ports
+            i.startContainer()
             self.mapToPort(i)
 
-            #append to running containers
             self.running_containers.append(i)
 
 
@@ -230,10 +188,5 @@ if __name__ == '__main__':
     print dispatcher.getFreeContainer().name
     print dispatcher.getFreeContainer().name
 
-    asyncore.close_all(Forwarder.gmap)
-
-    #for i in dispatcher.running_containers:
-        #i.stopContainer()
-
-
-
+    for i in dispatcher.running_containers:
+        i.stopContainer()
