@@ -13,11 +13,11 @@ class ContainerDispatcher:
     #add logging capability
 
     def __init__(self):
-        self.containers=[]          #contains list of deifined containers
-        self.running_containers=[]  # contains list of running containers
+
+        self.containers={'running' : [] ,'not running' : []}
         self.portmap={}             #has list of port mappings --> (container name,port)
 
-        self.num_containers = 0
+        self.start_number = 1
         self.container_root_path = ''    #get from config file
         self.hackademic_root_path = ''   #get from config file
         self.master_copy_name=''
@@ -61,7 +61,7 @@ class ContainerDispatcher:
 
 
     def getContainerlist(self):
-
+        temp=[]
         subprocess.call('virsh -c lxc:// list --all | tail -n +3 > containerlist.txt',shell = True)
 
         #open containerlist file
@@ -72,8 +72,9 @@ class ContainerDispatcher:
                 container_name = line.split()[1]
 
                 if len(container_name) > 0:
-                    self.containers.append(Container.Container(container_name,self.container_root_path + '/' + container_name))
+                    temp.append(Container.Container(container_name,self.container_root_path + '/' + container_name))
 
+        self.containers['not running'] = temp
 
 
 
@@ -100,19 +101,12 @@ class ContainerDispatcher:
 
         #add to running_containers list
         temp = Container.Container(name,dst)
-        self.running_containers.append(temp)
+        self.containers['running'].append(temp)
 
 
         #map to port
         self.mapToPort(temp)
 
-
-        #add to container_list
-        self.container_paths.append(dst)
-
-
-        #save changes to container_file
-        self.saveContainerList()
         return temp
 
 
