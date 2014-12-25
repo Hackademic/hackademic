@@ -136,22 +136,38 @@ class ContainerDispatcher:
 
     def getFreeContainer(self):
         #return a container that is not being used
-        for i in self.running_containers:
-            if i.isFree():
-                #remove i from list
-                temp = i
-                self.running_containers.remove(i)
 
-                #update container as not free
-                temp.free = False
-                self.running_containers.append(temp)
+        if len(self.containers['running']) > 0:
 
-                #return container details
-                return temp
+            for i in reversed(self.containers['running']):
+                if i.isFree():
+                    #remove i from list
+                    free = i
+                    self.containers['running'].remove(i)
 
-        print "none free creating new container"
-        tempcontainer = self.createContainer()
-        return tempcontainer
+                    #update container as not free
+                    free.free = False
+                    self.containers['running'].append(free)
+
+                    #return container details
+                    return free
+
+
+        if len(self.containers['not running']) > 0:
+            free = self.containers['not running'].pop()
+            free.startContainer()
+            self.containers['running'].append(free)
+            print 'activiting',free.name
+            return free
+
+
+        else:
+            print "none free creating new container"
+            free = self.createContainer()
+            self.containers['running'].append(free)
+
+
+
 
 
     #check
