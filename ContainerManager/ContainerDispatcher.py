@@ -181,11 +181,26 @@ class ContainerDispatcher:
 
     def startall(self):
 
-        for i in self.containers:
-            i.startContainer()
-            self.mapToPort(i)
+        alist = self.containers['not running']
+        for i in reversed(self.containers['not running']):
+            print i.name
 
-            self.running_containers.append(i)
+
+            i.startContainer()
+            #self.mapToPort(temp)
+
+            self.containers['running'].append(i)
+            self.containers['not running'].remove(i)
+
+
+
+    def start(self):
+
+        for i in reversed(self.containers['not running'][0:self.start_number]):
+
+            i.startContainer()
+            self.containers['running'].append(i)
+            self.containers['not running'].remove(i)
 
 
 
@@ -193,10 +208,10 @@ if __name__ == '__main__':
 
     dispatcher = ContainerDispatcher()
 
-    dispatcher.startall()
+    dispatcher.start()
 
     print dispatcher.getFreeContainer().name
     print dispatcher.getFreeContainer().name
 
-    for i in dispatcher.running_containers:
+    for i in dispatcher.containers['running']:
         i.stopContainer()
