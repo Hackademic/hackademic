@@ -45,7 +45,7 @@ class MenuManagerController extends HackademicBackendController {
     if($submit == 'Cancel' || empty($submit)) {
       $menu = Menu::getMenu(Menu::ADMIN_MENU);
     } else if($submit == 'Change') {
-      $menu = Menu::getMenu($_POST['menu']);
+      $menu = Menu::getMenu(htmlspecialchars($_POST['menu']));
     } else if($submit == 'Update') {
       // Get the menu that has been shown (can be different from the selected menu)
       $menu = Menu::getMenu($_POST['mid']);
@@ -90,7 +90,7 @@ class MenuManagerController extends HackademicBackendController {
       
       // We have saved all item changes if any, lets fetch a fresh menu from the database to make sure we get
       // the structure in the way we want it in the template.
-      $menu = Menu::getMenu($_POST['menu']);
+      $menu = Menu::getMenu(htmlspecialchars($_POST['menu']));
     }
 
     $this->addToView('menus', $menus);
