@@ -33,6 +33,7 @@ class Container:
         shutil.rmtree(self.path + "/var/www/html/hackademic")
 
         #remove session files
+        #session files stored at self.path/var/lib/php/session/sess_<session_id>
         self.free = True
         return
 

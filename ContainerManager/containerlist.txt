@@ -1,3 +1,2 @@
- -     rootfs                         shut off
- -     rootfs1                        shut off
+ 3488  rootfs                         running
 

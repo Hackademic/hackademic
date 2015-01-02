@@ -6,7 +6,6 @@ import sys
 __author__ = 'root'
 
 
-containerDispatcher = ContainerDispatcher.ContainerDispatcher()
 
 def loadChallenge(data):
 
@@ -14,11 +13,15 @@ def loadChallenge(data):
     free = containerDispatcher.getFreeContainer()
 
     #get challenge details from php
+
     #load hackademic into container
 
-    #change site root ip in config.inc.php file
-    return
+    #change site root ip to container ip in config.inc.php
+    #change database location in config.inc.php
+    #copy the appropriate session file to container
+    #?change the IPaddress in session file
 
+    return free
 
 def serve(conn):
     data=''
@@ -52,7 +55,8 @@ if __name__ == '__main__':
 
 
     #start all containers
-
+    containerDispatcher = ContainerDispatcher.ContainerDispatcher()
+    containerDispatcher.startall()
 
 
     host = ''
@@ -68,7 +72,6 @@ if __name__ == '__main__':
         print 'Failed to create socket'
         sys.exit()
 
-    print '[+] Listening for connections on port: {0}'.format(port)
 
     while True:
         conn, address = s.accept()

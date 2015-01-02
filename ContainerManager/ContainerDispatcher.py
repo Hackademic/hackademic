@@ -22,7 +22,7 @@ class ContainerDispatcher:
         self.hackademic_root_path = ''   #get from config file
         self.master_copy_name=''
         self.ram_size=''
-        self.free_ports = []             #get from config file
+        self.free_ports = []
 
         self.getConfig()
         self.getContainerlist()
@@ -128,10 +128,11 @@ class ContainerDispatcher:
                 print container.name,remote_ip,';',local_port
 
         #forward port
-        Forwarder.forwarder('127.0.0.1',local_port,remote_ip,80)
+        #local host wont do have to set appropriate ip
+        forwarder = Forwarder.forwarder('192.168.40.135',local_port,remote_ip,80)
 
         #add mapping
-        self.portmap[container.name] = local_port
+        self.portmap[container] = (local_port,forwarder)
 
 
     def getFreeContainer(self):
@@ -171,17 +172,30 @@ class ContainerDispatcher:
 
 
     #check
-    def freeContainer(self):
-        #when a challenge is finished this is called so that the container is refreshed and made free
-        #update free ports
-        #update container and reload
+    def freeContainer(self,free_this_port):
+
+        #find the container from portmap
+        for container,(port,forwarder) in self.portmap.items():
+            if free_this_port == port:
+
+                #reload container
+                container.reloadContainer()
+
+                #close connection with forwarder
+                forwarder.close()
+
+                #add port to list of free ports
+                self.free_ports.append(port)
+
+                #remove entry from portmap
+                self.portmap[container]=None
+
         return
 
 
 
     def startall(self):
 
-        alist = self.containers['not running']
         for i in reversed(self.containers['not running']):
             print i.name
 
@@ -199,8 +213,18 @@ class ContainerDispatcher:
         for i in reversed(self.containers['not running'][0:self.start_number]):
 
             i.startContainer()
+            self.mapToPort(i)
             self.containers['running'].append(i)
             self.containers['not running'].remove(i)
+
+    def shutdown(self):
+
+        asyncore.close_all(Forwarder.gmap)
+
+        for i in self.containers['running']:
+            i.stopContainer()
+
+        return
 
 
 
@@ -211,7 +235,13 @@ if __name__ == '__main__':
     dispatcher.start()
 
     print dispatcher.getFreeContainer().name
-    print dispatcher.getFreeContainer().name
+    #print dispatcher.getFreeContainer().name
 
-    for i in dispatcher.containers['running']:
-        i.stopContainer()
+    #print Forwarder.gmap[4].close()
+
+    for n,(i,j) in dispatcher.portmap.items():
+        print i
+
+    x=raw_input("asdasd")
+
+    dispatcher.shutdown()
