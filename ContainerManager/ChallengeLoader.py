@@ -7,7 +7,7 @@ __author__ = 'root'
 
 
 
-def loadChallenge(data):
+def loadChallenge():
 
     #get a free container from ContainerDispatcher
     free = containerDispatcher.getFreeContainer()
@@ -34,14 +34,19 @@ def serve(conn):
             #   1. requesting a new container
             #   2. signal that challenge is over and container be freed
 
-            if data.endswith(u"\r\n"):
-                #print data
+            if data.endswith(u"\n"):
+                print data
 
                 #get free container from dispatcher
-                container_name = loadChallenge(data)
+                container = loadChallenge()
 
                 #send port to php
-                conn.send(containerDispatcher.portmap[container_name])
+                #print  containerDispatcher.portmap['rootfs']
+                port,forwarder = containerDispatcher.portmap[container.name]
+
+                conn.send(str(port))
+                conn.close()
+                break
 
     except socket.error:
         print 'Connection error'
@@ -56,11 +61,14 @@ if __name__ == '__main__':
 
     #start all containers
     containerDispatcher = ContainerDispatcher.ContainerDispatcher()
-    containerDispatcher.startall()
+    containerDispatcher.start()
 
 
-    host = ''
-    port = 51001
+    for n,(i,j) in containerDispatcher.portmap.items():
+        print n,i
+
+    host = '127.0.0.1'
+    port = 8081
     connectionSevered=0
 
     try:
@@ -75,8 +83,7 @@ if __name__ == '__main__':
 
     while True:
         conn, address = s.accept()
-        #open in a seperate thread
         serve(conn)
-        
-    asyncore.loop()
+        #containerDispatcher.shutdown()
+
 
