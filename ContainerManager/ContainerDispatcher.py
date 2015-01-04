@@ -149,7 +149,7 @@ class ContainerDispatcher:
                     self.containers['running'].remove(i)
 
                     #update container as not free
-                    free.free = False
+                    free.setNotFree()
                     self.containers['running'].append(free)
 
                     #return container details
@@ -159,7 +159,7 @@ class ContainerDispatcher:
         if len(self.containers['not running']) > 0:
             free = self.containers['not running'].pop()
             free.startContainer()
-            free.free=False
+            free.setNotFree()
             self.mapToPort(free)
             self.containers['running'].append(free)
             print 'activiting',free.name
