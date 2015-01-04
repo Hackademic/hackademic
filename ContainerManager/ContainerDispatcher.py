@@ -1,10 +1,9 @@
 import ConfigParser
-import asyncore
 from random import randint
-import Forwarder
 import Container
 import subprocess
 import os
+import Forwarder
 
 __author__ = 'root'
 
@@ -128,11 +127,14 @@ class ContainerDispatcher:
                 print container.name,remote_ip,';',local_port
 
         #forward port
-        #local host wont do have to set appropriate ip
-        forwarder = Forwarder.forwarder('192.168.40.135',local_port,remote_ip,80)
+        # #local host wont do have to set appropriate ip
+        forwarder = Forwarder.forwarder('192.168.40.139',local_port,'192.168.122.121',80)
 
-        #add mapping
-        self.portmap[container] = (local_port,forwarder)
+        #add to portmap
+        self.portmap[container.name]=(local_port,forwarder)
+
+
+
 
 
     def getFreeContainer(self):
@@ -157,6 +159,8 @@ class ContainerDispatcher:
         if len(self.containers['not running']) > 0:
             free = self.containers['not running'].pop()
             free.startContainer()
+            free.free=False
+            self.mapToPort(free)
             self.containers['running'].append(free)
             print 'activiting',free.name
             return free
@@ -175,11 +179,11 @@ class ContainerDispatcher:
     def freeContainer(self,free_this_port):
 
         #find the container from portmap
-        for container,(port,forwarder) in self.portmap.items():
+        for container_name,(port,forwarder) in self.portmap.items():
             if free_this_port == port:
 
                 #reload container
-                container.reloadContainer()
+                #container.reloadContainer()
 
                 #close connection with forwarder
                 forwarder.close()
@@ -188,7 +192,7 @@ class ContainerDispatcher:
                 self.free_ports.append(port)
 
                 #remove entry from portmap
-                self.portmap[container]=None
+                self.portmap[container_name]=None
 
         return
 
@@ -219,10 +223,11 @@ class ContainerDispatcher:
 
     def shutdown(self):
 
-        asyncore.close_all(Forwarder.gmap)
+        for n,(i,j) in self.portmap.items():
+            j.shutdown()
 
-        for i in self.containers['running']:
-            i.stopContainer()
+        #for i in self.containers['running']:
+        #    i.stopContainer()
 
         return
 
