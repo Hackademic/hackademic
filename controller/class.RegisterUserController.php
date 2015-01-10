@@ -50,6 +50,8 @@ class RegisterUserController extends HackademicController {
 			$this->saveFormFields();
 			if ($_POST['username']=='') {
 				$this->addErrorMessage("Username should not be empty");
+			} elseif (strpos($_POST['username'], "\0") !== FALSE) {
+				$this->addErrorMessage("Null Byte characters are not valid");	
 			} elseif ($_POST['full_name']=='') {
 				$this->addErrorMessage("Full name should not be empty");
 			} elseif ($_POST['password']=='') {
