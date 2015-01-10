@@ -21,12 +21,14 @@ class Container:
 
     def startContainer(self):
 
+        #command to start the container
         cmd = "virsh -c lxc:// start " + self.name
         subprocess.call(cmd,shell = True)
         return
 
     def stopContainer(self):
 
+        #command to shutdown the container
         cmd = "virsh -c lxc:// destroy " + self.name
         subprocess.call(cmd,shell = True)
         return
@@ -37,8 +39,6 @@ class Container:
         #remove /<container path>/var/www/html/hackademic
         shutil.rmtree(self.path + "/var/www/html/hackademic")
 
-        #remove session files
-        #session files stored at self.path/var/lib/php/session/sess_<session_id>
         self.free = True
         return
 
@@ -54,11 +54,13 @@ class Container:
 
         # the container is automatically set as free after a specific amount of time defined in self.expire
         def execute():
+            #This function acts as a timer which decrements self.expire and goes to sleep exactly for 1 second
             starttime=time.time()
             while self.expire > 0:
                 self.expire -= 1
                 time.sleep(1.0 - ((time.time() - starttime) % 1.0))
 
+        #execute the timer function as a seperate thread
         timer = threading.Thread(target=execute)
         timer.start()
 
