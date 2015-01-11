@@ -70,6 +70,9 @@ class RegisterUserController extends HackademicController {
 				if (User::doesUserExist($username)) {
 					$this->addErrorMessage("Username already exists");
 				}
+				elseif(User::doesEmailExist($email)) {
+					$this->addErrorMessage("Email already exists");
+				}
 				elseif(!($password==$confirmpassword)) {
 					$this->addErrorMessage("The two passwords dont match!");
 				}
