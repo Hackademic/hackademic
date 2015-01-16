@@ -1,5 +1,7 @@
 import ConfigParser
-from random import randint
+import threading
+import time
+import sys
 import Container
 import subprocess
 import os
@@ -43,11 +45,13 @@ class ContainerDispatcher:
             #read configration from file
             self.container_root_path = configparser.get('global','container root path')
             self.hackademic_root_path = configparser.get('global','hackademic root path')
+            self.ip_address = configparser.get('global','ip address')
 
             self.master_copy_name = configparser.get('container','master name')
+            Container.Container.master_path = self.container_root_path + "/" + self.master_copy_name
             self.ram_size = configparser.get('container','ram size')
 
-            self.start_number = configparser.get('container','start number')
+            self.start_number = int(configparser.get('container','start number'))
 
             #read free port configurations
             start = configparser.get('port range','start')
@@ -153,10 +157,15 @@ class ContainerDispatcher:
 
         #forward port
         #local host wont do have to set appropriate ip
-        forwarder = Forwarder.forwarder('192.168.40.139',local_port,'192.168.122.121',80)
+        forwarder = Forwarder.forwarder('192.168.40.139',local_port,remote_ip,80)
 
         #add to portmap
         self.portmap[container.name]=(local_port,forwarder)
+
+        #change site root path in config.php file
+        subprocess.call("cp hackademic_setup.sh " + container.path + "/mount/hackademic_setup.sh",shell=True)
+        subprocess.call("chroot " + container.path + "/mount" + " ./hackademic_setup.sh " + self.ip_address + " " + str(local_port),shell=True)
+
 
 
 
@@ -182,29 +191,44 @@ class ContainerDispatcher:
 
 
         #if a free container is not found then a container which is shutdown will be activated
-        if len(self.containers['not running']) > 0:
+        if len(self.containers['not running']) >0:
 
             #get a conatiner which is not running
-            free = self.containers['not running'].pop()
+            free = self.containers['not running'].pop(0)
 
             #start the container and set it as not free
             free.startContainer()
+            time.sleep(1)
             free.setNotFree()
 
             #map container to port
             self.mapToPort(free)
 
-            #
+
             self.containers['running'].append(free)
             print 'activiting',free.name
+
+            if len(self.containers['not running'])<=0:
+                #do it in an new thread
+
+                def makenew():
+                    new = self.createContainer()
+                    new.stopContainer()
+                    self.containers['not running'].append(new)
+
+                thread = threading.Thread(target=makenew)
+                thread.start()
+
             return free
 
 
         else:
             #if all the containers are used up then a new container should be installed
-            print "none free creating new container"
-            free = self.createContainer()
-            self.containers['running'].append(free)
+            print "no installed containers exception : logical error"
+            #free = self.createContainer()
+            #print free.name
+            #self.containers['running'].append(free)
+            #return free
 
 
 
@@ -223,7 +247,6 @@ class ContainerDispatcher:
                 #container.reloadContainer()
 
                 #close connection with forwarder
-                forwarder.close()
 
                 #add port to list of free ports
                 self.free_ports.append(port)
@@ -254,8 +277,9 @@ class ContainerDispatcher:
     def start(self):
 
         #starts a definite number of containres as set by self.startnum
-        for i in reversed(self.containers['not running'][0:self.start_number]):
+        for i in reversed(self.containers['not running'][:self.start_number]):
 
+            print 'init start : ',i.name
             i.startContainer()
             self.mapToPort(i)
             self.containers['running'].append(i)
@@ -276,14 +300,28 @@ if __name__ == '__main__':
     dispatcher = ContainerDispatcher()
 
     dispatcher.start()
+    #dispatcher.createContainer()
 
-    print dispatcher.getFreeContainer().name
+    print 'free container '+dispatcher.getFreeContainer().name
+    time.sleep(5)
+    print 'free container '+dispatcher.getFreeContainer().name
+    time.sleep(5)
+    print 'free container '+dispatcher.getFreeContainer().name
+    time.sleep(5)
+    print 'free container '+dispatcher.getFreeContainer().name
+    time.sleep(5)
+
+
+    print 'final free'
+    for i in dispatcher.containers['not running']:
+        print i.name
+    #sys.exit()
     #print dispatcher.getFreeContainer().name
 
 
-    for n,(i,j) in dispatcher.portmap.items():
-        print i
+    #for n,(i,j) in dispatcher.portmap.items():
+    #    print i
 
-    x=raw_input("asdasd")
+    #x=raw_input("asdasd")
 
-    dispatcher.shutdown()
+    #dispatcher.shutdown()

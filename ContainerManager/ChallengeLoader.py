@@ -1,4 +1,3 @@
-import asyncore
 import ContainerDispatcher
 import socket
 import sys
@@ -7,21 +6,6 @@ __author__ = 'root'
 
 
 
-def loadChallenge():
-
-    #get a free container from ContainerDispatcher
-    free = containerDispatcher.getFreeContainer()
-
-    #get challenge details from php
-
-    #load hackademic into container
-
-    #change site root ip to container ip in config.inc.php
-    #change database location in config.inc.php
-    #copy the appropriate session file to container
-    #?change the IPaddress in session file
-
-    return free
 
 def serve(conn):
     data=''
@@ -38,7 +22,7 @@ def serve(conn):
                 print data
 
                 #get free container from dispatcher
-                container = loadChallenge()
+                container = containerDispatcher.getFreeContainer()
 
                 #send port to php
                 #print  containerDispatcher.portmap['rootfs']
@@ -56,12 +40,13 @@ def serve(conn):
 
 
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
 
     #start all containers
     containerDispatcher = ContainerDispatcher.ContainerDispatcher()
     containerDispatcher.start()
+
 
 
     for n,(i,j) in containerDispatcher.portmap.items():
@@ -84,6 +69,8 @@ if __name__ == '__main__':
     while True:
         conn, address = s.accept()
         serve(conn)
+
+        conn.close()
         #containerDispatcher.shutdown()
 
 

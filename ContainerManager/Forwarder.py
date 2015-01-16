@@ -32,7 +32,8 @@ class forwarder:
                 thread.start_new_thread(self.forward, (server_socket, client_socket))
 
         finally:
-            print 'exit'
+            dock_socket.close()
+            #print 'exit'
             #thread.start_new_thread(self.server)
 
 
@@ -43,7 +44,7 @@ class forwarder:
             if string:
                 destination.sendall(string)
             else:
-                source.shutdown(socket.SHUT_RD)
+                #source.shutdown(socket.SHUT_RD)
                 destination.shutdown(socket.SHUT_WR)
 
 
