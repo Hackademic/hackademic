@@ -1,7 +1,4 @@
----
-layout: post
-title: Web Service Security
----
+
 <!---
 Web Service
 -->
