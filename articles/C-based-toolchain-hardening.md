@@ -1,7 +1,4 @@
----
-layout: post
-title: C-Based Toolchain Hardening
----
+
 <!---
 C-Toolchain
 -->
