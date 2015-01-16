@@ -1,7 +1,4 @@
----
-layout: post
-title: Transport Layer Protection
----
+
 <!---
 TLS
 -->
