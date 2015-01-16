@@ -1,7 +1,4 @@
----
-layout: post
-title: Session Management
----
+
 <!---
 Session Management
 -->
