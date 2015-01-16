@@ -1,7 +1,4 @@
----
-layout: post
-title: Choosing and Using Security questions 
----
+
 <!---
 Using Security questions
 -->
