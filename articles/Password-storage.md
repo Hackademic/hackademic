@@ -1,7 +1,4 @@
----
-layout: post
-title: Password Storage Cheat Sheet
----
+
 <!---
 Password storage shet
 -->
