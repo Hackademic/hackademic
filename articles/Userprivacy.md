@@ -1,7 +1,4 @@
----
-layout: post
-title: User privacy protection 
----
+
 <!---
 User privacy protection
 -->
