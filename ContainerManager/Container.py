@@ -1,4 +1,3 @@
-import shutil
 import subprocess
 import threading
 import time
@@ -6,6 +5,8 @@ import time
 __author__ = 'root'
 
 class Container:
+
+    master_path='/containers/rootfs1'
 
     def __init__(self,name,path):
         self.name = name
@@ -21,6 +22,9 @@ class Container:
 
     def startContainer(self):
 
+        #use unionfs to mount
+        subprocess.call("unionfs -o cow,max_files=32768 -o allow_other,use_ino,suid,dev,nonempty   " + self.path + "/write=RW:" + Container.master_path + "=RO   " + self.path+"/mount",shell=True)
+
         #command to start the container
         cmd = "virsh -c lxc:// start " + self.name
         subprocess.call(cmd,shell = True)
@@ -31,14 +35,16 @@ class Container:
         #command to shutdown the container
         cmd = "virsh -c lxc:// destroy " + self.name
         subprocess.call(cmd,shell = True)
+
+        #unmount the mount folder
+        subprocess.call("umount " + self.path + "/mount",shell=True)
+
         return
 
 
     def reloadContainer(self):
 
-        #remove /<container path>/var/www/html/hackademic
-        shutil.rmtree(self.path + "/var/www/html/hackademic")
-
+        #remove things in write folder
         self.free = True
         return
 
@@ -66,12 +72,12 @@ class Container:
 
 if __name__=='__main__':
 
-    temp = Container('rootfs','/container/rootfs')
-    #temp.startContainer()
-    #temp.stopContainer()
-    temp.startExpireTimer()
-    x=raw_input("sdfsd")
-    print x
+    temp = Container('rootfs2','/containers/rootfs2')
+    temp.startContainer()
+    temp.stopContainer()
+    #temp.startExpireTimer()
+    #x=raw_input("sdfsd")
+    #print x
 
 
 

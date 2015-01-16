@@ -87,30 +87,42 @@ class ContainerDispatcher:
 
 
     def createContainer(self):
-        # This function creates a new container
-        #proably will not be needed
 
-        #name = self.master_copy_name + str(randint(1,10))               # every new container will have name like lxc56
-        name='rootfs1'
+
+        name=self.containers['running'][-1].name[:-1] + str((int(self.containers['running'][-1].name[-1]) + 1))
+        print 'creating container - ',name
+
         ram = self.ram_size
+        master_path=Container.Container.master_path
 
         #create new folder at  container_root_path for new container
-        src = self.container_root_path + '/' + self.master_copy_name
         dst = self.container_root_path + '/' + name
 
-        #shutil.copytree(src,dst)       may not copy special files
-        print 'copying files will take a long time'
-        #use bash script for achiving these
-        #subprocess.call('cp -a ' + src + ' ' + dst, shell=True)
-        #subprocess.call('sed /s/LXC_NAME/' + name + '/ ' + dst + '/etc/sysconfig/network-scripts/ifcfg-eth0', shell=True)
 
-        #create container using virt-install --noautoconsole ensures virt-install does not open console for the container
-        print 'running virt-install'
-        #subprocess.call("virt-install --connect lxc:// --name " + name + " --ram " + ram + " --filesystem " + self.container_root_path + "/" + name + "/" +  ",/" + " --noautoconsole",shell=True)
+        #make the necessary container folders
+        subprocess.call('mkdir ' + dst,shell=True)
+        subprocess.call('mkdir ' + dst+'/'+'mount',shell=True)
+        subprocess.call('mkdir ' + dst+'/'+'write',shell=True)
+
+        #use unionfs to mount the container
+        subprocess.call("unionfs -o cow,max_files=32768 -o allow_other,use_ino,suid,dev,nonempty   " + dst + "/write=RW:" + master_path + "=RO   " + dst + "/mount",shell=True)
+
+        #change the necessary files for changing hostname
+        subprocess.call("cp first_setup.sh " + dst + "/mount/first_setup.sh",shell=True)
+        subprocess.call("chroot " + dst + "/mount" + " ./first_setup.sh " + name,shell=True)
+
+        #create container using virt-install
+        subprocess.call("virt-install --connect lxc:// --name " + name + " --ram " + ram + " --filesystem " + self.container_root_path + "/" + name + "/mount" +  ",/" + " --noautoconsole",shell=True)
+
 
 
         #add to running_containers list
         temp = Container.Container(name,dst)
+        temp.stopContainer()
+        temp.startContainer()
+
+        #this is necessary because adding a new entry to the default.leases file will take some time. So map to port should not be called immediatly
+        time.sleep(20)
         self.containers['running'].append(temp)
 
 
