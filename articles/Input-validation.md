@@ -1,7 +1,4 @@
----
-layout: post
-title: Input Validation
----
+
 <!---
 Input validation
 -->
