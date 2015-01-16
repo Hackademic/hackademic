@@ -1,7 +1,4 @@
----
-layout: post
-title: Insecure Cryptographic Storage
----
+
 <!---
 Cryptography
 -->
