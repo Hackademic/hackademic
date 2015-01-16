@@ -1,7 +1,4 @@
----
-layout: post
-title: .NET Security
----
+
 <!---
 .NET
 -->
