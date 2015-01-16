@@ -1,7 +1,4 @@
----
-layout: post
-title: Ruby On Rails Security
----
+
 <!---
 Ruby on Rails
 -->
