@@ -1,7 +1,4 @@
----
-layout: post
-title: Unvalidated Redirects and Forwards
----
+
 <!---
 Unvalidated Redirects and Forwards
 -->
