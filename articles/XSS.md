@@ -1,7 +1,4 @@
----
-layout: post
-title: Cross Site Scripting (XSS)
----
+
 <!---
 XSS
 -->
