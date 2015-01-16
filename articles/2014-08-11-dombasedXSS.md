@@ -1,7 +1,4 @@
----
-layout: post
-title: DOM based XSS. 
----
+
 <!---
 DOM based XSS
 -->
