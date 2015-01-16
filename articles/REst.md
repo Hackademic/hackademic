@@ -1,7 +1,4 @@
----
-layout: post
-title: REpresentational State Transfer
----
+
 <!---
 REst
 -->
