@@ -72,7 +72,7 @@ print '     -> service httpd restart'
 print '     -> service mysqld restart'
 print '     -> chkconfig httpd on'
 print '     -> chkconfig mysqld on'
-print '     -> mysql_secure_installation        #allow remote root login'
+print '     -> mysql_secure_installation'
 print 'Set a root password'
 
 print 'exit the chroot and run virsh -c lxc:// destroy rootfs'
