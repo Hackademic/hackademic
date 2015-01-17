@@ -21,7 +21,7 @@ class ContainerDispatcher:
         self.start_number = 1
         self.ip_address = ''             #get from config file
         self.container_root_path = ''    #get from config file
-        self.hackademic_root_path = ''   #get from config file
+        #self.hackademic_root_path = ''   #get from config file
         self.master_copy_name=''
         self.ram_size=''
         self.free_ports = []
@@ -44,7 +44,7 @@ class ContainerDispatcher:
 
             #read configration from file
             self.container_root_path = configparser.get('global','container root path')
-            self.hackademic_root_path = configparser.get('global','hackademic root path')
+            #self.hackademic_root_path = configparser.get('global','hackademic root path')
             self.ip_address = configparser.get('global','ip address')
 
             self.master_copy_name = configparser.get('container','master name')
@@ -55,9 +55,10 @@ class ContainerDispatcher:
 
             #read free port configurations
             start = configparser.get('port range','start')
-            stop = configparser.get('port range','stop')
-            self.free_ports = range(int(start),int(stop))
-            print self.free_ports
+            self.port_start = start
+            #stop = configparser.get('port range','stop')
+            #self.free_ports = range(int(start),int(stop))
+            #print self.free_ports
 
         else:
             #add some kind of failsafe
@@ -142,7 +143,9 @@ class ContainerDispatcher:
         #This functioin is used to port forward specific local ports to the http port of each container
 
         #get a free port
-        local_port=self.free_ports.pop()
+        #local_port=self.free_ports.pop()
+        self.port_start += 1
+        local_port = self.port_start
         #print 'port ',local_port
 
 
