@@ -52,8 +52,6 @@ subprocess.call("mkdir " + container_root_path,shell=True)
 #print "The installer will now download the container image for CentOS 6.6. The best suport is a host operating system which is the same"
 subprocess.call("wget http://images.linuxcontainers.org/images/centos/6/i386/default/20150114_02:16/rootfs.tar.gz")
 
-#add it to config file
-
 
 #extract the first container
 print "Extracting the first container"
@@ -64,6 +62,17 @@ subprocess.call("cp first_setup.sh " + container_root_path + "/mount/first_setup
 subprocess.call("chroot " + container_root_path + "/mount" + " ./first_setup.sh " + 'rootfs',shell=True)
 
 #execute virt-install
-subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/")
+subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/ --noautoconsole")
 
-print "Installation complete"
+print 'Installation of the contianer is now complete. Please chroot into the container and execute the following commands'
+print '     -> yum install httpd,mysql,mysql-server,php,php-mysql'
+print '     -> yum clean all'
+print '     -> yum install phpmyadmin'
+print '     -> service httpd restart'
+print '     -> service mysqld restart'
+print '     -> chkconfig httpd on'
+print '     -> chkconfig mysqld on'
+print '     -> mysql_secure_installation        #allow remote root login'
+print 'Set a root password'
+
+print 'exit the chroot and run virsh -c lxc:// destroy rootfs'
