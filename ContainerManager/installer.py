@@ -9,7 +9,7 @@ print "The installer assumes that you have read the README file"
 config_string='#container manager configuration file'
 
 print "SElinux boolean has to be changed"
-#subprocess.call("setsebool -P httpd_can_network_connect 1",shell=True)
+subprocess.call("setsebool -P httpd_can_network_connect 1",shell=True)
 
 print 'Setting global configurations'
 
@@ -57,17 +57,50 @@ subprocess.call("wget http://images.linuxcontainers.org/images/centos/6/i386/def
 print "Extracting the first container"
 subprocess.call("tar -xvf rootfs.tar.xz -C " + container_root_path)
 
-#execute first_setup.sh file as chroot
-subprocess.call("cp first_setup.sh " + container_root_path + "/mount/first_setup.sh",shell=True)
-subprocess.call("chroot " + container_root_path + "/mount" + " ./first_setup.sh " + 'rootfs',shell=True)
+#execute container_hostname_setup.sh file as chroot
+subprocess.call("cp container_hostname_setup.sh " + container_root_path + "/mount/container_hostname_setup.sh",shell=True)
+subprocess.call("chroot " + container_root_path + "/mount" + " ./container_hostname_setup.sh " + 'rootfs',shell=True)
+#install hackademic into container
 
 #execute virt-install
 subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/ --noautoconsole")
 
+#download hackademic-next to container
+#copy the config.inc.php of the main hackademic setup to it
+#change the necessary entries in the file
+
+
+#install that many containers according to start_number using unionfs-fuse
+
+#make necessary folders
+for i in range(1,start_number):
+
+    container_name = "rootfs" + str(i)
+    container_folder_name = container_root_path + "/rootfs" + str(i)
+
+    #make necessary folders
+    subprocess.call("mkdir " + container_folder_name)
+    subprocess.call("mkdir " + container_folder_name + "/mount")
+    subprocess.call("mkdir " + container_folder_name + "/write")
+
+    #mount container using unionfs
+    subprocess.call("unionfs -o cow,max_files=32768 -o allow_other,use_ino,suid,dev,nonempty   " + container_folder_name + "/write=RW:" + container_root_path+"/rootfs" + "=RO   " + container_folder_name + "/mount",shell=True)
+
+    #change hostname
+    subprocess.call("cp container_hostname_setup.sh " + container_folder_name + "/mount/container_hostname_setup.sh",shell=True)
+    subprocess.call("chroot " + container_folder_name + "/mount" + " ./container_hostname_setup.sh " + container_name,shell=True)
+
+
+    #execute virt-install
+    subprocess.call("virt-install --connect lxc:// --name " + container_name + " --ram " + default_ram_size + " --filesystem " + container_folder_name + "/mount" +  ",/" + " --noautoconsole",shell=True)
+
+
+#do this in a chrooted script file ?
 print 'Installation of the contianer is now complete. Please chroot into the container and execute the following commands'
-print '     -> yum install httpd,mysql,mysql-server,php,php-mysql'
+print '     -> yum install httpd,mysql mysql-server php php-mysql epel'
 print '     -> yum clean all'
 print '     -> yum install phpmyadmin'
+print '     -> yum update'
 print '     -> service httpd restart'
 print '     -> service mysqld restart'
 print '     -> chkconfig httpd on'

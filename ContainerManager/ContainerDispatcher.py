@@ -113,8 +113,8 @@ class ContainerDispatcher:
         subprocess.call("unionfs -o cow,max_files=32768 -o allow_other,use_ino,suid,dev,nonempty   " + dst + "/write=RW:" + master_path + "=RO   " + dst + "/mount",shell=True)
 
         #change the necessary files for changing hostname
-        subprocess.call("cp first_setup.sh " + dst + "/mount/first_setup.sh",shell=True)
-        subprocess.call("chroot " + dst + "/mount" + " ./first_setup.sh " + name,shell=True)
+        subprocess.call("cp container_hostname_setup.sh " + dst + "/mount/container_hostname_setup.sh",shell=True)
+        subprocess.call("chroot " + dst + "/mount" + " ./container_hostname_setup.sh " + name,shell=True)
 
         #create container using virt-install
         subprocess.call("virt-install --connect lxc:// --name " + name + " --ram " + ram + " --filesystem " + self.container_root_path + "/" + name + "/mount" +  ",/" + " --noautoconsole",shell=True)
@@ -166,8 +166,8 @@ class ContainerDispatcher:
         self.portmap[container.name]=(local_port,forwarder)
 
         #change site root path in config.php file
-        subprocess.call("cp hackademic_setup.sh " + container.path + "/mount/hackademic_setup.sh",shell=True)
-        subprocess.call("chroot " + container.path + "/mount" + " ./hackademic_setup.sh " + self.ip_address + " " + str(local_port),shell=True)
+        subprocess.call("cp container_hackademic_setup.sh " + container.path + "/mount/container_hackademic_setup.sh",shell=True)
+        subprocess.call("chroot " + container.path + "/mount" + " ./container_hackademic_setup.sh " + self.ip_address + " " + str(local_port),shell=True)
 
 
 
