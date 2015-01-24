@@ -4,6 +4,7 @@ __author__ = 'root'
 
 print "Hackademic sandbox installer"
 print "The installer assumes that you have read the README file"
+subprocess.call("./grant_priv.sh")
 
 
 config_string='#container manager configuration file'
@@ -40,6 +41,7 @@ config_string += 'start : ' + port_start + '\n'
 
 print config_string
 
+#write config to config file
 config_file = open("config.conf","w")
 config_file.writelines(config_string)
 config_file.close()
@@ -58,16 +60,18 @@ print "Extracting the first container"
 subprocess.call("tar -xvf rootfs.tar.xz -C " + container_root_path)
 
 #execute container_hostname_setup.sh file as chroot
-subprocess.call("cp container_hostname_setup.sh " + container_root_path + "/mount/container_hostname_setup.sh",shell=True)
-subprocess.call("chroot " + container_root_path + "/mount" + " ./container_hostname_setup.sh " + 'rootfs',shell=True)
-#install hackademic into container
+subprocess.call("cp container_hostname_setup.sh " + container_root_path + "/container_hostname_setup.sh",shell=True)
+subprocess.call("chroot " + container_root_path + " ./container_hostname_setup.sh " + 'rootfs',shell=True)
+
+#copy hackademic-next to container
+subprocess.call("cp /var/www/html/hackademic-next " + container_root_path + "/rootfs/var/www/html/hackademic-next")
 
 #execute virt-install
 subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/ --noautoconsole")
 
-#download hackademic-next to container
-#copy the config.inc.php of the main hackademic setup to it
-#change the necessary entries in the file
+#chroot and execute first_container_setup.sh
+subprocess.call("cp " + "centos_first_install.sh" + container_root_path + "/rootfs/centos_first_install.sh")
+subprocess.call("chroot " + container_root_path + "/rootfs" + " ./first_container_setup.sh")
 
 
 #install that many containers according to start_number using unionfs-fuse
@@ -95,17 +99,4 @@ for i in range(1,start_number):
     subprocess.call("virt-install --connect lxc:// --name " + container_name + " --ram " + default_ram_size + " --filesystem " + container_folder_name + "/mount" +  ",/" + " --noautoconsole",shell=True)
 
 
-#do this in a chrooted script file ?
-print 'Installation of the contianer is now complete. Please chroot into the container and execute the following commands'
-print '     -> yum install httpd,mysql mysql-server php php-mysql epel'
-print '     -> yum clean all'
-print '     -> yum install phpmyadmin'
-print '     -> yum update'
-print '     -> service httpd restart'
-print '     -> service mysqld restart'
-print '     -> chkconfig httpd on'
-print '     -> chkconfig mysqld on'
-print '     -> mysql_secure_installation'
-print 'Set a root password'
-
-print 'exit the chroot and run virsh -c lxc:// destroy rootfs'
+subprocess.call("virsh -c lxc:// destroy rootfs")

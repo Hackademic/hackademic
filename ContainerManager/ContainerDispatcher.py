@@ -55,7 +55,7 @@ class ContainerDispatcher:
 
             #read free port configurations
             start = configparser.get('port range','start')
-            self.port_start = start
+            self.port_start = int(start)
             #stop = configparser.get('port range','stop')
             #self.free_ports = range(int(start),int(stop))
             #print self.free_ports
