@@ -1,1 +1,1 @@
-mysql --user root --password=hackademic < grant_priv.sh
+mysql -p < grant_priv.sh
