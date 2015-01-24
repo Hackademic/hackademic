@@ -4,6 +4,7 @@ __author__ = 'root'
 
 print "Hackademic sandbox installer"
 print "The installer assumes that you have read the README file"
+subprocess.call("./grant_priv.sh")
 
 
 config_string='#container manager configuration file'
