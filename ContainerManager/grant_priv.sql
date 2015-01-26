@@ -1,3 +1,3 @@
 create user 'root'@'%' identified by 'hackademic';
-grant all on hack.* to 'root'@'%' with grant option;
+grant all on hackademic-db.* to 'root'@'%' with grant option;
 flush privileges;
