@@ -4,7 +4,7 @@ __author__ = 'root'
 
 print "Hackademic sandbox installer"
 print "The installer assumes that you have read the README file"
-subprocess.call("./grant_priv.sh")
+subprocess.call("./grant_priv.sh",shell=True)
 
 
 config_string='#container manager configuration file'
@@ -52,26 +52,26 @@ subprocess.call("mkdir " + container_root_path,shell=True)
 
 
 #print "The installer will now download the container image for CentOS 6.6. The best suport is a host operating system which is the same"
-subprocess.call("wget http://images.linuxcontainers.org/images/centos/6/i386/default/20150114_02:16/rootfs.tar.gz")
+subprocess.call("wget http://images.linuxcontainers.org/images/centos/6/i386/default/20150114_02:16/rootfs.tar.gz",shell=True)
 
 
 #extract the first container
 print "Extracting the first container"
-subprocess.call("tar -xvf rootfs.tar.xz -C " + container_root_path)
+subprocess.call("tar -xvf rootfs.tar.xz -C " + container_root_path,shell=True)
 
 #execute container_hostname_setup.sh file as chroot
 subprocess.call("cp container_hostname_setup.sh " + container_root_path + "/container_hostname_setup.sh",shell=True)
 subprocess.call("chroot " + container_root_path + " ./container_hostname_setup.sh " + 'rootfs',shell=True)
 
 #copy hackademic-next to container
-subprocess.call("cp /var/www/html/hackademic-next " + container_root_path + "/rootfs/var/www/html/hackademic-next")
+subprocess.call("cp /var/www/html/hackademic-next " + container_root_path + "/rootfs/var/www/html/hackademic-next",shell=True)
 
 #execute virt-install
-subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/ --noautoconsole")
+subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/ --noautoconsole",shell=True)
 
 #chroot and execute first_container_setup.sh
-subprocess.call("cp " + "centos_first_install.sh" + container_root_path + "/rootfs/centos_first_install.sh")
-subprocess.call("chroot " + container_root_path + "/rootfs" + " ./first_container_setup.sh")
+subprocess.call("cp " + "centos_first_install.sh" + container_root_path + "/rootfs/centos_first_install.sh",shell=True)
+subprocess.call("chroot " + container_root_path + "/rootfs" + " ./first_container_setup.sh",shell=True)
 
 
 #install that many containers according to start_number using unionfs-fuse
@@ -83,9 +83,9 @@ for i in range(1,start_number):
     container_folder_name = container_root_path + "/rootfs" + str(i)
 
     #make necessary folders
-    subprocess.call("mkdir " + container_folder_name)
-    subprocess.call("mkdir " + container_folder_name + "/mount")
-    subprocess.call("mkdir " + container_folder_name + "/write")
+    subprocess.call("mkdir " + container_folder_name,shell=True)
+    subprocess.call("mkdir " + container_folder_name + "/mount",shell=True)
+    subprocess.call("mkdir " + container_folder_name + "/write",shell=True)
 
     #mount container using unionfs
     subprocess.call("unionfs -o cow,max_files=32768 -o allow_other,use_ino,suid,dev,nonempty   " + container_folder_name + "/write=RW:" + container_root_path+"/rootfs" + "=RO   " + container_folder_name + "/mount",shell=True)
@@ -99,4 +99,4 @@ for i in range(1,start_number):
     subprocess.call("virt-install --connect lxc:// --name " + container_name + " --ram " + default_ram_size + " --filesystem " + container_folder_name + "/mount" +  ",/" + " --noautoconsole",shell=True)
 
 
-subprocess.call("virsh -c lxc:// destroy rootfs")
+subprocess.call("virsh -c lxc:// destroy rootfs",shell=True)
