@@ -167,7 +167,7 @@ class ContainerDispatcher:
 
         #forward port
         #local host wont do have to set appropriate ip
-        forwarder = Forwarder.forwarder('192.168.40.139',local_port,remote_ip,80)
+        forwarder = Forwarder.forwarder(self.ip_address,local_port,remote_ip,80)
 
         #add to portmap
         self.portmap[container.name]=(local_port,forwarder)
