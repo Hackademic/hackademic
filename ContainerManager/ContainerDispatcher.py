@@ -201,7 +201,9 @@ class ContainerDispatcher:
 
 
         #if a free container is not found then a container which is shutdown will be activated
+        lock.acquire()
         if len(self.containers['not running']) >0:
+            lock.release()
 
             #get a conatiner which is not running
             free = self.containers['not running'].pop(0)
@@ -222,12 +224,21 @@ class ContainerDispatcher:
                 #do it in an new thread
 
                 def makenew():
+                    lock.acquire()
                     new = self.createContainer()
                     new.stopContainer()
                     self.containers['not running'].append(new)
+                    lock.release()
 
-                thread = threading.Thread(target=makenew)
-                thread.start()
+                #thread = threading.Thread(target=makenew)
+                #thread.start()
+                #threadb = threading.Thread(target=makenew)
+                #threadb.start()
+
+                for i in [1,2,3]:
+
+                    thread = threading.Thread(target=makenew)
+                    thread.start()
 
             return free
 
@@ -312,14 +323,22 @@ if __name__ == '__main__':
     dispatcher.start()
     #dispatcher.createContainer()
 
-    print 'free container '+dispatcher.getFreeContainer().name
-    time.sleep(5)
-    print 'free container '+dispatcher.getFreeContainer().name
-    time.sleep(5)
-    print 'free container '+dispatcher.getFreeContainer().name
-    time.sleep(5)
-    print 'free container '+dispatcher.getFreeContainer().name
-    time.sleep(5)
+    #print 'free container '+dispatcher.getFreeContainer().name
+    #time.sleep(5)
+    #print 'free container '+dispatcher.getFreeContainer().name
+    #time.sleep(5)
+    #print 'free container '+dispatcher.getFreeContainer().name
+    #time.sleep(5)
+    #print 'free container '+dispatcher.getFreeContainer().name
+    #time.sleep(5)
+
+    started=[]
+    for i in [1,2,3,4,5,6]:
+        started.append(dispatcher.getFreeContainer())
+        time.sleep(5)
+
+    for i in started:
+        i.stopContainer()
 
 
     print 'final free'
