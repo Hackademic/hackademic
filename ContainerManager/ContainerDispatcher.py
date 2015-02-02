@@ -94,7 +94,14 @@ class ContainerDispatcher:
     def createContainer(self):
 
 
-        name=self.containers['running'][-1].name[:-1] + str((int(self.containers['running'][-1].name[-1]) + 1))
+        #self.containers['not running'].sort(key= lambda x:x.name, reverse=True)
+        lists = self.containers['running'] + self.containers['not running']
+        lists.sort(key=lambda x:x.name)
+
+        last_name = lists[-1].name
+        name = last_name[:-1] + str(int(last_name[-1]) + 1)
+
+        #name=self.containers['running'][-1].name[:-1] + str((int(self.containers['running'][-1].name[-1]) + 1))
         print 'creating container - ',name
 
         ram = self.ram_size
