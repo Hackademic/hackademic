@@ -5,7 +5,7 @@ import sys
 __author__ = 'root'
 
 
-
+started=[]
 
 def serve(conn):
     data=''
@@ -23,6 +23,8 @@ def serve(conn):
 
                 #get free container from dispatcher
                 container = containerDispatcher.getFreeContainer()
+
+                started.append(container)
 
                 #send port to php
                 #print  containerDispatcher.portmap['rootfs']
@@ -66,11 +68,18 @@ if __name__ == '__main__':
         sys.exit()
 
 
-    while True:
-        conn, address = s.accept()
-        serve(conn)
+    try:
+        while True:
+            conn, address = s.accept()
+            serve(conn)
 
-        conn.close()
-        #containerDispatcher.shutdown()
+            conn.close()
+            #containerDispatcher.shutdown()
+
+    finally:
+
+        for i in started:
+            i.stopContainer()
+
 
 
