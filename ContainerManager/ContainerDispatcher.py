@@ -9,6 +9,8 @@ import Forwarder
 
 __author__ = 'root'
 
+lock = threading.Lock()
+
 class ContainerDispatcher:
 
     #add logging capability
