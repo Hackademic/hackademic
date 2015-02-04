@@ -13,6 +13,7 @@ class forwarder:
         self.remote_port=remote_port
 
         self.thread = threading.Thread(target=self.server)
+        self.thread.daemon = True
         self.thread.start()
         
 
@@ -33,6 +34,8 @@ class forwarder:
 
         finally:
             dock_socket.close()
+            client_socket.close()
+            server_socket.close()
             #print 'exit'
             #thread.start_new_thread(self.server)
 
