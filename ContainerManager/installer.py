@@ -1,4 +1,5 @@
 import subprocess
+import time
 
 __author__ = 'root'
 
@@ -7,13 +8,15 @@ print "The installer assumes that you have read the README file"
 print"\n\n"
 
 
+mysql_db = raw_input("Enter the hackademic database name\n")
 mysql_password = raw_input("Enter the password used for mysql in hackademic setup\n")
-subprocess.call("./grant_priv.sh " + mysql_password,shell=True)
+subprocess.call("./grant_priv.sh " + mysql_db + " " + mysql_password,shell=True)
 
 #copy the files check.php and my trychallenges.php to hackademic-next installation
 print "\nPrepping hackademic-next installation for sandbox enviorment\n"
 subprocess.call("cp ../check.php /var/www/html/hackademic-next/check.php")
 subprocess.call("cp ../controller/class.TryChallengeController.php /var/www/html/hackademic-next/controller/class.TryChallengeController.php")
+
 config_string='#container manager configuration file'
 
 print "Changing SElinux boolean. This will take some time.\n"
