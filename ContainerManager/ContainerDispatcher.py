@@ -98,10 +98,14 @@ class ContainerDispatcher:
 
         #self.containers['not running'].sort(key= lambda x:x.name, reverse=True)
         lists = self.containers['running'] + self.containers['not running']
-        lists.sort(key=lambda x:x.name)
+        lists.sort(key=lambda x:int(x.name.replace('rootfs','')))
 
         last_name = lists[-1].name
-        name = last_name[:-1] + str(int(last_name[-1]) + 1)
+        temp = last_name.replace('rootfs','')
+        temp = str(int(temp) + 1)
+        #name = last_name[:-1] + str(int(last_name[-1]) + 1)
+        name = 'rootfs' + temp
+
 
         #name=self.containers['running'][-1].name[:-1] + str((int(self.containers['running'][-1].name[-1]) + 1))
         print 'creating container - ',name
