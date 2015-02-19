@@ -7,6 +7,7 @@ __author__ = 'root'
 class Container:
 
     master_path='/containers/rootfs1'
+    expire_time=60
 
     def __init__(self,name,path):
         self.name = name
@@ -19,6 +20,8 @@ class Container:
         #expiration time in seconds
         self.expire = 6
 
+        self.expire = Container.expire_time     #The time after which the container is automatically set as free
+                                                #represented in seconds
 
     def startContainer(self):
 

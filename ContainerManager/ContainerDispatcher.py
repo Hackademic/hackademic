@@ -55,6 +55,8 @@ class ContainerDispatcher:
 
             self.start_number = int(configparser.get('container','start number'))
 
+            Container.Container.expire_time = configparser.get('container','expire time')
+
             #read free port configurations
             start = configparser.get('port range','start')
             self.port_start = int(start)
