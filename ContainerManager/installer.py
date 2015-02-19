@@ -38,6 +38,7 @@ config_string += 'ip address : ' + ip_address + '\n'
 #add container entries
 config_string += '\n[container]\n'
 default_ram_size = raw_input("Enter the maximum amount of ram to be allocated to each container\n")
+install_number = raw_input("Enter the number of containers to be installed initially")
 start_number = raw_input("Enter the number of containers to be started by default\n")
 
 config_string += 'master name : rootfs\n'
@@ -52,7 +53,7 @@ config_string += 'start : ' + port_start + '\n'
 print config_string
 
 #write config to config file
-config_file = open("config.conf","w")
+config_file = open("container.conf","w")
 config_file.writelines(config_string)
 config_file.close()
 
@@ -60,19 +61,10 @@ config_file.close()
 subprocess.call("mkdir " + container_root_path,shell=True)
 
 
-
-#print "The installer will now download the container image for CentOS 6.6. The best suport is a host operating system which is the same"
-#dosnt work. use as a user input?
-subprocess.call("wget http://images.linuxcontainers.org/images/centos/6/i386/default/20150114_02:16/rootfs.tar.gz",shell=True)
-
-
 #extract the first container
 print "Extracting the first container"
-subprocess.call("tar -xvf rootfs.tar.xz -C " + container_root_path,shell=True)
+subprocess.call("tar -xvf installaion/resources/rootfs.tar.xz -C " + container_root_path,shell=True)
 
-#execute container_hostname_setup.sh file as chroot
-subprocess.call("mv container_hostname_setup.sh " + container_root_path + "/container_hostname_setup.sh",shell=True)
-subprocess.call("chroot " + container_root_path + " ./container_hostname_setup.sh " + 'rootfs',shell=True)
 
 #copy hackademic-next to container
 subprocess.call("cp /var/www/html/hackademic-next " + container_root_path + "/rootfs/var/www/html/hackademic-next",shell=True)
@@ -80,15 +72,21 @@ subprocess.call("cp /var/www/html/hackademic-next " + container_root_path + "/ro
 #execute virt-install
 subprocess.call("virt-install --connect lxc:// --name rootfs --ram " + default_ram_size + " --filesystem " + container_root_path + "/rootfs/,/ --noautoconsole",shell=True)
 
+time.sleep(10)
+
 #chroot and execute first_container_setup.sh
 subprocess.call("cp " + "centos_first_install.sh" + container_root_path + "/rootfs/centos_first_install.sh",shell=True)
 subprocess.call("chroot " + container_root_path + "/rootfs" + " ./first_container_setup.sh",shell=True)
 
 
+#copy hackademic-next to rootfs and copy config.inc.php file
+subprocess.call("unzip installation/resources/hackademic-next.zip -d " + container_root_path + "/var/www/html")
+subprocess.call("cp /var/www/html/hackademic-next/config.inc.php " + container_root_path + "/var/www/html/hackademic-next/config.inc.php")
+
 #install that many containers according to start_number using unionfs-fuse
 
 #make necessary folders
-for i in range(1,start_number):
+for i in range(1,install_number):
 
     container_name = "rootfs" + str(i)
     container_folder_name = container_root_path + "/rootfs" + str(i)

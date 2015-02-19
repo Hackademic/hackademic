@@ -7,8 +7,7 @@ yum install libvirt virt-install epel wget
 #steps to install rpmforge repository
 rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
 #64 bit version
-wget http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
-rpm -i rpmforge-release-0.5.3-1.el6.rf.*.rpm
+rpm -i installation/resources/rpmforge-release-0.5.3-1.el6.rf.*.rpm
 
 #install necessary packages
 yum clean all
@@ -26,6 +25,5 @@ echo "Executing mysql_secure_installation. Please ensure that remote login is en
 mysql_secure_installation
 
 #download hackademic-next from github
-wget https://github
 echo "Please run hackademic setup through the browser and restart the system before executing installer.py"
 
