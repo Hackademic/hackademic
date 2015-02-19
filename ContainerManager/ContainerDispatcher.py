@@ -140,7 +140,7 @@ class ContainerDispatcher:
         temp.startContainer()
 
         #this is necessary because adding a new entry to the default.leases file will take some time. So map to port should not be called immediatly
-        time.sleep(20)
+        time.sleep(15)
         self.containers['running'].append(temp)
 
 
@@ -236,15 +236,15 @@ class ContainerDispatcher:
                     self.containers['not running'].append(new)
                     lock.release()
 
-                #thread = threading.Thread(target=makenew)
-                #thread.start()
+                thread = threading.Thread(target=makenew)
+                thread.start()
                 #threadb = threading.Thread(target=makenew)
                 #threadb.start()
 
-                for i in [1,2,3]:
+                #for i in [1,2,3]:
 
-                    thread = threading.Thread(target=makenew)
-                    thread.start()
+                 #   thread = threading.Thread(target=makenew)
+                 #   thread.start()
 
             return free
 
@@ -252,10 +252,10 @@ class ContainerDispatcher:
         else:
             #if all the containers are used up then a new container should be installed
             print "no installed containers exception : logical error"
-            #free = self.createContainer()
-            #print free.name
-            #self.containers['running'].append(free)
-            #return free
+            free = self.createContainer()
+            free.stopContainer()
+            self.containers['running'].append(free)
+            return free
 
 
 
@@ -339,7 +339,7 @@ if __name__ == '__main__':
     #time.sleep(5)
 
     started=[]
-    for i in [1,2,3,4,5,6]:
+    for i in range(0,40):
         started.append(dispatcher.getFreeContainer())
         time.sleep(5)
 
