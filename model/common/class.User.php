@@ -232,6 +232,18 @@ class User {
 			return false;
 		}
 	}
+	public function doesEmailExist($email){
+		global $db;
+		$sql = "SELECT * FROM users WHERE email = :email";
+		$params = array(':email' => $email);
+		$query = $db->read($sql, $params, self::$action_type);
+		$result = $db->numRows($query);
+		if($result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public static function updateUser($id, $username, $full_name, $email, $password, $is_activated, $type) {
 		global $db;

@@ -21,8 +21,8 @@ if ($mystring === 'Irene'){
 //if(!isset($_COOKIE["userlevel"] ) and ($_POST["name"]==='Irene') ){
 //}
 
-	setcookie("username", 'Irene'); // set the cookie for 1 hour
-	setcookie("userlevel", 'user'); // set the cookie for 1 hour
+	setcookie("username", 'Irene', null, null, null, null, true); // set the cookie for 1 hour
+	setcookie("userlevel", 'user', null, null, null, null, true); // set the cookie for 1 hour
 	if ($_COOKIE["userlevel"] ==='admin' ){
 			echo "<H1>Congratulations!</H1>";
 			$monitor->update(CHALLENGE_SUCCESS);

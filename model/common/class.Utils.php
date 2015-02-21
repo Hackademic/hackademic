@@ -81,7 +81,8 @@ class Utils {
 	}
 
 	public static function sanitizeInput($input) {
-    $input = htmlspecialchars($input);
-    return $input;
+		$input = str_replace( "\0", "", $input);
+    		$input = htmlspecialchars($input);
+    		return $input;
 	}
 }

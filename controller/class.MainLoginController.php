@@ -42,10 +42,8 @@ class MainLoginController extends HackademicController {
 	public function go() {
 		$this->setViewTemplate('mainlogin.tpl');
 		if(isset($_GET["msg"])){
-			if($_GET["msg"]=="username"){
-				$this->addErrorMessage("The username or password you entered is incorrect");
-			} elseif($_GET["msg"]=="password"){
-				$this->addErrorMessage("The username or password you entered is incorrect");
+			if($_GET["msg"]=="invalid"){
+				$this->addErrorMessage("The username and/or password you entered is incorrect");
 			} elseif($_GET["msg"]=="challenge"){
 				$this->addErrorMessage("You must be logged in to try a challenge");
 			} elseif($_GET["msg"]=="activate"){

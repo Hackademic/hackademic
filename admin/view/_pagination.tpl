@@ -4,7 +4,7 @@
     <!-- Previous -->
     {if $pagination['page'] > 1}
 	{if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}
-            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['prev']}&limit={$smarty.get.limit}">Previous</a>
+            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$pagination['prev']}&limit={$smarty.get.limit}">Previous</a>
         {else}
             <a href="{$pagination['targetpage']}?page={$pagination['prev']}">Previous</a>
         {/if}
@@ -19,7 +19,7 @@
                 <span class='current'>{$counter}</span>
 	    {else}
 		{if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}
-                    <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
+                    <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
                 {else}
                     <a href="{$pagination['targetpage']}?page={$counter}">{$counter}</a>
                 {/if}
@@ -34,7 +34,7 @@
                     <span class='current'>{$counter}</span>
                 {else}
 		    {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                        <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
+                        <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
                     {else}
 			<a href="{$pagination['targetpage']}?page={$counter}">{$counter}</a>
 		    {/if}
@@ -42,13 +42,13 @@
 	    {/for}
             ...
 	    {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-		<a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['last_page_m1']}&limit={$smarty.get.limit}">{$pagination['last_page_m1']}</a>
+		<a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$pagination['last_page_m1']}&limit={$smarty.get.limit}">{$pagination['last_page_m1']}</a>
 	    {else}
                 <a href="{$pagination['targetpage']}?page={$pagination['last_page_m1']}">{$pagination['last_page_m1']}</a>
 	    {/if}
             
             {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['lastpage']}&limit={$smarty.get.limit}">{$pagination['lastpage']}</a>
+                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$pagination['lastpage']}&limit={$smarty.get.limit}">{$pagination['lastpage']}</a>
 	    {else}
 		<a href="{$pagination['targetpage']}?page={$pagination['lastpage']}">{$pagination['lastpage']}</a>
 	    {/if}
@@ -56,13 +56,13 @@
 	{elseif ((($pagination['lastpage'] - ($pagination['stages'] * 2)) > $pagination['page']) && ($pagination['page'] > ($pagination['stages'] * 2)))}
             <!-- Middle hide some front and some back -->
 	    {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page=1&limit={$smarty.get.limit}">1</a>
+                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page=1&limit={$smarty.get.limit}">1</a>
 	    {else}
                 <a href="{$pagination['targetpage']}?page=1">1</a>
 	    {/if}
 	
             {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page=2&limit={$smarty.get.limit}">2</a>
+                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page=2&limit={$smarty.get.limit}">2</a>
 	    {else}
                 <a href="{$pagination['targetpage']}?page=2">2</a>
 	    {/if}
@@ -73,7 +73,7 @@
 		    <span class='current'>{$counter}</span>
 		{else}
                     {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                        <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
+                        <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
                     {else}
            		<a href="{$pagination['targetpage']}?page={$counter}">{$counter}</a>
                     {/if}		
@@ -81,26 +81,26 @@
 	    {/for}
 	    ...
 		{if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                    <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['last_page_m1']}&limit={$smarty.get.limit}">{$pagination['last_page_m1']}</a>
+                    <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$pagination['last_page_m1']}&limit={$smarty.get.limit}">{$pagination['last_page_m1']}</a>
 		{else}
                     <a href="{$pagination['targetpage']}?page={$pagination['last_page_m1']}">{$pagination['last_page_m1']}</a>
 		{/if}
                 
 		{if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                    <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['lastpage']}&limit={$smarty.get.limit}">{$pagination['lastpage']}</a>
+                    <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$pagination['lastpage']}&limit={$smarty.get.limit}">{$pagination['lastpage']}</a>
 		{else}
                     <a href="{$pagination['targetpage']}?page={$pagination['lastpage']}">{$pagination['lastpage']}</a>
 		{/if}
 	{else}
 	    <!-- End only hide early pages -->
 	    {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page=1&limit={$smarty.get.limit}">1</a>
+                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page=1&limit={$smarty.get.limit}">1</a>
 	    {else}
 		<a href="{$pagination['targetpage']}?page=1">1</a>
 	    {/if}
 	
             {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page=2&limit={$smarty.get.limit}">2</a>
+                <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page=2&limit={$smarty.get.limit}">2</a>
 	    {else}
                 <a href="{$pagination['targetpage']}?page=2">2</a>
 	    {/if}
@@ -111,7 +111,7 @@
 		    <span class='current'>{$counter}</span>
 	        {else}
 		    {if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}	
-                        <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
+                        <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$counter}&limit={$smarty.get.limit}">{$counter}</a>
 		    {else}
                         <a href="{$pagination['targetpage']}?page={$counter}">{$counter}</a>
 		    {/if} 
@@ -122,7 +122,7 @@
     <!--  Next -->
     {if $pagination['page'] < ($counter - 1)}
 	{if isset($smarty.get.search)&&isset($smarty.get.category)&&isset($smarty.get.limit)}
-            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['next']}&limit={$smarty.get.limit}">Next</a>
+            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category|htmlspecialchars}&page={$pagination['next']}&limit={$smarty.get.limit}">Next</a>
 	{else}
 	    <a href="{$pagination['targetpage']}?page={$pagination['next']}">Next</a>
 	{/if}
