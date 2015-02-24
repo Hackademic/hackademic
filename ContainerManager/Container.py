@@ -68,6 +68,7 @@ class Container:
             while self.expire > 0:
                 self.expire -= 1
                 time.sleep(1.0 - ((time.time() - starttime) % 1.0))
+            self.expire = Container.expire_time
 
         #execute the timer function as a seperate thread
         timer = threading.Thread(target=execute)
