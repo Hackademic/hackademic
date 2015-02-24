@@ -45,6 +45,10 @@ class AddUserController extends HackademicBackendController {
   private static $action_type = 'add_user';
 
 	public function go() {
+		if ( !self::isLoggedIn() && !self::isAdmin() ) {
+			die('You are not authorized for this action.');
+		}
+
 		$this->saveFormFields();
 		$this->setViewTemplate('adduser.tpl');
 		if (isset($_POST['submit'])) {
