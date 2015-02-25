@@ -1,7 +1,6 @@
 import ConfigParser
 import threading
 import time
-import sys
 import Container
 import subprocess
 import os
@@ -9,23 +8,33 @@ import Forwarder
 
 __author__ = 'root'
 
-lock = threading.Lock()
+##################################################################################################################################
+#   Container Dispatcher is used to dispatch new containers when requested
+#   A dictionary-list combination is used as the data structure to strore container instances
+#
+#   Forwarder.py is used to implement a port forwarding system. A local port is forwarded to port 80 of the container
+#
+#   containers['running'] is a list having running containers while containers['not running'] have shutdown containers
+#
+#   port map is a dictionary used to store the mapped ports. The container name is used as the key to map a  port,forwarder tuple
+#   the forwarder instance in the tuple represents the forwarder instance used for port forwarding for that secific container
+##################################################################################################################################
 
+lock = threading.Lock()
 class ContainerDispatcher:
 
-    #add logging capability
-
+    #   TODO:add logging capability
     def __init__(self):
 
         self.containers={'running' : [] ,'not running' : []}
-        self.portmap={}             #has list of port mappings --> (container name,port)
+        self.portmap={}                                         #has list of port mappings --> [container name] : (port,forwarder)
 
-        self.start_number = 1
-        self.ip_address = ''             #get from config file
-        self.container_root_path = ''    #get from config file
-        #self.hackademic_root_path = ''   #get from config file
-        self.master_copy_name=''
-        self.ram_size=''
+        self.start_number = 1                                   #the number of containers to be started by default when the program is first run
+        self.ip_address = ''                                    #the ip address of the machine. obtained from the config file
+        self.container_root_path = ''                           #the path of the container folder. obtained from config file
+        #self.hackademic_root_path = ''     #get from config file
+        self.master_copy_name=''                                #Name of the first container installed. acts as a master copy
+        self.ram_size=''                                        #RAM alloted to each container for installation
         self.free_ports = []
 
         self.getConfig()
@@ -34,6 +43,8 @@ class ContainerDispatcher:
 
 
     def getConfig(self):
+
+        #load various configuration from configuration file
 
         #check if configuration file exists
         if os.path.exists("container.conf"):
@@ -46,23 +57,18 @@ class ContainerDispatcher:
 
             #read configration from file
             self.container_root_path = configparser.get('global','container root path')
-            #self.hackademic_root_path = configparser.get('global','hackademic root path')
             self.ip_address = configparser.get('global','ip address')
 
             self.master_copy_name = configparser.get('container','master name')
             Container.Container.master_path = self.container_root_path + "/" + self.master_copy_name
+
             self.ram_size = configparser.get('container','ram size')
-
             self.start_number = int(configparser.get('container','start number'))
-
-            Container.Container.expire_time = configparser.get('container','expire time')
+            Container.Container.expire_time = int(configparser.get('container','expire time'))
 
             #read free port configurations
             start = configparser.get('port range','start')
             self.port_start = int(start)
-            #stop = configparser.get('port range','stop')
-            #self.free_ports = range(int(start),int(stop))
-            #print self.free_ports
 
         else:
             #add some kind of failsafe
@@ -91,21 +97,22 @@ class ContainerDispatcher:
                 if len(container_name) > 0:
                     temp.append(Container.Container(container_name,self.container_root_path + '/' + container_name))
 
+        #add entry into lsit
         self.containers['not running'] = temp
 
 
 
     def createContainer(self):
 
+        #This function is used to create a new container
 
-        #self.containers['not running'].sort(key= lambda x:x.name, reverse=True)
+        #obatin a list of sorted container names
         lists = self.containers['running'] + self.containers['not running']
         lists.sort(key=lambda x:int(x.name.replace('rootfs','')))
 
         last_name = lists[-1].name
         temp = last_name.replace('rootfs','')
         temp = str(int(temp) + 1)
-        #name = last_name[:-1] + str(int(last_name[-1]) + 1)
         name = 'rootfs' + temp
 
 
@@ -158,7 +165,6 @@ class ContainerDispatcher:
         #This functioin is used to port forward specific local ports to the http port of each container
 
         #get a free port
-        #local_port=self.free_ports.pop()
         self.port_start += 1
         local_port = self.port_start
         #print 'port ',local_port
@@ -186,12 +192,10 @@ class ContainerDispatcher:
 
 
 
-
-
-
     def getFreeContainer(self):
         #return a container that is not being used
 
+        #Check ['running'] list for free containers
         if len(self.containers['running']) > 0:
 
             for i in reversed(self.containers['running']):
@@ -209,6 +213,7 @@ class ContainerDispatcher:
 
 
         #if a free container is not found then a container which is shutdown will be activated
+        #['not running'] list contains shutdown containers
         lock.acquire()
         if len(self.containers['not running']) >0:
             lock.release()
@@ -226,7 +231,7 @@ class ContainerDispatcher:
 
 
             self.containers['running'].append(free)
-            print 'activiting',free.name
+            #print 'activiting',free.name
 
             if len(self.containers['not running'])<=0:
                 #do it in an new thread
@@ -240,8 +245,6 @@ class ContainerDispatcher:
 
                 thread = threading.Thread(target=makenew)
                 thread.start()
-                #threadb = threading.Thread(target=makenew)
-                #threadb.start()
 
                 #for i in [1,2,3]:
 
@@ -253,7 +256,7 @@ class ContainerDispatcher:
 
         else:
             #if all the containers are used up then a new container should be installed
-            print "no installed containers exception : logical error"
+            #print "no installed containers exception : logical error"
             free = self.createContainer()
             free.stopContainer()
             self.containers['running'].append(free)
@@ -263,10 +266,10 @@ class ContainerDispatcher:
 
 
 
-    #check
     def freeContainer(self,free_this_port):
 
         #this function is called by the ChalengeLoader when a challenge running inside it is over and it is set as free
+        #TODO: implement function properly using 2 write folders
 
         #find the container from portmap
         for container_name,(port,forwarder) in self.portmap.items():
@@ -287,22 +290,6 @@ class ContainerDispatcher:
 
 
 
-    def startall(self):
-
-        #starts all the containers installed in the system
-
-        for i in reversed(self.containers['not running']):
-            print i.name
-
-
-            i.startContainer()
-            #self.mapToPort(temp)
-
-            self.containers['running'].append(i)
-            self.containers['not running'].remove(i)
-
-
-
     def start(self):
 
         #starts a definite number of containres as set by self.startnum
@@ -315,11 +302,9 @@ class ContainerDispatcher:
             self.containers['not running'].remove(i)
 
     def shutdown(self):
-
+        #Gracefully shuts down all containers
         for n,(i,j) in self.portmap.items():
             j.shutdown()
-
-
         return
 
 
@@ -327,21 +312,10 @@ class ContainerDispatcher:
 if __name__ == '__main__':
 
     dispatcher = ContainerDispatcher()
-
     dispatcher.start()
-    #dispatcher.createContainer()
-
-    #print 'free container '+dispatcher.getFreeContainer().name
-    #time.sleep(5)
-    #print 'free container '+dispatcher.getFreeContainer().name
-    #time.sleep(5)
-    #print 'free container '+dispatcher.getFreeContainer().name
-    #time.sleep(5)
-    #print 'free container '+dispatcher.getFreeContainer().name
-    #time.sleep(5)
 
     started=[]
-    for i in range(0,40):
+    for i in range(0,5):
         started.append(dispatcher.getFreeContainer())
         time.sleep(5)
 
@@ -352,13 +326,3 @@ if __name__ == '__main__':
     print 'final free'
     for i in dispatcher.containers['not running']:
         print i.name
-    #sys.exit()
-    #print dispatcher.getFreeContainer().name
-
-
-    #for n,(i,j) in dispatcher.portmap.items():
-    #    print i
-
-    #x=raw_input("asdasd")
-
-    #dispatcher.shutdown()
