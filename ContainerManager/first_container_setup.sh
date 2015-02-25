@@ -1,5 +1,10 @@
 #! /bin/bash
 
+############################################################################################
+# This script is used to prep the first installed container for hackademic
+# It installs the necessary packages
+############################################################################################
+
 echo Installing necessary packages and updating
 yum install httpd mysql mysql-server php php-mysql epel
 yum clean all
