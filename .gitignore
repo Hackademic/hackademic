@@ -1,4 +1,7 @@
+*.patch
 config.inc.php
 view/compiled_view/
 pages/test/
+*.orig
+*.rej
 test
