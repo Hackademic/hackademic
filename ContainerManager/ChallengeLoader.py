@@ -4,10 +4,15 @@ import sys
 
 __author__ = 'root'
 
+###########################################################################################################
+#   Challenge Loader is the main program and acts as a server listining for requests for new containers
+###########################################################################################################
 
-started=[]
+started=[]      # has a list of all containers which are started
 
 def serve(conn):
+    #   This functions listens to requests for containers
+    #   When a new container is made available the port number its associated to it is forwarded
     data=''
 
     try:
@@ -17,6 +22,7 @@ def serve(conn):
             #recived data could be of 2 types
             #   1. requesting a new container
             #   2. signal that challenge is over and container be freed
+            #TODO: implement provision for 2 types of request
 
             if data.endswith(u"\n"):
                 print data
@@ -26,10 +32,10 @@ def serve(conn):
 
                 started.append(container)
 
-                #send port to php
-                #print  containerDispatcher.portmap['rootfs']
+                #get port from port map
                 port,forwarder = containerDispatcher.portmap[container.name]
 
+                #send port to hackademic
                 conn.send(str(port))
                 conn.close()
                 break
@@ -45,20 +51,15 @@ def serve(conn):
 
 if __name__ == '__main__':
 
-    #start all containers
     containerDispatcher = ContainerDispatcher.ContainerDispatcher()
     containerDispatcher.start()
 
 
-
-    for n,(i,j) in containerDispatcher.portmap.items():
-        print n,i
-
     host = '127.0.0.1'
     port = 8081
-    connectionSevered=0
 
     try:
+        #Create a socket to listen for requests
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((host,port))
         s.listen(1)
@@ -72,12 +73,10 @@ if __name__ == '__main__':
         while True:
             conn, address = s.accept()
             serve(conn)
-
             conn.close()
-            #containerDispatcher.shutdown()
 
     finally:
-
+        # gracefully shutdown all containers
         for i in started:
             i.stopContainer()
 
