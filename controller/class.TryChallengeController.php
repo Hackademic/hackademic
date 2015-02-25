@@ -41,7 +41,7 @@ class TryChallengeController extends HackademicController {
 	public function go() {
 		if(isset($_GET['id'])) {
       $id = $_GET['id'];
-		    $class_id = $_GET['class_id'];
+		    $class_id = htmlspecialchars($_GET['class_id']);
       $this->addToView('id', $id);
       $challenge=Challenge::getChallenge($id);
 

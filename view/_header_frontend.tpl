@@ -7,6 +7,19 @@
     <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/pagination.css" />
     <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/base.css" />
+
+    {literal}
+    <style id="antiClickjack">body{display:none !important;}</style>
+
+    <script type="text/javascript">
+   	if (self === top) {
+       		var antiClickjack = document.getElementById("antiClickjack");
+       		antiClickjack.parentNode.removeChild(antiClickjack);
+   	} else {
+       		top.location = self.location;
+   	}
+    </script>
+    {/literal}
 </head>
 <body>
     <div id="main">

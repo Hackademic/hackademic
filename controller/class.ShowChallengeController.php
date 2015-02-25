@@ -43,7 +43,7 @@ class ShowChallengeController extends HackademicController {
 	public function go() {
 		if (isset($_GET['id'])) {
 			if (isset($_GET['class_id']))
-				$class_id = $_GET['class_id'];
+				$class_id = htmlspecialchars($_GET['class_id']);
 		    $id = $_GET['id'];
 		    $challenge=Challenge::getChallenge($id);
 		    $this->setViewTemplate('showChallenge.tpl');

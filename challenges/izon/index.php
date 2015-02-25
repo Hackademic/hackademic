@@ -36,7 +36,7 @@
 			$_SESSION['ch02']=1;
 			if (!isset($_SESSION['ch02_timer'])) { $_SESSION['ch02_timer']=time(); }
 			$_SESSION['ch02_egg']=1;
-			setcookie('izon','admin', time()+3600);
+			setcookie('izon','admin', time()+3600, null, null, null, true);
 		}
 		/* A function that transforms timestamps into a readable HH:MM:SS format */
 		function returnTime($seconds) {

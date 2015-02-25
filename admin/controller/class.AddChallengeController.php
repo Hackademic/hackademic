@@ -66,13 +66,14 @@ class AddChallengeController extends HackademicBackendController {
     if($x === true) {
 	    $zip->extractTo($target);
 	    $zip->close();
+
 	    unlink($file_to_open);
 	    #deletes the zip file. We no longer need it.
 
 	    if (isset($_GET['type']) && $_GET['type'] == "code") {
 		    $xml_exists = 1;
 	    } else {
-		    $xml_exists = file_exists($target."$name".".xml");
+		    $xml_exists = file_exists($target.$name.".xml");
 	    }
 
       if (!file_exists($target."index.php") || !$xml_exists) {
@@ -82,7 +83,9 @@ class AddChallengeController extends HackademicBackendController {
 		      	$this->addToView('step', 'step2');
 		      }
 		    } else {
-		      $this->addErrorMessage("Not a valid challenge! Can't find XML file.");
+	    	        if (!file_exists($target.$name.".xml") ) {
+			    $this->addErrorMessage("Zip's filename must be the same with the xml file within <br /> (case-sensitive).");
+	   	        }
   		  }
 		    self::rrmdir(HACKADEMIC_PATH."challenges/".$name);
 		    return false;
@@ -93,10 +96,9 @@ class AddChallengeController extends HackademicBackendController {
         return $_SESSION['challenge_arr'];
       }
 
-      $xml = simplexml_load_file($target."$name".".xml");
+      $xml = simplexml_load_file($target.$name.".xml");
 
-	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category)||
-		 !isset($xml->level)|| !isset($xml->duration)){
+	    if ( !isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category) ){
         $this->addErrorMessage("The XML file is not valid.");
         self::rrmdir(HACKADEMIC_PATH."challenges/".$name);
         return false;
