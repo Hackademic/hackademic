@@ -2,6 +2,7 @@
 config.inc.php
 view/compiled_view/
 pages/test/
+*.swp
 *.orig
 *.rej
 test
