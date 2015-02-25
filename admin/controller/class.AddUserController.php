@@ -88,6 +88,7 @@ class AddUserController extends HackademicBackendController {
 					$res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
 					$this->addSuccessMessage("User has been added succesfully");
 					header('Location:'.SOURCE_ROOT_PATH."?url=admin/usermanager&source=add");
+					die();
 				}
 			}
 		}

@@ -47,6 +47,7 @@ class ShowClassController extends HackademicBackendController {
 
 		if (!isset($_GET['id'])) {
 			header('Location: '.SOURCE_ROOT_PATH."?url=admin/manageclass");
+			die();
 		}
 		$class_id=$_GET['id'];
 
@@ -57,6 +58,7 @@ class ShowClassController extends HackademicBackendController {
 			if(isset($_POST['updateclassname'])) {
 				if ($_POST['updateclassname']=='') {
 					header('Location: '.SOURCE_ROOT_PATH."?url=admin/showclass&id=$class_id&action=editerror");
+					die();
 				}
 				else {
 					if ($_POST['challenges'] !='default') {
@@ -68,6 +70,7 @@ class ShowClassController extends HackademicBackendController {
 						$this->name = Utils::sanitizeInput($_POST['updateclassname']);
 						Classes::updateClassName($class_id, $this->name);
 						header('Location: '.SOURCE_ROOT_PATH."?url=admin/showclass&id=$class_id&action=editsuccess&message=cname");
+						die();
 					}
 				}
 			}

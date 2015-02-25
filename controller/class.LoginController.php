@@ -56,7 +56,7 @@ class LoginController extends HackademicController {
 				// start the session
 				$session->loginGuest();
 				header('Location:'.SOURCE_ROOT_PATH."?url=home");
-				die("horribly");
+				die();
 			}
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'
 					&& isset($_POST['username']) && isset($_POST['pwd']) ) {
@@ -76,12 +76,13 @@ class LoginController extends HackademicController {
 
 					if (!$user) {
 						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=username");
-						//return $this->generateView(self::$action_type);
+						die();//return $this->generateView(self::$action_type);
 					} elseif (!$session->pwdCheck($_POST['pwd'], $user->password)) {
 						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=password");
-						return $this->generateView(self::$action_type);
+						die();
 					} if ($user->is_activated != 1){
 						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=activate");
+						die();
 					} else {
 						// start the session
 						$session->completeLogin($user);
@@ -89,9 +90,11 @@ class LoginController extends HackademicController {
 							//error_log("HACKADEMIC:: admin dashboard SUCCESS", 0);
 							//var_dump($_SESSION);//die();
 							header('Location:'.SOURCE_ROOT_PATH."?url=admin/dashboard");
+							die();
 						}else{
 							//error_log("HACKADEMIC:: USER HOME SUCCESS", 0);
 							header('Location:'.SOURCE_ROOT_PATH."?url=home");
+							die();
 						}
 					}
 				}

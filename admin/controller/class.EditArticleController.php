@@ -76,6 +76,7 @@ class EditArticleController extends HackademicBackendController {
 		if(isset($_POST['deletesubmit'])) {
 			ArticleBackend::deleteArticle($id);
 			header('Location:'.SOURCE_ROOT_PATH."?url=admin/articlemanager");
+			die();
 		}
 		$this->generateView(self::$action_type);
 

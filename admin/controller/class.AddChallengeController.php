@@ -225,6 +225,7 @@ class AddChallengeController extends HackademicBackendController {
           $challenge->duration = $data['duration'];
           ChallengeBackend::addChallenge($challenge);
           header('Location: '.SOURCE_ROOT_PATH."?url=admin/challengemanager&action=add");
+	  die();
         }
       }
     }

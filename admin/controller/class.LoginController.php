@@ -45,6 +45,7 @@ class LoginController extends HackademicBackendController {
 
 		if (self::isLoggedIn()) {
 			header('Location: '.SOURCE_ROOT_PATH."?url=admin/dashboard");
+			die();
 		} else  {
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'
 					&& isset($_POST['username']) && isset($_POST['pwd']) ) {
@@ -74,6 +75,7 @@ class LoginController extends HackademicBackendController {
 						// this sets variables in the session
 						$session->completeLogin($user);
 						header('Location: '.SOURCE_ROOT_PATH."?url=admin/login");
+						die();
 					}
 				}
 			} else {

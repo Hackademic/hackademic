@@ -45,6 +45,7 @@ class EditUserController extends HackademicBackendController {
       User::deleteUser($id);
       $this->addSuccessMessage("User has been deleted succesfully");
       header('Location:' . SOURCE_ROOT_PATH . "?url=admin/usermanager&source=del");
+      die();
     }
 		if(isset($_POST['submit'])) {
 			if ($_POST['username']=='') {
