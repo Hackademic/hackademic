@@ -1,2 +1,8 @@
-First execute centos_setup.sh
-Then execute installer.py
+************************************************************************************************
+HACKADEMIC SANDBOX ENVIORMENT
+************************************************************************************************
+
+Installation:
+    1.Excute centos_initial_setup.sh
+    2.Install Hackademic
+    3.Execute installer.py
