@@ -26,17 +26,13 @@ class forwarder:
             dock_socket.listen(5)
 
             while True:
-                try:
-                    client_socket = dock_socket.accept()[0]
-                    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    server_socket.connect((self.remote_ip, self.remote_port))
-                    thread.start_new_thread(self.forward, (client_socket, server_socket))
-                    thread.start_new_thread(self.forward, (server_socket, client_socket))
+                client_socket = dock_socket.accept()[0]
+                server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                server_socket.connect((self.remote_ip, self.remote_port))
+                thread.start_new_thread(self.forward, (client_socket, server_socket))
+                thread.start_new_thread(self.forward, (server_socket, client_socket))
 
-                finally:
-                    dock_socket.close()
-                    client_socket.close()
-                    server_socket.close()
+
         finally:
             dock_socket.close()
 
