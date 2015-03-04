@@ -238,14 +238,42 @@ img {border:none;}
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
+
 .description {
     width: 90%;
     margin: auto;
 }
-.show_challenge a {color: black; text-decoration: none;}
+
+.show_challenge a {
+    color: black;
+    text-decoration: none;
+}
 
 .menuTitle{
 	display:block;
 	margin:3%;
 	width:100%;
+}
+
+.show_clue {
+    margin-bottom: 15px;
+}
+
+.show_clue_button {
+    width: auto;
+    padding: 9px 15px;
+    background: #146295;
+    border: 0;
+    font-size: 14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.show_challenge {
+    width: 90%;
+    margin: auto;
 }
