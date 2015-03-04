@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 23</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        Ever been to take part in a treasure hint? Here's your chance.The treasure is hidden somewhere in the web server.Try to use the hints available and reach the treasure.        ]]>
+    </description>
+</challenge>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 22</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        The Great Hackers Challenge!! Yes,you heard it right.You are given a chance to try out this challenge,which has been left unsolved till now. You are asked to break the authentication of a web page.But,the only problem is that there doesn't exist any vulnerability to exploit.  
+        ]]>
+    </description>
+</challenge>

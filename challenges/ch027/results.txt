@@ -1,0 +1,31 @@
+The following is the frequency analysis when a text of 644 characters is analyzed. 
+
+ (space)	101
+, 	11
+. 	8
+a 	35
+b 	4
+c 	27
+d 	20
+e 	66
+f 	6
+g 	13
+h 	25
+i 	41
+j 	2
+k 	7
+l 	14
+m 	10
+n 	39
+o 	37
+p 	11
+q 	3
+r 	33
+s 	27
+t 	63
+u 	13
+v 	7
+w 	8
+x 	1
+y 	8
+z 	4

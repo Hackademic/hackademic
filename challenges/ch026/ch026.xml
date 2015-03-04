@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 26</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        You are a member of the National Cyber Security group, along with a friend of yours.
+       
+        Your friend came across a conversation between 2 people and he suspected it to be related to some fraud. So, he started a Man-In-The-Middle Attack and succesfully installed a new key between them, during the key exchange phase. 
+        
+        Now, he has asked you to spy on this conversation and gave you the details of the keys.He did not give you any information about the encryption scheme being used in the conversation. Its your turn to continue the MIM attack in such a way that none of the parties detect the attack. 
+        ]]>
+    </description>
+</challenge>

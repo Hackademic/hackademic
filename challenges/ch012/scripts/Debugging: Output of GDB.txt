@@ -1,0 +1,81 @@
+This is the file stored as a future reference for the running executable, with information about the program,system info ,how to compile it and about the executable. This is saved while debugging using gdb.
+
+programmer@financehelperscripts$ uname -a
+Linux Programmer-FinanceHelper 3.2.0-58-generic #88-Ubuntu SMP Tue Dec 3 17:37:58 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+
+
+programmer@financehelperscripts$ cat /proc/sys/kernel/randomize_va_space
+0
+
+
+programmer@financehelperscripts$ gcc main-file-thats-executed.c -mpreferred-stack-boundary=4 -fno-stack-protector -g
+
+
+programmer@financehelperscripts$ gdb ./a.out 
+GNU gdb (Ubuntu/Linaro 7.4-2012.04-0ubuntu2.1) 7.4-2012.04
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+For bug reporting instructions, please see:
+<http://bugs.launchpad.net/gdb-linaro/>...
+Reading symbols from /opt/lampp/htdocs/Hackademic_Challenges/ch012/scripts/a.out...done.
+
+(gdb) disassemble main
+Dump of assembler code for function main:
+   0x00000000004005b4 <+0>:	push   %rbp
+   0x00000000004005b5 <+1>:	mov    %rsp,%rbp
+   0x00000000004005b8 <+4>:	mov    $0x0,%eax
+   0x00000000004005bd <+9>:	callq  0x400564 <ask_query>
+   0x00000000004005c2 <+14>:	mov    $0x0,%eax
+   0x00000000004005c7 <+19>:	pop    %rbp
+   0x00000000004005c8 <+20>:	retq   
+End of assembler dump.
+
+(gdb) disassemble ask_query 
+Dump of assembler code for function ask_query:
+   0x0000000000400564 <+0>:	push   %rbp
+   0x0000000000400565 <+1>:	mov    %rsp,%rbp
+   0x0000000000400568 <+4>:	sub    $0x10,%rsp
+   0x000000000040056c <+8>:	lea    -0x10(%rbp),%rax
+   0x0000000000400570 <+12>:	mov    %rax,%rdi
+   0x0000000000400573 <+15>:	callq  0x400460 <gets@plt>
+   0x0000000000400578 <+20>:	mov    $0x4006c0,%edi
+   0x000000000040057d <+25>:	callq  0x400470 <puts@plt>
+   0x0000000000400582 <+30>:	leaveq 
+   0x0000000000400583 <+31>:	retq   
+End of assembler dump.
+
+(gdb) disassemble list_quiries 
+Dump of assembler code for function list_quiries:
+   0x0000000000400584 <+0>:	push   %rbp
+   0x0000000000400585 <+1>:	mov    %rsp,%rbp
+   0x0000000000400588 <+4>:	mov    $0x4006f6,%edi
+   0x000000000040058d <+9>:	callq  0x400470 <puts@plt>
+   0x0000000000400592 <+14>:	pop    %rbp
+   0x0000000000400593 <+15>:	retq   
+(gdb) disassemble delete_all 
+
+Dump of assembler code for function delete_all:
+   0x0000000000400594 <+0>:	push   %rbp
+   0x0000000000400595 <+1>:	mov    %rsp,%rbp
+   0x0000000000400598 <+4>:	mov    $0x400710,%edi
+   0x000000000040059d <+9>:	callq  0x400470 <puts@plt>
+   0x00000000004005a2 <+14>:	pop    %rbp
+   0x00000000004005a3 <+15>:	retq   
+End of assembler dump.
+
+(gdb) disassemble reply_to_user 
+Dump of assembler code for function reply_to_user:
+   0x00000000004005a4 <+0>:	push   %rbp
+   0x00000000004005a5 <+1>:	mov    %rsp,%rbp
+   0x00000000004005a8 <+4>:	mov    $0x400748,%edi
+   0x00000000004005ad <+9>:	callq  0x400470 <puts@plt>
+   0x00000000004005b2 <+14>:	pop    %rbp
+   0x00000000004005b3 <+15>:	retq   
+End of assembler dump.
+
+(gdb) ^CQuit
+(gdb) quit

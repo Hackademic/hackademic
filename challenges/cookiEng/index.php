@@ -78,7 +78,7 @@ form>input:nth-child(2){
 			}
 			?>
 			<img src="guns.jpg" class="image1">
-			<?php setcookie("User", "guest", null, null, null, null, true);?>
+			<?php setcookie("User", "guest");?>
 			<table border="1" CELLSPACING="4" CELLPADDING="8" BORDER="2" >
 				<tr><th>Admin</th><td>Marcous</td></tr>
 				<tr><th>Users</th><td>Nick</td><td>hax0r</td><td>l33t</td></tr>

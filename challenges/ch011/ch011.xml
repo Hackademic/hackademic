@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 11</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+A friend of yours needs immediate surgery. It costs thousands of dollars and he doesn't have money, neither do you. Your friend used to be rich, then got attracted to a lucky draw(lottery) website.He used all his money to buy lottery tickets in this website and thus, he lost all his money.
+Now, you came to know that this website is a fraud and eachtime, gives the winning lottery ticket to its own people. So, you want take revenge on that website and also earn money to help him. So, you want to win the lottery by finding some security vulnerability in the website.]]>
+    </description>
+</challenge>
