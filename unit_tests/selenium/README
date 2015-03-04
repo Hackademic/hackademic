@@ -1,0 +1,32 @@
+This is a list of automated user cases you can run on hackademic. 
+The cases, if run sequentially, log in with administrative rights then they fill the database with teachers and students. 
+They make changes and the delete evrything.
+
+This directory also contains a test suit named Hackademic that will run all the tests sequentially.
+
+In order to run the tests: 
+1/ you need to install Selenium IDE. 
+2.1/ You need to either create an admin account with username and password set to "admin" (we strongly recommend to disconnect from the Internet while you run the tests and delete this account afterwards) 
+2.2/ OR you can modify the test and change the admin usernames and passwords to your credentials. 
+3/ Everything created in those tests will be automatically deleted, although we recommend to erase any left-over tables from the database.
+
+Automated tests
+
+In every test the admin loges in and then logs out. If a test fails it is essential that you log out the admin before re-trying it. 
+I recommend that you have phpmyadmin open on a second tab in order to erase any left-over tables from the database before re-trying the tests.
+
+Case 1: Filling the database. This case will create 1 more admin, 1 professor, 5 students and 2 classes.
+
+Case 2: Add users to classes. This Case will add the users created in Case1 into the Classes created in Case1.
+
+Case 3: Register Users. This is the case where a user is registering by himself. (It requires the Admin to activate him this will be case 4)
+
+Case 4: Activating User. In this Case the admin activates a registered user.
+
+Case 5: Deleting User. In this Case the admin deleted a user.
+
+Case 6: Editing User Data. In this Case the admin is editing the users data. Changes the username, password and email of user a, Deactivates user b, deletes and re-creates admin2 and re-activates user b.
+
+Case 7: Editing Challenges. In this case the chaleng's visibility is changed.
+
+challenge1 Private Private Published challenge2 Private Public Published challenge3 Public Private Published challenge4 Public Public not Published challenge5 Private Private not Published

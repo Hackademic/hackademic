@@ -145,7 +145,7 @@ class User {
 				}
 			}
 			/* Create the cookie in order to have him logged in */
-			$cook = setcookie('izon',  $this->username, time()+3600, null, null, null, true);
+			$cook = setcookie('izon',  $this->username, time()+3600);
 			/* If all went well, redirect him to index */
 			if ($cook) {
 				header("Location: index.php");

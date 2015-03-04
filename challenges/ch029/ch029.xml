@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 29</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+This is a challenge to test your knowledge of Cross Site Request Forgery attacks. Use CSRF attack and get your bank account credited with an amount of 1200 or greater.
+        ]]>
+    </description>
+</challenge>
