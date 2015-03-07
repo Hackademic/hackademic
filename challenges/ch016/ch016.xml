@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>RSA Challenge III: Low Encryption Exponent</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        We have a single message m, that was encrpted, using RSA, and sent to three people.
+        All reciepents have the same RSA ecryption modulas e (e=3), (notice it also matches the no. of recipients ;) ).  
+        We are interested in the message. 
+
+        Your Objective : Reveal the originial message  
+
+    </description>
+    <level>7</level>
+	<duration>120</duration>
+</challenge>

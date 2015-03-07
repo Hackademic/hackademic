@@ -1,0 +1,66 @@
+
+body {
+    background: black;
+    color: white;
+    font-weight: 700;
+}
+
+.content {
+    max-width: 800;
+    margin: auto;
+    padding: 15;
+    border: 2px solid green;
+}
+
+h1 {
+    text-align: center;
+    color: green;
+}
+
+h2 {
+    color: red;
+}
+
+.mathcal {
+    font-family: cursive;
+}
+
+.challenge {
+    margin: 10 25;
+    color: cyan;
+    text-align: center;
+    font-size: 20px;
+}
+
+.intel {
+    font-family: monospace;
+    margin: 12px;
+}
+
+.message {
+    vertical-align: middle;
+}
+
+.oracle {
+    max-width: 650px;
+    margin: 20 auto;
+    text-align: center;
+}
+
+.txtar {
+    font-family: monospace;
+    vertical-align: middle;
+}
+
+.cmk {
+    max-width: 700;
+    margin: auto;
+}
+
+
+.msg_input {
+    border: 12px bold cyan;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: middle;
+}

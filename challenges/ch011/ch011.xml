@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Fun with Frequencies</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+    	You are given a file that has been encrypted with a substitution cipher using some key permutation P.
+		And a mysterious ciphertext, that has also been encrypted with the same key permutation P. 
+		Everything you need to know is explained in the challenge.
+ 
+		Your Objective: give us the decryption of the mysterious ciphertext, should you choose to accept it.
+
+
+    </description>
+    <level>2</level>
+	<duration>60</duration>
+</challenge>

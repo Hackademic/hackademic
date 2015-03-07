@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Meet in the Middle</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        We have a few ciphertexts we are interested to decrypt. These ciphertexts are "made of" messages containting non-padded prime products.
+        Your Objective : Reveal the originial messages  
+
+    </description>
+    <level>8</level>
+	<duration>180</duration>
+</challenge>

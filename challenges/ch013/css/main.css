@@ -1,0 +1,84 @@
+
+.content {
+    max-width: 800px;
+    margin: auto;
+    border: 10px solid blue;
+    background: white;
+    padding: 10px;
+}
+
+.nmac {
+    width: 600px;
+    margin:auto;
+}
+
+.msgtag {
+    font-family: monospace;
+    margin: 30px 100px;
+    
+
+}
+
+.mathcal {
+    font-family: cursive;
+}
+
+.help_engg {
+    max-width: 800px;
+    margin: auto;
+    
+}
+
+.cascade_nmac {
+    width: 600px;
+    margin:auto;
+}
+
+#message {
+    width:470px;
+}
+
+#key {
+    width:500px 
+}
+
+
+
+.eqn1 {
+    text-align: center;
+    padding: 10px;
+}
+
+.challenge {
+    padding: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+.pt_input {
+    text-align: center;
+    width: 300px;
+    padding : 10px;
+    border: 2px solid red;
+}
+
+.submit{
+    margin: 10px;
+    width: 100px;
+    font-size: 20px;
+}
+.submit:hover {
+    color: red;
+}
+
+
+
+.chalMsg {
+    font-family: monospace;
+    font-size: 14px;
+    color: red;
+}
+
+body {
+    background: cyan;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Silly MACs</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        Our adversaries use a primitive and insecure mode of operation to obtain Message Authentication Codes for communication. While they use a secure block cipher, F, to obtain MACs for one block, when it comes to multiple blocks their scheme can be easily manupulted and broken. 
+
+        Your Objective : Help us forge a valid MAC to confuse them. 
+
+    </description>
+    <level>
+		4
+    </level>
+	<duration>
+		30
+	</duration>
+</challenge>

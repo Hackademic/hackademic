@@ -1,0 +1,87 @@
+body {
+    background: black;
+    padding: 20px;
+    border: 2px dashed green;
+}
+
+.content {
+    max-width: 800px;
+    margin: auto;    
+    background: white;
+    border: 5px solid green;
+    padding: 20px;
+        
+}
+
+
+h1 {
+    text-align: center;
+    color: green;
+}
+
+
+.math {
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 15px
+}
+
+
+.ct {
+    border: 2px solid black;
+    margin: 15px;
+    background: #ddd;
+    padding: 5px
+}
+
+
+.challenge_setup {
+    max-width: 600px;
+    margin: auto;
+    font-size: 14px;
+}
+
+.txtar {
+    vertical-align:middle;
+}
+
+.challenge {
+    text-align: center;
+    margin: 40px;
+    border: 4px solid red;
+    padding: 10px;
+
+}
+
+#ques {
+    font-size: 18px;
+    color: red;
+    
+}
+
+.form {
+    margin-top: 20px;
+    
+}
+
+.msg {
+    text-align: center;
+    font-size: 11px;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.submit {
+    width: 150px;
+    font-size: 16px;
+    background: linear-gradient(white,red);
+    border-radius: 30px;
+}
+
+
+.submit:hover{
+    background: linear-gradient(red,white) ;
+}
+#hint {
+    color:white;
+}
