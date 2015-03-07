@@ -1,0 +1,86 @@
+
+
+body {
+    border: 3px solid green;
+    padding: 30px;
+    margin: 20px;
+}
+
+
+.content {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    
+}
+h1 {
+    text-align: center;
+    color: #8bbad6;
+    font-size: 28px;
+}
+
+.mathcal {
+    font-family: cursive;
+}
+
+.intel {
+    
+}
+
+
+
+
+.ct {
+    border: 2px solid black;
+    margin: 25px 100px;
+    background: #cbeaed;
+    padding: 5px
+}
+
+.ct {
+    text-align: center
+}
+
+
+.txtar {
+    vertical-align:middle;
+    font-family: monospace;
+}
+
+
+.challenge {
+    color: #ff9f40;
+    font-size: 16px;
+    font-family: Verdana, Trebuchet, Arial, sans-serif;
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 10px;
+    border: 2px solid #ff9f40;
+    text-align: center;
+}
+
+
+.msg {
+    text-align: center;
+    font-size: 11px;
+    border: 2px solid #ff9f40;
+    border-radius: 10px;
+}
+
+.submit {
+    width: 150px;
+    font-size: 16px;
+    background: linear-gradient(white,#ff9f40);
+    border-radius: 30px;
+}
+
+
+.submit:hover{
+    background: linear-gradient(#ff9f40,white) ;
+}
+#hint {
+    color:white;
+}
+#ques {
+    font-weight: bold;
+}

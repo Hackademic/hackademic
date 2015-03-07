@@ -53,7 +53,7 @@ if (isset($com))
 				  '</html>';}
 	else
 	{
-		echo "<p>bash: ".$com.": command not found";
+		echo "<p>bash: ".htmlentities($com).": command not found";
 	}
 }
 if(isset($root,$password))

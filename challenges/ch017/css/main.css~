@@ -1,0 +1,49 @@
+
+.mathcal {
+    font-family: "Comic Sans MS",cursive,sans-serif;
+}
+
+.content {
+    max-width: 850;
+    margin: auto;
+    border: 2px solid red;
+    padding: 25px;
+    background: #fefcea
+}
+
+h1 {
+    text-align: center;
+    color: red;
+}
+
+.chal_sub {
+    text-align: center;
+}
+
+.help_RAT {
+    border: 1px solid blue;
+    font-size: 13px;
+    max-width: 400;
+    padding: 0 30;
+}
+
+h3 {
+    text-align: center;
+    color: blue;
+}
+
+.submit {
+    color: #fed;
+    padding: 10 20;
+    border-radius: 10;
+    background-color: black;
+}
+
+.submit:hover{
+    color: red;
+    background: white ;
+}
+
+h5 {
+    text-align: center;
+}

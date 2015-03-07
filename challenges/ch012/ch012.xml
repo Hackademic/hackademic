@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>OTP Challenge</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description> 
+        You are given ciphertexts of various messages, encrypted with the same key using a XOR Cipher or Vernam or One Time Pad. 
+
+        However we know the OTP is secure for encrypting only one message. And we are confident it is possible to break the scheme now. 
+
+        Given a set of ciphertexts, we are interested in knowing only one. 
+ 
+		Your Objective: Decipher the asked ciphertext and suggest us a strategy for action.
+
+    </description>
+    <level>4</level>
+	<duration>45</duration>
+</challenge>

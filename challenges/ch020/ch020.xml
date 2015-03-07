@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>RSA Challenge IV: Low Private Exponent</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+      	You are asked to audit a system that uses a Low Private Exponent (i.e. the Private Key), to save time decryption/signing.
+      	We think it is a bad idea and the Private Exponent can be approximated.
+      	Your Goal: Approximate the Private Exponent.  
+    </description>
+    <level>7</level>
+	<duration>120</duration>
+</challenge>

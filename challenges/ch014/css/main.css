@@ -1,0 +1,77 @@
+body{
+    background: rgb(180,221,180); /* Old browsers */
+background: -moz-radial-gradient(center, ellipse cover,  rgba(180,221,180,1) 0%, rgba(131,199,131,1) 17%, rgba(82,177,82,1) 33%, rgba(0,138,0,1) 67%, rgba(0,87,0,1) 83%, rgba(0,36,0,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(180,221,180,1)), color-stop(17%,rgba(131,199,131,1)), color-stop(33%,rgba(82,177,82,1)), color-stop(67%,rgba(0,138,0,1)), color-stop(83%,rgba(0,87,0,1)), color-stop(100%,rgba(0,36,0,1))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4ddb4', endColorstr='#002400',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.content {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    border: 10px solid black;
+    padding: 20px;
+}
+
+
+.help_RSA {
+    max-width: 375px;
+    border: 3px solid green;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.help_PRG {
+    display: inline-block;
+    max-width: 375px;
+    border: 3px solid green;
+}
+
+.centermath {
+    text-align: center;
+}
+
+.mathcal {
+    font-family: cursive;
+}
+
+.challenge {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+}
+
+.pt_input {
+    height: 300px;
+    width: 500px;
+}
+
+.challenge_setup {
+    max-width: 500px;
+    margin: auto;
+
+}
+
+.dec {
+    border : 5px solid green;
+    padding: 5px;
+    text-align: center;
+}
+
+.submit {
+    border: 5px solid rgb(8, 132, 3);
+    color: rgb(8, 132, 3);
+    background: rgb(173, 255, 189);
+    border-radius: 15px;
+    padding: 10px 25px;
+    margin: 15px;
+}
+
+.submit:hover{
+    border: 5px solid black;
+    color: black;
+}
