@@ -1,0 +1,12 @@
+This branch is used only to store unit tests, it should be rebased onto next-dev every time we merge stuff to next-dev
+
+No changes to any file outside the tests directory should be commited here
+
+Classes without tests:
+
+Controllers/*
+Admin/Controllers/*
+
+Most models
+
+Also we need functional tests
