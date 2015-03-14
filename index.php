@@ -36,7 +36,8 @@ if ($version[0] < 5) {
 }
 if (!file_exists('config.inc.php')) {
     header("Location: ./installation/install.php");
-    die();
+	error_log("Couldn't find config file, installing");
+    die("No config");
 }
 require_once('init.php');
 
