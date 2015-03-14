@@ -1,0 +1,6 @@
+{
+	"require-dev":{
+		"phpunit/phpunit-selenium": ">=1.2"
+	}
+}
+
