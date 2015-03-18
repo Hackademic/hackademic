@@ -48,3 +48,15 @@ if(!isset($ESAPI_utils)){
 			// error_log("Esapi not inited in init", 0);
 			$ESAPI_utils = new Esapi_Utils();
 }
+
+function removeDirectory($path) {
+		$files = glob($path . '/*');
+		foreach ($files as $file) {
+			is_dir($file) ? removeDirectory($file) : unlink($file);
+		}
+		rmdir($path);
+		return;
+	}
+
+removeDirectory(HACKADEMIC_PATH."/installation");
+?>
