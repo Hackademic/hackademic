@@ -31,7 +31,7 @@
 
 	    <tr>
 		<td><label>Confirm Password</label></td>
-		<td><input type="password" name="confirmpassword" id="password"/></td>
+		<td><input type="password" name="confirmpassword" id="confirm_password"/></td>
 	    </tr>
 
 	    <tr>
