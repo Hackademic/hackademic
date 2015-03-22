@@ -57,6 +57,6 @@ function removeDirectory($path) {
 		rmdir($path);
 		return;
 	}
-if(file_exists (HACKADEMIC_PATH."/installation"))
+if(file_exists (HACKADEMIC_PATH."/installation") && defined('ENVIRONMENT') && ENVIRONMENT != "dev")
 	removeDirectory(HACKADEMIC_PATH."/installation");
 ?>

@@ -22,7 +22,8 @@ define('DEBUG',false);
 define('CACHE_PAGES',false);
 
 // Environment
-define('ENVIRONMENT', 'production');
+// TODO: change to production once we finish the merge
+define('ENVIRONMENT', 'dev');
 
 /************************************************/
 /***  DATABASE CONFIG                         ***/
