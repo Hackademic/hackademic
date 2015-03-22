@@ -45,6 +45,7 @@ tinyMCE.init({
     
     <div id="input_form">
     <form method="post" action="{$site_root_path}?url=admin/addarticle">
+	<input type="hidden" name="csrf_token" value="{$token}">
         <table class="article_main">
             <tr>
                 <td class="bottom"><label>Title</label></td>

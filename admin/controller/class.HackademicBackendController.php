@@ -33,11 +33,27 @@
 require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.MenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
+require_once(HACKADEMIC_PATH."extlib/NoCSRF/nocsrf.php");
 
 class HackademicBackendController extends HackademicController {
 
 	public function __construct() {
 		HackademicController::__construct();
+
+		$token = $_SESSION['token'];
+		$this->addToView('token', $token);
+
+		if ( isset($_POST['submit']) ) {		
+			try {
+				//this is only for post requests and for testing purposes
+				NoCSRF::check( 'csrf_token', $_POST, true, 60*10, true );
+			}
+			catch ( Exception $e ) {
+				// CSRF attack detected
+				die('Invalid CSRF token');
+			}
+		}
+
 		// Login Controller, do nothing
 		if (get_class($this) == 'LoginController');
 		elseif (!self::isLoggedIn()) {

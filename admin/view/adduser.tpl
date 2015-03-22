@@ -8,6 +8,8 @@
 
     <div id="input_form">
     <form id="form" name="form" method="post">
+	<input type="hidden" name="csrf_token" value="{$token}">
+
 	<table class="user_add">
 	    <tr>
 		<td><label for="name">Username</label></td>
