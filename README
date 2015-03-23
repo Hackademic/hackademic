@@ -1,1 +1,47 @@
 Hackademic CMS
+
+Frontend testing Documentation and how to create a test
+
+We use phpunit and selenium webDriver with facebook's php bindings to create functional tests.
+
+We've included everything as a composer dependency so you only need to download composer and run
+
+composer install
+
+in order to fetch the dependencies.
+
+
+Running tests:
+
+To run the tests you first need to start the remote webdriver server.
+For convenience a reasonably recent server executable is included with the project.
+You can start the server by running:
+
+java -jar selenium-server-standalone-2.45.0.jar
+
+from the tests directory.
+
+This will start a local webdriver server that listens on localhost and port 4444.
+
+Then you execute tests by running:
+
+vedor/bin/phpunit <path_to_your_test>
+
+Writing your own tests:
+
+To write your own tests you can check
+
+<tests_dir>/admin/model/AddUserControllerTest.php for an example
+
+A BaseTest class with some helper functions is provided.
+
+General guilines (from a guy with limited experience on writing tests so suggestions are welcome):
+
+0) Test for normal behavior first
+1) Test if it generates all the erros second
+3) Identify the edge cases and write tests for them
+4) In order to get a unique css path for the element you want to click you can inspect it in firefox or chrome and right-click on the element and select Copy CSS Path
+5) Cleanup after your test, tearDown() exists for that reason too.
+6) Each class should test one feature. E.g. AddUserTest should test if a user can be added sucessfully.
+
+
