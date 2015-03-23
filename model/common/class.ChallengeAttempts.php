@@ -364,25 +364,25 @@ class ChallengeAttempts {
 		}
 		return $res_score;
 	}
-	
+
 	/* Calculates the total points for each user and sorts them
 	 *	@returns: unsorted array[array(['user_id','username','points','count'])]
-	 */
+	 *
 	public static function getUniversalRankings() {
 		global $db;
 		$res_score = false;
 
-		$active_class_users = "SELECT DISTINCT class_memberships.user_id FROM class_memberships,challenge_attempts where class_memberships.user_id=challenge_attempts.user_id AND class_memberships.class_id=challenge_attempts.class_id"; 
-		
+		$active_class_users = "SELECT DISTINCT class_memberships.user_id FROM class_memberships,challenge_attempts where class_memberships.user_id=challenge_attempts.user_id AND class_memberships.class_id=challenge_attempts.class_id";
+
 		$challenges_cleared = "SELECT COUNT(DISTINCT challenge_id) as count FROM challenge_attempts WHERE user_id=:user_id AND status=1";
-		
+
 		$active = $db->read($active_class_users,$params,self::$action_type);
 		$active_users = array();
 		while($row = $db->fetchArray($active)) {
 			array_push($active_users,$row);
 		}
 		$res_score = array();
-		
+
 		foreach($active_users as $uinfo){
 			$username = User::getUser($uinfo['user_id']);
 			$username = $username->username;
@@ -399,5 +399,5 @@ class ChallengeAttempts {
 			array_push($res_score,["id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count]);
 		}
 		return $res_score;
-	}
+	}*/
 }
