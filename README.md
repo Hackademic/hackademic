@@ -62,6 +62,34 @@ you can join [here](https://lists.owasp.org/mailman/listinfo/owasp-hackademic-ch
 Both channels are very low traffic
 
 
+How to create a challenge
+-------------------------
+
+Hackademic challenges are simple websites or web applications that simulate a vulnerability.
+In our current version we use regular expressions to check if the provided string is correct.
+In order to initialize your challenge you need to include the following
+
+include_once dirname(__FILE__).'/../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+$monitor->update(CHALLENGE_INIT, $_GET);
+$_SESSION['init'] = true;
+
+Then in order to register a success you call
+
+ $monitor->update(CHALLENGE_SUCCESS, $_GET);
+
+and for a failure 
+ $monitor->update(CHALLENGE_FAILURE, $_GET);
+
+Packaging Challenges
+-----------------------------
+In order to package a challenge you have to create an xml file named after the challenge. The .xml file should have the structure found here:
+https://github.com/Hackademic/hackademic/blob/next/challenges/Example/example.xml
+
+Then you package everything in a zip file and ship it.
+
+
 Frontend testing Documentation and how to create a test
 -------------------------------------------------------
 
