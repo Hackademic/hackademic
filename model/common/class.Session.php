@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."/model/common/class.User.php");
 require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
+require_once(HACKADEMIC_PATH."extlib/NoCSRF/nocsrf.php");
 class Session {
 	
 	/*
@@ -74,6 +75,7 @@ class Session {
 		User::updateLastVisit($owner->username);
 		self::init(SESS_EXP_INACTIVE);
 		//setup session vars
+		$_SESSION['token'] = NoCSRF::generate( 'csrf_token' );
 		$_SESSION['hackademic_user'] = $owner->username;
 		$_SESSION['hackademic_user_id'] = $owner->id;
 		$_SESSION['hackademic_user_type'] = $owner->type;
@@ -300,6 +302,8 @@ class Session {
 		session_id($newSession);
 		ini_set( 'session.cookie_httponly', 1 );
 		session_start();
+
+		$_SESSION['token'] = NoCSRF::generate( 'csrf_token' );
 
 		// Now we unset the obsolete and expiration values for the session we want to keep
 		unset($_SESSION['OBSOLETE']);

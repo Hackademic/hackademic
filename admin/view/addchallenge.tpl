@@ -45,6 +45,7 @@ tinyMCE.init({
     {if isset($finish) || (isset($type) && $type=="challenge") || (isset($step) && $step=="step2")}
     <div id="upload_container">
         <form id="input_form" enctype="multipart/form-data" action="" method="post">
+		<input type="hidden" name="csrf_token" value="{$token}">
             {if isset($finish) || (isset($type) && $type=="challenge")}
                 <label>Select a Challenge zip file to upload (or <a href="{$site_root_path}?url=admin/addchallenge&type=code">Upload Code</a> only)</label><br/><br/>
             {else}
@@ -57,6 +58,8 @@ tinyMCE.init({
     {else}
         <div id="input_form">
             <form id="form" name="form" method="post">
+		<input type="hidden" name="csrf_token" value="{$token}">
+
                 <table class="article_main">
                     <tr>
                         <td colspan="2">

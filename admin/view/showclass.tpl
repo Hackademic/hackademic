@@ -7,6 +7,7 @@
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
 
    <form id="form" name="form" method="post">
+	<input type="hidden" name="csrf_token" value="{$token}">
       <table class="manager_table">
               <tr>
 		     <td><label>Name:  </label></td>

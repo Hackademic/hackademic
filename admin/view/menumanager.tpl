@@ -13,6 +13,7 @@
   <div id="input_form">
 
   	<form id="menumanager-form" method="post" action="?url=admin/menumanager">
+		<input type="hidden" name="csrf_token" value="{$token}">
       <input type="hidden" name="number_of_items" value="{$selected_menu->items['items']|@sizeof}"/>
       <input type="hidden" name="mid" value="{$selected_menu->mid}"/>
       <div>
