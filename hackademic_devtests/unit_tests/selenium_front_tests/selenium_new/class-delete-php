@@ -1,0 +1,24 @@
+<?php
+class Example extends PHPUnit_Extensions_SeleniumTestCase
+{
+  protected function setUp()
+  {
+    $this->setBrowser("*chrome");
+    $this->setBrowserUrl("http://localhost/");
+  }
+
+  public function testMyTestCase()
+  {
+    $this->open("/hackademic_nextdev/hackademic/admin/pages/manageclass.php?id=4&source=unarch");
+    $this->click("link=Users/Classes");
+    $this->click("link=Users/Classes");
+    $this->waitForPageToLoad("30000");
+    $this->click("//div[@id='content']/div[3]/div/div[2]/table/tbody/tr/td[3]/div/a/img");
+    $this->click("//div[@id='content']/div[3]/div/div[2]/table/tbody/tr/td[3]/div/a/img");
+    $this->waitForPageToLoad("30000");
+    $this->click("xpath=(//a[contains(text(),'Click to delete class!')])[4]");
+    $this->click("xpath=(//a[contains(text(),'Click to delete class!')])[4]");
+    $this->waitForPageToLoad("30000");
+  }
+}
+?>
