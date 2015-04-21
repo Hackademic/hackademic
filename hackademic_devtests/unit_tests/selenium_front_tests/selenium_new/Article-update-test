@@ -1,0 +1,35 @@
+<?php
+
+require_once 'Testing/Selenium.php';
+
+class Example extends PHPUnit_Framework_TestCase
+{
+  protected function setUp()
+  {
+    $this = new Testing_Selenium("*chrome", "http://localhost/")
+    $this->open("/hackademic_nextdev/hackademic/admin/pages/dashboard.php");
+    $this->click("css=a[title=\"articlemanager\"] > img");
+    $this->click("css=a[title=\"articlemanager\"] > img");
+    $this->waitForPageToLoad("30000");
+    $this->click("link=A new article");
+    $this->click("link=A new article");
+    $this->waitForPageToLoad("30000");
+    $this->type("name=title", "A new article updated");
+    $this->type("name=title", "A new article updated");
+    $this->click("name=submit");
+    $this->click("name=submit");
+    $this->waitForPageToLoad("30000");
+    $this->click("name=submit");
+    $this->click("name=submit");
+    $this->waitForPageToLoad("30000");
+    $this->click("xpath=(//input[@name='is_published'])[2]");
+    $this->click("xpath=(//input[@name='is_published'])[2]");
+    $this->click("name=submit");
+    $this->click("name=submit");
+    $this->waitForPageToLoad("30000");
+    $this->click("link=Article Manager");
+    $this->click("link=Article Manager");
+    $this->waitForPageToLoad("30000");
+  }
+}
+?>
