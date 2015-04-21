@@ -79,7 +79,10 @@ class SmartyHackademic extends Smarty {
       HACKADEMIC_PATH . $this->user_theme_path,
       HACKADEMIC_PATH . $this->admin_theme_path)
     );
-		$this->compile_dir = HACKADEMIC_PATH.'/view/compiled_view';
+
+    $this->smarty->setPluginsDir(array(HACKADEMIC_PATH."extlib/Smarty-3.1.8/libs/plugins/",
+        HACKADEMIC_PATH."vendor/smarty-gettext/smarty-gettext/"));
+    $this->compile_dir = HACKADEMIC_PATH.'/view/compiled_view';
 		$this->cache_dir =HACKADEMIC_PATH.'cache';
 		$this->caching = ($cache_pages)?1:0;
 		$this->cache_lifetime = 300;

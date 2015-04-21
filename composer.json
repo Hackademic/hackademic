@@ -2,6 +2,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "*",
 		"facebook/webdriver": "dev-master"
+	},
+	"require": {
+		"smarty-gettext/smarty-gettext": "~1.1.1"
 	}
 }
-

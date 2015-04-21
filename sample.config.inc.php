@@ -73,3 +73,6 @@ define('SESS_NAME',"not_the_cookie_you_are_looking_for");
 
 //excibition mode
 define('EXHIBITION_MODE',false);
+
+//the installation language
+define('LANG','EN');
