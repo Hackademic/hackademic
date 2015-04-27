@@ -10,18 +10,18 @@
 						<li><span class="menuTitle">{$class_name}</span>
 							<ul id="classChallenges" class="menu flt">
 							{foreach from=$class_challenges item=foo}
-								<li>
-									<a class="width100" href="{$site_root_path}pages/showchallenges.php?id={$foo['id']}&class_id={$foo['class_id']}">
-										<span class="padding_menu">
+					<li>
+					<a class="width100" href="{$site_root_path}?url=showchallenges&id={$foo['id']}&class_id={$foo['class_id']}"><span class="padding_menu">{$foo['title']}</span></a></li>
+										<!--<span class="padding_menu">
 											{$foo['title']}
-										</span>
+										</span>-->
 									</a>
 								</li>
 							{/foreach}
 							</ul>
 						</li>
 					{/foreach}
-					</ul>
+				    </ul>
 				</div>
 			    {/if}
 			{else}
