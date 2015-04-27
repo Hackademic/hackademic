@@ -7,7 +7,8 @@
 				  <ul id="mainMenu" class="menu flt">
 
 					{foreach from=$challenge_menu key=class_name item=class_challenges}
-						<li><span class="menuTitle">{$class_name}</span>
+						<li>
+							<span class="menuTitle">{$class_name}</span>
 							<ul id="classChallenges" class="menu flt">
 							{foreach from=$class_challenges item=foo}
 					<li>
