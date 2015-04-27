@@ -6,14 +6,15 @@
 				<div id="menuHeader" class="menubg flt"> 
 				    <ul id="mainMenu" class="menu flt">
 					{foreach from=$challenge_menu key=class_name item=class_challenges}
-						<li><span class="menuTitle">{$class_name}</span>
+						<li>
+							<span class="menuTitle">{$class_name}</span>
 							<ul id="classChallenges" class="menu flt">
 							{foreach from=$class_challenges item=foo}
 					<li>
 					<a class="width100" href="{$site_root_path}?url=showchallenges&id={$foo['id']}&class_id={$foo['class_id']}"><span class="padding_menu">{$foo['title']}</span></a></li>
-										<span class="padding_menu">
+										<!--<span class="padding_menu">
 											{$foo['title']}
-										</span>
+										</span>-->
 									</a>
 								</li>
 							{/foreach}
