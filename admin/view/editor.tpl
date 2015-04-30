@@ -39,7 +39,7 @@ tinyMCE.init({
 </script>
 <div class="main_content">
     <div class="header_bar">
-        <div class="page_title"><h3 class="left">Add New Article</h3></div>
+        <div class="page_title"><h3 class="left">{t}Add New Article{/t}</h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
     
@@ -47,18 +47,18 @@ tinyMCE.init({
     <form method="post" action="{$site_root_path}?url=admin/addarticle">
         <table class="article_main">
             <tr>
-                <td class="bottom"><label>Title</label></td>
+                <td class="bottom"><label>{t}Title{/t}</label></td>
                 <td class="bottom"><input type="text"name="title" value="{$cached->title}"/></td>
             </tr>
             <tr>
-                <td><label>Publish Article</label></td>
+                <td><label>{t}Publish Article{/t}</label></td>
                 <td class="radio">
-                    <input type="radio" name="is_published" value="1"  />Yes
-                    <input type="radio" name="is_published" value="0" />No
+                    <input type="radio" name="is_published" value="1"  />{t}Yes{/t}
+                    <input type="radio" name="is_published" value="0" />{t}No{/t}
                 </td>
             </tr>
             <tr>
-                <td colspan=2"><label>Write your Article</label></td>
+                <td colspan=2"><label>{t}Write your Article{/t}</label></td>
             </tr>
             <tr>
                 <td colspan="2">
