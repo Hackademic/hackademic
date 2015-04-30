@@ -4,12 +4,12 @@
     <!-- Previous -->
     {if $pagination['page'] > 1}
 	{if isset($smarty.get.search)&&isset($smarty.get.category)}
-            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['prev']}">Previous</a>
+            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['prev']}">{t}Previous{/t}</a>
         {else}
             <a href="{$pagination['targetpage']}?page={$pagination['prev']}">Previous</a>
         {/if}
     {else}
-	<span class='disabled'>Previous</span>
+	<span class='disabled'>{t}Previous{/t}</span>
     {/if}
     <!-- Pages -->
     {if $pagination['lastpage'] < 7 + ($pagination['stages']*2)}
@@ -122,12 +122,12 @@
     <!--  Next -->
     {if $pagination['page'] < ($counter - 1)}
 	{if isset($smarty.get.search)&&isset($smarty.get.category)}
-            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['next']}">Next</a>
+            <a href="{$pagination['targetpage']}?search={$smarty.get.search}&category={$smarty.get.category}&page={$pagination['next']}">{t}Next{/t}</a>
 	{else}
-	    <a href="{$pagination['targetpage']}?page={$pagination['next']}">Next</a>
+	    <a href="{$pagination['targetpage']}?page={$pagination['next']}">{t}Next{/t}</a>
 	{/if}
     {else}
-	<span class='disabled'>Next</span>
+	<span class='disabled'>{t}Next{/t}</span>
     {/if}
     </div>
 {/if}

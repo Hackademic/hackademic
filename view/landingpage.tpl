@@ -8,7 +8,7 @@
         </td>
     </tr>
     <tr>
-        <td>{$article->content|truncate:500}<br/><a href="{$site_root_path}?url=readarticle&id={$article->id}">Read More</a><hr/></td>
+        <td>{$article->content|truncate:500}<br/><a href="{$site_root_path}?url=readarticle&id={$article->id}">{t}Read More{/t}</a><hr/></td>
     </tr>
 {/foreach}
 </table>

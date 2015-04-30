@@ -1,0 +1,7 @@
+#Test token 1
+msgid "HELLO_WORLD"
+msgstr "Hello World!"
+
+#Test token 2
+msgid "TEST_TRANSLATION"
+msgstr "Testing translation..."

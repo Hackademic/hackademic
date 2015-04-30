@@ -4,7 +4,7 @@
 <div class="main_content">
   <div class="header_bar">
     <div class="page_title">
-      <h3 class="left">Menu Manager</h3>
+      <h3 class="left">{t}Menu Manager{/t}</h3>
     </div>
   </div>
   <br/>
@@ -86,7 +86,6 @@
         <div id="button-wrapper">
           <p class="submit">
             <input type="submit" value="Cancel" id="cancel" name="submit">
-            &nbsp;
             <input type="submit" value="Update" id="submit" name="submit">
           </p>
         </div>

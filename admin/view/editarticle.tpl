@@ -39,7 +39,7 @@ tinyMCE.init({
 </script>
 <div class="main_content">
     <div class="header_bar">
-        <div class="page_title"><h3 class="left">Edit Article</h3></div>
+        <div class="page_title"><h3 class="left">{t}Edit Article{/t}</h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
 
@@ -51,21 +51,21 @@ tinyMCE.init({
                 <td class="bottom"><input type="text"name="title" value="{$article->title}"/></td>
             </tr>
             <tr>
-                <td><label>Publish Article</label></td>
+                <td><label>{t}Publish Article{/t}</label></td>
                 <td class="radio">
                     {if $article->is_published}
-                        <input type="radio" name="is_published" value="1" checked="true" /> yes
-                        <input type="radio" name="is_published" value="0" /> no
+                        <input type="radio" name="is_published" value="1" checked="true" /> {t}Yes{/t}
+                        <input type="radio" name="is_published" value="0" /> {t}No{/t}
                     {else}
-                        <input type="radio" name="is_published" value="1"  /> yes
-                        <input type="radio" name="is_published" value="0" checked="true" /> no
+                        <input type="radio" name="is_published" value="1"  /> {t}Yes{/t}
+                        <input type="radio" name="is_published" value="0" checked="true" /> {t}No{/t}
                     {/if}
                 </td>
             </tr>
             <tr><td><label> Delete Article?</label></td>
             <td><input type="checkbox" name="deletesubmit" value="Delete Article"/></td></tr>
             <tr>
-                <td colspan=2"><label>Write your Article</label></td>
+                <td colspan=2"><label>{t}Write your Article{/t}</label></td>
             </tr>
             <tr>
                 <td colspan="2">

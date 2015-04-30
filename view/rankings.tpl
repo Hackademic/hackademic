@@ -1,7 +1,7 @@
 {include file="_header_frontend.tpl"}
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">Rankings</h3></div>
+	<div class="page_title"><h3 class="left">{t}Rankings{/t}</h3></div>
     </div><br/>
     {if isset($is_logged_in)}
     <div class="center">
@@ -10,7 +10,7 @@
         <input type="hidden" name="url" value="{$smarty.get.url}">
 		<table class="add_form center">
 		    <tr>
-			<td style="width:25%"><label>Select Class:</label></td>
+			<td style="width:25%"><label>{t}Select Class:{/t}</label></td>
 			<td>
 			    <select name="class" style="width:100%">
 				{foreach from=$classes item=cls}
@@ -28,10 +28,10 @@
     {if (isset($rankings))}
     <table class="manager_table">
         <tr>
-            <th>Username</th>
-            <th>Challenges Cleared</th>
-						<th>Rank</th>
-						<th>Total Points</th>
+            <th>{t}Username{/t}</th>
+            <th>{t}Challenges Cleared{/t}</th>
+						<th>{t}Rank{/t}</th>
+						<th>{t}Total Points{/t}</th>
         </tr>
 	{$i = 1}
     {foreach from=$rankings item=foo}

@@ -1,7 +1,7 @@
 {include file="_header_frontend.tpl"}
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">Challenges</h3></div>
+	<div class="page_title"><h3 class="left">{t}Challenges{/t}</h3></div>
     </div><br/>
     <ul style="list-style: none;">
         {foreach from=$list key=class_name item=class_challenges}

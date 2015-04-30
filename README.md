@@ -51,6 +51,23 @@ Hackademic is a young project, however, it's gaining momentum fast. If you are i
 * 
 -- more to follow --
 
+Translations
+------------
+We're using gettext for translations coupled with the apropriate smarty plugin.
+If you'd like to provide a tanslation you can look at the locale directory under your desired language.
+The project's language is changed either on install or by setting the correct value in the config file.
+
+For devs:
+Handy tutorial on gettext:
+http://www.sitepoint.com/localizing-php-applications-1/
+
+The smarty plugin :
+https://github.com/smarty-gettext/smarty-gettext
+
+2 line instructions:
+The settings are loaded in the master controller,
+In the templates include whatever you want to be translated in {}
+
 Contact Us
 ----------
 
