@@ -1,0 +1,33 @@
+
+<!---
+REst
+-->
+Synopsis:
+----------------
+REST allows interaction with a web-based system via simplified URL's rather than complex request body or POST parameters to request specific items from the system.
+
+Description:
+------------------ 
+REST is a means of expressing specific entities in a system by URL path elements, REST is not an architecture but it is an architectural style to build services on top of the Web. REST allows interaction with a web-based system via simplified URL's rather than complex request body or POST parameters.
+
+For more details:- [REST Assessment Cheat Sheet](https://www.owasp.org/index.php/REST_Assessment_Cheat_Sheet)  
+
+
+Mitigation:
+----------------
+- RESTful web services should use session based authentication, either by establishing a session token via a POST, or using an API key as a POST body argument or as a cookie. Sensitive information should not appear in the URL. 
+BAD PRACTICE : https://example.com/controller/<id>/action?apiKey=a53f435643de32
+
+- XML Input Validation must ensure that they are protected against common XML based attacks by using XML-Parsing.
+
+
+For more details: 
+
+[OWASP REST Security Cheat Sheet](https://www.owasp.org/index.php/REST_Security_Cheat_Sheet) 
+
+[RESTFUL WEB SERVICES](http://www.xiom.com/2011/11/20/restful_webservices_testing)
+
+CVSS Base Score:
+----------------------------
+
+[cvss calculator](http://nvd.nist.gov/cvss.cfm?calculator&version=2)
