@@ -7,6 +7,7 @@
 
     <div id="input_form" class="options_form">
         <form method="post" action="{$site_root_path}?url=admin/options">
+	 <input type="hidden" name="csrf_token" value="{$token}">
          <h4>{t}Plugins{/t}</h4>
         {if !empty($plugins)}
           {foreach from=$plugins key=k item=plugin}
