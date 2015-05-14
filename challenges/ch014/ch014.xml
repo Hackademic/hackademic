@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>RSA Challenge I: Bad Primes</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        We have an RSA encrypted message. 
+        All we know is that the program that generated the RSA primes, p,q uses a bad PRG, so we are confindent |p-q| leq 10000 (decimal).  
+        Your Objective : Factor N, and tell us the originial messeage. 
+
+    </description>
+    <level>6</level>
+	<duration>90</duration>
+</challenge>

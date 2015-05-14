@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>RSA Challenge II: Common Modulas</title>
+    <author>
+    	Subhayan RoyMoulick, Dan Myshkin, Spyros Gasteratos
+    </author>
+    <category>crypto</category>
+    <description>
+        We have a single message m, that was encrpted, using RSA, and sent to several people.
+        All reciepents have the same RSA modulas N (N=pq).  
+        We are however only interested in the message.
+
+        Your Objective : Reveal the originial message. (Assume m le N) 
+
+    </description>
+    <level>6</level>
+	<duration>120</duration>
+</challenge>

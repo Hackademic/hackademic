@@ -1,0 +1,77 @@
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.story {
+    max-width: auto;
+}
+
+.help_prof {
+    max-width: 400px;
+    float: left;
+}
+
+.help_analyst {
+    max-width: 400px;
+    float: right;
+}
+}
+
+#working {
+    border: 1px solid black;
+}
+
+.main_content {
+    padding-top: 20px;
+    margin: auto;
+    max-width: 800px;
+}
+
+.ciphertext {
+    font-size: 19px;
+    max-width: auto;
+    border: 2px dashed #00ff1d;
+    color: #00ff1d;
+    margin: 10px;
+    padding: 10px 2px;
+    text-align: center;
+    
+}
+.pt_input {
+    width: 700px;
+    padding: 10px;
+    font-size: 18px;
+    border: 3px solid black;
+
+}
+
+#submit {
+    height: 40px;
+    width: 200px;
+    border: 5px solid white;
+    background: black;
+    border-radius: 10px;
+    color: #0f0;
+    font-family: verdana;
+    font-size: 14px
+
+}
+
+#submit:hover{
+    
+    border: 5px solid #00ff1d;
+    cursor: pointer
+}
+
+.center_align {
+    text-align: center;
+}
+
+#top {
+    margin-top: 40px;
+    font-family:fantasy
+    font-weight: 100;
+    color: #aaf
+}
