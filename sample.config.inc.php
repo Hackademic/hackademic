@@ -63,16 +63,20 @@ define('EXAMPLE_CHALLENGE','challenges/Example/');
 ***************************************/
 
 //every session closes after 48 hours
-define('SESS_EXP_ABS',172800); 
+define('SESS_EXP_ABS',172800);
 
 //every session closes after 2 hours of inacivity
-define('SESS_EXP_INACTIVE',7200); 
+define('SESS_EXP_INACTIVE',7200);
 
 //session cookie name
-define('SESS_NAME',"not_the_cookie_you_are_looking_for"); 
+define('SESS_NAME',"not_the_cookie_you_are_looking_for");
 
 //excibition mode
 define('EXHIBITION_MODE',false);
 
 //the installation language
 define('LANG','EN');
+
+/* Unit Testing Variables*/
+define('TEST_USERNAME_ADMIN','#THE_USERNAME_FOR_TESTS');
+define('TEST_PASSWORD_ADMIN','#THE_PASSWORD_FOR_tESTS');

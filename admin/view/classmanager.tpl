@@ -68,7 +68,7 @@
 	    <th align = "left">{t}Delete?{/t}</th>
 	</thead>
 	{foreach from=$classes item=class}
-	    <tr>
+	    <tr id="{$class->name}">
 		<td><a href="{$site_root_path}?url=admin/showclass&id={$class->id}">{$class->name}</a></td>
 		<td>{$class->date_created|date_format}</td>
 		<td>   

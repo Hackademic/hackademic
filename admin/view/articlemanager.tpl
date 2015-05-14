@@ -60,7 +60,7 @@
 	    <th align = "left">Published</th>
 	</thead>
 	{foreach from=$articles item=article}
-	    <tr>
+	    <tr id="{$article->title}">
 		<td><a href="{$site_root_path}?url=admin/editarticle&id={$article->id}">{$article->title}</a></td>
 		<td>{$article->date_posted|date_format}</td>
 		<td>{$article->created_by}</td>
