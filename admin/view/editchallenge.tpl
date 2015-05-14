@@ -44,6 +44,7 @@ tinyMCE.init({
 	 <div id="usermessage">{include file="_usermessage.tpl"}</div>
 	  <div id="input_form">
     <form id="form" name="form" method="post">
+	<input type="hidden" name="csrf_token" value="{$token}">
 	<table class="article_main">
 	<tr><td>
 		   	<p class="submit left" id="try_me"><a href="{$site_root_path}?url=admin/editcode&id={$challenge->id}" name="submit">{t}Edit Code{/t}</a></p></td>

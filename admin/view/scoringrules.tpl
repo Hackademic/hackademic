@@ -12,6 +12,7 @@
 	    <th>{t}Value{/t}</th>
 	</thead>
 	<form method=POST>
+	<input type="hidden" name="csrf_token" value="{$token}">
 	{foreach from=$rules key=name item=rule}
 	    <tr>
 		<td>{$rule_names[$name]}</td>

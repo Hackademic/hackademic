@@ -3,6 +3,7 @@
 <div id="login">
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
     <form method="post" action="{$site_root_path}?url=admin/login">
+	<input type="hidden" name="csrf_token" value="{$token}">
     	<h1>Log In</h1>
 	<fieldset id="inputs">
 	    <input name="username" id="username" type="text" placeholder="Username" autofocus required>   
