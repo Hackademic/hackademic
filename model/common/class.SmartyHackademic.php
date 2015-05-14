@@ -5,7 +5,7 @@
  *
  * Hackademic Smarty Class
  * Configures and initalizes Smarty per Hackademic's configuration.
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -51,11 +51,16 @@ class SmartyHackademic extends Smarty {
    * @var string the path to the user theme
    */
   public $user_theme_path = '';
-  
+
   /**
    * @var string the path to the admin theme
    */
   public $admin_theme_path = '';
+
+  /**
+   * @var string of the smarty version
+   */
+  private $smarty_version = '3.1.21';
 
 	/**
 	 * Constructor to initialize SmartyHackademic
@@ -80,7 +85,7 @@ class SmartyHackademic extends Smarty {
       HACKADEMIC_PATH . $this->admin_theme_path)
     );
 
-    $this->smarty->setPluginsDir(array(HACKADEMIC_PATH."extlib/Smarty-3.1.8/libs/plugins/",
+    $this->smarty->setPluginsDir(array(HACKADEMIC_PATH."extlib/Smarty-".$this->smarty_version."/libs/plugins/",
         HACKADEMIC_PATH."vendor/smarty-gettext/smarty-gettext/"));
     $this->compile_dir = HACKADEMIC_PATH.'/view/compiled_view';
 		$this->cache_dir =HACKADEMIC_PATH.'cache';
@@ -89,7 +94,7 @@ class SmartyHackademic extends Smarty {
 		$this->debug = $debug;
 		$this->assign('app_title', $app_title);
 		$this->assign('site_root_path', $site_root_path);
-	}   
+	}
 
 	/**
 	 * Assigns data to a template variable.
@@ -108,7 +113,7 @@ class SmartyHackademic extends Smarty {
 	/**
 	 * For use only by tests: return a template data value by key.
 	 * @param string $key
-	 */  
+	 */
 	public function getTemplateDataItem($key) {
 		return isset($this->template_data[$key]) ? $this->template_data[$key]:null;
 	}
@@ -139,5 +144,5 @@ class SmartyHackademic extends Smarty {
 			parent::clear_all_cache($exp_time);
 		}
 	}
-  
+
 }
