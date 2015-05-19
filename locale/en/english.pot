@@ -1,0 +1,12 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+#: admin/view/editcode.tpl:14
+msgid "EDIT_INSTRUCTIONS_CHALLENGE"
+msgstr "This section allows you to only edit the challenge index.php file.\n"
+"To edit other parts of the challenge, its recommended that you download the challenge,"
+" and reupload it once you have made the necessary changes."
+
+#: view/user_login.tpl:1
+msgid "HELLO_WORLD"
+msgstr "Hello World!"

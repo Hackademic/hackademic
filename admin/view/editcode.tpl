@@ -11,9 +11,7 @@
                 <tr>
                     <td>
                         <label for="name">
-                            {t}This section allows you to only edit the challenge index.php file.
-                            To edit other parts of the challenge, its recommended that you download the challenge,
-                            and reupload it once you have made the necessary changes.{/t}
+                            {t}EDIT_INSTRUCTIONS_CHALLENGE{/t}
                         </div>
                     </td>
                 </tr>
