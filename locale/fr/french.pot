@@ -1,0 +1,483 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+#: admin/view/classchallenges.tpl:5
+msgid "Class Membership - Challenges"
+msgstr "Membres de la Classe - Challenges"
+
+#: admin/view/classchallenges.tpl:14
+msgid "Add challenge to class: "
+msgstr "Ajouter le challenge à la classe"
+
+#: admin/view/classchallenges.tpl:31 admin/view/classmanager.tpl:65
+#: admin/view/classmembership.tpl:31
+msgid "Class name"
+msgstr "Nom de la classe"
+
+#: admin/view/classchallenges.tpl:32 admin/view/classchallenges.tpl:37
+#: admin/view/classmembership.tpl:32 admin/view/classmembership.tpl:37
+msgid "Delete"
+msgstr "Supprimer"
+
+#: admin/view/classmanager.tpl:6 admin/view/usermanager.tpl:31
+msgid "Class Manager"
+msgstr "Classe Manager"
+
+#: admin/view/classmanager.tpl:15 admin/view/usermanager.tpl:23
+msgid "Add Class"
+msgstr "Ajouter une Classe"
+
+#: admin/view/classmanager.tpl:33
+msgid "Class Name"
+msgstr "Nom de la Classe"
+
+#: admin/view/classmanager.tpl:36 admin/view/usermanager.tpl:54
+msgid "Show:"
+msgstr "Afficher :"
+
+#: admin/view/classmanager.tpl:39
+msgid "Results per Page"
+msgstr "Résultats par Page"
+
+#: admin/view/classmanager.tpl:66
+msgid "Date created"
+msgstr "Date de Création"
+
+#: admin/view/classmanager.tpl:67
+msgid "Archive?"
+msgstr "Archiver ?"
+
+#: admin/view/classmanager.tpl:68
+msgid "Delete?"
+msgstr "Supprimer ?"
+
+#: admin/view/classmanager.tpl:76
+msgid "Click to archive class!"
+msgstr "Cliquez pour archiver la classe !"
+
+#: admin/view/classmanager.tpl:78
+msgid "Click to unarchive class!"
+msgstr "Cliquez pour désarchiver la classe !"
+
+#: admin/view/classmanager.tpl:82
+msgid "Click to delete class!"
+msgstr "Cliquez pour supprimer la classe !"
+
+#: admin/view/classmembership.tpl:5
+msgid "Class Membership - Users "
+msgstr "Membres de la Classe - Utilisateurs "
+
+#: admin/view/classmembership.tpl:14
+msgid "Add user to class: "
+msgstr "Ajouter l'utilisateur à la classe : "
+
+#: admin/view/dashboard.tpl:5
+msgid "Dashboard"
+msgstr "Tableau de Bord"
+
+#: admin/view/dashboard.tpl:14 admin/view/editor.tpl:42
+msgid "Add New Article"
+msgstr "Ajouter un Nouveau Article"
+
+#: admin/view/dashboard.tpl:22
+msgid "Article Manager"
+msgstr "Article Manager"
+
+#: admin/view/dashboard.tpl:30 admin/view/usermanager.tpl:6
+msgid "User Manager"
+msgstr "User Manager"
+
+#: admin/view/dashboard.tpl:40
+msgid "Add New Challenge"
+msgstr "Ajouter un Nouveau Challenge"
+
+#: admin/view/dashboard.tpl:48
+msgid "Challenge Manager"
+msgstr "Challenge Manager"
+
+#: admin/view/editarticle.tpl:42
+msgid "Edit Article"
+msgstr "Editer l'Article"
+
+#: admin/view/editarticle.tpl:55 admin/view/editor.tpl:55
+msgid "Publish Article"
+msgstr "Publier l'Article"
+
+#: admin/view/editarticle.tpl:58 admin/view/editarticle.tpl:61
+#: admin/view/editor.tpl:57 admin/view/edituser.tpl:37
+#: admin/view/edituser.tpl:40 admin/view/usermanager.tpl:102
+msgid "Yes"
+msgstr "Oui"
+
+#: admin/view/editarticle.tpl:59 admin/view/editarticle.tpl:62
+#: admin/view/editor.tpl:58 admin/view/edituser.tpl:38
+#: admin/view/edituser.tpl:41 admin/view/usermanager.tpl:102
+msgid "No"
+msgstr "Non"
+
+#: admin/view/editarticle.tpl:69 admin/view/editor.tpl:62
+msgid "Write your Article"
+msgstr "Ecrire votre Article"
+
+#: admin/view/editchallenge.tpl:42
+msgid "Edit Challenge"
+msgstr "Editer le Challenge"
+
+#: admin/view/editchallenge.tpl:50
+msgid "Edit Code"
+msgstr "Editer le Code"
+
+#: admin/view/editchallenge.tpl:57
+msgid "Description"
+msgstr "Description"
+
+#: admin/view/editchallenge.tpl:67
+msgid "Visibility"
+msgstr "Visibilité"
+
+#: admin/view/editchallenge.tpl:70 admin/view/editchallenge.tpl:74
+#: admin/view/editchallenge.tpl:82 admin/view/editchallenge.tpl:86
+#: admin/view/editchallenge.tpl:99
+msgid "Public"
+msgstr "Publique"
+
+#: admin/view/editchallenge.tpl:71 admin/view/editchallenge.tpl:73
+#: admin/view/editchallenge.tpl:83 admin/view/editchallenge.tpl:85
+msgid "Private"
+msgstr "Privé"
+
+#: admin/view/editchallenge.tpl:79
+msgid "Availability"
+msgstr "Disponibilité"
+
+#: admin/view/editchallenge.tpl:92
+msgid "Published"
+msgstr "Publié"
+
+#: admin/view/editchallenge.tpl:95
+msgid "Not published"
+msgstr "Non publié"
+
+#: admin/view/editchallenge.tpl:96 admin/view/editchallenge.tpl:98
+msgid "Publish"
+msgstr "Publié"
+
+#: admin/view/editchallenge.tpl:104
+msgid "Level"
+msgstr "Niveau"
+
+#: admin/view/editchallenge.tpl:108
+msgid "Duration(minutes)"
+msgstr "Durée (minutes)"
+
+#: admin/view/editcode.tpl:4
+msgid "Edit Code - "
+msgstr "Editer le Code - "
+
+#: admin/view/editcode.tpl:14
+msgid ""
+"This section allows you to only edit the challenge index.php file.\r\n"
+"                            To edit other parts of the challenge, its "
+"recommended that you download the challenge,\r\n"
+"                            and reupload it once you have made the necessary "
+"changes."
+msgstr ""
+
+#: admin/view/editcode.tpl:31
+msgid "Download Challange"
+msgstr "Télécharger le Challenge"
+
+#: admin/view/editor.tpl:51 view/progressreport.tpl:28
+msgid "Title"
+msgstr "Titre"
+
+#: admin/view/edituser.tpl:5
+msgid "Edit User"
+msgstr "Editer l'Utilisateur"
+
+#: admin/view/edituser.tpl:14 admin/view/showclass.tpl:44
+#: admin/view/usermanager.tpl:49 admin/view/usermanager.tpl:83
+#: view/rankings.tpl:31 view/register_user.tpl:12 view/user_login.tpl:6
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: admin/view/edituser.tpl:19 admin/view/usermanager.tpl:50
+#: admin/view/usermanager.tpl:84 view/register_user.tpl:17
+msgid "Full Name"
+msgstr "Nom Complet"
+
+#: admin/view/edituser.tpl:24 admin/view/usermanager.tpl:51
+#: admin/view/usermanager.tpl:85 view/register_user.tpl:22
+msgid "Email"
+msgstr "Email"
+
+#: admin/view/edituser.tpl:29 view/register_user.tpl:27 view/user_login.tpl:8
+msgid "Password"
+msgstr "Mot de Passe"
+
+#: admin/view/edituser.tpl:34
+msgid "Activate User"
+msgstr "Activer l'utilisateur"
+
+#: admin/view/edituser.tpl:47
+msgid "Select the type of user"
+msgstr "Sélectionner le type d'utilisateur"
+
+#: admin/view/edituser.tpl:50 admin/view/edituser.tpl:56
+#: admin/view/edituser.tpl:60 admin/view/usermanager.tpl:103
+msgid "Student"
+msgstr "Etudiant"
+
+#: admin/view/edituser.tpl:51 admin/view/edituser.tpl:55
+#: admin/view/edituser.tpl:58 admin/view/usermanager.tpl:103
+msgid "Admin"
+msgstr "Admin"
+
+#: admin/view/edituser.tpl:52 admin/view/edituser.tpl:54
+#: admin/view/edituser.tpl:59 admin/view/usermanager.tpl:103
+msgid "Teacher"
+msgstr "Professeur"
+
+#: admin/view/menumanager.tpl:7
+msgid "Menu Manager"
+msgstr "Menu Manager"
+
+#: admin/view/options.tpl:5
+msgid "Options"
+msgstr "Options"
+
+#: admin/view/options.tpl:11
+msgid "Plugins"
+msgstr "Plugins"
+
+#: admin/view/options.tpl:22
+msgid " Plugin URI: "
+msgstr " Plugin URI : "
+
+#: admin/view/options.tpl:26 admin/view/options.tpl:67
+msgid "Author:"
+msgstr "Auteur :"
+
+#: admin/view/options.tpl:30 admin/view/options.tpl:71
+msgid "Author URI: "
+msgstr "Auteur URI : "
+
+#: admin/view/options.tpl:41
+msgid ""
+"No plugins installed at the moment. You can add plugins by droping the "
+"plugin files in the plugins folder."
+msgstr ""
+
+#: admin/view/options.tpl:44
+msgid "User themes"
+msgstr "Thèmes Utilisateur"
+
+#: admin/view/options.tpl:47
+msgid "System"
+msgstr "Système"
+
+#: admin/view/options.tpl:48
+msgid "The default system theme."
+msgstr "Thème système par défault."
+
+#: admin/view/options.tpl:63
+msgid "Theme URI:"
+msgstr "Thème URI :"
+
+#: admin/view/scoringrules.tpl:5
+msgid "Scoring Rules For: "
+msgstr "Règles de Notation pour : "
+
+#: admin/view/scoringrules.tpl:5
+msgid "Challenge: "
+msgstr "Challenge : "
+
+#: admin/view/scoringrules.tpl:11
+msgid "Rule Name"
+msgstr "Nom de la Règle"
+
+#: admin/view/scoringrules.tpl:12
+msgid "Value"
+msgstr "Valeur"
+
+#: admin/view/showclass.tpl:5
+msgid "Class Memberships"
+msgstr "Membres de la Classe"
+
+#: admin/view/showclass.tpl:13
+msgid "Name:  "
+msgstr "Nom :  "
+
+#: admin/view/showclass.tpl:25
+msgid "Add challenges"
+msgstr "Ajouter des challenges"
+
+#: admin/view/showclass.tpl:36
+msgid "Add users"
+msgstr "Ajouter des utilisateurs"
+
+#: admin/view/showclass.tpl:45 admin/view/showclass.tpl:50
+#: admin/view/showclass.tpl:58 admin/view/showclass.tpl:64
+msgid "Remove"
+msgstr "Supprimer"
+
+#: admin/view/showclass.tpl:57
+msgid "Challenge"
+msgstr "Challenge"
+
+#: admin/view/showclass.tpl:59
+msgid "Edit Scoring Rules"
+msgstr "Editer les Règles de Notation"
+
+#: admin/view/showclass.tpl:65 admin/view/usermanager.tpl:98
+msgid "Edit"
+msgstr "Editer"
+
+#: admin/view/usermanager.tpl:15
+msgid "Add User"
+msgstr "Ajouter un Utilisateur"
+
+#: admin/view/usermanager.tpl:46
+msgid "Sort By:"
+msgstr "Ordonner :"
+
+#: admin/view/usermanager.tpl:57
+msgid "Results Per Page"
+msgstr "Résultats par Page"
+
+#: admin/view/usermanager.tpl:86
+msgid "Classes"
+msgstr "Classes"
+
+#: admin/view/usermanager.tpl:87
+msgid "Joined"
+msgstr "Rejoint le"
+
+#: admin/view/usermanager.tpl:88
+msgid "Last Visit"
+msgstr "Dernière Visite"
+
+#: admin/view/usermanager.tpl:89
+msgid "Activated"
+msgstr "Activé"
+
+#: admin/view/usermanager.tpl:90
+msgid "Type Of User"
+msgstr "Type d'Utilisateur"
+
+#: admin/view/usermanager.tpl:101
+msgid "Never"
+msgstr "Jamais"
+
+#: view/challenge_list.tpl:4
+msgid "Challenges"
+msgstr "Challenges"
+
+#: view/forgotpw.tpl:4
+msgid "Forgot Your Password?"
+msgstr "Mot de Passe Oublié ?"
+
+#: view/forgotpw.tpl:11
+msgid "Enter Your Username:"
+msgstr "Entrer votre Nom d'Utilisateur"
+
+#: view/landingpage.tpl:11
+msgid "Read More"
+msgstr "Lire la Suite"
+
+#: view/_pagination_frontend.tpl:7 view/_pagination_frontend.tpl:12
+msgid "Previous"
+msgstr "Précédent"
+
+#: view/_pagination_frontend.tpl:125 view/_pagination_frontend.tpl:127
+#: view/_pagination_frontend.tpl:130
+msgid "Next"
+msgstr "Suivant"
+
+#: view/progressreport.tpl:4
+msgid "Progress Report"
+msgstr "Rapport de Progrès"
+
+#: view/progressreport.tpl:13
+msgid "Enter a name to search:"
+msgstr "Entrer un nom à rechercher :"
+
+#: view/progressreport.tpl:29
+msgid "No. Of Attempts"
+msgstr "Nombre de Tentatives"
+
+#: view/progressreport.tpl:30 view/progressreport.tpl:37
+msgid "Cleared"
+msgstr "Résolu"
+
+#: view/progressreport.tpl:31
+msgid "Cleared On"
+msgstr "Résolu"
+
+#: view/progressreport.tpl:36
+msgid "Unattempted"
+msgstr "Non essayé"
+
+#: view/progressreport.tpl:37 view/progressreport.tpl:38
+msgid "Not Cleared"
+msgstr "Non Résolu"
+
+#: view/rankings.tpl:4
+msgid "Rankings"
+msgstr "Classements"
+
+#: view/rankings.tpl:13
+msgid "Select Class:"
+msgstr "Sélectionner la Classe :"
+
+#: view/rankings.tpl:32
+msgid "Challenges Cleared"
+msgstr "Challenge Réussi"
+
+#: view/rankings.tpl:33
+msgid "Rank"
+msgstr "Classement"
+
+#: view/rankings.tpl:34
+msgid "Total Points"
+msgstr "Total des Points"
+
+#: view/register_user.tpl:5
+msgid "Register User"
+msgstr "Enregistrer l'Utiliateur"
+
+#: view/register_user.tpl:32
+msgid "Confirm Password"
+msgstr "Confirmer le Mot de Passe"
+
+#: view/resetpw.tpl:4
+msgid "Reset Your Password?"
+msgstr "Mettre à Jour votre Mot de Passe ?"
+
+#: view/resetpw.tpl:11
+msgid "Enter New Password:"
+msgstr "Entrer un Nouveau Mot de Passe :"
+
+#: view/resetpw.tpl:16
+msgid "Confirm Password:"
+msgstr "Confirmer le Mot de Passe :"
+
+#: view/showChallenge.tpl:13
+msgid "Try it!"
+msgstr "Essayez !"
+
+#: view/user_login.tpl:1
+msgid "HELLO_WORLD"
+msgstr "Hello World!"
+
+#: view/user_login.tpl:5
+msgid "Login Details"
+msgstr "Détails de connexion"
+
+#: view/user_login.tpl:11
+msgid "Forgot your password"
+msgstr "Mot de passe oublié"
+
+#: view/user_login.tpl:12
+msgid "Create an account"
+msgstr "Créer un compte"
