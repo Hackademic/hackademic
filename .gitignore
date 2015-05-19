@@ -9,3 +9,5 @@ pages/test/
 *.rej
 test
 nbproject/
+composer.lock
+vendor/
