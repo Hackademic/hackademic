@@ -1,0 +1,215 @@
+msgid "Activated"
+msgstr "Ενεργοποιήθηκε"
+
+msgid "Activate User"
+msgstr "Ενεργοποίηση Χρήστη"
+
+msgid "Add Class"
+msgstr "Προσθήκη τάξης"
+
+msgid "Add New Article"
+msgstr "Προσθήκη Νέου Άρθρου"
+
+msgid "Add User"
+msgstr "Προσθήκη Χρήστη"
+
+msgid "Add users"
+msgstr "Προσθήκη Χρηστών"
+
+msgid "Add user to class: "
+msgstr "Προσθήκη Χρήστη στην Τάξη:"
+
+msgid "Archive?"
+msgstr "Αρχειοθέτηση;"
+
+msgid "Author:"
+msgstr "Συγγραφέας:"
+
+msgid "Author URI: "
+msgstr "URI Συγγραφέα : "
+
+msgid "Availability"
+msgstr "Διαθεσιμότητα"
+
+msgid "Classes"
+msgstr "Τάξεις"
+
+msgid "Class Memberships"
+msgstr "Συνδρομές σε τάξεις"
+
+msgid "Class Membership - Users "
+msgstr "Συνδρομή Τάξης - Χρήστες  "
+
+msgid "Class Name"
+msgstr "Όνομα Τάξης"
+
+msgid "Cleared"
+msgstr "Λύθηκε"
+
+msgid "Click to archive class!"
+msgstr "Πατήστε για να αρχειθετηθεί η τάξη!"
+
+msgid "Click to delete class!"
+msgstr "Πατήστε για να διαγραφεί η τάξη !"
+
+msgid "Dashboard"
+msgstr "Πίνακας Ελέγχου"
+
+msgid "Date created"
+msgstr "Ημερομηνία δημιουργίας"
+
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Delete?"
+msgstr "Διαγραφή;"
+
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+msgid "Edit Article"
+msgstr "Επεξεργασία άρθρου"
+
+msgid "Edit Code"
+msgstr "Επεξεργασία κώδικα"
+
+msgid "Edit Code - "
+msgstr "Επεξεργασία κώδικα - "
+
+msgid "Edit User"
+msgstr "Επεξεργασία χρήστη"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Forgot your password"
+msgstr "Ξέχασα τον κωδικό μου"
+
+msgid "Forgot Your Password?"
+msgstr "Ξέχασες τον κωδικό σου;"
+
+msgid "Full Name"
+msgstr "Όνομα"
+
+msgid "HELLO_WORLD"
+msgstr "Hello World!"
+
+msgid "Last Visit"
+msgstr "Τελευταία επίσκεψη"
+
+msgid "Level"
+msgstr "Επίπεδο"
+
+msgid "Name:  "
+msgstr "Όνομα:  "
+
+msgid "Never"
+msgstr "Ποτέ"
+
+msgid "Next"
+msgstr "Επόμενο"
+
+msgid "No"
+msgstr "Όχι"
+
+msgid "No. Of Attempts"
+msgstr "Αριθμός Προσπαθειών"
+
+msgid "Not Cleared"
+msgstr "Δεν έχει λυθεί"
+
+msgid "Not published"
+msgstr "Δεν έχει δημοσιευθεί"
+
+msgid "Password"
+msgstr "Συνθηματικό"
+
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+msgid "Private"
+msgstr "Ιδιωτικό"
+
+msgid "Progress Report"
+msgstr "Αναφορά Προόδου"
+
+msgid "Public"
+msgstr "Δημόσιο"
+
+msgid "Publish"
+msgstr "Δημοσίευση"
+
+msgid "Publish Article"
+msgstr "Δημοσίευση Άρθρου"
+
+msgid "Published"
+msgstr "Δημοσιευμένο"
+
+msgid "Read More"
+msgstr "Διαβάστε Περισσότερα"
+
+msgid "Register User"
+msgstr "Εγγραφή Χρήστη"
+
+msgid "Remove"
+msgstr "Διαγραφή"
+
+msgid "Reset Your Password?"
+msgstr "Επαναφορά συνθηματικού;"
+
+msgid "Results per Page"
+msgstr "Αποτελέσματα Ανά Σελίδα"
+
+msgid "Results Per Page"
+msgstr "Αποτελέσματα Ανά Σελίδα"
+
+msgid "Rule Name"
+msgstr "Ονομασία Κανόνα"
+
+msgid "Select Class:"
+msgstr "Επιλογή τάξης"
+
+msgid "Select the type of user"
+msgstr "Επιλογή τύπου χρήστη"
+
+msgid "Show:"
+msgstr "Εμφάνιση :"
+
+msgid "Sort By:"
+msgstr "Ταξινόμηση κατά:"
+
+msgid "System"
+msgstr "Σύστημα"
+
+msgid "Teacher"
+msgstr "Καθηγητής"
+
+msgid "The default system theme."
+msgstr "Προεπιλεγμένο θέμα."
+
+msgid "Theme URI:"
+msgstr "URI Θέματος:"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "Try it!"
+msgstr "Προσπάθεια !"
+
+msgid "Type Of User"
+msgstr "Τύπος Χρήστη"
+
+msgid "User themes"
+msgstr "Θέματα Χρήστη"
+
+msgid "Value"
+msgstr "Αξία"
+
+msgid "Visibility"
+msgstr "Ορατότητα"
+
+msgid "Write your Article"
+msgstr "Σύνταξη Άρθρου"
+
+msgid "Yes"
+msgstr "Ναι"
