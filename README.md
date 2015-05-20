@@ -21,19 +21,19 @@ You can choose to start from the one that you find most appealing,although we su
 Deployment
 ----------
 
-Dependencies of Hackademic involve a web server(Apache,nginx) and Mysql/MariaDB connected with it. Make sure you have installed these before you start deploying Hackademic.
+Dependencies of Hackademic involve a web server (Apache,nginx) and Mysql/MariaDB connected with it. Make sure you have installed these before you start deploying Hackademic.
 
 Clone Hackademic project,
 
-git clone https://github.com/Hackademic/hackademic.git
+`git clone https://github.com/Hackademic/hackademic.git`
 
-After successful cloning of the Hackademic project,copy the contents into /var/www
+After successful cloning of the Hackademic project, copy the contents into `/var/www`
 We need to change the permissions of the file now,
 
-sudo chmod -R 765 hackademic
+`sudo chmod -R 765 hackademic`
 
 Ensure that the apache is started and sql connection is also active.Point your browser towards https://localhost/
-You will be prompted with Hackademic page. In case you have many sub-directories in /var/www/,the browser would throw up all the directories.
+You will be prompted with Hackademic page. In case you have many sub-directories in `/var/www/`,the browser would throw up all the directories.
 Choose hackademic from that.
 
 Now you will be prompted to Hackademic installation page.
