@@ -21,7 +21,7 @@ You can choose to start from the one that you find most appealing,although we su
 Deployment
 ----------
 
-Dependencies of Hackademic involve a web server (Apache, nginx) with PHP and Mysql/MariaDB connected with it. Make sure you have installed these before you start deploying Hackademic. We recommand to use Apache with MySQL. See [Digital Ocean's website](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu) for a good tutorial under Ubuntu.
+Dependencies of Hackademic involve a web server (Apache, nginx) with PHP and Mysql/MariaDB connected with it. Make sure you have installed these before you start deploying Hackademic. We recommand to use Apache with MySQL. See [Digital Ocean's website](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu) for a good tutorial under Ubunt. See [WampServer](http://www.wampserver.com/en/) to set up the environnement under Windows.
 
 Clone Hackademic project,
 
