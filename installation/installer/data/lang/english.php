@@ -47,7 +47,7 @@ $lang = array(
 'I-16' => "Continue Anyway...",
 'I-17' => "Configuration File Settings",
 'I-18' => "Site Root Path",
-'I-19' => "Sorce Root Path",
+'I-19' => "Source Root Path",
 'I-20' => "Finish",
 
 'I-21' => "Installation Completed",
