@@ -51,7 +51,6 @@ Hackademic is a young project, however, it's gaining momentum fast. If you are i
 
 * The latest development version is the `next-dev` branch, you should check it out and make all your pull requests there.
 * We would really appreciate it if your new features came with unit tests. If you don't know how ask us.
-* The latest development version is the `next-dev` branch, you should check it out and make all your pull requests there.
 * Unit Tests: We are trying to introduce unit tests which is usually a very good idea. So:
   * New features should come with php-unit or Selenium (or better both)  unit tests testing that the feature works as expected
   * All the code should pass the existing unit tests before merging
