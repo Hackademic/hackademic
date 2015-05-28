@@ -1,4 +1,3 @@
-{t}HELLO_WORLD{/t}
 <div id="login">
     <form class="login" method="post" action="{$site_root_path}?url=login">
 	<fieldset id="inputs">

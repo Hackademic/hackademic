@@ -80,17 +80,6 @@ abstract class HackademicController {
             //var_dump("no session");
             //die("no session");
         }
-        //TODO: move the locale settings somewhere where they  get executed only once
-        // I18N support information here
-        $language = LANG;
-        putenv("LANG=" . $language);
-        setlocale(LC_ALL, $language);
-        // Set the text domain as "messages"
-        $domain = "messages";
-        bindtextdomain($domain, "locale");
-        bind_textdomain_codeset($domain, 'UTF-8');
-        textdomain($domain);
-
         if (isset($_SESSION['hackademic_user']) && !Session::isValid()) {
             //die(" session but not valid");
             //error_log("session but not valid", 0);
