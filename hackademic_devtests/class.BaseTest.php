@@ -3,19 +3,16 @@
 require_once 'initTests.php';
 
 class BaseTest extends PHPUnit_Framework_TestCase {
-    //use WebDriverAssertions;
-    //use WebDriverDevelop;
 
     /**
      * @var \RemoteWebDriver
      */
-    protected static $webDriver;
+    public static $webDriver;
 
-    protected static function initialize() {
-        if(!isset(self::$webDriver)){
-        $capabilities = array(\WebDriverCapabilityType::BROWSER_NAME => 'firefox');
-        self::$webDriver = RemoteWebDriver::create('http://127.0.0.1:4444/wd/hub', $capabilities);
-        
+    public static function initialize() {
+        if (!isset(self::$webDriver)) {
+            $capabilities = array(\WebDriverCapabilityType::BROWSER_NAME => 'firefox');
+            self::$webDriver = RemoteWebDriver::create('http://127.0.0.1:4444/wd/hub', $capabilities);
         }
     }
 
@@ -23,74 +20,94 @@ class BaseTest extends PHPUnit_Framework_TestCase {
         self::initialize();
     }
 
-    protected static function closeWebDriver() {
+    public static function closeWebDriver() {
         self::$webDriver->close();
     }
 
-    protected static function assertElementFound($element) {
+    public static function assertElementFound($element) {
         $el = self::$webDriver->findElement(WebDriverBy::cssSelector($element));
         if (!count($el)) {
             self::fail("Element was found");
         }
     }
 
-    protected static function visit($url) {
-        error_log(__METHOD__);
-        //$url = str_replace("localhost", "127.0.0.1", $url);
+    public static function visit($url) {
         self::$webDriver->get($url);
     }
 
-    protected static function get_element_by_linkText($content) {
-
+    public static function getELementByLinkText($content) {
         return self::$webDriver->findElement(WebDriverBy::linkText($content));
     }
 
-    protected static function login($username, $password) {
-        error_log(__METHOD__);
-
+    public static function login($username, $password) {
         error_log("logging in as " . TEST_USERNAME_ADMIN . " " . TEST_PASSWORD_ADMIN);
         self::visit(SOURCE_ROOT_PATH);
-        error_log(SOURCE_ROOT_PATH);
-        self::write_to($username, '#inputs > input[type="text"]:nth-child(3)');
-        self::write_to($password, '#password');
-        sleep(1);
+        self::writeTo($username, '#inputs > input[type="text"]:nth-child(3)');
+        self::writeTo($password, '#password');
         self::click("#submit");
-        sleep(1);
     }
 
-    protected static function logout() {
-        error_log(__METHOD__);
+    public static function logout() {
+        self::visit(SOURCE_ROOT_PATH);
+        self::getELementByLinkText("Logout")->click();
+    }
 
-        self::click("#mainMenu > li:nth-child(10) > a");
+    public static function type($element, $text) {
+        BaseTest::writeTo($text, $element);
     }
-    protected static function type($element, $text){
-        BaseTest::write_to($text, $element);
-    }
-    protected static function write_to($text, $element) {
-        error_log(__METHOD__);
+
+    public static function writeTo($text, $element) {
+
 
         self::click($element);
         self::$webDriver->getKeyboard()->sendKeys($text);
     }
 
-    protected static function click($element) {
-        error_log(__METHOD__);
+    public static function click($element) {
         $search = self::$webDriver->findElement(WebDriverBy::cssSelector($element));
         $search->click();
     }
 
-    protected static function get_element($element) {
-        error_log(__METHOD__);
-
+    public static function getElement($element) {
         return self::$webDriver->findElement(WebDriverBy::cssSelector($element));
     }
 
-    protected static function assert_error_message($text) {
-        $el = self::get_element("#usermessage > p");
+    public static function assertErrorMessage($text) {
+        $el = self::getElement("#usermessage > p");
         assert($el->isDisplayed());
         self::assertContains($text, $el->getText());
     }
 
-}
+    public static function getChallengeUrl($pageSrc) {
+        $element = array();
+        $url = array();
+        preg_match("/\<a.+try_me.+/", $pageSrc, $element);
+        preg_match("/\/[\S]+/", $element[0], $url);
+        $array1 = explode("/", $url[0]);
+        $array2 = explode("/", SOURCE_ROOT_PATH);
+        $diff = join(' ', array_diff($array1, $array2));
+        return html_entity_decode(SOURCE_ROOT_PATH . $diff);
+    }
 
-?>
+    public function createUser() {
+        BaseTest::login(TEST_USERNAME_ADMIN, TEST_PASSWORD_ADMIN);
+        BaseTest::visit(ADMIN_DASHBOARD_URL);
+        $this->getELementByLinkText("User Manager")->click();
+        $this->click("#content > div.main_content > div.header_bar > div.right.action_button > table > tbody > tr > td:nth-child(1) > div > a > img");
+        $this->writeTo($this->username, '#form > table > tbody > tr:nth-child(1) > td:nth-child(2) > input[type="text"]');
+        $this->writeTo('Test User1', '#form > table > tbody > tr:nth-child(2) > td:nth-child(2) > input[type="text"]');
+        $this->writeTo('testUser1@domain.com', '#email');
+        $this->writeTo($this->password, '#password');
+        $this->writeTo($this->password, '#confirm_password');
+        $this->click('#form > table > tbody > tr:nth-child(6) > td.radio > input[type="radio"]:nth-child(1)');
+        $this->click('#submit');
+    }
+
+    public function deleteUser($username) {
+        BaseTest::visit(ADMIN_DASHBOARD_URL);
+        $this->getELementByLinkText("User Manager")->click();
+        $this->getELementByLinkText($username)->click();
+        $this->click("#deletesubmit");
+    }
+
+}
