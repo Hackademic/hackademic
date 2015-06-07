@@ -10,6 +10,8 @@ Hackademic is a young project, however, it's gaining momentum fast. If you are i
   * All the code should pass the existing unit tests before merging.
 * Coding - Style:
   * Every commit shouldn't generate any errors with PHP_CodeSniffer (to fix most errors you can use PHP Coding Standards Fixer).
+* Coding - Standards:
+  * We try to conform to the PSR-* coding standards any new code, preferably including challenges should be compliant.
   * Commits: Clean commits make it easy to review code, also commits that do only one thing are easier to manage bug-wise. So:
     * One commit should fix one problem or introduce one feature only, please don't commit fixes all around the place.
     * Only what you modified goes in the commit (for instance you shouldn't commit vim/project files or anything unrelated).
