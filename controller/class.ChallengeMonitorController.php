@@ -49,6 +49,10 @@ if(!defined('EXPERIMENTATION_BONUS_ID')){
 	define('MULT_SOL_BONUS_ID', "multiple_solution_bonus");
 	define('TOTAL_ATTEMPT_PENALTY_ID', "total_attempt_penalty");
 	define('FTS_PENALTY_ID', "first_try_penalty");
+
+	define("CHALLENGE_INIT", 2);
+	define("CHALLENGE_SUCCESS", 1);
+	define("CHALLENGE_FAILURE", 0);
 }
 class ChallengeMonitorController {
 
@@ -64,8 +68,7 @@ class ChallengeMonitorController {
 			$pkg_name = $url_components[$i+1];
 		return $pkg_name;
 	}
-    public function start($user_id = null, $chid = null, $class_id = null, $token = null,
-						  $status = 'CHECK'){
+    public function start($user_id = null, $chid = null, $class_id = null, $token = null, $status) {
 //		var_dump($_SESSION);
 		if(!isset($_SESSION))
 			session_start();
@@ -76,7 +79,7 @@ class ChallengeMonitorController {
 			$_SESSION['user_id'] = $user_id;
 			$_SESSION['pkg_name'] = $this->get_pkg_name();
 			$_SESSION['class_id'] = $class_id;
-			$this->calc_score(-1, $user_id, $chid, $class_id);
+			$this->calc_score($status, $user_id, $chid, $class_id);
 			$_SESSION['init'] = true;
 			//var_dump($_SESSION);
 			return;
@@ -209,7 +212,7 @@ class ChallengeMonitorController {
 	 * Called for unsuccesful attempt, updates the current score for the user
 	 * Called on success calculates the total score for the user
 	 */
-	public function calc_score($status = 0, $user_id, $challenge_id, $class_id){
+	public function calc_score($status, $user_id, $challenge_id, $class_id){
 		if (!isset($_SESSION['rules']) || !is_array($_SESSION['rules'])|| $_SESSION['rules'] == ""){
 			$rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge_id, $class_id);
 
@@ -244,12 +247,12 @@ class ChallengeMonitorController {
 			$fts_penalty = $_SESSION['rules']['penalty_for_many_first_try_solves'];
 
 			$current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
-			if ($current_score === false && $status != -1){
-				self::calc_score(-1, $user_id, $challenge_id, $class_id);
+			if ($current_score === false && $status != CHALLENGE_INIT) {
+				self::calc_score(CHALLENGE_INIT, $user_id, $challenge_id, $class_id);
 				$current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
 				$_SESSION['current_score'] = (array)$current_score;
 			}
-		if ($status == -1){
+		if ($status == CHALLENGE_INIT){
 			foreach($_SESSION['rules'] as $key=>$value)
 				unset($_SESSION['rules'][$key]);
 			unset($_SESSION['rules']);
@@ -276,7 +279,7 @@ class ChallengeMonitorController {
 
 			return;
 
-		}elseif ($status == 0){
+		} elseif ($status == CHALLENGE_FAILURE) {
 			if (ChallengeAttempts::isChallengeCleared($user_id, $challenge_id, $class_id)){
 				if (strpos($current_score->penalties_bonuses,EXPERIMENTATION_BONUS_ID) === false && $exp_bonus > 0){
 					/* apply experimentation bonus*/
@@ -334,7 +337,7 @@ class ChallengeMonitorController {
 				}
 
 			}
-		}elseif ($status == 1){
+		} elseif ($status == CHALLENGE_SUCCESS) {
 			if (ChallengeAttempts::isChallengeCleared($user_id, $challenge_id, $class_id)){
 				/* apply multiple solutions bonus*/
 				if(strpos($current_score->penalties_bonuses,MULT_SOL_BONUS_ID) === false && $mult_sol_bonus > 0){
