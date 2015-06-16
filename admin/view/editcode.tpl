@@ -1,7 +1,7 @@
 {include file="_header.tpl"}
 <div class="main_content">
     <div class="header_bar">
-        <div class="page_title"><h3 class="left">{t}Edit Code - {/t}{$title}</h3></div>
+        <div class="page_title"><h3 class="left"> Edit Code -  {$title}</h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
     <div id="input_form">
@@ -11,9 +11,9 @@
                 <tr>
                     <td>
                         <label for="name">
-                            {t}This section allows you to only edit the challenge index.php file.
+                             This section allows you to only edit the challenge index.php file.
                             To edit other parts of the challenge, its recommended that you download the challenge,
-                            and reupload it once you have made the necessary changes.{/t}
+                            and reupload it once you have made the necessary changes. 
                         </div>
                     </td>
                 </tr>
@@ -28,7 +28,7 @@
                     </td>
                     <td>
 		     	<p class="submit right" id="try_me" style="width: 130px">
-                            <a href="{$site_root_path}?url=admin/download&ch={$folder}" name="submit">{t}Download Challenge{/t}</a>
+                            <a href="{$site_root_path}?url=admin/download&ch={$folder}" name="submit"> Download Challenge </a>
                         </p>
                     </td>
                 </tr>

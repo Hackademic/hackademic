@@ -2,7 +2,7 @@
 
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">{t}Edit User{/t}</h3></div>
+	<div class="page_title"><h3 class="left"> Edit User </h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
     
@@ -11,53 +11,53 @@
 	<input type="hidden" name="csrf_token" value="{$token}">
 	<table class="user_add">
 	    <tr>
-		<td><label for="name">{t}Username{/t}</label></td>
+		<td><label for="name"> Username </label></td>
 		<td><input type="text" name="username" value="{$user->username}" readonly="readonly"/></td>
 	    </tr>
 	    
 	    <tr>
-		<td><label>{t}Full Name{/t}</label></td>
+		<td><label> Full Name </label></td>
 		<td><input type="text" name="full_name" value="{$user->full_name}"/></td>
 	    </tr>
 	    
 	    <tr>
-		<td><label>{t}Email{/t}</label></td>
+		<td><label> Email </label></td>
 		<td><input type="text" name="email" id="email" value="{$user->email}"/></td>
 	    </tr>
 	    
 	    <tr>
-		<td><label>{t}Password{/t}</label></td>
+		<td><label> Password </label></td>
 		<td><input type="password" name="password" id="password"/></td>
 	    </tr>
 		    
 	    <tr>
-		<td><label>{t}Activate User{/t}</label></td>
+		<td><label> Activate User </label></td>
 		<td class="radio">
 		    {if $user->is_activated}
-			<input type="radio" name="is_activated" value="1" checked="true" />{t}Yes{/t}
-			<input type="radio" name="is_activated" value="0" />{t}No{/t}
+			<input type="radio" name="is_activated" value="1" checked="true" /> Yes 
+			<input type="radio" name="is_activated" value="0" /> No 
 		    {else}
-			<input type="radio" name="is_activated" value="1"  />{t}Yes{/t}
-			<input type="radio" name="is_activated" value="0" checked="true" />{t}No{/t}
+			<input type="radio" name="is_activated" value="1"  /> Yes 
+			<input type="radio" name="is_activated" value="0" checked="true" /> No 
 		    {/if}
 		</td>
 	    </tr>
 	    
 		<tr>
-		<td><label>{t}Select the type of user{/t}</label></td>
+		<td><label> Select the type of user </label></td>
 		<td><select name="type">
 			    {if $user->type==0}
-               <option value="0" selected="selected">{t}Student{/t}</option>
-			   <option value="1" >{t}Admin{/t}</option>
-			   <option value="2" >{t}Teacher{/t}</option>
+               <option value="0" selected="selected"> Student </option>
+			   <option value="1" > Admin </option>
+			   <option value="2" > Teacher </option>
 			   {elseif $user->type==2}
-               <option value="2" selected="selected">{t}Teacher{/t}</option>
-			   <option value="1" >{t}Admin{/t}</option>
-			   <option value="0" >{t}Student{/t}</option>
+               <option value="2" selected="selected"> Teacher </option>
+			   <option value="1" > Admin </option>
+			   <option value="0" > Student </option>
 			   {else}
-               <option value="1" selected="selected">{t}Admin{/t}</option>
-			   <option value="2" >{t}Teacher{/t}</option>
-			   <option value="0" >{t}Student{/t}</option>
+               <option value="1" selected="selected"> Admin </option>
+			   <option value="2" > Teacher </option>
+			   <option value="0" > Student </option>
 			   {/if}
 			   
         </select></td>
