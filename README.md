@@ -39,7 +39,33 @@ You will be prompted with Hackademic page. In case you have many sub-directories
 Choose hackademic from that.
 
 Now you will be prompted to Hackademic installation page.
-Be sure to fill out all the
+Be sure to fill out all the fields.
+
+1. Administrator Details
+
+	Fill any email id, username and password. 
+	You will using this username and password, later to log in to hackademic.
+
+2. Database Settings
+	
+	Fill the database name, database host, database username and password.
+
+3. Configuration Settings
+
+	All the fields are preloaded with information. Go to next level.
+
+4. Finish
+
+	On finish, you should get a success message. Open the URL it suggests. 
+	You should be able to log in.
+
+
+After finish stage if you got a error
+
+*Parse error: syntax error, unexpected '[' in /var/www/hackademic/model/common/class.ChallengeAttempts.php on line 363']'*
+
+update the version of PHP you are using. Hackademic uses 5.4+. 
+
 
 
 Road Map and Getting Involved
