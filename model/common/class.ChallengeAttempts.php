@@ -338,7 +338,7 @@ class ChallengeAttempts {
  
 		$params = array(':class_id'=>$class_id);
 		
-		$challenges_cleared = "SELECT COUNT(DISTINCT challenge_id) as count FROM challenge_attempts WHERE user_id=:user_id AND class_id=:class_id AND status=1";
+		$challenges_cleared = "SELECT COUNT(DISTINCT challenge_id) as count FROM challenge_attempts, MAX(time) as last_successful_attempt WHERE user_id=:user_id AND class_id=:class_id AND status=1";
 		
 		$active = $db->read($active_class_users,$params,self::$action_type);
 		$active_users = array();
@@ -359,8 +359,9 @@ class ChallengeAttempts {
 			$cc = $db->read($challenges_cleared,$params,self::$action_type);
 			while($row = $db->fetchArray($cc)){
 				$cleared_count = $row["count"];
+				$last_successful_attempt=$row['last_successful_attempt'];
 			}
-			array_push($res_score,["id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count]);
+			array_push($res_score,["id"=>$uinfo['user_id'],'username'=>$username,'score'=>$points,'count'=>$cleared_count,'last_successful_attempt'=>$last_successful_attempt]);
 		}
 		return $res_score;
 	}

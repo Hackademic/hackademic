@@ -42,9 +42,9 @@ class RankingsController extends HackademicController {
     private static $action_type = 'rankings';
    
     static  function sort_count($rankA, $rankB) {
-	if ($rankA['score'] == $rankB['score']) {
-			return 0;
-	}
+        if ($rankA['score'] == $rankB['score']) {
+            return ($rankA['last_successful_attempt'] > $rankB['last_successful_attempt']) ? 1 : -1;
+        }
         return ($rankA['score'] < $rankB['score']) ? 1 : -1;
     }
    
@@ -57,10 +57,10 @@ class RankingsController extends HackademicController {
             } else {
                 $user = User::findByUserName($username);
                 $classes = ClassMemberships::getMembershipsOfUserObjects($user->id);
-		$show_global_rankings = new Classes();
-		$show_global_rankings->id = "";
-		$show_global_rankings->name = "Show Universal Rankings";
-		array_unshift($classes, $show_global_rankings);
+        $show_global_rankings = new Classes();
+        $show_global_rankings->id = "";
+        $show_global_rankings->name = "Show Universal Rankings";
+        array_unshift($classes, $show_global_rankings);
             }
             $this->addToView('classes', $classes);
         }
@@ -78,8 +78,8 @@ class RankingsController extends HackademicController {
             }
         }
        usort($rankings, array("RankingsController", "sort_count"));
-	$this->addToView('rankings', $rankings);
+    $this->addToView('rankings', $rankings);
         $this->addSuccessMessage("Showing Active Users Only");
-	return $this->generateView(self::$action_type);
+    return $this->generateView(self::$action_type);
     }
 }
