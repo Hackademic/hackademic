@@ -10,17 +10,17 @@
 	<table class="user_add">
 	    <tr>
 		<td><label for="name"> Username </label></td>
-		<td><input type="text" name="username" value="{$cached->username}"/></td>
+		<td><input type="text" name="username" value="{if isset($cached->username)}{$cached->username}{/if}"/></td>
 	    </tr>
 	    
 	    <tr>
 		<td><label> Full Name </label></td>
-		<td><input type="text" name="full_name" value="{$cached->name}"/></td>
+		<td><input type="text" name="full_name" value="{if isset($cached->name)}{$cached->name}{/if}"/></td>
 	    </tr>
 	    
 	    <tr>
 		<td><label> Email </label></td>
-		<td><input type="text" name="email" id="email" value="{$cached->email}"/></td>
+		<td><input type="text" name="email" id="email" value="{if isset($cached->email)}{$cached->email}{/if}"/></td>
 	    </tr>
 	    
 	    <tr>
