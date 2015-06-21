@@ -41,6 +41,13 @@ class EditUserController extends HackademicBackendController {
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 		}
+
+	if(isset($_GET['activate'])){
+		$user=User::getUser($id);
+		User::updateUser($id,$user->username,$user->full_name,$user->email,$user->password,1,$user->type);	
+		header('Location: ' . "?url=admin/usermanager&source=activate");
+	}
+
     if(isset($_POST['deletesubmit'])) {
       User::deleteUser($id);
       $this->addSuccessMessage("User has been deleted succesfully");
