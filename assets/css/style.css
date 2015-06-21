@@ -232,6 +232,8 @@ img {border:none;}
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    cursor:pointer;
+    cursor:hand;
 }
 
 #input_form .radio input {
