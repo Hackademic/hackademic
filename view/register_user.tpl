@@ -32,12 +32,12 @@
 		<td><label> Confirm Password </label></td>
 		<td><input type="password" name="confirmpassword" id="password"/></td>
 	    </tr>
-	    
-	    <tr class="submit_btn">
-		<td colspan="2">
-		    <p class="submit"><input type="submit" name="submit" id="submit" value="Register User" /></p>
-		</td>
+
+	    <tr>
+		<td></td>
+		<td><p class="submit"><input type="submit" name="submit" id="submit" value="Register User" /></p></td>
 	    </tr>
+	    
 	</table>
     </form>
     </div>
