@@ -15,8 +15,6 @@ __author__ = 'AnirudhAnand (a0xnirudh)'
 class Install:
 
     def __init__(self):
-        print("[+] Installing Docker, necessary supporting plugins and registry")
-        print("[+] This could take some time. Please wait ...")
         self.user = os.environ['USER']
         self.install = LoggingManager()
         return
@@ -29,7 +27,8 @@ class Install:
 
         All logs during the install are saved to hackademic_logs/install.logs
         """
-        print("[+] Installing Docker Containers now..")
+        print("[+] Installing Docker and necessary supporting plugins")
+        print("[+] This could take some time. Please wait ...")
         try:
             subprocess.check_call("docker -v", stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
         except (OSError, subprocess.CalledProcessError):
