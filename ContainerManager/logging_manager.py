@@ -53,3 +53,13 @@ class LoggingManager:
         logger = self.create_logger('install_log', 'install.logs')
         logger.exception(exception)
         return
+
+    def container_runtime_log(self, exception=None):
+        """
+        All logs during the container runtime will be handled here.
+
+        :param exception:   ->  Any additional logging Messages
+        """
+        logger = self.create_logger('container_runtime_log', 'container.logs')
+        logger.exception(exception)
+        return
