@@ -13,3 +13,5 @@ RUN chmod a+x /etc/service/apache2/run
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD ./Web_Challenges /var/www/html
+
+RUN chmod 777 -R /var/www/html
