@@ -16,7 +16,7 @@ class ContainerManager():
         self.client = Client(base_url="unix://var/run/docker.sock")
         self.logs = LoggingManager()
 
-    def create_container(self, challenge):
+    def create_container(self, challenge=None):
         port = self.generate_port()
         try:
             cli = self.client.create_container(image="hackademic:latest",
@@ -32,7 +32,7 @@ class ContainerManager():
             exit("Check logs for more details")
 
         print("[+] Goto http://localhost:" + str(port) + "/" +
-              challenge)
+              str(challenge))
 
     def generate_port(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
