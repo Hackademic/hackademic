@@ -114,3 +114,62 @@ To write your own tests you can check `<tests_dir>/admin/model/AddUserController
 4. In order to get a unique css path for the element you want to click you can inspect it in Firefox or Chrome and right-click on the element and select Copy CSS Path
 5. Cleanup after your test, `tearDown()` exists for that reason too.
 6. Each class should test one feature. E.g. `AddUserTest` should test if a user can be added sucessfully.
+
+
+
+Standard Compliance:
+--------------------
+
+Before committing code, please make sure your code is PSR - 0, PSR - 1, PSR - 2, PSR - 3 and PSR - 4 compliant.
+
+We use a stricter version of PSR - 1 and PSR - 2 over PHP_CodeSniffer. All the related sniff files and ruleset.xml are present in development/scripts.
+
+To check your code against these standards :
+
+0. Place the PSR-1 inside /usr/share/php/PHP/CodeSniffer/Standards.
+
+   ```
+   cp hackademic/development/scripts/PSR-1/ /usr/share/php/PHP/CodeSniffer/Standards/
+   ```
+1. Then Set PSR-1 as the default sniff for CodeSniffer using
+
+   ```
+   phpcs --config-set default_standard PSR-1
+   ```
+
+2. Follow the same steps for making the code PSR-2 complaint.
+
+
+
+To Run Code Sniffer by yourself :
+
+0. To see the warnings and errors
+
+   ```
+   phpcs filename
+   ```
+   or
+
+   ```
+   phpcs filename | less
+   ```
+   q to exit.
+
+1. To fix warnings and errors automatically
+
+   ```
+   phpcbf filename
+   ```
+
+Pre Commit Hook:
+----------------
+
+Adding pre commit hook automatically checks for PHP_CodeSniffer and PHP_CS-fixer
+errors. To run it
+
+0. Rename .git/hooks/pre-commit.sample to pre-commit
+1. Make sure the file is executable
+
+	```
+	chmod a+x .git/hooks/pre-commit
+	```
