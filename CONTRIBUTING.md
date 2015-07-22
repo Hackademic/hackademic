@@ -140,7 +140,6 @@ To check your code against these standards :
 2. Follow the same steps for making the code PSR-2 complaint.
 
 
-
 To Run Code Sniffer by yourself :
 
 0. To see the warnings and errors
@@ -161,6 +160,7 @@ To Run Code Sniffer by yourself :
    phpcbf filename
    ```
 
+
 Pre Commit Hook:
 ----------------
 
@@ -168,7 +168,13 @@ Adding pre commit hook automatically checks for PHP_CodeSniffer and PHP_CS-fixer
 errors. To run it
 
 0. Rename .git/hooks/pre-commit.sample to pre-commit
-1. Make sure the file is executable
+1. Add the following to the end of this file
+
+   ```
+   exec git diff --cached | development/scripts/PSR\ Compliance\ Pre\ Commit.php
+   ```
+
+2. Make sure the file is executable
 
 	```
 	chmod a+x .git/hooks/pre-commit
