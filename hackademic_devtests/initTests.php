@@ -7,6 +7,8 @@
  */
 
 require_once(__DIR__ . "/../config.inc.php");
+require_once(__DIR__ . "/../vendor/autoload.php");
+
 //require_once(__DIR__ . "/../model/common/class.Loader.php");
 //require_once(__DIR__ . "/../model/common/class.HackademicDB.php");
 //$db = new HackademicDB();
