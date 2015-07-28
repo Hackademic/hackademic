@@ -23,3 +23,14 @@ Creating Container:
 The file `create_container.py` should be called with the challenge name as an arguemnt. Say for eg: if student comes and clicks in **try challenge** then `create_container.py` should be called which will successfully create and host the web challenge in a random port and gives back the absolute url to the challenge.
 
 Student can then visit the URL and access the challenge.
+
+Container Daemon:
+-----------------
+
+An always running python script which manages the whole container project. Immediately once the daemon starts, it will spawn a new child which checks for the container details every 5 minutes and the moment a container up time becomes greater than 1 hour, the child will kill the container. The daemon has the following abilities:
+
+1. Create New containers
+2. List currently running containers
+3. Kill any containers if needed.
+
+A UI has to be added to provide this as an interface to the admin.
