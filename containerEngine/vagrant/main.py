@@ -7,13 +7,14 @@ from pipes import dpipes
 
 # define all paths required
 currentPath = os.path.dirname(os.path.realpath(__file__))
-pidFilePath = currentPath +"/tmp/process.pid"
-pipePath = currentPath +"/tmp/pipe"
-logfilePath = currentPath +"/tmp/logs"
-errfilePath = currentPath +"/tmp/err"
+pidFilePath = currentPath + "/tmp/process.pid"
+pipePath = currentPath + "/tmp/pipe"
+logfilePath = currentPath + "/tmp/logs"
+errfilePath = currentPath + "/tmp/err"
 
 
 class vagrantpyd(daemon):
+
     def run(self):
         # Define event listener for named pipe here
         # Currently writing to temp code to test daemon for now
