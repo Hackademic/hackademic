@@ -1,9 +1,10 @@
 #!/usr/bin/env python
- 
-import sys, time, os
+import sys
+import time
+import os
 from daemon import daemon
 from pipes import dpipes
- 
+
 # define all paths required
 currentPath = os.path.dirname(os.path.realpath(__file__))
 pidFilePath = currentPath +"/tmp/process.pid"
@@ -11,16 +12,18 @@ pipePath = currentPath +"/tmp/pipe"
 logfilePath = currentPath +"/tmp/logs"
 errfilePath = currentPath +"/tmp/err"
 
+
 class vagrantpyd(daemon):
     def run(self):
-        #TODO: define event listener for named pipe here
+        # Define event listener for named pipe here
         # Currently writing to temp code to test daemon for now
         try:
             mypipe = dpipes(pipePath)
             mypipe.create()
         except Exception as inst:
             # TODO print correct exception message
-            print "[%s] Unable to create pipes required to communicate with daemon.\nException: %s" % (time.time(), inst)
+            print """[%s] Unable to create pipes required to communicate
+            with daemon.\nException: %s""" % (time.time(), inst)
             sys.exit(1)
 
     def _stop(self):
@@ -31,7 +34,9 @@ class vagrantpyd(daemon):
             # TODO print correct exception message
             print "[%s] Unable to destroy pipes" % time.time()
             sys.exit(1)
- 
+
+# Create a tmp directory if not exists
+# if required by the files needed
 if not os.path.exists("./tmp/"):
     os.makedirs("./tmp/")
 
@@ -51,7 +56,7 @@ if __name__ == "__main__":
         else:
             print "Unknown command"
             sys.exit(2)
-        
+
         sys.exit(0)
     else:
         print "usage: %s start|stop|restart" % sys.argv[0]

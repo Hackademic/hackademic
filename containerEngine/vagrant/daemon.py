@@ -1,5 +1,10 @@
 """Generic linux daemon base class for python 3.x."""
-import sys, os, time, atexit, signal
+import sys
+import os
+import time
+import atexit
+import signal
+
 
 class daemon:
 
@@ -12,32 +17,34 @@ class daemon:
 		self.logfile = logfile
 		self.errfilePath = errfilePath
 
-	# Deamonize class. UNIX double fork mechanism	
+	# Deamonize class. UNIX double fork mechanism
 	def daemonize(self):
-		try: 
-			pid = os.fork() 
+		try:
+			pid = os.fork()
 			if pid > 0:
 				# exit first parent
-				sys.exit(0) 
-		except OSError as err: 
-			sys.stderr.write('[Daemon Class] [Daemonize]: fork #1 failed: {0}\n'.format(err))
+				sys.exit(0)
+		except OSError as err:
+			sys.stderr.write("""[Daemon Class] [Daemonize]: fork #1
+			failed: {0}\n""".format(err))
 			sys.exit(1)
-	
+
 		# decouple from parent environment
-		os.chdir('/') 
-		os.setsid() 
-		os.umask(0) 
-	
+		os.chdir('/')
+		os.setsid()
+		os.umask(0)
+
 		# do second fork
-		try: 
-			pid = os.fork() 
+		try:
+			pid = os.fork()
 			if pid > 0:
 				# exit from second parent
-				sys.exit(0) 
-		except OSError as err: 
-			sys.stderr.write('[Daemon Class] [Daemonize]: fork #2 failed: {0}\n'.format(err))
-			sys.exit(1) 
-	
+				sys.exit(0)
+		except OSError as err:
+			sys.stderr.write("""[Daemon Class] [Daemonize]: fork #2
+			failed: {0}\n""".format(err))
+			sys.exit(1)
+
 		# redirect standard file descriptors
 		si = open(os.devnull, 'r')
 		so = open(self.logfile, 'a+')
@@ -49,15 +56,15 @@ class daemon:
 
 		sys.stdout.flush()
 		sys.stderr.flush()
-	
+
 		# write pidfile
 		atexit.register(self.delpid)
 
 		pid = str(os.getpid())
 		print "Process PID: %s" % pid
-		with open(self.pidfile,'w+') as f:
+		with open(self.pidfile, 'w+') as f:
 			f.write(pid + '\n')
-	
+
 	# Function to delete the pid file
 	def delpid(self):
 		os.remove(self.pidfile)
@@ -66,17 +73,18 @@ class daemon:
 	def start(self):
 		# Check for a pidfile to see if the daemon already runs
 		try:
-			with open(self.pidfile,'r') as pf:
+			with open(self.pidfile, 'r') as pf:
+				# TODO - error handeling needed (case when process.pid file is corrupt)
 				pid = int(pf.read().strip())
 		except IOError:
 			pid = None
-	
+
 		if pid:
 			message = "pidfile {0} already exist. " + \
 					"Daemon already running?\n"
 			sys.stderr.write(message.format(self.pidfile))
 			sys.exit(1)
-		
+
 		# Start the daemon
 		self.daemonize()
 		self.run()
@@ -85,18 +93,18 @@ class daemon:
 	def stop(self):
 		# Get the pid from the pidfile
 		try:
-			with open(self.pidfile,'r') as pf:
+			with open(self.pidfile, 'r') as pf:
 				pid = int(pf.read().strip())
 		except IOError:
 			pid = None
-	
+
 		if not pid:
 			message = "pidfile {0} does not exist. " + \
 					"Daemon not running?\n"
 			sys.stderr.write(message.format(self.pidfile))
-			return # not an error in a restart
+			return  # not an error in a restart
 
-		# Try killing the daemon process	
+		# Try killing the daemon process
 		try:
 			while 1:
 				os.kill(pid, signal.SIGTERM)
@@ -127,4 +135,3 @@ class daemon:
 		"""
 		Override this class method in subclass
 		"""
-
