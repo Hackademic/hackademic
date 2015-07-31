@@ -11,3 +11,4 @@ test
 nbproject/
 composer.lock
 vendor/
+*.pyc
