@@ -4,6 +4,7 @@ import os
 import sys
 import inspect
 import shutil
+import signal
 
 currentdir = os.path.dirname(
     os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -35,17 +36,33 @@ class TestDaemon(unittest.TestCase):
         self.currentdir = os.path.dirname(
             os.path.abspath(inspect.getfile(inspect.currentframe())))
         self.parentdir = os.path.dirname(self.currentdir)
+        self.pidfile = self.parentdir + "/tmp/process.pid"
 
         # Do clean up tasks
-        if os.path.exists(self.parentdir + "/tmp/process.pid"):
+        if os.path.exists(self.pidfile):
+            # Kill the process first
+            try:
+                with open(self.pidfile, 'r') as pf:
+                    pid = int(pf.read().strip())
+            except IOError:
+                pid = None
+
+            if pid:
+                # Try killing the daemon process
+                try:
+                    while 1:
+                        os.kill(pid, signal.SIGTERM)
+                        time.sleep(0.1)
+                except OSError as err:
+                    print "\nOSError While trying to kill existing daemon"
             os.remove(self.parentdir + "/tmp/process.pid")
 
-        print "\n---- Starting Vagrant Daemon ----"
+        # Start the daemo via command line
         subprocess.call([self.parentdir + '/main.py', 'start'])
 
+
     def tearDown(self):
-        # Stop the Daemon
-        print "\n---- Stopping Vagrant Daemon ----"
+        # Stop the Daemon using command line
         subprocess.call([self.parentdir + '/main.py', 'stop'])
 
         # Do clean up tasks
@@ -59,7 +76,6 @@ class TestDaemon(unittest.TestCase):
             self.assertTrue(isProcessRunning(pid))
 
     def test_daemon_restart(self):
-        print "\n---- Restarting Vagrant Daemon ----"
         subprocess.call([self.parentdir + '/main.py', 'restart'])
         with open("../tmp/process.pid", 'r') as pf:
             pid = int(pf.read().strip())
@@ -71,9 +87,8 @@ class TestDaemon(unittest.TestCase):
         randStr = "qwerty122"
         o_pipename = "../tmp/pipe"
         i_pipename = "../tmp/" + randStr
-        xmlfilepath = "/Users/minhazav/github/vagrant-pyd/test/sample.xml"
         outfifo = open(o_pipename, 'w+')
-        command = randStr + " create " + xmlfilepath + " "
+        command = randStr + " info all box "
         outfifo.write(command)
         outfifo.close()
 
@@ -85,8 +100,7 @@ class TestDaemon(unittest.TestCase):
             line = i_fifo.readline()[:-1]
             if line:
                 data = json.loads(line)
-
-                self.assertEquals('', data['message'])
+                self.assertEquals('success', data['message'])
                 self.assertFalse(data['error'])
 
                 os.unlink(i_pipename)
