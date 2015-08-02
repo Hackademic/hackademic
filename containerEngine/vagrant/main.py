@@ -38,8 +38,8 @@ class vagrantpyd(daemon):
 
 # Create a tmp directory if not exists
 # if required by the files needed
-if not os.path.exists("./tmp/"):
-    os.makedirs("./tmp/")
+if not os.path.exists(currentPath + "/tmp/"):
+    os.makedirs(currentPath + "/tmp/")
 
 
 if __name__ == "__main__":

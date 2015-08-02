@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<basebox>ubuntu/trusty64</basebox>
+	<files>
+		<file type="file" src="/flags/flag1" dest="/tmp/test/flag" />
+		<file type="file" src="/flags/flag2" dest="/tmp/google/flag" />
+		<file type="dir" src="/code" dest="/etc/www/code" />
+	</files>
+	<puppet>default.pp</puppet>
+	<flags>
+		<flag>flags/flag1</flag>
+		<flag>flags/flag2</flag>
+	</flags>
+	<scripts>
+		<script>script/sh1.sh</script>
+		<script>script/sh2.sh</script>
+	</scripts>
+</root>
