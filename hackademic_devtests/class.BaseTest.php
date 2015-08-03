@@ -13,6 +13,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
         if (!isset(self::$webDriver)) {
             $capabilities = array(\WebDriverCapabilityType::BROWSER_NAME => 'firefox');
             self::$webDriver = RemoteWebDriver::create('http://127.0.0.1:4444/wd/hub', $capabilities);
+            error_log("d");
         }
     }
 
@@ -75,6 +76,7 @@ class BaseTest extends PHPUnit_Framework_TestCase {
     public static function assertErrorMessage($text) {
         $el = self::getElement("#usermessage > p");
         assert($el->isDisplayed());
+        error_log($el->getText());
         self::assertContains($text, $el->getText());
     }
 
