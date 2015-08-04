@@ -27,6 +27,9 @@ class dpipes:
                 print "line is %s" % line
                 commandproc(line)
 
+            # Wait for 1 seconds now
+            time.sleep(1)
+
     def destroy(self):
         if os.path.exists(self.pipePath):
             os.remove(self.pipePath)

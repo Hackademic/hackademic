@@ -66,7 +66,8 @@ if __name__ == "__main__":
             print "Vagrantpyd restarting..."
             daemon.restart()
         else:
-            print "Unknown command"
+            print "Unknown command!"
+            print "usage: %s start|stop|restart" % sys.argv[0]
             sys.exit(2)
 
         sys.exit(0)

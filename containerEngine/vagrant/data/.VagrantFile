@@ -1,0 +1,19 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.box = "~basebox~"
+
+  # Synced folder disabled
+  config.vm.synced_folder "src/", "/srv/website", disabled: true
+
+  ~files~
+  config.vm.provision "file", source: "~src~", destination: "~dest~"
+  ~files~
+  ~shell~
+  config.vm.provision "shell", path: "script.sh"
+  ~shell~
+  # Provisioner configuration
+  config.vm.provision "puppet" do |puppet|
+    puppet.manifests_path = "manifests"
+    puppet.manifest_file = "default.pp"
+  end
+end

@@ -60,14 +60,14 @@ class TestDaemon(unittest.TestCase):
         # Start the daemo via command line
         subprocess.call([self.parentdir + '/main.py', 'start'])
 
-
     def tearDown(self):
         # Stop the Daemon using command line
         subprocess.call([self.parentdir + '/main.py', 'stop'])
 
         # Do clean up tasks
         if os.path.exists(self.parentdir + "/tmp"):
-            shutil.rmtree(self.parentdir + "/tmp")
+            print "1"
+            # shutil.rmtree(self.parentdir + "/tmp")
 
     def test_daemon_active(self):
         # Get Process ID from ../tmp/process.pid file
@@ -106,6 +106,37 @@ class TestDaemon(unittest.TestCase):
                 os.unlink(i_pipename)
                 break
 
+    def test_create_box(self):
+        # Send a command via pipe
+        # Make a connection to the daemon
+        randStr = "qwerty123"
+        o_pipename = "../tmp/pipe"
+        i_pipename = "../tmp/" + randStr
+        outfifo = open(o_pipename, 'w+')
+        command = randStr + " create " + self.currentdir + "/sample "
+        print "command is %s" % command
+        outfifo.write(command)
+        outfifo.close()
+
+        # Now listen to a specific pipe
+        if not os.path.exists(i_pipename):
+            os.mkfifo(i_pipename)
+        i_fifo = open(i_pipename, 'r')
+        while True:
+            line = i_fifo.readline()[:-1]
+            if line:
+                data = json.loads(line)
+                self.assertEquals('success', data['message'])
+                self.assertEquals('ubuntu/trusty64', data['data']['basebox'])
+                self.assertFalse(data['error'])
+
+                challengeBoxPath = data['data'][
+                    'basePath'] + "/" + data['data']['challengeId']
+                # TODO Check for vagrant file
+                # Verify the files, scripts against the challenge XML
+                os.unlink(i_pipename)
+                break
+
 
 class TestXMLParser(unittest.TestCase):
 
@@ -114,7 +145,7 @@ class TestXMLParser(unittest.TestCase):
         self.currentdir = os.path.dirname(
             os.path.abspath(inspect.getfile(inspect.currentframe())))
         self.parentdir = os.path.dirname(self.currentdir)
-        self.xmlfilepath = self.currentdir + "/sample.xml"
+        self.xmlfilepath = self.currentdir + "/sample/challenge.xml"
         self.d = vagrantData(self.xmlfilepath)
 
         self.assertTrue(self.d.parse())
