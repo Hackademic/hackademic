@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Hackademic-CMS/admin/model/class.Classes.php
  *
  * Hackademic Classes Model
@@ -10,48 +9,52 @@
  *
  * LICENSE:
  *
- * This file is part of Hackademic CMS (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
+ * This file is part of Hackademic CMS
+ * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
  *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
- * later version.
+ * Hackademic CMS is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 2 of the License, or (at your option) any later
+ * version.
  *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
+ * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Hackademic CMS.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * PHP Version 5.
  *
- * @author Pragya Gupta <pragya18nsit[at]gmail[dot]com>
- * @author Konstantinos Papapanagiotou <conpap[at]gmail[dot]com>
- * @license http://www.gnu.org/licenses/gpl.html
+ * @author    Pragya Gupta <pragya18nsit@gmail.com>
+ * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
  * @copyright 2012 OWASP
- *
+ * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
  */
-require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
-require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
-require_once(HACKADEMIC_PATH."admin/model/class.ClassChallenges.php");
+require_once HACKADEMIC_PATH."model/common/class.HackademicDB.php";
+require_once HACKADEMIC_PATH."admin/model/class.ClassMemberships.php";
+require_once HACKADEMIC_PATH."admin/model/class.ClassChallenges.php";
 
-class Classes {
+class Classes
+{
 
 	public $id;
 	public $name;
 	public $date_created;
 	public $archive;
 
-  private static $action_type = 'class';
+    private static $_action_type = 'class';
 
-	public static function addClass($class_name, $date_created) {
+	public static function addClass($class_name, $date_created)
+	{
 		global $db;
 		$params = array(
-      ':class_name' => $class_name,
+            ':class_name' => $class_name,
 			':date_created' => $date_created
-    );
+        );
 		$sql = "INSERT INTO classes(name,date_created)";
 		$sql .= " VALUES (:class_name,:date_created)";
-		$query = $db->create($sql, $params, self::$action_type);
+		$query = $db->create($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -59,12 +62,13 @@ class Classes {
 		}
 	}
 
-	public static function updateClassName($class_id , $class_name) {
+	public static function updateClassName($class_id , $class_name)
+	{
 		global $db;
 		$params = array(':id' => $class_id,':class_name' => $class_name);
 		$sql = "UPDATE classes SET name = :class_name";
 		$sql .= " WHERE id = :id ";
-    $query = $db->update($sql, $params, self::$action_type);
+        $query = $db->update($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -72,54 +76,59 @@ class Classes {
 		}
 	}
 
-	public static function getClassByName($class_name){
+	public static function getClassByName($class_name)
+	{
 		$params=array(':class_name' => $class_name);
 		$sql = "SELECT * FROM classes WHERE name = :class_name";
-		$result_array=self::findBySQL($sql,$params);
+		$result_array=self::findBySQL($sql, $params);
 		return !empty($result_array)?array_shift($result_array):false;
 	}
-	public static function getClass($class_id) {
+	public static function getClass($class_id)
+	{
 		$params = array(':id' => $class_id);
 		$sql = "SELECT * FROM classes WHERE id = :id";
-		$result_array = self::findBySQL($sql,$params);
+		$result_array = self::findBySQL($sql, $params);
 		return !empty($result_array)?array_shift($result_array):false;
 	}
 
-	public static function getNumberOfClasses($search=NULL,$category=NULL) {
+	public static function getNumberOfClasses($search=null,$category=null)
+	{
 		global $db;
-		if($search != NULL && $category != NULL) {
+		if ($search != null && $category != null) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch($category) {
-				case "name":
-					$sql = "SELECT COUNT(*) as num FROM classes WHERE name LIKE :search_string ";
-					break;
+			case "name":
+				$sql = "SELECT COUNT(*) as num FROM classes WHERE name LIKE :search_string ";
+				break;
 			}
-      $query = $db->read($sql, $params, self::$action_type);
+            $query = $db->read($sql, $params, self::$_action_type);
 		} else {
 			$sql = "SELECT COUNT(*) as num FROM classes WHERE archive =0";
-      $query = $db->read($sql, NULL, self::$action_type);
+            $query = $db->read($sql, null, self::$_action_type);
 		}
 		$result = $db->fetchArray($query);
 		return $result['num'];
 	}
 
-	public static function getAllClasses() {
+	public static function getAllClasses()
+	{
 		$sql = "SELECT * FROM classes WHERE archive = 0 ";
 		$result_array = self::findBySQL($sql);
 		return $result_array;
 	}
 
-	public static function getNClasses ($start, $limit, $search = NULL, $category = NULL) {
+	public static function getNClasses($start, $limit, $search = null, $category = null)
+	{
 		$params = array(
 		  ':start' => $start,
 		  ':limit' => $limit
-    );
-		if ($search != NULL && $category != NULL) {
+        );
+		if ($search != null && $category != null) {
 			$params[':search_string'] = '%' . $search . '%';
 			switch ($category) {
-				case "name":
-					$sql = "SELECT * FROM classes WHERE name LIKE :search_string  LIMIT :start, :limit";
-					break;
+			case "name":
+				$sql = "SELECT * FROM classes WHERE name LIKE :search_string  LIMIT :start, :limit";
+				break;
 			}
 		} else {
 			$sql= "SELECT * FROM classes ORDER BY id LIMIT :start, :limit ";
@@ -129,36 +138,40 @@ class Classes {
 		return $result_array;
 	}
 
-	private static function findBySQL($sql, $params = NULL) {
+	private static function findBySQL($sql, $params = null)
+	{
 		global $db;
-		$result_set = $db->read($sql, $params, self::$action_type);
+		$result_set = $db->read($sql, $params, self::$_action_type);
 		$object_array = array();
-		while($row = $db->fetchArray($result_set)) {
+		while ($row = $db->fetchArray($result_set)) {
 			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
 
-	public static function instantiate($record) {
+	public static function instantiate($record)
+	{
 		$object = new self;
-		foreach($record as $attribute => $value) {
-			if($object->hasAttribute($attribute)) {
+		foreach ($record as $attribute => $value) {
+			if ($object->hasAttribute($attribute)) {
 				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
 
-	private function hasAttribute($attribute) {
+	private function hasAttribute($attribute)
+	{
 		$object_vars = get_object_vars($this);
 		return array_key_exists($attribute, $object_vars);
 	}
 
-	public static function deleteClass($id){
+	public static function deleteClass($id)
+	{
 		global $db;
 		$params = array(':id' => $id);
 		$sql = "DELETE FROM classes WHERE id = :id";
-		$query = $db->delete($sql, $params, self::$action_type);
+		$query = $db->delete($sql, $params, self::$_action_type);
 		ClassChallenges::deleteAllMembershipsOfClass($id);
 		ClassMemberships::deleteAllMembershipsOfClass($id);
 		if ($db->affectedRows($query)) {
@@ -168,13 +181,14 @@ class Classes {
 		}
 	}
 	
-	public function doesClassExist($classname){
+	public function doesClassExist($classname)
+	{
 		global $db;
 		$sql = "SELECT * FROM classes WHERE name = :classname";
 		$params = array(
 				':classname' => $classname
 	      );
-		$query = $db->read($sql, $params, self::$action_type);
+		$query = $db->read($sql, $params, self::$_action_type);
 		$result = $db->numRows($query);
 		if ($result) {
 			return true;
@@ -183,12 +197,13 @@ class Classes {
 		}
 	}
 
-	public static function archiveClass($id){
+	public static function archiveClass($id)
+	{
 		global $db;
 		$params = array(':id' => $id);
 		$sql = "UPDATE classes SET archive= 1 ";
 		$sql .="WHERE id = :id";
-		$query = $db->update($sql, $params, self::$action_type);
+		$query = $db->update($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -196,12 +211,13 @@ class Classes {
 		}
 	}
 
-	public static function unarchiveClass($id){
+	public static function unarchiveClass($id)
+	{
 		global $db;
 		$params = array(':id' => $id);
 		$sql = "UPDATE classes SET archive= 0 ";
 		$sql .= "WHERE id = :id";
-		$query = $db->update($sql, $params, self::$action_type);
+		$query = $db->update($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
