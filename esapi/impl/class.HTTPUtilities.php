@@ -111,7 +111,7 @@ class HTTPUtilities_impl implements HTTPUtilities
             return null;
         }
         
-        if (   ! array_key_exists('ESAPI', $_SESSION)
+        if (! array_key_exists('ESAPI', $_SESSION)
             || ! array_key_exists('HTTPUtilities', $_SESSION['ESAPI'])
             || ! array_key_exists('CSRFToken', $_SESSION['ESAPI']['HTTPUtilities'])
         ) {
@@ -302,14 +302,11 @@ class HTTPUtilities_impl implements HTTPUtilities
     public function getParameter($request, $name, $default = null)
     {
       $value = $request->getParameter($name);
-      if($this->_validator->isValidInput("HTTP parameter value: " . $value, $value, "HTTPParameterValue", 2000, true) )
-	{
-	  return $value;
-	}
-      else 
-	{
-	  return $default;
-	}
+      if ($this->_validator->isValidInput("HTTP parameter value: " . $value, $value, "HTTPParameterValue", 2000, true) ) {
+          return $value;
+      } else {
+	      return $default;
+	  }
     }
 
     /**
@@ -344,7 +341,6 @@ class HTTPUtilities_impl implements HTTPUtilities
      * @param string      $name    Name of the cookie to be killed.
      *
      * @return null.
-     *
      */
     public function killCookie($request, $name)
     {

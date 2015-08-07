@@ -15,12 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * PHP Version 5.
  *
- * @package log4php
+ * @package    log4php
  * @subpackage appenders
  */
 
-require_once(ADODB_DIR . '/adodb.inc.php');
+require_once ADODB_DIR . '/adodb.inc.php';
 
 /**
  * Appends log events to a db table using adodb class.
@@ -31,11 +32,12 @@ require_once(ADODB_DIR . '/adodb.inc.php');
  * <p>See examples in test directory.</p>
  *
  * @deprecated Use LoggerAppenderPDO instead
- * @package log4php
+ * @package    log4php
  * @subpackage appenders
- * @since 0.9
+ * @since      0.9
  */
-class LoggerAppenderAdodb extends LoggerAppender {
+class LoggerAppenderAdodb extends LoggerAppender
+{
 
     /**
      * Create the log table if it does not exists (optional).
@@ -147,7 +149,8 @@ class LoggerAppenderAdodb extends LoggerAppender {
         $this->canAppend = true;
     }
     
-    function append($event) {
+	function append($event)
+	{
         if ($this->canAppend) {
             $query = $this->layout->format($event);
             $this->db->Execute($query);
@@ -156,8 +159,9 @@ class LoggerAppenderAdodb extends LoggerAppender {
     
     function close()
     {
-        if ($this->db !== null)
-            $this->db->Close();
+        if ($this->db !== null) {
+			$this->db->Close();
+		}
         $this->closed = true;
     }
     
@@ -188,35 +192,40 @@ class LoggerAppenderAdodb extends LoggerAppender {
     /**
      * @return string the database to connect to
      */
-    function getDatabase() {
+	function getDatabase()
+	{
         return $this->database;
     }
     
     /**
      * @return string the database to connect to
      */
-    function getHost() {
+	function getHost()
+	{
         return $this->host;
     }
     
     /**
      * @return string the user to connect with
      */
-    function getUser() {
+	function getUser()
+	{
         return $this->user;
     }
     
     /**
      * @return string the password to connect with
      */
-    function getPassword() {
+	function getPassword()
+	{
         return $this->password;
     }
     
     /**
      * @return string the type of database to connect to
      */
-    function getType() {
+	function getType()
+	{
         return $this->type;
     }
     

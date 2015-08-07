@@ -15,8 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
+ * PHP Version 5.
  *
- * @package log4php
+ * @package    log4php
  * @subpackage appenders
  */
 
@@ -26,16 +27,18 @@
  * Parameters are ({@link $fileName} but option name is <b>file</b>), 
  * {@link $append}.
  *
- * @version $Revision: 806678 $
- * @package log4php
+ * @package    log4php
  * @subpackage appenders
+ * @Revision:  806678
+ *
  */
-class LoggerAppenderFile extends LoggerAppender {
+class LoggerAppenderFile extends LoggerAppender
+{
 
 	/**
 	 * @var boolean if {@link $file} exists, appends events.
 	 */
-	private $append = true;
+	private $_append = true;
 	/**
 	 * @var string the file name used to append events
 	 */
@@ -45,29 +48,32 @@ class LoggerAppenderFile extends LoggerAppender {
 	 */
 	protected $fp = false;
 	
-	public function __construct($name = '') {
+	public function __construct($name = '')
+	{
 		parent::__construct($name);
 		$this->requiresLayout = true;
 	}
 
-	public function __destruct() {
+	public function __destruct()
+	{
        $this->close();
    	}
    	
-	public function activateOptions() {
+	public function activateOptions()
+	{
 		$fileName = $this->getFile();
 
-		if(!is_file($fileName)) {
+		if (!is_file($fileName)) {
 			$dir = dirname($fileName);
-			if(!is_dir($dir)) {
+			if (!is_dir($dir)) {
 				mkdir($dir, 0777, true);
 			}
 		}
 
 		$this->fp = fopen($fileName, ($this->getAppend()? 'a':'w'));
-		if($this->fp) {
-			if(flock($this->fp, LOCK_EX)) {
-				if($this->getAppend()) {
+		if ($this->fp) {
+			if (flock($this->fp, LOCK_EX)) {
+				if ($this->getAppend()) {
 					fseek($this->fp, 0, SEEK_END);
 				}
 				fwrite($this->fp, $this->layout->getHeader());
@@ -82,10 +88,11 @@ class LoggerAppenderFile extends LoggerAppender {
 		}
 	}
 	
-	public function close() {
-		if($this->closed != true) {
-			if($this->fp and $this->layout !== null) {
-				if(flock($this->fp, LOCK_EX)) {
+	public function close()
+	{
+		if ($this->closed != true) {
+			if ($this->fp and $this->layout !== null) {
+				if (flock($this->fp, LOCK_EX)) {
 					fwrite($this->fp, $this->layout->getFooter());
 					flock($this->fp, LOCK_UN);
 				}
@@ -95,9 +102,10 @@ class LoggerAppenderFile extends LoggerAppender {
 		}
 	}
 
-	public function append(LoggerLoggingEvent $event) {
-		if($this->fp and $this->layout !== null) {
-			if(flock($this->fp, LOCK_EX)) {
+	public function append(LoggerLoggingEvent $event)
+	{
+		if ($this->fp and $this->layout !== null) {
+			if (flock($this->fp, LOCK_EX)) {
 				fwrite($this->fp, $this->layout->format($event));
 				flock($this->fp, LOCK_UN);
 			} else {
@@ -112,12 +120,15 @@ class LoggerAppenderFile extends LoggerAppender {
 	 * This is an overloaded method. It can be called with:
 	 * - setFile(string $fileName) to set filename.
 	 * - setFile(string $fileName, boolean $append) to set filename and append.
+	 *
+	 * @return Nothing.
 	 */
-	public function setFile() {
+	public function setFile()
+	{
 		$numargs = func_num_args();
 		$args	 = func_get_args();
 
-		if($numargs == 1 and is_string($args[0])) {
+		if ($numargs == 1 and is_string($args[0])) {
 			$this->setFileName($args[0]);
 		} else if ($numargs >=2 and is_string($args[0]) and is_bool($args[1])) {
 			$this->setFile($args[0]);
@@ -128,29 +139,34 @@ class LoggerAppenderFile extends LoggerAppender {
 	/**
 	 * @return string
 	 */
-	public function getFile() {
+	public function getFile()
+	{
 		return $this->getFileName();
 	}
 	
 	/**
 	 * @return boolean
 	 */
-	public function getAppend() {
-		return $this->append;
+	public function getAppend()
+	{
+		return $this->_append;
 	}
 
-	public function setAppend($flag) {
-		$this->append = LoggerOptionConverter::toBoolean($flag, true);		  
+	public function setAppend($flag)
+	{
+		$this->_append = LoggerOptionConverter::toBoolean($flag, true);		  
 	}
 
-	public function setFileName($fileName) {
+	public function setFileName($fileName)
+	{
 		$this->fileName = $fileName;
 	}
 	
 	/**
 	 * @return string
 	 */
-	public function getFileName() {
+	public function getFileName()
+	{
 		return $this->fileName;
 	}
 	
