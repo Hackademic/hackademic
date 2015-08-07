@@ -1,30 +1,33 @@
 <?php
 /**
- *
  * Plugin Name: Article Challenge Connect
  * Plugin URI: http://example.com/article-challenge-connect
  * Description: This plugin connects articles to challenges. It is solely meant as a demonstration on how a plugin could be created using the Hackademic Challenges API and should not be used in a production environment since it lacks proper testing, security and quality assurances. You are encouraged to use it as a base for developing your own custom plugins.
+ *
+ * PHP Version 5.
+ *
  * Version: 1.1
  * Author: Daniel Kvist
  * Author URI: http://danielkvist.net
  * License: GPL2
- *
  */
 
-require_once('class.ArticleChallengeModel.php');
+require_once 'class.ArticleChallengeModel.php';
 
 /**
  * Sets a custom made template for the specific page.
  *
- * @param $new_path the path about to be set
+ * @param string $new_path the path about to be set
+ *
  * @return string the new template
  */
-function custom_uni_set_admin_view_template($new_path) {
-  if(string_contains('admin/view/editor.tpl', $new_path)) {
+function custom_uni_set_admin_view_template($new_path)
+{
+  if (string_contains('admin/view/editor.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/editor.tpl';
-  } else if(string_contains('admin/view/articlemanager.tpl', $new_path)) {
+  } else if (string_contains('admin/view/articlemanager.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/articlemanager.tpl';
-  } else if(string_contains('admin/view/editarticle.tpl', $new_path)) {
+  } else if (string_contains('admin/view/editarticle.tpl', $new_path)) {
     return 'user/plugins/article-challenge-connect/editarticle.tpl';
   }
 }
@@ -35,8 +38,9 @@ function custom_uni_set_admin_view_template($new_path) {
  * @param $aid the article id
  * @param $params the parameters from the default form
  */
-function custom_uni_after_create_article($aid, $params) {
-  if($_POST['cid'] != 'none') {
+function custom_uni_after_create_article($aid, $params)
+{
+  if ($_POST['cid'] != 'none') {
     ArticleChallengeModel::add($aid, $_POST['cid']);
   }
 }
@@ -46,9 +50,10 @@ function custom_uni_after_create_article($aid, $params) {
  *
  * @param $params the parameters from the default form
  */
-function custom_uni_after_update_article($params) {
-  if($_POST['cid'] != 'none') {
-    if(ArticleChallengeModel::exists($params[':id'])) {
+function custom_uni_after_update_article($params)
+{
+  if ($_POST['cid'] != 'none') {
+	  if (ArticleChallengeModel::exists($params[':id'])) {
       ArticleChallengeModel::update($params[':id'], $_POST['cid']);
     } else {
       ArticleChallengeModel::add($params[':id'], $_POST['cid']);
@@ -65,7 +70,8 @@ function custom_uni_after_update_article($params) {
  * @param $sql the sql that is about to be executed
  * @param $params the parameters from the default form
  */
-function custom_uni_before_delete_article($sql, $params) {
+function custom_uni_before_delete_article($sql, $params)
+{
   ArticleChallengeModel::delete($params[':id']);
 }
 
@@ -75,7 +81,8 @@ function custom_uni_before_delete_article($sql, $params) {
  *
  * @param $smarty
  */
-function custom_uni_show_add_article($smarty) {
+function custom_uni_show_add_article($smarty)
+{
   $username = $smarty->tpl_vars['logged_in_user']->value;
   $user_id = User::findByUserName($username)->id;
   $smarty->assign('challenges', Challenge::getChallengesFrontend($user_id));
@@ -88,7 +95,8 @@ function custom_uni_show_add_article($smarty) {
  *
  * @param $smarty
  */
-function custom_uni_show_edit_article($smarty) {
+function custom_uni_show_edit_article($smarty)
+{
   $username = $smarty->tpl_vars['logged_in_user']->value;
   $user_id = User::findByUserName($username)->id;
   $smarty->assign('challenges', Challenge::getChallengesFrontend($user_id));
@@ -102,8 +110,9 @@ function custom_uni_show_edit_article($smarty) {
  *
  * @param $plugin the plugin that was enabled
  */
-function custom_uni_enable_plugin($plugin) {
-  if($plugin == 'article-challenge-connect/article-challenge-connect.php') {
+function custom_uni_enable_plugin($plugin)
+{
+  if ($plugin == 'article-challenge-connect/article-challenge-connect.php') {
     ArticleChallengeModel::createTable();
   }
 }
@@ -113,8 +122,9 @@ function custom_uni_enable_plugin($plugin) {
  *
  * @param $smarty
  */
-function custom_uni_show_article_manager($smarty) {
-  foreach($smarty->tpl_vars['articles']->value as $article) {
+function custom_uni_show_article_manager($smarty)
+{
+  foreach ($smarty->tpl_vars['articles']->value as $article) {
     $row = ArticleChallengeModel::get($article->id);
     $article->challenge = Challenge::getChallenge($row['cid']);
   }
@@ -139,11 +149,13 @@ Plugin::add_filter('set_admin_view_template', 'custom_uni_set_admin_view_templat
 /**
  * Checks to see if the sub string is part of the original string
  *
- * @param $substring the substring you wish to look for
- * @param $string the string to search for the sub string in
+ * @param string $substring the substring you wish to look for
+ * @param string $string    the string to search for the sub string in
+ *
  * @return true if $substring is found, otherwise false
  */
-function string_contains($substring, $string) {
+function string_contains($substring, $string)
+{
    $pos = strpos($string, $substring);
    return $pos > -1 ? true : false;
 }
@@ -153,7 +165,8 @@ function string_contains($substring, $string) {
  *
  * @param $obj the object/array to print
  */
-function pretty_print($obj) {
+function pretty_print($obj)
+{
   print '<pre>';
   print_r($obj);
   print '</pre>';
