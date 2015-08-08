@@ -64,7 +64,7 @@ class ScoringRulesController extends HackademicBackendController
                 $newRule = $this->_requestToRuleObject($_POST);
                 if (ScoringRule::isDefaultRule($newRule) == false ) {
 
-                    $rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge_id, $class_id);
+                    $rule = ScoringRule::getScoringRuleByChallengeClassId($challenge_id, $class_id);
 
                     if ($rule == NO_RESULTS ) {
                         ScoringRuleBackend::add_scoring_rule(
@@ -121,7 +121,7 @@ class ScoringRulesController extends HackademicBackendController
             $this->addErrorMessage("Fields should not be empty");
         }
         if (isset($_POST['deleterule']) && $_POST['deleterule'] == "Delete Rule") {
-            $rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge_id, $class_id);
+            $rule = ScoringRule::getScoringRuleByChallengeClassId($challenge_id, $class_id);
             if ($rule != false && ScoringRule::isDefaultRule($rule) == false ) {
                 ScoringRuleBackend::delete_scoring_rule($rule->id);
                 $this->addErrorMessage("Scoring rule has been deleted succesfully");
@@ -129,13 +129,13 @@ class ScoringRulesController extends HackademicBackendController
         }
 
 
-        $rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge_id, $class_id);
+        $rule = ScoringRule::getScoringRuleByChallengeClassId($challenge_id, $class_id);
         if ($rule == NO_RESULTS) {
             $this->addSuccessMessage(
                 "This challenge does not have any specific scoring rules</br> the
 				default ones where loaded"
             );
-            $rule = ScoringRule::get_scoring_rule(DEFAULT_RULES_ID);
+            $rule = ScoringRule::getScoringRule(DEFAULT_RULES_ID);
         }
         $class_name = Classes::getClass($class_id);
         $class_name = $class_name->name;

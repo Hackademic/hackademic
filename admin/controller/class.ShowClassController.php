@@ -105,9 +105,9 @@ class ShowClassController extends HackademicBackendController
 
         $rules_arr = array();
         foreach ($challenges_assigned as $challenge) {
-            $rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge['challenge_id'], $class_id);
+            $rule = ScoringRule::getScoringRuleByChallengeClassId($challenge['challenge_id'], $class_id);
             if ($rule == NO_RESULTS ) {
-                $rule = ScoringRule::get_scoring_rule(DEFAULT_RULES_ID);
+                $rule = ScoringRule::getScoringRule(DEFAULT_RULES_ID);
             }
             $rules_arr[$challenge['challenge_id']] = ScoringRule::getRuleSummary($rule);
         }

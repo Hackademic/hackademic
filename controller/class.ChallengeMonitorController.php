@@ -238,11 +238,11 @@ class ChallengeMonitorController
 	public function calcScore($status, $user_id, $challenge_id, $class_id)
 	{
 		if (!isset($_SESSION['rules']) || !is_array($_SESSION['rules'])|| $_SESSION['rules'] == "") {
-			$rule = ScoringRule::get_scoring_rule_by_challenge_class_id($challenge_id, $class_id);
+			$rule = ScoringRule::getScoringRuleByChallengeClassId($challenge_id, $class_id);
 
 			// if challenge has not scoring rules load up the default ones
 			if ($rule === false) {
-				$rule = ScoringRule::get_scoring_rule(DEFAULT_RULES_ID);
+				$rule = ScoringRule::getScoringRule(DEFAULT_RULES_ID);
 			}
 
 			/* Add the rules to the session */
