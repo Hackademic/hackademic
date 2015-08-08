@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Hackademic-CMS/model/common/class.Session.php
  *
  * Hackademic Session Class
@@ -10,39 +9,44 @@
  *
  * LICENSE:
  *
- * This file is part of Hackademic CMS (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
+ * This file is part of Hackademic CMS
+ * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
  *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
- * later version.
+ * Hackademic CMS is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 2 of the License, or (at your option) any later
+ * version.
  *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
+ * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Hackademic CMS.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * PHP Version 5.
  *
- * @author Pragya Gupta <pragya18nsit[at]gmail[dot]com>
- * @author Konstantinos Papapanagiotou <conpap[at]gmail[dot]com>
- * @license http://www.gnu.org/licenses/gpl.html
+ * @author    Pragya Gupta <pragya18nsit@gmail.com>
+ * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
  * @copyright 2012 OWASP
- *
+ * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
  */
-require_once(HACKADEMIC_PATH."/model/common/class.User.php");
-require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
-require_once(HACKADEMIC_PATH."extlib/NoCSRF/nocsrf.php");
-class Session {
+require_once HACKADEMIC_PATH."/model/common/class.User.php";
+require_once HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php";
+require_once HACKADEMIC_PATH."extlib/NoCSRF/nocsrf.php";
+class Session
+{
 	
-	/*
+	/**
 	 * Function to bypass Login
 	 * WARNING!
 	 * To be used only with the excibition mode
-	 * */
-	public static function loginGuest(){
-		if(!defined('EXHIBITION_MODE') || EXHIBITION_MODE != true)
+	 */
+	public static function loginGuest()
+	{
+		if (!defined('EXHIBITION_MODE') || EXHIBITION_MODE != true) {
 			die("loginGuest called even though we're not in excibition mode, this is most likely a bug please report it");
+		}
 		self::init(7200);
 		//setup session vars
 		$_SESSION['hackademic_user'] = 'Guest';
@@ -50,28 +54,31 @@ class Session {
 		$_SESSION['hackademic_path'] = SOURCE_ROOT_PATH;
 		
 	}
-	public static function isLoggedIn() {
+	public static function isLoggedIn()
+	{
 		if (isset($_SESSION['hackademic_user'])) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public static function isAdmin() {
-		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==1)){
+	public static function isAdmin()
+	{
+		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==1)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 	public static function isTeacher() {
-		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==2)){
+		if (isset($_SESSION['hackademic_user_type'])&&($_SESSION['hackademic_user_type']==2)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public static function completeLogin($owner) {
+	public static function completeLogin($owner)
+	{
 		User::updateLastVisit($owner->username);
 		self::init(SESS_EXP_INACTIVE);
 		//setup session vars
@@ -89,7 +96,8 @@ class Session {
 	 * @param str $result Result
 	 * @return bool Whether or submitted password matches check
 	 */
-	public function pwdCheck($pwd, $result) {
+	public function pwdCheck($pwd, $result)
+	{
 		$isGood = Utils::check($pwd, $result);
 		if ($isGood) {
 			return true;
@@ -101,21 +109,24 @@ class Session {
 	/**
 	 * @return str Currently logged-in hackademic username
 	 */
-	public static function getLoggedInUser() {
+	public static function getLoggedInUser()
+	{
 		if (self::isLoggedIn()) {
 			return $_SESSION['hackademic_user'];
 		} else {
 			return null;
 		}
 	}
-	public static function getLoggedInUserId() {
+	public static function getLoggedInUserId()
+	{
 		if (self::isLoggedIn()) {
 			return $_SESSION['hackademic_user_id'];
 		} else {
 			return null;
 		}
 	}
-	public static function logout() {
+	public static function logout()
+	{
 		$_SESSION = array();
 		setcookie (session_id(), "", time() - 3600);
 		session_destroy();
@@ -128,7 +139,8 @@ class Session {
 	 */
 	public static function init( $limit = 0,
 								 $path = SITE_ROOT_PATH, $domain = null,
-								 $secure = null){
+								 $secure = null)
+	{
 			Global $ESAPI_utils;
 			// Set the cookie name
 			session_name(SESS_NAME);
@@ -141,28 +153,28 @@ class Session {
 			 * then we are here by mistake so just log it and regenerate
 			 *  the session id
 			 */
-			if(isset($_SESSION['hackademic_user'])){
-				if(self::isValid()){
+			if (isset($_SESSION['hackademic_user'])) {
+				if (self::isValid()) {
 					self::regenerateSession();
 					error_log("HACKADEMIC:: Session:nit called with already existing and valid session
 								regenerating session", 0);
-				}else{//the function was called on an invalid session
+				} else {//the function was called on an invalid session
 					self::logout();
 					/*TODO throw (security?) exception*/
 					return;
 				}
-			}elseif(isset($_SESSION['hackademic_guest'])){
+			} elseif (isset($_SESSION['hackademic_guest'])) {
 				//if there is a guest session destroy it and login
 				self::logout();
 				//error_log("HACKADEMIC:: Going from guest to user", 0);
 				//error_log("HACKADEMIC:: Starting new session", 0);
 
-				if(!isset($ESAPI_utils)){
+				if (!isset($ESAPI_utils)) {
 					error_log("HACKADEMIC:: Esapi not inited in session start", 0);
 					$ESAPI_utils = new Esapi_Utils();
 				}
 				session_id($ESAPI_utils->getHttpUtilities()->getCSRFToken());
-				ini_set( 'session.cookie_httponly', 1 );
+				ini_set('session.cookie_httponly', 1);
 				session_start();
 				//error_log(session_id(),0);
 				$_SESSION['TOKEN'] = $ESAPI_utils->getHttpUtilities()->getCSRFToken();
@@ -174,7 +186,8 @@ class Session {
 	}
 	public static function start($limit = SESS_EXP_INACTIVE,
 								 $path = SITE_ROOT_PATH, $domain = null,
-								 $secure = null){
+								 $secure = null)
+	{
 		Global $ESAPI_utils;
 
 		// Set the cookie name
@@ -185,35 +198,35 @@ class Session {
 		session_set_cookie_params($limit, $path, $domain, $https, true);
 
 		/*If function was called after a session_start then we have a bug*/
-		if(isset($_SESSION) &&
-		  (isset($_SESSION['hackademic_user']) || isset($_SESSION['hackademic_guest']))){
+		if (isset($_SESSION) &&
+		  (isset($_SESSION['hackademic_user']) || isset($_SESSION['hackademic_guest']))) {
 			error_log("HACKADEMIC:: Regenerating session id possible bug detected", 0);
 			self::regenerateSession();
-		}else{
+		} else {
 			ini_set( 'session.cookie_httponly', 1 );
 			session_start();
 
 			/*If this is a guest session (init hasn't been called first)*/
-			if(!self::isLoggedIn() && !isset($_SESSION['hackademic_guest'])){
+			if (!self::isLoggedIn() && !isset($_SESSION['hackademic_guest'])) {
 				$_SESSION['hackademic_guest'] = 'guest';
 			}
 			// Reset the expiration time upon page load
-			if (isset($_COOKIE[SESS_NAME])){
+			if (isset($_COOKIE[SESS_NAME])) {
 				setcookie(SESS_NAME, session_id(), time() + $limit, $path, null, null, true);
 			}
 		}
 		//currently we are only checking the session for logged in users
 		//since the guest user can't do anything in the site
-		if(self::isLoggedIn()){
+		if (self::isLoggedIn()) {
 			// Make sure the session hasn't expired and that it is legit,
 			// otherwise destroy it
-			if(!self::isValid($_SESSION['TOKEN'])){
+			if (!self::isValid($_SESSION['TOKEN'])) {
 				error_log("HACKADEMIC:: Invalid Session in Session::start", 0);
 				self::logout();
 			}
 		}
 	}
-	/*
+	/**
 	 * Session validation
 	 * Checks:  Absolute expiration
 	 *			Inactive expiration
@@ -222,54 +235,49 @@ class Session {
 	 * 			Token
 	 * Also there is a chance to change the session id on any req
 	 */
-	public static function isValid($token = null){
+	public static function isValid($token = null)
+	{
 
 		//security bypas
 		// in case of exhibition mode there are no individual users
-		if(defined('EXHIBITION_MODE') && EXHIBITION_MODE === true)
+		if (defined('EXHIBITION_MODE') && EXHIBITION_MODE === true) {
 			return true;
+		}
 
-		if( isset($_SESSION['OBSOLETE']) && (!isset($_SESSION['EXPIRES']) || !isset($_SESSION['LAST_ACCESS'])) ){
+		if (isset($_SESSION['OBSOLETE']) && (!isset($_SESSION['EXPIRES']) || !isset($_SESSION['LAST_ACCESS'])) ) {
 			error_log("HACKADEMIC:: Session validation: OBSOLETE session detected", 0);
 			return false;
 		}
 
-		if(isset($_SESSION['EXPIRES']) && $_SESSION['EXPIRES'] < time()){
+		if (isset($_SESSION['EXPIRES']) && $_SESSION['EXPIRES'] < time()) {
 			error_log("HACKADEMIC:: Session validation: EXPIRED session detected", 0);
 			return false;
 		}
 
-		if(isset($_SESSION['LAST_ACCESS']) && $_SESSION['LAST_ACCESS'] + SESS_EXP_INACTIVE < time()){
-			//error_log("HACKADEMIC:: Session validation: INACTIVE session detected", 0);
+		if (isset($_SESSION['LAST_ACCESS']) && $_SESSION['LAST_ACCESS'] + SESS_EXP_INACTIVE < time()) {
 			return false;
 		}
-		if(isset($_SESSION['created']) && $_SESSION['created'] + SESS_EXP_ABS < time()){
+		if (isset($_SESSION['created']) && $_SESSION['created'] + SESS_EXP_ABS < time()) {
 			//error_log("HACKADEMIC:: Session validation: ABSOLUTE EXPIRED session detected", 0);
 			return false;
 		}
-		if(!isset($_SESSION['IPaddress']) || !isset($_SESSION['userAgent'])){
+		if (!isset($_SESSION['IPaddress']) || !isset($_SESSION['userAgent'])) {
 			error_log("HACKADEMIC:: Session validation: WRONG INFO", 0);
 			return false;
 		}
 
-		if ($_SESSION['IPaddress'] != $_SERVER['REMOTE_ADDR']){
+		if ($_SESSION['IPaddress'] != $_SERVER['REMOTE_ADDR']) {
 			error_log("HACKADEMIC:: Session validation: WRONG IPADDR", 0);
-			return false;}
+			return false;
+		}
 
-		if( $_SESSION['userAgent'] != $_SERVER['HTTP_USER_AGENT']){
+		if ($_SESSION['userAgent'] != $_SERVER['HTTP_USER_AGENT']) {
 			error_log("HACKADEMIC:: Session validation: WRONG USER AGENT", 0);
-			return false;}
+			return false;
+		}
 
-		/*if(!isset($_SESSION['TOKEN'])){
-			error_log("HACKADEMIC:: Session validation: NO TOKEN", 0);
-			return false;}
-
-		if(isset($_SESSION['TOKEN']) && $_SESSION['TOKEN'] != $token){
-			error_log("HACKADEMIC:: Session validation: WRONG TOKEN", 0);
-			return false;}
-		*/
 		// Give a 5% chance of the session id changing on any request
-		if(rand(1, 100) <= 5){
+		if (rand(1, 100) <= 5) {
 			self::regenerateSession();
 		}
 
@@ -277,15 +285,18 @@ class Session {
 
 		return true;
 	}
-	/* Regenerate id in case of expiration
+	/**
+	 * Regenerate id in case of expiration
 	 * we get into the trouble of obsoleting the current session instead
-	 *  of destroying right away to give time to the ajax plugins to update
+	 * of destroying right away to give time to the ajax plugins to update
 	 */
-	static function regenerateSession(){
+	static function regenerateSession()
+	{
 		// If this session is obsolete it means there already is a new id
-		if(isset($_SESSION['OBSOLETE']) && $_SESSION['OBSOLETE'] == true){
+		if (isset($_SESSION['OBSOLETE']) && $_SESSION['OBSOLETE'] == true) {
 			error_log("HACKADEMIC:: REGENERATE SESSION obsolete", 0);
-			return;}
+			return;
+		}
 
 		// Set current session to expire in 10 seconds
 		$_SESSION['OBSOLETE'] = true;
@@ -294,7 +305,8 @@ class Session {
 		// Create new session without destroying the old one
 		session_regenerate_id(false);
 
-		// Grab current session ID and close both sessions to allow other scripts to use them
+		// Grab current session ID and close both sessions to allow other scripts to
+		// use them
 		$newSession = session_id();
 		session_write_close();
 
@@ -305,7 +317,8 @@ class Session {
 
 		$_SESSION['token'] = NoCSRF::generate( 'csrf_token' );
 
-		// Now we unset the obsolete and expiration values for the session we want to keep
+		// Now we unset the obsolete and expiration values for the session we want
+		// to keep
 		unset($_SESSION['OBSOLETE']);
 		unset($_SESSION['EXPIRES']);
 	}

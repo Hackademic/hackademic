@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Hackademic-CMS/model/common/class.User.php
  *
  * Hackademic User Model
@@ -10,33 +9,36 @@
  *
  * LICENSE:
  *
- * This file is part of Hackademic CMS (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
+ * This file is part of Hackademic CMS
+ * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
  *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
- * later version.
+ * Hackademic CMS is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 2 of the License, or (at your option) any later
+ * version.
  *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
+ * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Hackademic CMS.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * PHP Version 5.
  *
- * @author Pragya Gupta <pragya18nsit[at]gmail[dot]com>
- * @author Konstantinos Papapanagiotou <conpap[at]gmail[dot]com>
- * @license http://www.gnu.org/licenses/gpl.html
+ * @author    Pragya Gupta <pragya18nsit@gmail.com>
+ * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
  * @copyright 2012 OWASP
- *
+ * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
  */
-require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
-require_once(HACKADEMIC_PATH."admin/model/class.ClassMemberships.php");
-require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
-require_once(HACKADEMIC_PATH."model/common/class.ChallengeAttempts.php");
-require_once(HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php");
+require_once HACKADEMIC_PATH."model/common/class.HackademicDB.php";
+require_once HACKADEMIC_PATH."admin/model/class.ClassMemberships.php";
+require_once HACKADEMIC_PATH."model/common/class.Utils.php";
+require_once HACKADEMIC_PATH."model/common/class.ChallengeAttempts.php";
+require_once HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php";
 
-class User {
+class User
+{
 	public $id;
 	public $username;
 	public $password;
@@ -48,38 +50,44 @@ class User {
 	public $is_activated;
 	public $token;
 
-  private static $action_type = 'user';
+  private static $_action_type = 'user';
 
-	public static function findByUserName($username) {
+	public static function findByUserName($username)
+	{
 		$sql = "SELECT * FROM users WHERE username=:username LIMIT 1";
 		$params = array(
 		  ':username' => $username
     );
-		$result_array = self::findBySQL($sql, $params);
+		$result_array = self::_findBySQL($sql, $params);
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}
 
-	public static function getUser($id) {
+	public static function getUser($id)
+	{
 		$sql = "SELECT * FROM users WHERE id = :id LIMIT 1";
 		$params = array(
       ':id' => $id
     );
-		$result_array = self::findBySQL($sql, $params);
+		$result_array = self::_findBySQL($sql, $params);
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}
 
-	private static function findBySQL($sql, $params = NULL) {
+	private static function _findBySQL($sql, $params = null)
+	{
 		global $db;
-		$result_set = $db->read($sql, $params, self::$action_type);
+		$result_set = $db->read($sql, $params, self::$_action_type);
 		$object_array = array();
-		while($row = $db->fetchArray($result_set)) {
+		while ($row = $db->fetchArray($result_set)) {
 			$object_array[] = self::instantiate($row);
 		}
 		return $object_array;
 	}
 
-	public static function addUser($username = NULL, $full_name = NULL, $email = NULL, $password = NULL,
-			$joined = NULL, $is_activated = NULL, $type = NULL, $token = 0) {
+	public static function addUser($username = null, $full_name = null,
+		$email = null, $password = null,
+		$joined = null, $is_activated = null, $type = null, $token = 0
+	)
+	{
 		global $db;
 		$password = Utils::hash($password);
 
@@ -91,7 +99,7 @@ class User {
       ':joined' => $joined,
       ':token' => $token
     );
-		if($is_activated != NULL && $type != NULL){
+		if ($is_activated != null && $type != null) {
 			$params[':is_activated'] = $is_activated;
 			$params[':type'] = $type;
 			$sql = "INSERT INTO users (username, full_name, email, password, joined, is_activated, type, token)";
@@ -100,7 +108,7 @@ class User {
 			$sql = "INSERT INTO users (username, full_name, email, password, joined, token)";
 			$sql .= "VALUES (:username, :full_name, :email, :password, :joined, :token)";
 		}
-		$query = $db->create($sql, $params, self::$action_type);
+		$query = $db->create($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -108,7 +116,8 @@ class User {
 		}
 	}
 
-	public static function addToken($username, $token){
+	public static function addToken($username, $token)
+	{
 		global $db;
 		$sql = "UPDATE users SET token=:token WHERE username = :username";
 		$params = array(
@@ -123,7 +132,8 @@ class User {
 		}
 	}
 
-	public static function updatePassword($password, $username){
+	public static function updatePassword($password, $username)
+	{
 		global $db;
 		$password = Utils::hash($password);
 		$sql = "UPDATE users SET password=:password, token = 0 WHERE username = :username";
@@ -131,7 +141,7 @@ class User {
       ':password' => $password,
       ':username' => $username
     );
-		$query = $db->update($sql, $params, self::$action_type);
+		$query = $db->update($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -140,7 +150,8 @@ class User {
 	}
 
 
-	public static function updateLastVisit($username){
+	public static function updateLastVisit($username)
+	{
 		global $db;
 		$last_visit = date("Y-m-d H-i-s");
 		$sql = "UPDATE users SET last_visit = :last_visit WHERE username = :username";
@@ -148,8 +159,8 @@ class User {
       ':last_visit' => $last_visit,
       ':username' => $username
     );
-		$query = $db->update($sql, $params, self::$action_type);
-		if($db->affectedRows($query)) {
+		$query = $db->update($sql, $params, self::$_action_type);
+		if ($db->affectedRows($query)) {
 			return true;
 		} else {
 			return false;
@@ -157,9 +168,9 @@ class User {
 	}
 
 
-	public static function getNumberOfUsers($search = NULL, $category = NULL) {
+	public static function getNumberOfUsers($search = null, $category = null) {
 		global $db;
-		if ($search != NULL && $category != NULL) {
+		if ($search != null && $category != null) {
 			$params[':search_string'] = '%'.$search.'%';
 			switch ($category) {
 				case "username":
@@ -173,22 +184,23 @@ class User {
 					break;
 
 			}
-			$query = $db->read($sql, $params, self::$action_type);
+			$query = $db->read($sql, $params, self::$_action_type);
 		} else {
 			$sql = "SELECT COUNT(*) as num FROM users";
-			$query = $db->read($sql, NULL, self::$action_type);
+			$query = $db->read($sql, null, self::$_action_type);
 		}
 
 		$result = $db->fetchArray($query);
 		return $result['num'];
 	}
 
-	public static function getNUsers($start, $limit, $search = NULL, $category = NULL) {
+	public static function getNUsers($start, $limit, $search = null, $category = null)
+	{
 		$params = array(
       ':start' => $start,
 		  ':limit' => $limit
     );
-		if ($search != NULL && $category != NULL) {
+		if ($search != null && $category != null) {
 			$params[':search_string'] = '%' . $search . '%';
 			switch ($category) {
 				case "username":
@@ -204,48 +216,52 @@ class User {
 		} else {
 			$sql = "SELECT * FROM users ORDER BY id LIMIT :start, :limit";
 		}
-		$result_array = self::findBySQL($sql, $params);
+		$result_array = self::_findBySQL($sql, $params);
 		return $result_array;
 	}
 
-	public static function isUserActivated($username){
+	public static function isUserActivated($username)
+	{
 		global $db;
 		$sql = "SELECT * FROM users WHERE username = :username AND is_activated = 1";
 		$params = array(':username' => $username);
-		$query = $db->read($sql, $params, self::$action_type);
+		$query = $db->read($sql, $params, self::$_action_type);
 		$result = $db->numRows($query);
-		if($result) {
+		if ($result) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public function doesUserExist($username){
+	public function doesUserExist($username)
+	{
 		global $db;
 		$sql = "SELECT * FROM users WHERE username = :username";
 		$params = array(':username' => $username);
-		$query = $db->read($sql, $params, self::$action_type);
+		$query = $db->read($sql, $params, self::$_action_type);
 		$result = $db->numRows($query);
-		if($result) {
+		if ($result) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public function doesEmailExist($email){
+	public function doesEmailExist($email)
+	{
 		global $db;
 		$sql = "SELECT * FROM users WHERE email = :email";
 		$params = array(':email' => $email);
-		$query = $db->read($sql, $params, self::$action_type);
+		$query = $db->read($sql, $params, self::$_action_type);
 		$result = $db->numRows($query);
-		if($result) {
+		if ($result) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public static function updateUser($id, $username, $full_name, $email, $password, $is_activated, $type) {
+	public static function updateUser($id, $username, $full_name, $email, $password, $is_activated, $type) 
+	{
 		global $db;
 		$params = array(
       ':username' => $username,
@@ -255,7 +271,7 @@ class User {
       ':type' => $type,
       ':id' => $id
     );
-		if($password == '') {
+		if ($password == '') {
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " is_activated = :is_activated , type = :type WHERE id = :id";
 		} else {
@@ -264,7 +280,7 @@ class User {
 			$sql = "UPDATE users SET username = :username, full_name = :full_name, email = :email, ";
 			$sql .= " password=:password, is_activated = :is_activated , type = :type WHERE id = :id";
 		}
-		$query = $db->update($sql, $params, self::$action_type);
+		$query = $db->update($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -272,7 +288,8 @@ class User {
 		}
 	}
 
-	public static function deleteUser($id){
+	public static function deleteUser($id)
+	{
 		global $db;
 		$sql = "DELETE FROM users WHERE id=:id";
 		$params = array(':id' => $id);
@@ -280,7 +297,7 @@ class User {
 		ChallengeAttempts::deleteChallengeAttemptByUser($id);
 		$user = self::getUser($id);
 		UserHasChallengeToken::deleteByUser($user->username);
-		$query = $db->delete($sql, $params, self::$action_type);
+		$query = $db->delete($sql, $params, self::$_action_type);
 		if ($db->affectedRows($query)) {
 			return true;
 		} else {
@@ -288,31 +305,34 @@ class User {
 		}
 	}
 
-	public static function instantiate($record) {
+	public static function instantiate($record)
+	{
 		$object = new self;
-		foreach($record as $attribute => $value) {
-			if($object->hasAttribute($attribute)) {
+		foreach ($record as $attribute => $value) {
+			if ($object->_hasAttribute($attribute)) {
 				$object->$attribute = $value;
 			}
 		}
 		return $object;
 	}
 
-	private function hasAttribute($attribute) {
+	private function _hasAttribute($attribute)
+	{
 		$object_vars = get_object_vars($this);
-		return array_key_exists($attribute,$object_vars);
+		return array_key_exists($attribute, $object_vars);
 	}
 
-	public static function validateToken($username, $token){
+	public static function validateToken($username, $token)
+	{
 		global $db;
 		$sql = "SELECT * FROM users WHERE username=:username AND token=:token";
 		$params = array(
       ':username' => $username,
       ':token' => $token
     );
-		$query = $db->read($sql, $params, self::$action_type);
+		$query = $db->read($sql, $params, self::$_action_type);
 		$result = $db->numRows($query);
-		if($result) {
+		if ($result) {
 			return true;
 		} else {
 			return false;

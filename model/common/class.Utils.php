@@ -10,78 +10,87 @@
  *
  * LICENSE:
  *
- * This file is part of Hackademic CMS (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
+ * This file is part of Hackademic CMS
+ * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
  *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
- * later version.
+ * Hackademic CMS is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 2 of the License, or (at your option) any later
+ * version.
  *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
+ * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Hackademic CMS.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * PHP Version 5.
  *
- * @author Pragya Gupta <pragya18nsit[at]gmail[dot]com>
- * @author Konstantinos Papapanagiotou <conpap[at]gmail[dot]com>
- * @license http://www.gnu.org/licenses/gpl.html
+ * @author    Pragya Gupta <pragya18nsit@gmail.com>
+ * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
  * @copyright 2012 OWASP
- *
+ * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
  */
 
-require_once("PasswordHash.php");
-//require_once(HACKADEMIC_PATH."/esapi/User.php");
+require_once "PasswordHash.php";
 
-class Utils {
+class Utils
+{
 
 	/**
-	 * Define Constants function. These constants are used to locate files on the server
+	 * Define Constants function. These constants are used to locate
+	 * files on the server
 	 */
-	public static function defineConstants() {
+	public static function defineConstants()
+	{
 		if (!defined('HACKADEMIC_PATH')) {
-			define('HACKADEMIC_PATH', str_replace("\\",'/', dirname(dirname(dirname(__FILE__)))).'/');
-				define('GLOBAL_CLASS_ID',1);
-				define('DEFAULT_RULES_ID',1);
-				define('NO_RESULTS',false);
-				define('MICROSECS_IN_MINUTE',60);
+			define('HACKADEMIC_PATH', str_replace("\\", '/', dirname(dirname(dirname(__FILE__)))).'/');
+				define('GLOBAL_CLASS_ID', 1);
+				define('DEFAULT_RULES_ID', 1);
+				define('NO_RESULTS', false);
+				define('MICROSECS_IN_MINUTE', 60);
 		}
-    if(!defined('HACKADEMIC_PLUGIN_PATH')) {
+    if (!defined('HACKADEMIC_PLUGIN_PATH')) {
       define('HACKADEMIC_PLUGIN_PATH', HACKADEMIC_PATH . 'user/plugins/');
     }
-    if(!defined('HACKADEMIC_THEME_PATH')) {
+    if (!defined('HACKADEMIC_THEME_PATH')) {
       define('HACKADEMIC_THEME_PATH', HACKADEMIC_PATH . 'user/themes/');
     }
 	}
 
-	public function validateEmail($email = '') {
+	public function validateEmail($email = '')
+	{
 		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
 		$pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
 		return preg_match($pattern, $email);
 	}
 	
-	public static function getPassUtil(){
+	public static function getPassUtil()
+	{
 		return $util =  new PasswordHash(8, true);
 	}
 
-	public static function hash($password){
+	public static function hash($password)
+	{
 		$util = new PasswordHash(8, true);
 		$hash = $util->HashPassword($password);
-		if (strlen($hash) < 20){
+		if (strlen($hash) < 20) {
 			throw new Exception('Hash length is less than 20 characters');
 			return false;
 		}
 		return $hash;
 	}
 
-	public static function check($input, $hash){
+	public static function check($input, $hash)
+	{
 		$util = new PasswordHash(8, true);
 		return $check = $util->CheckPassword($input, $hash);
 	}
 
-	public static function sanitizeInput($input) {
-		$input = str_replace( "\0", "", $input);
+	public static function sanitizeInput($input)
+	{
+		$input = str_replace("\0", "", $input);
     		$input = htmlspecialchars($input);
     		return $input;
 	}
