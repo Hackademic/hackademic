@@ -36,58 +36,58 @@ require_once HACKADEMIC_PATH . "model/common/class.HackademicDB.php";
 class Menu
 {
   
-  const ADMIN_MENU = 1;
-  const TEACHER_MENU = 2;
-  const STUDENT_MENU = 3;
+    const ADMIN_MENU = 1;
+    const TEACHER_MENU = 2;
+    const STUDENT_MENU = 3;
     
-  protected static $action_type = 'menu';
-  public $items;
+    protected static $action_type = 'menu';
+    public $items;
 
-  /**
+    /**
    * Retrives the menu for the given menu id
    * 
    * @param id $mid the id of the menu to load
    *
    * @return an array with the menu items
    */
-  public static function getMenu($mid)
-  {
-    global $db;
+    public static function getMenu($mid)
+    {
+        global $db;
 
-    $params = array(':mid' => $mid);
-    $sql = "SELECT * FROM menu_items WHERE mid = :mid ORDER BY parent, sort, label";
+        $params = array(':mid' => $mid);
+        $sql = "SELECT * FROM menu_items WHERE mid = :mid ORDER BY parent, sort, label";
 
-    $result_set = $db->read($sql, $params, self::$action_type);
+        $result_set = $db->read($sql, $params, self::$action_type);
     
-    $menu = new self;
-    $menu->items = self::buildMenu($result_set);
-    $menu->mid = $mid;
+        $menu = new self;
+        $menu->items = self::buildMenu($result_set);
+        $menu->mid = $mid;
 
-    return $menu;
-  }
+        return $menu;
+    }
   
-  /**
+    /**
    * Builds the menu from the result set
    * 
    * @param Array $result_set the result from the database
    *
    * @return the structured array of menu items
    */
-  private static function buildMenu($result_set)
-  {
-    global $db;
+    private static function buildMenu($result_set)
+    {
+        global $db;
 
-    $menu = array(
-      'items' => array(),
-      'parents' => array()
-    );
+        $menu = array(
+        'items' => array(),
+        'parents' => array()
+        );
 
-    while ($items = $db->fetchArray($result_set)) {
-      $menu['items'][$items['id']] = $items;
-      $menu['parents'][$items['parent']][] = $items['id'];
+        while ($items = $db->fetchArray($result_set)) {
+            $menu['items'][$items['id']] = $items;
+            $menu['parents'][$items['parent']][] = $items['id'];
+        }
+
+        return $menu;
     }
-
-    return $menu;
-  }
 
 }

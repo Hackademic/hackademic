@@ -37,10 +37,10 @@ require_once "class.Plugin.php";
 class Loader
 {
 
-	public static function init()
-	{
-    Utils::defineConstants();
-    Plugin::loadPlugins();
-  }
+    public static function init()
+    {
+        Utils::defineConstants();
+        Plugin::loadPlugins();
+    }
 
 }

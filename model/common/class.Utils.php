@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Hackademic-CMS/model/common/class.Utils.php
  *
  * Hackademic Utils Class
@@ -38,60 +37,60 @@ require_once "PasswordHash.php";
 class Utils
 {
 
-	/**
-	 * Define Constants function. These constants are used to locate
-	 * files on the server
-	 */
-	public static function defineConstants()
-	{
-		if (!defined('HACKADEMIC_PATH')) {
-			define('HACKADEMIC_PATH', str_replace("\\", '/', dirname(dirname(dirname(__FILE__)))).'/');
-				define('GLOBAL_CLASS_ID', 1);
-				define('DEFAULT_RULES_ID', 1);
-				define('NO_RESULTS', false);
-				define('MICROSECS_IN_MINUTE', 60);
-		}
-    if (!defined('HACKADEMIC_PLUGIN_PATH')) {
-      define('HACKADEMIC_PLUGIN_PATH', HACKADEMIC_PATH . 'user/plugins/');
+    /**
+     * Define Constants function. These constants are used to locate
+     * files on the server
+     */
+    public static function defineConstants()
+    {
+        if (!defined('HACKADEMIC_PATH')) {
+            define('HACKADEMIC_PATH', str_replace("\\", '/', dirname(dirname(dirname(__FILE__)))).'/');
+            define('GLOBAL_CLASS_ID', 1);
+            define('DEFAULT_RULES_ID', 1);
+            define('NO_RESULTS', false);
+            define('MICROSECS_IN_MINUTE', 60);
+        }
+        if (!defined('HACKADEMIC_PLUGIN_PATH')) {
+            define('HACKADEMIC_PLUGIN_PATH', HACKADEMIC_PATH . 'user/plugins/');
+        }
+        if (!defined('HACKADEMIC_THEME_PATH')) {
+            define('HACKADEMIC_THEME_PATH', HACKADEMIC_PATH . 'user/themes/');
+        }
     }
-    if (!defined('HACKADEMIC_THEME_PATH')) {
-      define('HACKADEMIC_THEME_PATH', HACKADEMIC_PATH . 'user/themes/');
+
+    public function validateEmail($email = '')
+    {
+        $hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
+        $pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
+        return preg_match($pattern, $email);
     }
-	}
+    
+    public static function getPassUtil()
+    {
+        return $util =  new PasswordHash(8, true);
+    }
 
-	public function validateEmail($email = '')
-	{
-		$hostname = '(?:[a-z0-9][-a-z0-9]*\.)*(?:[a-z0-9][-a-z0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,4}|museum|travel)';
-		$pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
-		return preg_match($pattern, $email);
-	}
-	
-	public static function getPassUtil()
-	{
-		return $util =  new PasswordHash(8, true);
-	}
+    public static function hash($password)
+    {
+        $util = new PasswordHash(8, true);
+        $hash = $util->HashPassword($password);
+        if (strlen($hash) < 20) {
+            throw new Exception('Hash length is less than 20 characters');
+            return false;
+        }
+        return $hash;
+    }
 
-	public static function hash($password)
-	{
-		$util = new PasswordHash(8, true);
-		$hash = $util->HashPassword($password);
-		if (strlen($hash) < 20) {
-			throw new Exception('Hash length is less than 20 characters');
-			return false;
-		}
-		return $hash;
-	}
+    public static function check($input, $hash)
+    {
+        $util = new PasswordHash(8, true);
+        return $check = $util->CheckPassword($input, $hash);
+    }
 
-	public static function check($input, $hash)
-	{
-		$util = new PasswordHash(8, true);
-		return $check = $util->CheckPassword($input, $hash);
-	}
-
-	public static function sanitizeInput($input)
-	{
-		$input = str_replace("\0", "", $input);
-    		$input = htmlspecialchars($input);
-    		return $input;
-	}
+    public static function sanitizeInput($input)
+    {
+        $input = str_replace("\0", "", $input);
+         $input = htmlspecialchars($input);
+         return $input;
+    }
 }

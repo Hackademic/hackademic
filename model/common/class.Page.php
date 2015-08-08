@@ -36,22 +36,22 @@ require_once HACKADEMIC_PATH . "model/common/class.HackademicDB.php";
 class Page
 {
   
-  protected static $action_type = 'page';
+    protected static $action_type = 'page';
   
-  /**
+    /**
    * Retrives the file for the given url
    * 
    * @param URL $url url to load the file for
    *
    * @return the path to the file
    */
-  public static function getFile($url)
-  {
-    global $db;
-    $params = array(':url' => $url);
-    $sql = "SELECT file FROM pages WHERE url = :url";
-    $result_set = $db->read($sql, $params, self::$action_type);
-    return $db->fetchArray($result_set);
-  }
+    public static function getFile($url)
+    {
+        global $db;
+        $params = array(':url' => $url);
+        $sql = "SELECT file FROM pages WHERE url = :url";
+        $result_set = $db->read($sql, $params, self::$action_type);
+        return $db->fetchArray($result_set);
+    }
 
 }

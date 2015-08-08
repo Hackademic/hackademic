@@ -33,41 +33,41 @@
 
 class RegexSolution
 {
-	const PHP_BEGIN = '<\?((php|=) )? ?';
-	const PHP_END = ' ?;? ?\?>';
-	const JS_BEGIN = '< ?script( type="text\/javascript")? ?> ?';
-	const JS_END = ' ?;? ?< ?\/ ?script ?>';
-	private $_regex;
-	
-	/**
-	 * Constructor
-	 * Replaces all double quotes with single quotes.
-	 *
-	 * @param Regex $_regex The regular expression to validate the challenge's answer.
-	 *
-	 * @return Nothing.
-	 */
-	public function RegexSolution($_regex)
-	{
-		$this->_regex = '/'.$_regex.'/';
-		$this->_regex = str_replace('"', '\'', $this->_regex);
-	}
+    const PHP_BEGIN = '<\?((php|=) )? ?';
+    const PHP_END = ' ?;? ?\?>';
+    const JS_BEGIN = '< ?script( type="text\/javascript")? ?> ?';
+    const JS_END = ' ?;? ?< ?\/ ?script ?>';
+    private $_regex;
+    
+    /**
+     * Constructor
+     * Replaces all double quotes with single quotes.
+     *
+     * @param Regex $_regex The regular expression to validate the challenge's answer.
+     *
+     * @return Nothing.
+     */
+    public function RegexSolution($_regex)
+    {
+        $this->_regex = '/'.$_regex.'/';
+        $this->_regex = str_replace('"', '\'', $this->_regex);
+    }
 
-	/**
-	 * Matches the submitted solution against the regular expression.
-	 *
-	 * @param string $answer The submitted solution.
-	 *
-	 * @return True if the answer matches the solution's _regex.
-	 */
-	public function match($answer)
-	{
-		$answer = preg_replace('/\s+/', ' ', $answer);
-		$answer = str_replace('"', '\'', $answer);
-		if (preg_match($this->_regex, $answer)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Matches the submitted solution against the regular expression.
+     *
+     * @param string $answer The submitted solution.
+     *
+     * @return True if the answer matches the solution's _regex.
+     */
+    public function match($answer)
+    {
+        $answer = preg_replace('/\s+/', ' ', $answer);
+        $answer = str_replace('"', '\'', $answer);
+        if (preg_match($this->_regex, $answer)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

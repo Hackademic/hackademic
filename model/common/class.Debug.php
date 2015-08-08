@@ -35,83 +35,83 @@
 class Debug
 {
 
-	public static function show($vars,$level='all',$class = " ", $function = " ")
-	{
-		if ('all' == $level) {
-			self::sqlShowQuery($vars[0]);
-			self::sqlShow_Result($vars);
-			self::varShowEmpty($vars, get_class($class), $function);
-			}
-	}
+    public static function show($vars,$level='all',$class = " ", $function = " ")
+    {
+        if ('all' == $level) {
+            self::sqlShowQuery($vars[0]);
+            self::sqlShow_Result($vars);
+            self::varShowEmpty($vars, get_class($class), $function);
+        }
+    }
 
-	public static function sqlShowQuery($query)
-	{
-		if ("dev" ==ENVIRONMENT) {
-			if (true === SHOW_SQL_QUERIES) {
-				echo "<p>".var_dump($query)."</p>";
-			}
-		}
+    public static function sqlShowQuery($query)
+    {
+        if ("dev" ==ENVIRONMENT) {
+            if (true === SHOW_SQL_QUERIES) {
+                echo "<p>".var_dump($query)."</p>";
+            }
+        }
 
-	}
+    }
 
-	public static function sqlShowResult($result_array)
-	{
-		if ("dev" ==ENVIRONMENT) {
-			if (true === SHOW_SQL_RESULTS) {
-				foreach ($result_array as $res) {
-					echo "<p>".var_dump($res)."</p>";
-				}
-			}
-		}
+    public static function sqlShowResult($result_array)
+    {
+        if ("dev" ==ENVIRONMENT) {
+            if (true === SHOW_SQL_RESULTS) {
+                foreach ($result_array as $res) {
+                    echo "<p>".var_dump($res)."</p>";
+                }
+            }
+        }
 
-	}
+    }
 
-	public static function varShowEmpty($vars, $class_name, $function_name)
-	{
-		if ("dev" ==ENVIRONMENT && true === SHOW_EMPTY_VAR_ERRORS) {
-			if (is_array($vars)) {
-				foreach ($vars as $name=>$value) {
-					echo "<p> error: {$class_name}.{$function_name}() {$name} == ".$value."</p>";
-				}
-			} else {
-				echo "<p> error: {$class_name}.{$function_name}() {$vars} is empty </p>";
-			}
-		}
-	}
-
-	public static function varsGetValue($vars)
-	{
-		if ("dev" ==ENVIRONMENT) {
-			if (true === SHOW_VAR_VALUES) {
-				if (is_array($vars)) {
-					foreach ($vars as $name=>$var) {
-					echo "<p>".var_dump($var)."</p>";
-					}
-				} else {
-					echo "<p>".var_dump($vars)."</p>";
-				}
-			}
-		}
-
-
-	}
-	public static function prettyPrint($arr, $callback = false)
-	{
-    $retStr = '<ul>';
-    if (is_array($arr)) {
-        foreach ($arr as $key=>$val) {
-            if (is_array($val)) {
-                $retStr .= '<li>' . $key . ' => ' . self::prettyPrint($val) . '</li>';
+    public static function varShowEmpty($vars, $class_name, $function_name)
+    {
+        if ("dev" ==ENVIRONMENT && true === SHOW_EMPTY_VAR_ERRORS) {
+            if (is_array($vars)) {
+                foreach ($vars as $name=>$value) {
+                    echo "<p> error: {$class_name}.{$function_name}() {$name} == ".$value."</p>";
+                }
             } else {
-								if ($callback != false) {
-									$retStr .= '<li>' . $key . ' => ' . call_user_func($callback, $val)  . '</li>';
-								} else {
-									$retStr .= '<li>' . $key . ' => ' . $val  . '</li>';
-								}
+                echo "<p> error: {$class_name}.{$function_name}() {$vars} is empty </p>";
             }
         }
     }
-    $retStr .= '</ul>';
-    return $retStr;
-	}
+
+    public static function varsGetValue($vars)
+    {
+        if ("dev" ==ENVIRONMENT) {
+            if (true === SHOW_VAR_VALUES) {
+                if (is_array($vars)) {
+                    foreach ($vars as $name=>$var) {
+                        echo "<p>".var_dump($var)."</p>";
+                    }
+                } else {
+                    echo "<p>".var_dump($vars)."</p>";
+                }
+            }
+        }
+
+
+    }
+    public static function prettyPrint($arr, $callback = false)
+    {
+        $retStr = '<ul>';
+        if (is_array($arr)) {
+            foreach ($arr as $key=>$val) {
+                if (is_array($val)) {
+                    $retStr .= '<li>' . $key . ' => ' . self::prettyPrint($val) . '</li>';
+                } else {
+                    if ($callback != false) {
+                        $retStr .= '<li>' . $key . ' => ' . call_user_func($callback, $val)  . '</li>';
+                    } else {
+                        $retStr .= '<li>' . $key . ' => ' . $val  . '</li>';
+                    }
+               }
+            }
+        }
+        $retStr .= '</ul>';
+        return $retStr;
+    }
 }

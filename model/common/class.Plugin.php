@@ -40,22 +40,22 @@
 class Plugin
 {
 
-  /**
+    /**
    * Loads the active plugins using include_once so we don't crash the site if
    * a plugin can't be found. Also loads the required files for the rest of the class.
    */
-	public static function loadPlugins()
-	{
-    require_once HACKADEMIC_PATH . "admin/model/class.Options.php";
-    require_once HACKADEMIC_PATH . "admin/model/class.MenuBackend.php";
-    require_once HACKADEMIC_PATH . "admin/model/class.PageBackend.php";
-    $active_plugins = Options::getOption('active_plugins')->value;
-    foreach ($active_plugins as $plugin) {
-      include_once(HACKADEMIC_PLUGIN_PATH . $plugin);
+    public static function loadPlugins()
+    {
+        include_once HACKADEMIC_PATH . "admin/model/class.Options.php";
+        include_once HACKADEMIC_PATH . "admin/model/class.MenuBackend.php";
+        include_once HACKADEMIC_PATH . "admin/model/class.PageBackend.php";
+        $active_plugins = Options::getOption('active_plugins')->value;
+        foreach ($active_plugins as $plugin) {
+            include_once HACKADEMIC_PLUGIN_PATH . $plugin;
+        }
     }
-  }
 
-  /**
+    /**
    * Hooks a function or method to a specific filter action.
    *
    * Filters are the hooks that Hackademic launches to modify text of various types
@@ -102,17 +102,17 @@ class Plugin
    *
    * @return boolean true
    */
-	public static function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1)
-	{
-    global $hc_filter, $merged_filters;
+    public static function add_filter($tag, $function_to_add, $priority = 10, $accepted_args = 1)
+    {
+        global $hc_filter, $merged_filters;
 
-    $idx = self::_hc_filter_build_unique_id($tag, $function_to_add, $priority);
-    $hc_filter[$tag][$priority][$idx] = array('function' => $function_to_add, 'accepted_args' => $accepted_args);
-    unset($merged_filters[$tag]);
-    return true;
-  }
+        $idx = self::_hc_filter_build_unique_id($tag, $function_to_add, $priority);
+        $hc_filter[$tag][$priority][$idx] = array('function' => $function_to_add, 'accepted_args' => $accepted_args);
+        unset($merged_filters[$tag]);
+        return true;
+    }
 
-  /**
+    /**
    * Execute functions hooked on a specific filter hook, specifying arguments in an array.
    *
    * The callback functions attached to filter hook $tag are invoked by calling
@@ -130,38 +130,38 @@ class Plugin
    *
    * @return mixed The filtered value after all hooked functions are applied to it.
    */
-	public static function apply_filters_ref_array($tag, $args)
-	{
-    global $hc_filter, $merged_filters, $hc_current_filter;
+    public static function apply_filters_ref_array($tag, $args)
+    {
+        global $hc_filter, $merged_filters, $hc_current_filter;
 
-    if (!isset($hc_filter[$tag])) {
-      return $args[0];
-    }
-
-    $hc_current_filter[] = $tag;
-
-    // Sort
-    if (!isset($merged_filters[$tag])) {
-      ksort($hc_filter[$tag]);
-      $merged_filters[$tag] = true;
-    }
-
-    reset($hc_filter[$tag]);
-
-    do {
-      foreach ((array) current($hc_filter[$tag]) as $the_) {
-        if (!is_null($the_['function'])) {
-          $args[0] = call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+        if (!isset($hc_filter[$tag])) {
+            return $args[0];
         }
-      }
-    } while (next($hc_filter[$tag]) !== false);
 
-    array_pop($hc_current_filter);
+        $hc_current_filter[] = $tag;
 
-    return $args[0];
-  }
+        // Sort
+        if (!isset($merged_filters[$tag])) {
+            ksort($hc_filter[$tag]);
+            $merged_filters[$tag] = true;
+        }
 
-  /**
+        reset($hc_filter[$tag]);
+
+        do {
+            foreach ((array) current($hc_filter[$tag]) as $the_) {
+                if (!is_null($the_['function'])) {
+                    $args[0] = call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+                }
+            }
+        } while (next($hc_filter[$tag]) !== false);
+
+        array_pop($hc_current_filter);
+
+        return $args[0];
+    }
+
+    /**
    * Removes a function from a specified filter hook.
    *
    * This function removes a function attached to a specified filter hook. This
@@ -181,24 +181,24 @@ class Plugin
    *
    * @return boolean Whether the function existed before it was removed.
    */
-	public static function remove_filter($tag, $function_to_remove, $priority = 10)
-	{
-    $function_to_remove = self::_hc_filter_build_unique_id($tag, $function_to_remove, $priority);
+    public static function remove_filter($tag, $function_to_remove, $priority = 10)
+    {
+        $function_to_remove = self::_hc_filter_build_unique_id($tag, $function_to_remove, $priority);
 
-    $r = isset($GLOBALS['hc_filter'][$tag][$priority][$function_to_remove]);
+        $r = isset($GLOBALS['hc_filter'][$tag][$priority][$function_to_remove]);
 
-    if (true === $r) {
-      unset($GLOBALS['hc_filter'][$tag][$priority][$function_to_remove]);
-      if (empty($GLOBALS['hc_filter'][$tag][$priority])) {
-        unset($GLOBALS['hc_filter'][$tag][$priority]);
-      }
-      unset($GLOBALS['merged_filters'][$tag]);
+        if (true === $r) {
+            unset($GLOBALS['hc_filter'][$tag][$priority][$function_to_remove]);
+            if (empty($GLOBALS['hc_filter'][$tag][$priority])) {
+                unset($GLOBALS['hc_filter'][$tag][$priority]);
+            }
+            unset($GLOBALS['merged_filters'][$tag]);
+        }
+
+        return $r;
     }
 
-    return $r;
-  }
-
-  /**
+    /**
    * Remove all of the hooks from a filter.
    *
    * @param string   $tag      The filter to remove hooks from.
@@ -206,26 +206,26 @@ class Plugin
    *
    * @return boolean true when finished.
    */
-	public static function remove_all_filters($tag, $priority = false)
-	{
-    global $hc_filter, $merged_filters;
+    public static function remove_all_filters($tag, $priority = false)
+    {
+        global $hc_filter, $merged_filters;
 
-    if (isset($hc_filter[$tag])) {
-      if (false !== $priority && isset($hc_filter[$tag][$priority])) {
-        unset($hc_filter[$tag][$priority]);
-      } else {
-        unset($hc_filter[$tag]);
-      }
+        if (isset($hc_filter[$tag])) {
+            if (false !== $priority && isset($hc_filter[$tag][$priority])) {
+                unset($hc_filter[$tag][$priority]);
+            } else {
+                unset($hc_filter[$tag]);
+            }
+        }
+
+        if (isset($merged_filters[$tag])) {
+            unset($merged_filters[$tag]);
+        }
+
+        return true;
     }
 
-    if (isset($merged_filters[$tag])) {
-      unset($merged_filters[$tag]);
-    }
-
-    return true;
-  }
-
-  /**
+    /**
    * Hooks a function on to a specific action.
    *
    * Actions are the hooks that the WordPress core launches at specific points
@@ -251,12 +251,12 @@ class Plugin
    *
    * @return boolean true
    */
-	public static function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1)
-	{
-    return self::add_filter($tag, $function_to_add, $priority, $accepted_args);
-  }
+    public static function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1)
+    {
+        return self::add_filter($tag, $function_to_add, $priority, $accepted_args);
+    }
 
-  /**
+    /**
    * Execute functions hooked on a specific action hook, specifying arguments in an
    * array.
    *
@@ -272,46 +272,46 @@ class Plugin
    *
    * @return null Will return null if $tag does not exist in $hc_filter array
    */
-	public static function do_action_ref_array($tag, $args)
-	{
-    global $hc_filter, $hc_actions, $merged_filters, $hc_current_filter;
+    public static function do_action_ref_array($tag, $args)
+    {
+        global $hc_filter, $hc_actions, $merged_filters, $hc_current_filter;
 
-    if (!isset($hc_actions)) {
-      $hc_actions = array();
-    }
-
-    if (!isset($hc_actions[$tag])) {
-      $hc_actions[$tag] = 1;
-    } else {
-      ++$hc_actions[$tag];
-    }
-
-    if (!isset($hc_filter[$tag])) {
-      return;
-    }
-
-    $hc_current_filter[] = $tag;
-
-    // Sort
-    if (!isset($merged_filters[$tag])) {
-      ksort($hc_filter[$tag]);
-      $merged_filters[$tag] = true;
-    }
-
-    reset($hc_filter[$tag]);
-
-    do {
-      foreach ((array) current($hc_filter[$tag]) as $the_) {
-        if (!is_null($the_['function'])) {
-          call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+        if (!isset($hc_actions)) {
+            $hc_actions = array();
         }
-      }
-    } while (next($hc_filter[$tag]) !== false);
 
-    array_pop($hc_current_filter);
-  }
+        if (!isset($hc_actions[$tag])) {
+            $hc_actions[$tag] = 1;
+        } else {
+            ++$hc_actions[$tag];
+        }
 
-  /**
+        if (!isset($hc_filter[$tag])) {
+            return;
+        }
+
+        $hc_current_filter[] = $tag;
+
+        // Sort
+        if (!isset($merged_filters[$tag])) {
+            ksort($hc_filter[$tag]);
+            $merged_filters[$tag] = true;
+        }
+
+        reset($hc_filter[$tag]);
+
+        do {
+            foreach ((array) current($hc_filter[$tag]) as $the_) {
+                if (!is_null($the_['function'])) {
+                    call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+                }
+            }
+        } while (next($hc_filter[$tag]) !== false);
+
+        array_pop($hc_current_filter);
+    }
+
+    /**
    * Removes a function from a specified action hook.
    *
    * This function removes a function attached to a specified action hook. This
@@ -327,12 +327,12 @@ class Plugin
    *
    * @return boolean Whether the function is removed.
    */
-	public static function remove_action($tag, $function_to_remove, $priority = 10)
-	{
-    return self::remove_filter($tag, $function_to_remove, $priority);
-  }
+    public static function remove_action($tag, $function_to_remove, $priority = 10)
+    {
+        return self::remove_filter($tag, $function_to_remove, $priority);
+    }
 
-  /**
+    /**
    * Remove all of the hooks from an action.
    *
    * @param string   $tag      The action to remove hooks from.
@@ -340,36 +340,36 @@ class Plugin
    *
    * @return boolean true when finished.
    */
-	public static function remove_all_actions($tag, $priority = false)
-	{
-    return self::remove_all_filters($tag, $priority);
-  }
+    public static function remove_all_actions($tag, $priority = false)
+    {
+        return self::remove_all_filters($tag, $priority);
+    }
   
-  /**
+    /**
    * Adds a menu with the given name.
    *
    * @param string $name the name of the menu such as 'My menu'
    *
    * @return true if added
    */
-	public static function add_menu($name)
-	{
-    return MenuBackend::addMenu($name);
-  }
+    public static function add_menu($name)
+    {
+        return MenuBackend::addMenu($name);
+    }
   
-  /**
+    /**
    * Retrives the menu for the given menu id
    * 
    * @param ID $mid the id of the menu to load
    *
    * @return an array with the menu items
    */
-	public static function get_menu($mid)
-	{
-    return MenuBackend::getMenu($mid);
-  }
+    public static function get_menu($mid)
+    {
+        return MenuBackend::getMenu($mid);
+    }
   
-  /**
+    /**
    * Updates the menu with the given menu id to the given name.
    *
    * @param ID     $mid  menu id of the menu to update
@@ -377,51 +377,51 @@ class Plugin
    *
    * @return true if updated
    */
-	public static function update_menu($mid, $name)
-	{
-    return MenuBackend::updateMenu($mid, $name);
-  }
+    public static function update_menu($mid, $name)
+    {
+        return MenuBackend::updateMenu($mid, $name);
+    }
   
-  /**
+    /**
    * Deletes the menu with the given menu id.
    *
    * @param ID $mid menu id of the menu to delete
    *
    * @return true if deleted
    */  
-	public static function delete_menu($mid)
-	{
-    return MenuBackend::deleteMenu($mid);    
-  }
+    public static function delete_menu($mid)
+    {
+        return MenuBackend::deleteMenu($mid);    
+    }
 
-  /**
+    /**
    * Adds a page mapping from the given url to the file.
    *
-   * @param  URL $url  the url to map
+   * @param URL  $url  the url to map
    * @param Path $file the path to the file that generates the page view. The path
    *                   should be relative to the HACKADEMIC_PATH variable which is
    *                   the web root as default.
    *
    * @return true if added
    */
-	public static function add_page($url, $file)
-	{
-    return PageBackend::addPage($url, $file);
-  }
+    public static function add_page($url, $file)
+    {
+        return PageBackend::addPage($url, $file);
+    }
 
-  /**
+    /**
    * Retrives the file for the given url
    * 
    * @param URL $url the $url to load the file for
    *
    * @return the path to the file
    */
-	public static function get_file_for_page($url)
-	{
-    return PageBackend::getFile($url);
-  }
+    public static function get_file_for_page($url)
+    {
+        return PageBackend::getFile($url);
+    }
 
-  /**
+    /**
    * Updates a page mapping from the given url to the new file.
    *
    * @param URL  $url  the url to update the mapping for
@@ -431,10 +431,10 @@ class Plugin
    *
    * @return true if updated
    */
-  public static function update_page($url, $file)
-  {
-    return PageBackend::updatePage($url, $file);
-  }
+    public static function update_page($url, $file)
+    {
+        return PageBackend::updatePage($url, $file);
+    }
 
     /**
    * Deletes a page mapping for the given url.
@@ -443,12 +443,12 @@ class Plugin
    *
    * @return true if deleted
    */
-  public static function delete_page($url)
-  {
-    return PageBackend::deletePage($url);
-  }
+    public static function delete_page($url)
+    {
+        return PageBackend::deletePage($url);
+    }
   
-  /**
+    /**
    * Adds a menu item to the menu with the given menu id. The menu item
    * needs a url to point to, a label to display and a integer to sort on.
    *
@@ -462,16 +462,16 @@ class Plugin
    *
    * @return true if added
    */
-  public static function add_menu_item($url, $mid, $label, $parent, $sort)
-  {
-	  return MenuBackend::addMenuItem($url, $mid, $label, $parent, $sort);
-	}
+    public static function add_menu_item($url, $mid, $label, $parent, $sort)
+    {
+        return MenuBackend::addMenuItem($url, $mid, $label, $parent, $sort);
+    }
   
-  /**
+    /**
    * Updates a menu item to the menu with the given menu id. The menu item
    * needs a url to point to, a label to display and a integer to sort on.
    *
-   * @param URL		$url    the url for the menu item
+   * @param URL     $url    the url for the menu item
    * @param Id      $mid    the menu id that the menu item belongs to
    * @param Label   $label  the new label for the menu item that is visible to the
    *                        user
@@ -482,12 +482,12 @@ class Plugin
    *
    * @return true if updated
    */
-  public static function update_menu_item($url, $mid, $label, $parent, $sort)
-  {
-	  return MenuBackend::updateMenuItem($url, $mid, $label, $parent, $sort);
-	}
+    public static function update_menu_item($url, $mid, $label, $parent, $sort)
+    {
+        return MenuBackend::updateMenuItem($url, $mid, $label, $parent, $sort);
+    }
   
-  /**
+    /**
    * Deletes a menu item to the menu with the given menu id.
    *
    * @param URL $url the url for the menu item
@@ -495,12 +495,12 @@ class Plugin
    *
    * @return true if deleted
    */
-  public static function delete_menu_item($url, $mid)
-  {
-	  return MenuBackend::deleteMenuItem($url, $mid);
-	}
+    public static function delete_menu_item($url, $mid)
+    {
+        return MenuBackend::deleteMenuItem($url, $mid);
+    }
 
-  /**
+    /**
    * Build Unique ID for storage and retrieval.
    *
    * The old way to serialize the callback caused issues and this function is the
@@ -530,45 +530,45 @@ class Plugin
    * $priority === false and $function is an object reference, and it does not
    * already have a unique id.
    */
-  private static function _hc_filter_build_unique_id($tag, $function, $priority)
-  {
-    global $hc_filter;
-    static $filter_id_count = 0;
+    private static function _hc_filter_build_unique_id($tag, $function, $priority)
+    {
+        global $hc_filter;
+        static $filter_id_count = 0;
 
-    if (is_string($function)) {
-      return $function;
-    }
-
-    if (is_object($function)) {
-      // Closures are currently implemented as objects
-      $function = array($function, '');
-    } else {
-      $function = (array) $function;
-    }
-
-    if (is_object($function[0])) {
-      // Object Class Calling
-      if (function_exists('spl_object_hash')) {
-        return spl_object_hash($function[0]) . $function[1];
-      } else {
-          $obj_idx = get_class($function[0]).$function[1];
-          if (!isset($function[0]->hc_filter_id)) {
-            if (false === $priority) {
-              return false;
-            }
-            $obj_idx .= isset($hc_filter[$tag][$priority]) ? count((array)$hc_filter[$tag][$priority]) : $filter_id_count;
-            $function[0]->hc_filter_id = $filter_id_count;
-            ++$filter_id_count;
-          } else {
-            $obj_idx .= $function[0]->hc_filter_id;
-          }
-
-          return $obj_idx;
+        if (is_string($function)) {
+            return $function;
         }
+
+        if (is_object($function)) {
+            // Closures are currently implemented as objects
+            $function = array($function, '');
+        } else {
+            $function = (array) $function;
+        }
+
+        if (is_object($function[0])) {
+            // Object Class Calling
+            if (function_exists('spl_object_hash')) {
+                return spl_object_hash($function[0]) . $function[1];
+            } else {
+                $obj_idx = get_class($function[0]).$function[1];
+                if (!isset($function[0]->hc_filter_id)) {
+                    if (false === $priority) {
+                        return false;
+                    }
+                    $obj_idx .= isset($hc_filter[$tag][$priority]) ? count((array)$hc_filter[$tag][$priority]) : $filter_id_count;
+                    $function[0]->hc_filter_id = $filter_id_count;
+                    ++$filter_id_count;
+                } else {
+                    $obj_idx .= $function[0]->hc_filter_id;
+                }
+
+                return $obj_idx;
+            }
       } else if (is_string($function[0])) {
-        // Static Calling
-        return $function[0].$function[1];
+            // Static Calling
+            return $function[0].$function[1];
+        }
     }
-  }
 
 }
