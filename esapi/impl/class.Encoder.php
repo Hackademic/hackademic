@@ -4,7 +4,7 @@
  *
  * This file is part of the Open Web Application Security Project (OWASP)
  * Enterprise Security API (ESAPI) project.
- *
+ * 
  * PHP version 5.2
  *
  * LICENSE: This source file is subject to the New BSD license.  You should read
@@ -159,10 +159,9 @@ class Encoder_impl implements Encoder
                 }
             }
         }
-        if ($foundCount >= 2 && $mixedCount > 1 ) {
-            if ($strict == true ) {
-				throw new IntrusionException(
-                    'Input validation failure',
+        if ( $foundCount >= 2 && $mixedCount > 1 ) {
+            if ( $strict == true ) {
+                throw new IntrusionException('Input validation failure',
                     'Multiple (' . $foundCount . 'x) and mixed ('
                     . $mixedCount . 'x) encoding detected in ' . $input
                 );
@@ -173,8 +172,8 @@ class Encoder_impl implements Encoder
                     . $mixedCount . 'x) encoding detected in '.$input
                 );
             }
-        } else if ($foundCount >= 2 ) {
-            if ($strict == true ) {
+        } else if ( $foundCount >= 2 ) {
+            if ( $strict == true ) {
                 throw new IntrusionException(
                     'Input validation failure',
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
@@ -185,8 +184,8 @@ class Encoder_impl implements Encoder
                     "Multiple encoding ({$foundCount}x) detected in {$input}"
                 );
             }
-        } else if ($mixedCount > 1 ) {
-            if ($strict == true ) {
+        } else if ( $mixedCount > 1 ) {
+            if ( $strict == true ) {
                 throw new IntrusionException(
                     'Input validation failure',
                     "Mixed encoding ({$mixedCount}x) detected in {$input}"
@@ -357,7 +356,7 @@ class Encoder_impl implements Encoder
             $c = mb_substr($encoded, $i, 1, $initialEncoding);
             $d = mb_substr($encoded, $i+1, 1, $initialEncoding);
             $e = mb_substr($encoded, $i+2, 1, $initialEncoding);
-            if ($this->_percentCodec->normalizeEncoding($c) == $pcnt
+            if (   $this->_percentCodec->normalizeEncoding($c) == $pcnt
                 && $this->_percentCodec->normalizeEncoding($d) == $two
                 && $this->_percentCodec->normalizeEncoding($e) == $zero
             ) {

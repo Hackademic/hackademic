@@ -14,8 +14,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * PHP Version 5.
  */
 require_once dirname(__FILE__).'/../../main/php/Logger.php';
 Logger::configure(dirname(__FILE__).'/../resources/server.properties');
@@ -23,29 +21,26 @@ Logger::configure(dirname(__FILE__).'/../resources/server.properties');
 require_once 'Net/Server.php';
 require_once 'Net/Server/Handler.php';
 
-class Net_Server_Handler_Log extends Net_Server_Handler
-{
+class Net_Server_Handler_Log extends Net_Server_Handler {
   
         var $hierarchy;
 
-		function onStart()
-		{
+        function onStart() {
                 $this->hierarchy = Logger::getLoggerRepository();
         }
   
-		function onReceiveData($clientId = 0, $data = "")
-		{
+        function onReceiveData($clientId = 0, $data = "") {
                 $events = $this->getEvents($data);
-                foreach ($events as $event) {
+                foreach($events as $event) {
                         $root = $this->hierarchy->getRootLogger();
-                        if ($event->getLoggerName() === 'root') {
+                        if($event->getLoggerName() === 'root') {
                                 $root->callAppenders($event);      
                         } else {
                                 $loggers = $this->hierarchy->getCurrentLoggers();
-                                foreach ($loggers as $logger) {
+                                foreach($loggers as $logger) {
                                         $root->callAppenders($event);
                                         $appenders = $logger->getAllAppenders();
-                                        foreach ($appenders as $appender) {
+                                        foreach($appenders as $appender) {
                                                 $appender->doAppend($event);
                                         }
                                 }
@@ -53,13 +48,12 @@ class Net_Server_Handler_Log extends Net_Server_Handler
                 }
         }
   
-		function getEvents($data)
-		{
+        function getEvents($data) {
                 preg_match('/^(O:\d+)/', $data, $parts);
                 $events = split($parts[1], $data);
                 array_shift($events);
                 $size = count($events);
-                for ($i=0; $i<$size; $i++) {
+                for($i=0; $i<$size; $i++) {
                         $events[$i] = unserialize($parts[1].$events[$i]);
                 }
                 return $events;

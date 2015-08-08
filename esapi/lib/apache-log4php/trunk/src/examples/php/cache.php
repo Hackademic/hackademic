@@ -14,8 +14,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * PHP Version 5.
  */
 require_once dirname(__FILE__).'/../../main/php/Logger.php';
 
@@ -23,9 +21,9 @@ Logger::configure(dirname(__FILE__).'/../resources/cache.properties');
 
 $cache = '../../../target/examples/hierarchy.cache';
 
-if (!file_exists($cache)) {
+if(!file_exists($cache)) {
 	$dir = dirname($cache);
-	if (!is_dir($dir)) {
+	if(!is_dir($dir)) {
 		mkdir($dir, 0777, true);
 	}
 	$hierarchy = Logger::getLoggerRepository();
