@@ -36,28 +36,28 @@ require_once HACKADEMIC_PATH."model/common/class.Debug.php";
 
 class UserChallenges
 {
-	public $id;//challenge_id
-	public $title;//challenge_title
-	public $pkg_name;
-	public $availability;
-	public $class_id;
+    public $id;//challenge_id
+    public $title;//challenge_title
+    public $pkg_name;
+    public $availability;
+    public $class_id;
 
     private static $_action_type = 'user_challenge';
 
-	/**
-	 * Get all challenges the user has to solve
-	 * that is all the challenges which are
-	 * challenges of a class the user is in
-	 *
-	 * @param Id $user_id User's ID
-	 *
-	 * @return array
+    /**
+     * Get all challenges the user has to solve
+     * that is all the challenges which are
+     * challenges of a class the user is in
+     *
+     * @param Id $user_id User's ID
+     *
+     * @return array
    */
-	public static function getChallengesOfUser($user_id)
-	{
-			global $db;
-			$params = array(':user_id' => $user_id);
-			$sql = "SELECT DISTINCT
+    public static function getChallengesOfUser($user_id)
+    {
+        global $db;
+        $params = array(':user_id' => $user_id);
+        $sql = "SELECT DISTINCT
 								class_id,
 								challenges.id, challenges.title,
 								challenges.pkg_name,
@@ -73,40 +73,40 @@ class UserChallenges
 						)
 					)
 							ORDER BY challenges.id";
-			$result_array = self::_findBySQL($sql, $params);
-			return !empty($result_array)?$result_array:false;
-	}
-	public static function printVars($var)
-	{
-		$result ="";
-		foreach ($var as $key=>$value) {
-			$result .= "<p>".$key."=>".$value."</p>";
-		}
-		return $result;
-	}
-	private static function _findBySQL($sql, $params = null)
-	{
-		global $db;
-		$result_set = $db->read($sql, $params, self::$_action_type);
-		$object_array = array();
-		while ($row = $db->fetchArray($result_set)) {
-			$object_array[] = self::instantiate($row);
-		}
-		return $object_array;
-	}
-	public static function instantiate($record)
-	{
-		$object = new self;
-		foreach ($record as $attribute => $value) {
-			if ($object->_hasAttribute($attribute)) {
-				$object->$attribute=$value;
-			}
-		}
-		return $object;
-	}
-	private function _hasAttribute($attribute)
-	{
-		$object_vars = get_object_vars($this);
-		return array_key_exists($attribute, $object_vars);
-	}
+        $result_array = self::_findBySQL($sql, $params);
+        return !empty($result_array)?$result_array:false;
+    }
+    public static function printVars($var)
+    {
+        $result ="";
+        foreach ($var as $key=>$value) {
+            $result .= "<p>".$key."=>".$value."</p>";
+        }
+        return $result;
+    }
+    private static function _findBySQL($sql, $params = null)
+    {
+        global $db;
+        $result_set = $db->read($sql, $params, self::$_action_type);
+        $object_array = array();
+        while ($row = $db->fetchArray($result_set)) {
+            $object_array[] = self::instantiate($row);
+        }
+        return $object_array;
+    }
+    public static function instantiate($record)
+    {
+        $object = new self;
+        foreach ($record as $attribute => $value) {
+            if ($object->_hasAttribute($attribute)) {
+                $object->$attribute=$value;
+            }
+        }
+        return $object;
+    }
+    private function _hasAttribute($attribute)
+    {
+        $object_vars = get_object_vars($this);
+        return array_key_exists($attribute, $object_vars);
+    }
 }

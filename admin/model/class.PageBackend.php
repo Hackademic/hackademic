@@ -36,7 +36,7 @@ require_once HACKADEMIC_PATH . "model/common/class.Page.php";
 class PageBackend extends Page
 {
 
-  /**
+    /**
    * Adds a page mapping from the given url to the file.
    *
    * @param string $url  The url to map
@@ -46,26 +46,26 @@ class PageBackend extends Page
    *
    * @return true if added
    */
-	public static function addPage($url, $file)
-	{
-		global $db;
+    public static function addPage($url, $file)
+    {
+        global $db;
     
-		$params = array(
-		  ':url' => $url,
-		  ':file' => $file
-    );
+        $params = array(
+        ':url' => $url,
+        ':file' => $file
+        );
 
-		$sql = "INSERT INTO pages(url, file) VALUES (:url, :file)";
-		$query = $db->create($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        $sql = "INSERT INTO pages(url, file) VALUES (:url, :file)";
+        $query = $db->create($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
-  /**
+    /**
    * Updates a page mapping from the given url to the new file.
    *
    * @param String $url  The url to update the mapping for
@@ -75,43 +75,43 @@ class PageBackend extends Page
    *
    * @return true if updated
    */
-	public static function updatePage($url, $file)
-	{
-		global $db;
+    public static function updatePage($url, $file)
+    {
+        global $db;
     
-		$params = array(
-		  ':url' => $url,
-		  ':file' => $file
-    );
+        $params = array(
+        ':url' => $url,
+        ':file' => $file
+        );
 
-		$sql = "UPDATE pages SET file = :file WHERE url = :url";
-		$query = $db->update($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        $sql = "UPDATE pages SET file = :file WHERE url = :url";
+        $query = $db->update($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-  /**
+    /**
    * Deletes a page mapping for the given url.
    *
    * @param String $url the url to delete the page mapping for.
    *
    * @return true if deleted
    */
-	public static function deletePage($url)
-	{
-		global $db;
+    public static function deletePage($url)
+    {
+        global $db;
     
-		$params = array(':url' => $url);
-		$sql = "DELETE FROM pages WHERE url = :url";
-		$query = $db->delete($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        $params = array(':url' => $url);
+        $sql = "DELETE FROM pages WHERE url = :url";
+        $query = $db->delete($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

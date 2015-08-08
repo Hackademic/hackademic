@@ -37,69 +37,69 @@ require_once HACKADEMIC_PATH."/model/common/class.Article.php";
 class ArticleBackend extends Article
 {
 
-	/**
-	 * Adds an article to the database.
-	 *
-	 * @param Article $article Article to be added.
-	 *
-	 * @return True if it was successfully added.
-	 */
+    /**
+     * Adds an article to the database.
+     *
+     * @param Article $article Article to be added.
+     *
+     * @return True if it was successfully added.
+     */
     public static function addArticle($article)
     {
-		global $db;
+        global $db;
         $params = array(':title' => $article->title,
-			            ':content' => $article->content,
-			            ':date_posted' => $article->date_posted,
-						':created_by' => $article->created_by,
-						':is_published' => $article->is_published);
-		$sql = "INSERT INTO articles(title, content, date_posted, created_by, is_published) ";
-		$sql .= "VALUES (:title, :content, :date_posted, :created_by, :is_published)";
-		$query = $db->create($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+                        ':content' => $article->content,
+                        ':date_posted' => $article->date_posted,
+        ':created_by' => $article->created_by,
+        ':is_published' => $article->is_published);
+        $sql = "INSERT INTO articles(title, content, date_posted, created_by, is_published) ";
+        $sql .= "VALUES (:title, :content, :date_posted, :created_by, :is_published)";
+        $query = $db->create($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	/**
+    /**
      * Updates an article in the database.
      *
      * @param Article $article Article to be updated.
      *
-	 * @return True if it was successfully updated.
-	 */
+     * @return True if it was successfully updated.
+     */
     public static function updateArticle($article)
     {
-		global $db;
-		$params = array(':id' => $article->id, ':title' => $article->title, ':content' => $article->content,
-						':date_modified' => $article->date_modified, ':last_modified_by' => $article->last_modified_by);
-		$sql = "UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, ";
-		$sql .= "last_modified_by = :last_modified_by WHERE id = :id";
-		$query = $db->update($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        global $db;
+        $params = array(':id' => $article->id, ':title' => $article->title, ':content' => $article->content,
+        ':date_modified' => $article->date_modified, ':last_modified_by' => $article->last_modified_by);
+        $sql = "UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, ";
+        $sql .= "last_modified_by = :last_modified_by WHERE id = :id";
+        $query = $db->update($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function deleteArticle($id)
-	{
-		global $db;
-		$params = array(':id' => $id);
-		$sql = "DELETE FROM articles WHERE id= :id";
-		$query = $db->delete($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function deleteArticle($id)
+    {
+        global $db;
+        $params = array(':id' => $id);
+        $sql = "DELETE FROM articles WHERE id= :id";
+        $query = $db->delete($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function insertId()
-	{
-		global $db;
-		return $db->insertId();
-	}
+    public static function insertId()
+    {
+        global $db;
+        return $db->insertId();
+    }
 }

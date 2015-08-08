@@ -35,12 +35,12 @@ require_once HACKADEMIC_PATH."model/common/class.HackademicDB.php";
 class Options
 {
 
-  public $name;
-  public $value;
+    public $name;
+    public $value;
 
-  private static $_action_name = 'options';
+    private static $_action_name = 'options';
 
-  /**
+    /**
    * Adds an option with the given name and value to the database
    *
    * @param String $option_name  the name of the option, must be unique
@@ -48,28 +48,28 @@ class Options
    *
    * @return bool true if successful
    */
-  public static function addOption($option_name, $option_value)
-  {
-    global $db;
-    if ($option_name != '') {
-      $params = array(
-        ':option_name' => $option_name,
-        ':option_value' => json_encode($option_value)
-      );
-      $sql = "INSERT INTO options(option_name, option_value) ";
-      $sql .= "VALUES (:option_name, :option_value)";
+    public static function addOption($option_name, $option_value)
+    {
+        global $db;
+        if ($option_name != '') {
+            $params = array(
+            ':option_name' => $option_name,
+            ':option_value' => json_encode($option_value)
+            );
+            $sql = "INSERT INTO options(option_name, option_value) ";
+            $sql .= "VALUES (:option_name, :option_value)";
 
-      $query = $db->create($sql, $params, self::$_action_name);
+            $query = $db->create($sql, $params, self::$_action_name);
 
-      if ($db->affectedRows($query)) {
-          return true;
-      }
+            if ($db->affectedRows($query)) {
+                return true;
+            }
+        }
+        return false;
     }
-    return false;
-  }
 
 
-  /**
+    /**
    * Gets an option from the database and returns an instance of the option
    * with its name and value.
    *
@@ -77,24 +77,24 @@ class Options
    *
    * @return Options an option instance
    */
-  public static function getOption($option_name)
-  {
-    global $db;
+    public static function getOption($option_name)
+    {
+        global $db;
 
-    $params = array(':option_name' => $option_name);
-    $sql = "SELECT * FROM options WHERE option_name = :option_name";
+        $params = array(':option_name' => $option_name);
+        $sql = "SELECT * FROM options WHERE option_name = :option_name";
 
-    $result_set = $db->read($sql, $params, self::$_action_name);
-    $row = $db->fetchArray($result_set);
+        $result_set = $db->read($sql, $params, self::$_action_name);
+        $row = $db->fetchArray($result_set);
 
-    $option = new self;
-    $option->name = $row['option_name'];
-    $option->value = json_decode($row['option_value']);
+        $option = new self;
+        $option->name = $row['option_name'];
+        $option->value = json_decode($row['option_value']);
 
-    return $option;
-  }
+        return $option;
+    }
 
-  /**
+    /**
    * Updates the value of an option.
    *
    * @param String $option_name  the name of the option to update
@@ -102,45 +102,45 @@ class Options
    *
    * @return bool true if successful
    */
-  public static function updateOption($option_name, $option_value)
-  {
-    global $db;
-    $params = array(
-      ':option_name' => $option_name,
-      ':option_value' => json_encode($option_value)
-    );
+    public static function updateOption($option_name, $option_value)
+    {
+        global $db;
+        $params = array(
+        ':option_name' => $option_name,
+        ':option_value' => json_encode($option_value)
+        );
 
-    $sql = "UPDATE options SET option_value = :option_value ";
-    $sql .= "WHERE option_name = :option_name";
+        $sql = "UPDATE options SET option_value = :option_value ";
+        $sql .= "WHERE option_name = :option_name";
 
-    $query = $db->update($sql, $params, self::$_action_name);
-    if ($db->affectedRows($query)) {
-      return true;
-    } else {
-      return false;
+        $query = $db->update($sql, $params, self::$_action_name);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
-  /**
+    /**
    * Deletes an option from the database with the given name.
    *
    * @param String $option_name the option to delete
    *
    * @return bool true if successful
    */
-  public static function deleteOption($option_name)
-  {
-    global $db;
-    $params = array(':option_name' => $option_name);
+    public static function deleteOption($option_name)
+    {
+        global $db;
+        $params = array(':option_name' => $option_name);
 
-    $sql = "DELETE FROM options WHERE option_name = :option_name";
+        $sql = "DELETE FROM options WHERE option_name = :option_name";
 
-    $query = $db->delete($sql, $params, self::$_action_name);
-    if ($db->affectedRows($query)) {
-      return true;
-    } else {
-      return false;
+        $query = $db->delete($sql, $params, self::$_action_name);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
 }

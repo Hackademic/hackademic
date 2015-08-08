@@ -38,73 +38,73 @@ require_once HACKADEMIC_PATH."admin/model/class.ClassChallenges.php";
 class ChallengeBackend extends Challenge
 {
 
-	/**
-	 * Adds a challenge to the database.
-	 *
-	 * @param Challenge $challenge Information about a challenge to be added.
-	 *
-	 * @return True if it was successfully added.
-	 */
-	public static function addChallenge($challenge)
-	{
-		global $db;
-		$params = array(':title' => $challenge->title,
-			            ':pkg_name' => $challenge->pkg_name,
-						':description'=>$challenge->description,
-						':author' => $challenge->author,
-						':category' => $challenge->category,
-						':date_posted' => $challenge->date_posted,
-						':level' => $challenge->level,
-						':duration' => $challenge->duration);
-		$sql = "INSERT INTO challenges(title, pkg_name, description, author, category, date_posted, level, duration) ";
-		$sql .= "VALUES (:title, :pkg_name, :description, :author, :category, :date_posted, :level, :duration)";
-		$query = $db->create($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Adds a challenge to the database.
+     *
+     * @param Challenge $challenge Information about a challenge to be added.
+     *
+     * @return True if it was successfully added.
+     */
+    public static function addChallenge($challenge)
+    {
+        global $db;
+        $params = array(':title' => $challenge->title,
+                        ':pkg_name' => $challenge->pkg_name,
+         ':description'=>$challenge->description,
+         ':author' => $challenge->author,
+         ':category' => $challenge->category,
+         ':date_posted' => $challenge->date_posted,
+         ':level' => $challenge->level,
+         ':duration' => $challenge->duration);
+        $sql = "INSERT INTO challenges(title, pkg_name, description, author, category, date_posted, level, duration) ";
+        $sql .= "VALUES (:title, :pkg_name, :description, :author, :category, :date_posted, :level, :duration)";
+        $query = $db->create($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * Updates a challenge in the database.
-	 *
-	 * @param Chanllenge $challenge Information about challenge to be updated.
-	 *
-	 * @return True if it was successfully updated.
-	 */
-	public static function updateChallenge($challenge)
-	{
-		global $db;
-		$params = array(':id' => $challenge->id,
-			            ':title' => $challenge->title,
-						':description' => $challenge->description,
-						':visibility' => $challenge->visibility,
-						':publish' => $challenge->publish,
-						':availability' => $challenge->availability,
-						':level' => $challenge->level,
-						':duration' => $challenge->duration);
-		$sql = "UPDATE challenges SET title = :title, description = :description, visibility = :visibility, publish = :publish, ";
-		$sql .= "availability = :availability, level = :level, duration = :duration WHERE id = :id";
-		$query = $db->update($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    /**
+     * Updates a challenge in the database.
+     *
+     * @param Chanllenge $challenge Information about challenge to be updated.
+     *
+     * @return True if it was successfully updated.
+     */
+    public static function updateChallenge($challenge)
+    {
+        global $db;
+        $params = array(':id' => $challenge->id,
+                        ':title' => $challenge->title,
+         ':description' => $challenge->description,
+         ':visibility' => $challenge->visibility,
+         ':publish' => $challenge->publish,
+         ':availability' => $challenge->availability,
+         ':level' => $challenge->level,
+         ':duration' => $challenge->duration);
+        $sql = "UPDATE challenges SET title = :title, description = :description, visibility = :visibility, publish = :publish, ";
+        $sql .= "availability = :availability, level = :level, duration = :duration WHERE id = :id";
+        $query = $db->update($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function deleteChallenge($id)
-	{
-		global $db;
-		$params = array(':id'=>$id);
-		$sql = "DELETE FROM challenges WHERE id=:id";
-		$query = $db->delete($sql, $params, self::$action_type);
-		ClassChallenges::deleteAllMemberships($id);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function deleteChallenge($id)
+    {
+        global $db;
+        $params = array(':id'=>$id);
+        $sql = "DELETE FROM challenges WHERE id=:id";
+        $query = $db->delete($sql, $params, self::$action_type);
+        ClassChallenges::deleteAllMemberships($id);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

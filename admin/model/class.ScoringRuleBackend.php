@@ -35,91 +35,89 @@ require_once HACKADEMIC_PATH."model/common/class.ScoringRule.php";
 
 class ScoringRuleBackend extends ScoringRule
 {
-	/**
-	 * Adds a new scoring rule
-	 */
-	public static function addScoringRule($challenge_id,
-									      $class_id,
-										  $attempt_cap,
-										  $attempt_cap_penalty,
-										  $time_between_first_and_last_attempt,
-										  $time_penalty,
-										  $time_reset_limit_seconds,
-										  $request_frequency_per_minute,
-										  $request_frequency_penalty,
-										  $experimentation_bonus,
-										  $multiple_solution_bonus,
-										  $banned_user_agents,
-										  $base_score,
-										  $banned_user_agents_penalty,
-										  $first_try_solves,
-										  $penalty_for_many_first_try_solves
-									      )
-	{
-	    global $db;
-		$params=array( ':challenge_id' => $challenge_id,
-				       ':class_id' => $class_id,
-				       ':attempt_cap' => $attempt_cap,
-				       ':attempt_cap_penalty' => $attempt_cap_penalty,
-				       ':time_between_first_and_last_attempt' => $time_between_first_and_last_attempt,
-				       ':time_penalty' => $time_penalty,
-				       ':time_reset_limit_seconds' => $time_reset_limit_seconds,
-				       ':request_frequency_per_minute' => $request_frequency_per_minute,
-				       ':request_frequency_penalty' => $request_frequency_penalty,
-				       ':experimentation_bonus' => $experimentation_bonus,
-				       ':multiple_solution_bonus' => $multiple_solution_bonus,
-				       ':banned_user_agents' => $banned_user_agents,
-				       ':base_score' => $base_score,
-				       ':banned_user_agents_penalty' => $banned_user_agents_penalty,
-				       ':first_try_solves' => $first_try_solves,
-				       ':penalty_for_many_first_try_solves' => $penalty_for_many_first_try_solves
-			         );
+    /**
+     * Adds a new scoring rule
+     */
+    public static function addScoringRule($challenge_id,
+        $class_id,
+        $attempt_cap,
+        $attempt_cap_penalty,
+        $time_between_first_and_last_attempt,
+        $time_penalty,
+        $time_reset_limit_seconds,
+        $request_frequency_per_minute,
+        $request_frequency_penalty,
+        $experimentation_bonus,
+        $multiple_solution_bonus,
+        $banned_user_agents,
+        $base_score,
+        $banned_user_agents_penalty,
+        $first_try_solves,
+        $penalty_for_many_first_try_solves
+    ) {
+        global $db;
+        $params=array( ':challenge_id' => $challenge_id,
+                       ':class_id' => $class_id,
+                       ':attempt_cap' => $attempt_cap,
+                       ':attempt_cap_penalty' => $attempt_cap_penalty,
+                       ':time_between_first_and_last_attempt' => $time_between_first_and_last_attempt,
+                       ':time_penalty' => $time_penalty,
+                       ':time_reset_limit_seconds' => $time_reset_limit_seconds,
+                       ':request_frequency_per_minute' => $request_frequency_per_minute,
+                       ':request_frequency_penalty' => $request_frequency_penalty,
+                       ':experimentation_bonus' => $experimentation_bonus,
+                       ':multiple_solution_bonus' => $multiple_solution_bonus,
+                       ':banned_user_agents' => $banned_user_agents,
+                       ':base_score' => $base_score,
+                       ':banned_user_agents_penalty' => $banned_user_agents_penalty,
+                       ':first_try_solves' => $first_try_solves,
+                       ':penalty_for_many_first_try_solves' => $penalty_for_many_first_try_solves
+                     );
 
-		$sql="INSERT INTO scoring_rule ( challenge_id ,  class_id ,  attempt_cap ,  attempt_cap_penalty ,  time_between_first_and_last_attempt ,  time_penalty ,  time_reset_limit_seconds ,  request_frequency_per_minute ,  request_frequency_penalty ,  experimentation_bonus ,  multiple_solution_bonus ,  banned_user_agents ,  banned_user_agents_penalty ,  base_score ,  first_try_solves ,  penalty_for_many_first_try_solves )";
-		$sql .= "VALUES (:challenge_id,:class_id,:attempt_cap,:attempt_cap_penalty,:time_between_first_and_last_attempt,:time_penalty,:time_reset_limit_seconds,:request_frequency_per_minute,:request_frequency_penalty,:experimentation_bonus,:multiple_solution_bonus,:banned_user_agents,:base_score,:banned_user_agents_penalty,:first_try_solves,:penalty_for_many_first_try_solves)";
-		$query = $db->query($sql, $params);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	/**
-	 * Updates an existing rule
-	 *
-	 * @return If done return true, else return false.
-	 */
-	public static function update_scoring_rule($id, $challenge_id, $class_id,
-											   $attempt_cap, $attempt_cap_penalty,
-											   $time_between_first_and_last_attempt,
-											   $time_penalty, $time_reset_limit_seconds,
-											   $request_frequency_per_minute, $request_frequency_penalty,
-											   $experimentation_bonus, $multiple_solution_bonus,
-											   $banned_user_agents, $base_score,$banned_user_agents_penalty,
-											   $first_try_solves, $penalty_for_many_first_try_solves
-										      )
-	{
-		global $db;
-		$params=array(':id'=>$id,
-			    ':challenge_id' => $challenge_id,
-				':class_id' => $class_id,
-				':attempt_cap' => $attempt_cap,
-				':attempt_cap_penalty' => $attempt_cap_penalty,
-				':time_between_first_and_last_attempt' => $time_between_first_and_last_attempt,
-				':time_penalty' => $time_penalty,
-				':time_reset_limit_seconds' => $time_reset_limit_seconds,
-				':request_frequency_per_minute' => $request_frequency_per_minute,
-				':request_frequency_penalty' => $request_frequency_penalty,
-				':experimentation_bonus' => $experimentation_bonus,
-				':multiple_solution_bonus' => $multiple_solution_bonus,
-				':banned_user_agents' => $banned_user_agents,
-				':base_score' => $base_score,
-				':banned_user_agents_penalty' => $banned_user_agents_penalty,
-				':first_try_solves' => $first_try_solves,
-				':penalty_for_many_first_try_solves' => $penalty_for_many_first_try_solves
-			     );
+        $sql="INSERT INTO scoring_rule ( challenge_id ,  class_id ,  attempt_cap ,  attempt_cap_penalty ,  time_between_first_and_last_attempt ,  time_penalty ,  time_reset_limit_seconds ,  request_frequency_per_minute ,  request_frequency_penalty ,  experimentation_bonus ,  multiple_solution_bonus ,  banned_user_agents ,  banned_user_agents_penalty ,  base_score ,  first_try_solves ,  penalty_for_many_first_try_solves )";
+        $sql .= "VALUES (:challenge_id,:class_id,:attempt_cap,:attempt_cap_penalty,:time_between_first_and_last_attempt,:time_penalty,:time_reset_limit_seconds,:request_frequency_per_minute,:request_frequency_penalty,:experimentation_bonus,:multiple_solution_bonus,:banned_user_agents,:base_score,:banned_user_agents_penalty,:first_try_solves,:penalty_for_many_first_try_solves)";
+        $query = $db->query($sql, $params);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /**
+     * Updates an existing rule
+     *
+     * @return If done return true, else return false.
+     */
+    public static function update_scoring_rule($id, $challenge_id, $class_id,
+        $attempt_cap, $attempt_cap_penalty,
+        $time_between_first_and_last_attempt,
+        $time_penalty, $time_reset_limit_seconds,
+        $request_frequency_per_minute, $request_frequency_penalty,
+        $experimentation_bonus, $multiple_solution_bonus,
+        $banned_user_agents, $base_score,$banned_user_agents_penalty,
+        $first_try_solves, $penalty_for_many_first_try_solves
+    ) {
+        global $db;
+        $params=array(':id'=>$id,
+          ':challenge_id' => $challenge_id,
+        ':class_id' => $class_id,
+        ':attempt_cap' => $attempt_cap,
+        ':attempt_cap_penalty' => $attempt_cap_penalty,
+        ':time_between_first_and_last_attempt' => $time_between_first_and_last_attempt,
+        ':time_penalty' => $time_penalty,
+        ':time_reset_limit_seconds' => $time_reset_limit_seconds,
+        ':request_frequency_per_minute' => $request_frequency_per_minute,
+        ':request_frequency_penalty' => $request_frequency_penalty,
+        ':experimentation_bonus' => $experimentation_bonus,
+        ':multiple_solution_bonus' => $multiple_solution_bonus,
+        ':banned_user_agents' => $banned_user_agents,
+        ':base_score' => $base_score,
+        ':banned_user_agents_penalty' => $banned_user_agents_penalty,
+        ':first_try_solves' => $first_try_solves,
+        ':penalty_for_many_first_try_solves' => $penalty_for_many_first_try_solves
+                 );
 
-		$sql="UPDATE  scoring_rule  SET
+        $sql="UPDATE  scoring_rule  SET
 						challenge_id  = :challenge_id,
 						class_id  = :class_id,
 						attempt_cap  = :attempt_cap,
@@ -137,29 +135,29 @@ class ScoringRuleBackend extends ScoringRule
 						first_try_solves  = :first_try_solves,
 						penalty_for_many_first_try_solves  = :penalty_for_many_first_try_solves
 						WHERE id =:id";
-		$query = $db->query($sql, $params);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
+        $query = $db->query($sql, $params);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
 
 
-	}
-	/**
-	 * Deletes the default scoring rule
-	 */
-	public static function delete_scoring_rule($id)
-	{
-		global $db;
-		$params = array(':id'=>$id);
-		$sql = 'DELETE FROM scoring_rule WHERE id = :id';
-		$query = $db->query($sql, $params);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    }
+    /**
+     * Deletes the default scoring rule
+     */
+    public static function delete_scoring_rule($id)
+    {
+        global $db;
+        $params = array(':id'=>$id);
+        $sql = 'DELETE FROM scoring_rule WHERE id = :id';
+        $query = $db->query($sql, $params);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

@@ -141,7 +141,7 @@ class AddChallengeController extends HackademicBackendController
     public function go()
     {
         $this->setViewTemplate('addchallenge.tpl');
-        $this->cache_values();
+        $this->cacheValues();
         if (isset($_GET['type']) && $_GET['type'] == "code") {
             $add_type = "code";
         } else {
@@ -149,7 +149,7 @@ class AddChallengeController extends HackademicBackendController
         }
 
         if (isset($_POST['continue'])) {
-            $this->cache_values();
+            $this->cacheValues();
             if ($_POST['title']=='') {
                 $e_msg = "Title of the challenge should not be empty";
                 $error = true;

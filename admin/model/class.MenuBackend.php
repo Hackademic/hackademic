@@ -36,33 +36,33 @@ require_once HACKADEMIC_PATH . "model/common/class.Menu.php";
 class MenuBackend extends Menu
 {
 
-  /**
+    /**
    * Adds a menu with the given name.
    *
    * @param string $name the name of the menu such as 'My menu'
    *
    * @return true if added
    */
-	public static function addMenu($name)
-	{
-		global $db;
-		$params = array(':name' => $name);
-		$sql = "INSERT INTO menus(name) VALUES (:name)";
-		$query = $db->create($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-  }
+    public static function addMenu($name)
+    {
+        global $db;
+        $params = array(':name' => $name);
+        $sql = "INSERT INTO menus(name) VALUES (:name)";
+        $query = $db->create($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
   
-  /**
+    /**
    * Gets all menus from the database
    *
    * @return an array of menus
    */
-	public static function getMenus()
-	{
+    public static function getMenus()
+    {
         global $db;
         $sql = "SELECT * FROM menus";
         $result = $db->read($sql, null, self::$action_type);
@@ -73,7 +73,7 @@ class MenuBackend extends Menu
         return $menus;
     }
 
-  /**
+    /**
    * Updates the menu with the given menu id to the given name.
    *
    * @param id     $mid  menu id of the menu to update
@@ -81,43 +81,43 @@ class MenuBackend extends Menu
    *
    * @return true if updated
    */
-	public static function updateMenu($mid, $name)
-	{
-		global $db;
-		$params = array(
+    public static function updateMenu($mid, $name)
+    {
+        global $db;
+        $params = array(
         ':mid' => $mid,
         ':name' => $name
         );
-		$sql = "UPDATE menus set name = :name WHERE mid = :mid";
-		$query = $db->update($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
+        $sql = "UPDATE menus set name = :name WHERE mid = :mid";
+        $query = $db->update($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-  /**
+    /**
    * Deletes the menu with the given menu id.
    *
    * @param id $mid menu id of the menu to delete
    *
    * @return true if deleted
    */
-	public static function deleteMenu($mid)
-	{
-		global $db;
-		$params = array(':mid' => $mid);
-		$sql = "DELETE from menus WHERE mid = :mid";
-		$query = $db->delete($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-  }
+    public static function deleteMenu($mid)
+    {
+        global $db;
+        $params = array(':mid' => $mid);
+        $sql = "DELETE from menus WHERE mid = :mid";
+        $query = $db->delete($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
   
-  /**
+    /**
    * Adds a menu item to the menu with the given menu id. The menu item
    * needs a url to point to, a label to display and a integer to sort on.
    *
@@ -131,28 +131,28 @@ class MenuBackend extends Menu
    *
    * @return true if added
    */
-	public static function addMenuItem($url, $mid, $label, $parent, $sort)
-	{
-		global $db;
+    public static function addMenuItem($url, $mid, $label, $parent, $sort)
+    {
+        global $db;
     
-		$params = array(
-		    ':url' => $url,
-		    ':mid' => $mid,
-			':label' => $label,
+        $params = array(
+         ':url' => $url,
+         ':mid' => $mid,
+        ':label' => $label,
             ':parent' => $parent,
-			':sort' => $sort
+        ':sort' => $sort
         );
     
-		$sql = "INSERT INTO menu_items(url, mid, label, parent, sort) VALUES (:url, :mid, :label, :parent, :sort)";
-		$query = $db->create($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        $sql = "INSERT INTO menu_items(url, mid, label, parent, sort) VALUES (:url, :mid, :label, :parent, :sort)";
+        $query = $db->create($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-  /**
+    /**
    * Updates a menu item to the menu with the given menu id. The menu item
    * needs a url to point to, a label to display and a integer to sort on.
    *
@@ -167,28 +167,28 @@ class MenuBackend extends Menu
    *
    * @return true if updated
    */
-	public static function updateMenuItem($url, $mid, $label, $parent, $sort)
-	{
-		global $db;
+    public static function updateMenuItem($url, $mid, $label, $parent, $sort)
+    {
+        global $db;
     
-		$params = array(
-		    ':url' => $url,
-			':mid' => $mid,
-			':label' => $label,
+        $params = array(
+         ':url' => $url,
+        ':mid' => $mid,
+        ':label' => $label,
             ':parent' => $parent,
-			':sort' => $sort
+        ':sort' => $sort
          );
 
-		$sql = "UPDATE menu_items SET label = :label, parent = :parent, sort = :sort WHERE url = :url AND mid = :mid";
-		$query = $db->update($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        $sql = "UPDATE menu_items SET label = :label, parent = :parent, sort = :sort WHERE url = :url AND mid = :mid";
+        $query = $db->update($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-  /**
+    /**
    * Deletes a menu item to the menu with the given menu id.
    *
    * @param string $url the url for the menu item
@@ -196,33 +196,33 @@ class MenuBackend extends Menu
    *
    * @return true if deleted
    */
-	public static function deleteMenuItem($url, $mid)
-	{
-		global $db;
+    public static function deleteMenuItem($url, $mid)
+    {
+        global $db;
     
-		$params = array(
+        $params = array(
             ':url' => $url,
             ':mid' => $mid
         );
     
-		$sql = "DELETE FROM menu_items WHERE url = :url AND mid = :mid";
-		$query = $db->delete($sql, $params, self::$action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        $sql = "DELETE FROM menu_items WHERE url = :url AND mid = :mid";
+        $query = $db->delete($sql, $params, self::$action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
   
-  /**
+    /**
    * Gets the row id of the lastly inserted row in the database.
    *
    * @return the last inserted id
    */
-	public static function insertId()
-	{
-		global $db;
-		return $db->insertId();
-	}
+    public static function insertId()
+    {
+        global $db;
+        return $db->insertId();
+    }
 
 }

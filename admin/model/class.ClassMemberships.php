@@ -37,128 +37,128 @@ require_once HACKADEMIC_PATH."model/common/class.HackademicDB.php";
 
 class ClassMemberships
 {
-	public $id;
-	public $user_id;
-	public $class_id;
-	public $name;//class name
-	public $date_created;
+    public $id;
+    public $user_id;
+    public $class_id;
+    public $name;//class name
+    public $date_created;
 
     private static $_action_type = 'class_membership';
 
-	public static function addMembership($user_id, $class_id)
-	{
-		global $db;
-		$date = date('Y-m-d H:i:s');
-		$params = array(':user_id' => $user_id, ':class_id' => $class_id, ':date_created' => $date);
-		$sql = "INSERT INTO class_memberships(user_id,class_id,date_created)";
-		$sql .= " VALUES (:user_id ,:class_id ,:date_created)";
-		$query = $db->read($sql, $params, self::$_action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function addMembership($user_id, $class_id)
+    {
+        global $db;
+        $date = date('Y-m-d H:i:s');
+        $params = array(':user_id' => $user_id, ':class_id' => $class_id, ':date_created' => $date);
+        $sql = "INSERT INTO class_memberships(user_id,class_id,date_created)";
+        $sql .= " VALUES (:user_id ,:class_id ,:date_created)";
+        $query = $db->read($sql, $params, self::$_action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function getMembershipsOfUserObjects($user_id)
-	{
-	  $classes = self::getMembershipsOfUser($user_id);
-	  $object_array = array();
-	  foreach ($classes as $class) {
-		  $temp = array(
-		    'id' => $class['class_id'],
-		    'name' => $class['name']
-		  );
-		  $obj = Classes::instantiate($temp);
-		  array_push($object_array, $obj);
-	  }
-	  return $object_array;
-	}
+    public static function getMembershipsOfUserObjects($user_id)
+    {
+        $classes = self::getMembershipsOfUser($user_id);
+        $object_array = array();
+        foreach ($classes as $class) {
+            $temp = array(
+            'id' => $class['class_id'],
+            'name' => $class['name']
+            );
+            $obj = Classes::instantiate($temp);
+            array_push($object_array, $obj);
+        }
+        return $object_array;
+    }
 
-	/**
-	 * Returns an array with
-	 *  all the classes the user is in
-	 */
-	public static function getMembershipsOfUser($user_id)
-	{
-		global $db;
-		$params = array(':user_id' => $user_id);
-		$sql = "SELECT class_memberships.class_id, classes.name FROM class_memberships";
-		$sql .= " LEFT JOIN classes ON class_memberships.class_id = classes.id WHERE";
-		$sql .= " class_memberships.user_id = :user_id";
-		$query = $db->read($sql, $params, self::$_action_type);
-		$result_array = array();
-		while ($row = $db->fetchArray($query)) {
-			array_push($result_array, $row);
-		}
-		return $result_array;
-	}
+    /**
+     * Returns an array with
+     *  all the classes the user is in
+     */
+    public static function getMembershipsOfUser($user_id)
+    {
+        global $db;
+        $params = array(':user_id' => $user_id);
+        $sql = "SELECT class_memberships.class_id, classes.name FROM class_memberships";
+        $sql .= " LEFT JOIN classes ON class_memberships.class_id = classes.id WHERE";
+        $sql .= " class_memberships.user_id = :user_id";
+        $query = $db->read($sql, $params, self::$_action_type);
+        $result_array = array();
+        while ($row = $db->fetchArray($query)) {
+            array_push($result_array, $row);
+        }
+        return $result_array;
+    }
 
-	public static function doesMembershipExist($user_id, $class_id)
-	{
-		global $db;
-		$params = array(':user_id' => $user_id, ':class_id' => $class_id);
-		$sql = "SELECT * FROM class_memberships";
-		$sql .= " WHERE user_id = :user_id AND class_id = :class_id";
-		$query = $db->read($sql, $params, self::$_action_type);
-		if ($db->numRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function doesMembershipExist($user_id, $class_id)
+    {
+        global $db;
+        $params = array(':user_id' => $user_id, ':class_id' => $class_id);
+        $sql = "SELECT * FROM class_memberships";
+        $sql .= " WHERE user_id = :user_id AND class_id = :class_id";
+        $query = $db->read($sql, $params, self::$_action_type);
+        if ($db->numRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function deleteMembership($user_id, $class_id)
-	{
-		global $db;
-		$params = array(':user_id'=>$user_id, ':class_id' => $class_id);
-		$sql = "DELETE FROM class_memberships WHERE user_id=:user_id AND class_id=:class_id";
-		$query = $db->delete($sql, $params, self::$_action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function deleteMembership($user_id, $class_id)
+    {
+        global $db;
+        $params = array(':user_id'=>$user_id, ':class_id' => $class_id);
+        $sql = "DELETE FROM class_memberships WHERE user_id=:user_id AND class_id=:class_id";
+        $query = $db->delete($sql, $params, self::$_action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function deleteAllMemberships($user_id)
-	{
-		global $db;
-		$sql = "DELETE FROM class_memberships WHERE user_id=:user_id";
-		$params = array(':user_id' => $user_id);
-		$query = $db->delete($sql, $params, self::$_action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function deleteAllMemberships($user_id)
+    {
+        global $db;
+        $sql = "DELETE FROM class_memberships WHERE user_id=:user_id";
+        $params = array(':user_id' => $user_id);
+        $query = $db->delete($sql, $params, self::$_action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function deleteAllMembershipsOfClass($class_id)
-	{
-		global $db;
-		$params = array(':class_id' => $class_id);
-		$sql = "DELETE FROM class_memberships WHERE class_id=:class_id";
-		$query = $db->delete($sql, $params, self::$_action_type);
-		if ($db->affectedRows($query)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    public static function deleteAllMembershipsOfClass($class_id)
+    {
+        global $db;
+        $params = array(':class_id' => $class_id);
+        $sql = "DELETE FROM class_memberships WHERE class_id=:class_id";
+        $query = $db->delete($sql, $params, self::$_action_type);
+        if ($db->affectedRows($query)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public static function getAllMemberships($class_id)
-	{
-		global $db;
-		$params = array(':class_id' => $class_id);
-		$sql = "SELECT class_memberships.user_id, users.username FROM class_memberships ";
-		$sql .= "LEFT JOIN users on class_memberships.user_id = users.id WHERE ";
-		$sql .= "class_memberships.class_id = :class_id";
-		$query = $db->read($sql, $params, self::$_action_type);
-		$result_array = array();
-		while ($row = $db->fetchArray($query)) {
-			array_push($result_array, $row);
-		}
-		return $result_array;
-	}
+    public static function getAllMemberships($class_id)
+    {
+        global $db;
+        $params = array(':class_id' => $class_id);
+        $sql = "SELECT class_memberships.user_id, users.username FROM class_memberships ";
+        $sql .= "LEFT JOIN users on class_memberships.user_id = users.id WHERE ";
+        $sql .= "class_memberships.class_id = :class_id";
+        $query = $db->read($sql, $params, self::$_action_type);
+        $result_array = array();
+        while ($row = $db->fetchArray($query)) {
+            array_push($result_array, $row);
+        }
+        return $result_array;
+    }
 }
