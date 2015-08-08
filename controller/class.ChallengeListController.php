@@ -38,54 +38,54 @@ require_once HACKADEMIC_PATH."/admin/model/class.Classes.php";
 class ChallengeListController extends HackademicController
 {
 
-	public function go()
-	{
-		$username = $this->getLoggedInUser();
-		$user = User::findByUserName($username);
-		if (!$user) {
-		    return;
-		}
-		//$challenges=Challenge::getChallengesFrontend($user->id);
-		$res_array = $this->_getByClass($user);
-		$challenges = $res_array['challenges'];
-		$menu=array();
-		$message = false;
-		foreach ($challenges as $class_name => $class_challenges) {
-			$menu[$class_name] = array();
-			foreach ($class_challenges as $challenge){//var_dump($challenge);
-				$link = array ('id'=>$challenge->id,
-											 'title'=>$challenge->title,
-											 'availability'=>$challenge->availability,
-											 'class_id' => $res_array['ids'][$class_name],
-											 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
-				array_push($menu[$class_name], $link);
-				if ('private' == $challenge->availability) {
-					$message = true;
-				}
-			}
+    public function go()
+    {
+        $username = $this->getLoggedInUser();
+        $user = User::findByUserName($username);
+        if (!$user) {
+            return;
+        }
+        //$challenges=Challenge::getChallengesFrontend($user->id);
+        $res_array = $this->_getByClass($user);
+        $challenges = $res_array['challenges'];
+        $menu=array();
+        $message = false;
+        foreach ($challenges as $class_name => $class_challenges) {
+            $menu[$class_name] = array();
+            foreach ($class_challenges as $challenge){//var_dump($challenge);
+                $link = array ('id'=>$challenge->id,
+                  'title'=>$challenge->title,
+                  'availability'=>$challenge->availability,
+                  'class_id' => $res_array['ids'][$class_name],
+                  'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
+                array_push($menu[$class_name], $link);
+                if ('private' == $challenge->availability) {
+                    $message = true;
+                }
+            }
 
-		}
-		if ($message) {
-			$this->addSuccessMessage("Note: Unclickable challenges are not yet available");
-		}
+        }
+        if ($message) {
+            $this->addSuccessMessage("Note: Unclickable challenges are not yet available");
+        }
 
-		$this->addToView('list', $menu);
-		$this->setViewTemplate('challenge_list.tpl');
-		return $this->generateView();
-	}
-	private function _getByClass($user)
-	{
-		$result = array();
-		$class_challenges = array();
-		$classes = ClassMemberships::getMembershipsOfUser($user->id);
-		foreach ($classes as $cl) {
-			$result['ids'][$cl['name']] = $cl['class_id'];
-			$class_challenges[$cl['name']] = ClassChallenges::getAllMemberships($cl['class_id']);
-			foreach ($class_challenges[$cl['name']] as $key=>$challenge) {
-				$class_challenges[$cl['name']][$key] = Challenge::getChallenge($challenge['challenge_id']);
-			}
-		}
-		$result['challenges'] = $class_challenges;
-		return $result;
-	}
+        $this->addToView('list', $menu);
+        $this->setViewTemplate('challenge_list.tpl');
+        return $this->generateView();
+    }
+    private function _getByClass($user)
+    {
+        $result = array();
+        $class_challenges = array();
+        $classes = ClassMemberships::getMembershipsOfUser($user->id);
+        foreach ($classes as $cl) {
+            $result['ids'][$cl['name']] = $cl['class_id'];
+            $class_challenges[$cl['name']] = ClassChallenges::getAllMemberships($cl['class_id']);
+            foreach ($class_challenges[$cl['name']] as $key=>$challenge) {
+                $class_challenges[$cl['name']][$key] = Challenge::getChallenge($challenge['challenge_id']);
+            }
+        }
+        $result['challenges'] = $class_challenges;
+        return $result;
+    }
 }

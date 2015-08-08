@@ -43,16 +43,16 @@ class RankingsController extends HackademicController
 
     private static $_action_type = 'rankings';
    
-	static  function sortCount($rankA, $rankB)
-	{
-	if ($rankA['score'] == $rankB['score']) {
-			return 0;
-	}
+    static  function sortCount($rankA, $rankB)
+    {
+        if ($rankA['score'] == $rankB['score']) {
+            return 0;
+        }
         return ($rankA['score'] < $rankB['score']) ? 1 : -1;
-    }
+ }
    
-	public function go()
-	{
+    public function go()
+    {
         $this->setViewTemplate("rankings.tpl");
         if (self::isLoggedIn()) {
             $username = self::getLoggedInUser();
@@ -61,29 +61,29 @@ class RankingsController extends HackademicController
             } else {
                 $user = User::findByUserName($username);
                 $classes = ClassMemberships::getMembershipsOfUserObjects($user->id);
-		$show_global_rankings = new Classes();
-		$show_global_rankings->id = "";
-		$show_global_rankings->name = "Show Universal Rankings";
-		array_unshift($classes, $show_global_rankings);
+                $show_global_rankings = new Classes();
+                $show_global_rankings->id = "";
+                $show_global_rankings->name = "Show Universal Rankings";
+                array_unshift($classes, $show_global_rankings);
             }
             $this->addToView('classes', $classes);
-        }
+           }
         if (!isset($_GET["class"]) || $_GET["class"]=="") {
             $rankings = ChallengeAttempts::getUniversalRankings();
             $class_id = GLOBAL_CLASS_ID;
-        } else {
+           } else {
             $class_id = $_GET["class"];
             $class = Classes::getClass($class_id);
             if (!$class) {
                 $this->addErrorMessage("Not a valid class");
                 return $this->generateView(self::$_action_type);
-            } else {
+               } else {
                 $rankings = ChallengeAttempts::getClasswiseRankings($class_id);
+                }
             }
-        }
-       usort($rankings, array("RankingsController", "sortCount"));
-	$this->addToView('rankings', $rankings);
-        $this->addSuccessMessage("Showing Active Users Only");
-	return $this->generateView(self::$_action_type);
-    }
+            usort($rankings, array("RankingsController", "sortCount"));
+            $this->addToView('rankings', $rankings);
+            $this->addSuccessMessage("Showing Active Users Only");
+            return $this->generateView(self::$_action_type);
+ }
 }

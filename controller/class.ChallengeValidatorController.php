@@ -35,59 +35,59 @@ require_once HACKADEMIC_PATH."model/common/class.RegexSolution.php";
 
 class ChallengeValidatorController
 {
-	private $_monitor;
-	private $_solution;
+    private $_monitor;
+    private $_solution;
 
-	/**
-	 * Constructor
-	 * @param $_solution The solution of the challenge.
-	 * The solution can be an integer, a string or a regex solution.
-	 * @see class.RegexSolution.php
-	 */
-	public function ChallengeValidatorController($_solution)
-	{
-		$this->_solution = $_solution;
-		$this->_monitor = new ChallengeMonitorController();
-		$this->_monitor->go();
-	}
+    /**
+     * Constructor
+     * @param $_solution The solution of the challenge.
+     * The solution can be an integer, a string or a regex solution.
+     * @see class.RegexSolution.php
+     */
+    public function ChallengeValidatorController($_solution)
+    {
+        $this->_solution = $_solution;
+        $this->_monitor = new ChallengeMonitorController();
+        $this->_monitor->go();
+    }
 
-	/**
-	 * Initialize the challenge's monitor.
-	 */
-	public function startChallenge()
-	{
-		$this->_monitor->update(CHALLENGE_INIT, $_GET);
-	}
+    /**
+     * Initialize the challenge's monitor.
+     */
+    public function startChallenge()
+    {
+        $this->_monitor->update(CHALLENGE_INIT, $_GET);
+    }
 
-	/**
-	 * Validates a submitted solution.
-	 * Updates the monitor state depending on the result.
-	 * @param $answer The submitted solution.
-	 * @return True if the submitted solution was correct.
-	 */
-	public function validateSolution($answer)
-	{
-		$valid = false;
-		if ($this->_solution instanceof RegexSolution) {
-			$valid = $this->_solution->match($answer);
-		} else {
-			$valid = $this->_solution == $answer;
-		}
+    /**
+     * Validates a submitted solution.
+     * Updates the monitor state depending on the result.
+     * @param $answer The submitted solution.
+     * @return True if the submitted solution was correct.
+     */
+    public function validateSolution($answer)
+    {
+        $valid = false;
+        if ($this->_solution instanceof RegexSolution) {
+            $valid = $this->_solution->match($answer);
+        } else {
+            $valid = $this->_solution == $answer;
+        }
 
-		if ($valid) {
-			$this->_monitor->update(CHALLENGE_SUCCESS);
-		} else {
-			$this->_monitor->update(CHALLENGE_FAILURE);
-		}
+        if ($valid) {
+            $this->_monitor->update(CHALLENGE_SUCCESS);
+        } else {
+            $this->_monitor->update(CHALLENGE_FAILURE);
+        }
 
-		return $valid;
-	}
+        return $valid;
+    }
 
-	/**
-	 * Record a failed attempt to solve the challenge in the monitor.
-	 */
-	public function failChallenge()
-	{
-		$this->_monitor->update(CHALLENGE_FAILURE);
-	}
+    /**
+     * Record a failed attempt to solve the challenge in the monitor.
+     */
+    public function failChallenge()
+    {
+        $this->_monitor->update(CHALLENGE_FAILURE);
+    }
 }

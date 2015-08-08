@@ -39,41 +39,41 @@ require_once HACKADEMIC_PATH."/admin/model/class.Classes.php";
 class ChallengeMenuController
 {
 
-	public static function go()
-	{
-		$username = HackademicController::getLoggedInUser();
-		$user = User::findByUserName($username);
-		if (!$user) {
-		    return;
-		}
-		if (Session::isAdmin() || Session::isTeacher()) {
-		    $challenges=Challenge::getChallengesFrontend($user->id);
-		    $ch = array();
-		    $ch[" "] = $challenges;
-		    $challenges = $ch;
+    public static function go()
+    {
+        $username = HackademicController::getLoggedInUser();
+        $user = User::findByUserName($username);
+        if (!$user) {
+            return;
+        }
+        if (Session::isAdmin() || Session::isTeacher()) {
+            $challenges=Challenge::getChallengesFrontend($user->id);
+            $ch = array();
+            $ch[" "] = $challenges;
+            $challenges = $ch;
 
-		} else {
-		    $challenges=Challenge::getChallengesAssigned($user->id);
-		}
-		$menu=array();
-		if ($challenges != false) {
-		foreach ($challenges as $class_id => $class_challenges) {
-			$class = Classes::getClass($class_id);
-			if ($class != false) {
-				$menu[$class->name] = array();
-			} else {
-				continue;
-			}
+        } else {
+            $challenges=Challenge::getChallengesAssigned($user->id);
+        }
+        $menu=array();
+        if ($challenges != false) {
+            foreach ($challenges as $class_id => $class_challenges) {
+                $class = Classes::getClass($class_id);
+                if ($class != false) {
+                    $menu[$class->name] = array();
+                } else {
+                    continue;
+                }
 
-			foreach ($class_challenges as $challenge) {
-				$link = array ('id'=>$challenge->id,
-											 'title'=>$challenge->title,
-											 'class_id' => $class_id,
-											 'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
-				array_push($menu[$class->name], $link);
-			}
-		}
-		}
-		return $menu;
-	}
+                foreach ($class_challenges as $challenge) {
+                    $link = array ('id'=>$challenge->id,
+                                             'title'=>$challenge->title,
+                                             'class_id' => $class_id,
+                                             'url'=>'challenges/'.$challenge->pkg_name.'/index.php');
+                    array_push($menu[$class->name], $link);
+                }
+            }
+        }
+        return $menu;
+    }
 }

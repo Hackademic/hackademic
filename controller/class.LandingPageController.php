@@ -37,51 +37,51 @@ require_once HACKADEMIC_PATH."model/common/class.Article.php";
 class LandingPageController extends HackademicController
 {
 
-  private static $_action_type = 'landing_page';
+    private static $_action_type = 'landing_page';
 
-  public function go()
-  {
-		$limit = 10;
-		$targetpage = SOURCE_ROOT_PATH."?url=index.php";
-		$stages = 3;
-		$page=0;
+    public function go()
+    {
+        $limit = 10;
+        $targetpage = SOURCE_ROOT_PATH."?url=index.php";
+        $stages = 3;
+        $page=0;
 
-		if (isset($_GET['page'])) {
-			$page=$_GET['page'];
-		}
-		if ($page) {
-			$start = ($page - 1) * $limit; 
-		} else {
-			$start = 0;
-		}	
-		$total_pages = Article::getNumberOfArticles();
-		// Initial page num setup
-		if ($page == 0) {
-			$page = 1;
-		}
-		$prev = $page - 1;	
-		$next = $page + 1;							
-		$lastpage = ceil($total_pages/$limit);		
-		$LastPagem1 = $lastpage - 1;					
+        if (isset($_GET['page'])) {
+            $page=$_GET['page'];
+        }
+        if ($page) {
+            $start = ($page - 1) * $limit; 
+        } else {
+            $start = 0;
+        }    
+        $total_pages = Article::getNumberOfArticles();
+        // Initial page num setup
+        if ($page == 0) {
+            $page = 1;
+        }
+        $prev = $page - 1;    
+        $next = $page + 1;                            
+        $lastpage = ceil($total_pages/$limit);        
+        $LastPagem1 = $lastpage - 1;                    
 
-		$pagination = array (
-				'lastpage' => $lastpage,
-				'page' => $page,
-				'targetpage' => $targetpage,
-				'prev' => $prev,
-				'next' => $next,
-				'stages' => $stages,
-				'last_page_m1' => $LastPagem1
-				);
+        $pagination = array (
+                'lastpage' => $lastpage,
+                'page' => $page,
+                'targetpage' => $targetpage,
+                'prev' => $prev,
+                'next' => $next,
+                'stages' => $stages,
+                'last_page_m1' => $LastPagem1
+                );
 
-		$articles=Article::getAllArticles($start, $limit);
-		if (self::isLoggedIn()) {
-			$this->addToView('username', self::getLoggedInUser());
-		}
-		$this->addToView('articles', $articles);
-		$this->addToView('total_pages', $total_pages);
-		$this->addToView('pagination', $pagination);
-		$this->setViewTemplate('landingpage.tpl');
-		$this->generateView(self::$_action_type);
-	}
+        $articles=Article::getAllArticles($start, $limit);
+        if (self::isLoggedIn()) {
+            $this->addToView('username', self::getLoggedInUser());
+        }
+        $this->addToView('articles', $articles);
+        $this->addToView('total_pages', $total_pages);
+        $this->addToView('pagination', $pagination);
+        $this->setViewTemplate('landingpage.tpl');
+        $this->generateView(self::$_action_type);
+    }
 }

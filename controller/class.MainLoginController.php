@@ -39,21 +39,21 @@ require_once HACKADEMIC_PATH."model/common/class.User.php";
 class MainLoginController extends HackademicController
 {
 
-  private static $_action_type = 'main_login';
+    private static $_action_type = 'main_login';
 
-  public function go()
-  {
-		$this->setViewTemplate('mainlogin.tpl');
-		if (isset($_GET["msg"])) {
-			if ($_GET["msg"]=="invalid") {
-				$this->addErrorMessage("The username and/or password you entered is incorrect");
-			} elseif ($_GET["msg"]=="challenge") {
-				$this->addErrorMessage("You must be logged in to try a challenge");
-			} elseif ($_GET["msg"]=="activate") {
-				$this->addErrorMessage("Your account is not activated, please contact the admin to activate your account");
-			}
-		}
-		$this->addPageTitle('Log in');
-		return $this->generateView(self::$_action_type);
-	}
+    public function go()
+    {
+        $this->setViewTemplate('mainlogin.tpl');
+        if (isset($_GET["msg"])) {
+            if ($_GET["msg"]=="invalid") {
+                $this->addErrorMessage("The username and/or password you entered is incorrect");
+            } elseif ($_GET["msg"]=="challenge") {
+                $this->addErrorMessage("You must be logged in to try a challenge");
+            } elseif ($_GET["msg"]=="activate") {
+                $this->addErrorMessage("Your account is not activated, please contact the admin to activate your account");
+            }
+        }
+        $this->addPageTitle('Log in');
+        return $this->generateView(self::$_action_type);
+    }
 }

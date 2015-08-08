@@ -40,44 +40,44 @@ require_once HACKADEMIC_PATH."controller/class.HackademicController.php";
 class ShowChallengeController extends HackademicController
 {
 
-  private static $_action_type = 'show_challenge';
+    private static $_action_type = 'show_challenge';
 
-  public function go()
-  {
-		if (isset($_GET['id'])) {
-			if (isset($_GET['class_id'])) {
-				$class_id = htmlspecialchars($_GET['class_id']);
-			}
-		    $id = $_GET['id'];
-		    $challenge=Challenge::getChallenge($id);
-		    $this->setViewTemplate('showChallenge.tpl');
-		    $this->addToView('challenge', $challenge);
-		    if (!self::isLoggedIn()) {
-			    $this->addErrorMessage("You must login to be able to take the challenge");
-		    } else if (self::isAdmin() || self::IsAllowed(self::getLoggedInUser(), $challenge->id)) {
-			    $this->addToView('is_allowed', true);
-			    $this->addToView('username', self::getLoggedInUser());
- 			    $this->addToView('class_id', $class_id);
-		    } else {
-				$this->addErrorMessage(
-					   'You cannot take the challenge as you are not
+    public function go()
+    {
+        if (isset($_GET['id'])) {
+            if (isset($_GET['class_id'])) {
+                $class_id = htmlspecialchars($_GET['class_id']);
+            }
+            $id = $_GET['id'];
+            $challenge=Challenge::getChallenge($id);
+            $this->setViewTemplate('showChallenge.tpl');
+            $this->addToView('challenge', $challenge);
+            if (!self::isLoggedIn()) {
+                $this->addErrorMessage("You must login to be able to take the challenge");
+            } else if (self::isAdmin() || self::IsAllowed(self::getLoggedInUser(), $challenge->id)) {
+                $this->addToView('is_allowed', true);
+                $this->addToView('username', self::getLoggedInUser());
+                $this->addToView('class_id', $class_id);
+            } else {
+                $this->addErrorMessage(
+                    'You cannot take the challenge as you are not
 					    a member of any class to which this challenge is assigned and
 						this challenge is not publicly available for solving .'
-					);
-		    }
-		    $this->generateView(self::$_action_type);
-		}
-	}
+                );
+            }
+            $this->generateView(self::$_action_type);
+        }
+    }
 
-  protected static function isAllowed($username, $challenge_id)
-  {
-		$user = User::findByUserName($username);
-		$dbg_array = ClassChallenges::getChallengesOfUser($user->id);
-		foreach ($dbg_array as $element) {
-			if ($element->id === $challenge_id) {
-				return true;
-			}
-		}
-		return false;
-  }
+    protected static function isAllowed($username, $challenge_id)
+    {
+        $user = User::findByUserName($username);
+        $dbg_array = ClassChallenges::getChallengesOfUser($user->id);
+        foreach ($dbg_array as $element) {
+            if ($element->id === $challenge_id) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

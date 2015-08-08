@@ -36,69 +36,69 @@ require_once HACKADEMIC_PATH."model/common/class.UserHasChallengeToken.php";
 class TryChallengeController extends HackademicController
 {
 
-  private static $_action_type = 'try_challenge';
+    private static $_action_type = 'try_challenge';
 
-  public function go()
-  {
-		if (isset($_GET['id'])) {
-      $id = $_GET['id'];
-		    $class_id = htmlspecialchars($_GET['class_id']);
-      $this->addToView('id', $id);
-      $challenge=Challenge::getChallenge($id);
+    public function go()
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $class_id = htmlspecialchars($_GET['class_id']);
+            $this->addToView('id', $id);
+            $challenge=Challenge::getChallenge($id);
 
-      if (self::isLoggedIn() && (self::isAdmin() || self::IsAllowed(self::getLoggedInUser(), $challenge->id))) {
-        $challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge->pkg_name."/";
-        $this->addToView('pkg_name', $challenge->pkg_name);
-        $solution = $challenge->solution;
+            if (self::isLoggedIn() && (self::isAdmin() || self::IsAllowed(self::getLoggedInUser(), $challenge->id))) {
+                $challenge_path = SOURCE_ROOT_PATH."challenges/".$challenge->pkg_name."/";
+                $this->addToView('pkg_name', $challenge->pkg_name);
+                $solution = $challenge->solution;
 
-        if (isset($_POST) && count($_POST)!=0) {
-          //echo '<div style = "color:red">CHALLENGE WAS SUBMITTED</div>';
+                if (isset($_POST) && count($_POST)!=0) {
+                    //echo '<div style = "color:red">CHALLENGE WAS SUBMITTED</div>';
+                }
+
+                if (!isset($_GET["path"])) {
+                    $url = $challenge_path."index.php";
+                } else {
+                    $url = $challenge_path.$_GET['path'];
+                }
+
+                if (isset($_GET['user']) && $_GET['user'] == self::getLoggedInUser()) {
+                    $usr = $_SESSION['hackademic_user_id'];
+                    $url.='?user_id='.$usr."&id=".$id;
+                    $url.='&class_id='.$class_id;
+                    $pair = UserHasChallengeToken::find($usr, $id, $class_id);
+                    if ($pair === false) {
+                        error_log("adding new token usr, id".$usr." ".$id);
+                        Global $ESAPI_utils;
+                        $token = $ESAPI_utils->getRandomizer()->getRandomGUID();
+                        $token = $ESAPI_utils->getEncoder()->encodeForURL($token);
+                        UserHasChallengeToken::add($usr, $id, $class_id, $token);
+                        $pair = new UserHasChallengeToken();
+                        $pair->token = $token;
+                    }
+                    $url .= '&token='.$pair->token;
+                    //var_dump($pair);
+                }
+                header("Location: ".$url);
+                die();
+            } else {
+                error_log("oh noes, miscelaneous error (BUG)");
+                header("Location: ".SITE_ROOT_PATH);
+                die();
+            }
         }
+        $this->setViewTemplate("trychallenge.tpl");
+        $this->generateView(self::$_action_type);
+    }
 
-        if (!isset($_GET["path"])) {
-          $url = $challenge_path."index.php";
-        } else {
-          $url = $challenge_path.$_GET['path'];
+    protected static function isAllowed($username, $challenge_id)
+    {
+        $user = User::findByUserName($username);
+        $dbg_array = ClassChallenges::getChallengesOfUser($user->id);
+        foreach ($dbg_array as $element) {
+            if ($element->id === $challenge_id) {
+                return true;
+            }
         }
-
-        if (isset($_GET['user']) && $_GET['user'] == self::getLoggedInUser()) {
-					$usr = $_SESSION['hackademic_user_id'];
-					$url.='?user_id='.$usr."&id=".$id;
-					$url.='&class_id='.$class_id;
-          $pair = UserHasChallengeToken::find($usr, $id, $class_id);
-          if ($pair === false) {
-            error_log("adding new token usr, id".$usr." ".$id);
-            Global $ESAPI_utils;
-            $token = $ESAPI_utils->getRandomizer()->getRandomGUID();
-            $token = $ESAPI_utils->getEncoder()->encodeForURL($token);
-            UserHasChallengeToken::add($usr, $id, $class_id, $token);
-            $pair = new UserHasChallengeToken();
-            $pair->token = $token;
-          }
-          $url .= '&token='.$pair->token;
-          //var_dump($pair);
-        }
-        header("Location: ".$url);
-				die();
-      } else {
-        error_log("oh noes, miscelaneous error (BUG)");
-        header("Location: ".SITE_ROOT_PATH);
-				die();
-      }
-		}
-		$this->setViewTemplate("trychallenge.tpl");
-		$this->generateView(self::$_action_type);
-	}
-
-  protected static function isAllowed($username, $challenge_id)
-  {
-		$user = User::findByUserName($username);
-		$dbg_array = ClassChallenges::getChallengesOfUser($user->id);
-		foreach ($dbg_array as $element) {
-			if ($element->id === $challenge_id) {
-				return true;
-			}
-		}
-		return false;
-	}
+        return false;
+    }
 }

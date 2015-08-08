@@ -40,33 +40,33 @@ require_once HACKADEMIC_PATH."model/common/class.Utils.php";
 class ForgotPasswordController extends HackademicController
 {
 
-  private static $_action_type = 'forgot_password';
+    private static $_action_type = 'forgot_password';
 
-  public function go()
-  {
-		$this->setViewTemplate('forgotpw.tpl');
-		if (isset($_POST['submit'])) {
-			if ($_POST['username']=='') {
-				$this->addErrorMessage("Username should not be empty");
-			} else {
-				$username = $_POST['username'];
-				//$is_activated = $_POST['is_activated'];
-				if (!(User::doesUserExist($username)) || !User::isUserActivated($username)) {
-					$this->addErrorMessage("Username does not exist");
-				} else {
-					global $ESAPI_utils;
-					$token=$ESAPI_utils->getHttpUtilities()->getCSRFToken();
-					$subject="Hackademic new password link activation";
-					$message="Please click on the following link below to reset your password";
-					$message = SOURCE_ROOT_PATH."?url=resetpassword&username=$username&token=$token";
-					error_log($message);
-					//Mailer::mail($email,$subject,$message);
-					$result = User::addToken($username, $token);
-					$this->addSuccessMessage("A mail has been send to your email  click on the link in the email to reset the password to your account");
-					//header("Location: resetpassword.php?username=$username&token=$token");
-				}
-			}
-		}
-		return $this->generateView(self::$_action_type);
-	}
+    public function go()
+    {
+        $this->setViewTemplate('forgotpw.tpl');
+        if (isset($_POST['submit'])) {
+            if ($_POST['username']=='') {
+                $this->addErrorMessage("Username should not be empty");
+            } else {
+                $username = $_POST['username'];
+                //$is_activated = $_POST['is_activated'];
+                if (!(User::doesUserExist($username)) || !User::isUserActivated($username)) {
+                    $this->addErrorMessage("Username does not exist");
+                } else {
+                    global $ESAPI_utils;
+                    $token=$ESAPI_utils->getHttpUtilities()->getCSRFToken();
+                    $subject="Hackademic new password link activation";
+                    $message="Please click on the following link below to reset your password";
+                    $message = SOURCE_ROOT_PATH."?url=resetpassword&username=$username&token=$token";
+                    error_log($message);
+                    //Mailer::mail($email,$subject,$message);
+                    $result = User::addToken($username, $token);
+                    $this->addSuccessMessage("A mail has been send to your email  click on the link in the email to reset the password to your account");
+                    //header("Location: resetpassword.php?username=$username&token=$token");
+                }
+            }
+        }
+        return $this->generateView(self::$_action_type);
+    }
 }

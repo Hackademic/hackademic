@@ -40,66 +40,67 @@ require_once HACKADEMIC_PATH."model/common/class.Utils.php";
 class RegisterUserController extends HackademicController
 {
 
-	public $username;
-	public $name;
-	public $email;
+    public $username;
+    public $name;
+    public $email;
 
-  private static $_action_type = 'register_user';
+    private static $_action_type = 'register_user';
 
-	public function go() {
-		$this->setViewTemplate('register_user.tpl');
-		if (isset($_POST['submit'])) {
-			$this->saveFormFields();
-			if ($_POST['username']=='') {
-				$this->addErrorMessage("Username should not be empty");
-			} elseif (strpos($_POST['username'], "\0") !== false) {
-				$this->addErrorMessage("Null Byte characters are not valid");	
-			} elseif ($_POST['full_name']=='') {
-				$this->addErrorMessage("Full name should not be empty");
-			} elseif ($_POST['password']=='') {
-				$this->addErrorMessage("Password should not be empty");
-			} elseif ($_POST['confirmpassword']=='') {
-				$this->addErrorMessage("Please confirm password");
-			} elseif ($_POST['email']=='') {
-				$this->addErrorMessage("please enter ur email id");	    
-			} else {
-				$username = Utils::sanitizeInput($_POST['username']);
-				$password = $_POST['password'];
-				$confirmpassword=$_POST['confirmpassword'];
-				$full_name = Utils::sanitizeInput($_POST['full_name']);
-				$email= Utils::sanitizeInput($_POST['email']);  //esapi email encode
-				//$is_activated = $_POST['is_activated'];
-				if (User::doesUserExist($username)) {
-					$this->addErrorMessage("Username already exists");
-				} elseif (User::doesEmailExist($email)) {
-					$this->addErrorMessage("Email already exists");
-				} elseif (!($password==$confirmpassword)) {
-					$this->addErrorMessage("The two passwords dont match!");
-				} elseif (!Utils::validateEmail($email)) {
-					$this->addErrorMessage("Please enter a valid email id");
-				} else {
-					//$this->destroyFormFields();
-					$this->setViewTemplate('mainlogin.tpl');
-					$subject="Hackademic new account";
-					$message="Hackademic account created succesfully";
-					//Mailer::mail($email,$subject,$message);
-					$joined=date("Y-m-d H-i-s");
-					$result = User::addUser($username, $full_name, $email, $password, $joined);
-					$usr = User::findByUserName($username);
-					$res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
-					$this->addSuccessMessage("You have been registered succesfully");
-				}
-			}
-		}
-		return $this->generateView(self::$_action_type);
-	}
+    public function go() 
+    {
+        $this->setViewTemplate('register_user.tpl');
+        if (isset($_POST['submit'])) {
+            $this->saveFormFields();
+            if ($_POST['username']=='') {
+                $this->addErrorMessage("Username should not be empty");
+            } elseif (strpos($_POST['username'], "\0") !== false) {
+                $this->addErrorMessage("Null Byte characters are not valid");    
+            } elseif ($_POST['full_name']=='') {
+                $this->addErrorMessage("Full name should not be empty");
+            } elseif ($_POST['password']=='') {
+                $this->addErrorMessage("Password should not be empty");
+            } elseif ($_POST['confirmpassword']=='') {
+                $this->addErrorMessage("Please confirm password");
+            } elseif ($_POST['email']=='') {
+                $this->addErrorMessage("please enter ur email id");        
+            } else {
+                $username = Utils::sanitizeInput($_POST['username']);
+                $password = $_POST['password'];
+                $confirmpassword=$_POST['confirmpassword'];
+                $full_name = Utils::sanitizeInput($_POST['full_name']);
+                $email= Utils::sanitizeInput($_POST['email']);  //esapi email encode
+                //$is_activated = $_POST['is_activated'];
+                if (User::doesUserExist($username)) {
+                    $this->addErrorMessage("Username already exists");
+                } elseif (User::doesEmailExist($email)) {
+                    $this->addErrorMessage("Email already exists");
+                } elseif (!($password==$confirmpassword)) {
+                    $this->addErrorMessage("The two passwords dont match!");
+                } elseif (!Utils::validateEmail($email)) {
+                    $this->addErrorMessage("Please enter a valid email id");
+                } else {
+                    //$this->destroyFormFields();
+                    $this->setViewTemplate('mainlogin.tpl');
+                    $subject="Hackademic new account";
+                    $message="Hackademic account created succesfully";
+                    //Mailer::mail($email,$subject,$message);
+                    $joined=date("Y-m-d H-i-s");
+                    $result = User::addUser($username, $full_name, $email, $password, $joined);
+                    $usr = User::findByUserName($username);
+                    $res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
+                    $this->addSuccessMessage("You have been registered succesfully");
+                }
+            }
+        }
+        return $this->generateView(self::$_action_type);
+    }
 
-	public function saveFormFields()
-	{
-		$this->username = Utils::sanitizeInput($_POST['username']);
-		$this->name = Utils::sanitizeInput($_POST['full_name']);
-		$this->email = $_POST['email'];
-		$this->addToView('cached', $this);
-	}
+    public function saveFormFields()
+    {
+        $this->username = Utils::sanitizeInput($_POST['username']);
+        $this->name = Utils::sanitizeInput($_POST['full_name']);
+        $this->email = $_POST['email'];
+        $this->addToView('cached', $this);
+    }
 
 }
