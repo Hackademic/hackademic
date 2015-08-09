@@ -7,7 +7,6 @@ pages/test/
 *.swp
 *.orig
 *.rej
-test
 nbproject/
 composer.lock
 vendor/
