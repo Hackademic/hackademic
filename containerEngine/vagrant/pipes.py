@@ -16,7 +16,7 @@ class dpipes:
             os.mkfifo(self.pipePath)
 
         print """[%s] [Main Thread] Creating named pipe, 
-		to listen to incoming commands""" % time.time()
+        to listen to incoming commands""" % time.time()
         self.fifo = open(self.pipePath, 'r')
 
         while True:
@@ -24,7 +24,6 @@ class dpipes:
             if line:
                 print '[%s] Command Recieved: %s' % (time.time(), line)
                 # Spawn a new thread and process the argument
-                print "line is %s" % line
                 commandproc(line)
 
             # Wait for 1 seconds now

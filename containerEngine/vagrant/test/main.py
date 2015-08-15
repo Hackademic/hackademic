@@ -30,9 +30,10 @@ def isProcessRunning(pid):
 
 
 class TestDaemon(unittest.TestCase):
-    self.dirsToClean = []
 
     def setUp(self):
+        self.dirsToClean = []
+
         # Start the daemon
         self.currentdir = os.path.dirname(
             os.path.abspath(inspect.getfile(inspect.currentframe())))

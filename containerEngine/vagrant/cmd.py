@@ -9,6 +9,12 @@ import shutil
 import re
 from threading import Thread
 from data import vagrantData
+import random
+import string
+
+
+class FlagFileNotFound (Exception):
+    pass
 
 
 class helper:
@@ -26,6 +32,7 @@ class helper:
                 print('Directory not copied. Error: %s' % e)
 
     @staticmethod
+    # Global function to get root of a relative path
     def getRootFolder(path):
         arr = path.split('/')
         if arr[0] == '':
@@ -34,6 +41,33 @@ class helper:
             except:
                 return ''
         return arr[0]
+
+    @staticmethod
+    def getRandStr(len):
+        return ''.join(random.SystemRandom().choice(
+            string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(len))
+
+    @staticmethod
+    # Global function to randomize a flag in a file
+    # @param: the absolute path of the flag
+    # The function will read the file and change its value, by
+    # a random string of same length
+    # random string contain uppercase alphabets, lowercase alphabets
+    # AND digits
+    def randomizeFlaginFile(path):
+        if not os.path.exists(path):
+            raise FlagFileNotFound(
+                'no file was found at path given for flag file')
+
+        _flag = ''
+        with open(path, 'r+') as _file:
+            flag = _file.readline()
+            _len = len(flag)
+            _flag = helper.getRandStr(_len)
+
+            _file.seek(0)
+            _file.write(_flag)
+            _file.truncate()
 
 
 class commandproc:
@@ -62,6 +96,24 @@ class commandproc:
             return False
 
         return True
+
+    # Function to start a vagrant box in current dir
+    def VagrantUp(self):
+        try:
+            op = subprocess.check_output(['vagrant', 'up'])
+            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
+        except Exception as ex:
+            print """[%s] Exception Occured while vagrant up,
+            Ex: {%s}""" % (time.time(), ex)
+
+    # Function to stop a vagrant box in current dir
+    def VagrantStop(self):
+        try:
+            op = subprocess.check_output(['vagrant', 'destroy', '-f'])
+            print "[%s] Vagrant destroy called. Output: %s" % (time.time(), op)
+        except Exception as ex:
+            print """[%s] Exception Occured while vagrant up,
+            Ex: {%s}""" % (time.time(), ex)
 
     # Function to create a vagrant file from template
     def createVagrantFile(self):
@@ -96,7 +148,6 @@ class commandproc:
                 '~src~', prefix + _script) + "\n  "
         data = data.replace(m.group(0), scriptConfigScript)
 
-        print subprocess.check_output(['pwd'])
         with open('VagrantFile', 'w') as f:
             f.write(data)
 
@@ -105,7 +156,7 @@ class commandproc:
 
         if len(args) < 3:
             print """[%s] Invalid command: {%s} sent to daemon.
-			Skipping the command!""" % (time.time(), command)
+            Skipping the command!""" % (time.time(), command)
             return
 
         self.outPipe = self.currentPath + "/tmp/" + args[0]
@@ -117,6 +168,7 @@ class commandproc:
         # ------------------------------------------------------------------------
         # Code to preform requested action
         # ------------------------------------------------------------------------
+        os.chdir(self.currentPath)
 
         cmdString = args[1]
         if "create" == cmdString:
@@ -133,7 +185,7 @@ class commandproc:
             if success is not True:
                 self.out['error'] = True
                 self.out['message'] = """Unable to parse provided XML!
-				Error: %s """ % str(success)
+                Error: %s """ % str(success)
             else:
                 # TODO: verify the data loaded from XML
                 data = {}
@@ -147,8 +199,6 @@ class commandproc:
                 os.chdir(self.currentPath)
                 if not os.path.exists("./data"):
                     print "making dir ./data"
-                    op = subprocess.check_output(['pwd'])
-                    print op
                     os.makedirs("./data")
 
                 os.chdir("./data")
@@ -210,16 +260,115 @@ class commandproc:
                     self.out['message'] = 'success'
 
         elif "start" == cmdString:
-            print "start command triggered"
-            # TASKS:
-            # Create a clone directory of the challenge directory
-            # Start VagrantBox for this one
-            # Return the ID
+            _boxId = args[2]
+
+            if not os.path.exists("./data"):
+                self.out['error'] = True
+                self.out[
+                    'message'] = 'data directory does not exist. challenge cannot be created'
+            else:
+                os.chdir("./data")
+                if not os.path.exists("./boxes"):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'box for boxId %s not found' % _boxId
+                elif not os.path.exists("./boxes/" +_boxId):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'box for boxId %s not found' % _boxId
+                else:
+                    if not os.path.exists("./challenges"):
+                        os.makedirs("challenges")
+
+                    _challengeID = _boxId + helper.getRandStr(5)
+                    while os.path.exists("./challenges/" + _challengeID):
+                        _challengeID = _boxId + helper.getRandStr(5)
+
+                    # Copy all files to this challenge directory
+                    helper.copy(
+                        "./boxes/" + _boxId, "./challenges/" + _challengeID)
+
+                    # load the xml in this directory to memory
+                    os.chdir("./challenges/" + _challengeID)
+                    xmlFile = "./challenge.xml"
+                    xmlData = vagrantData(xmlFile)
+                    xmlData.parse()
+
+                    # verify the content
+                    # check for flags
+                    err = False
+                    fileNotFound = []
+
+                    for flags in xmlData.flags:
+                        if not os.path.exists("./files/" + flags):
+                            err = True
+                            fileNotFound.append(flags)
+
+                    # check for files
+                    for files in xmlData.files:
+                        if not os.path.exists("./files/" + files.src):
+                            err = True
+                            fileNotFound.append(files.src)
+
+                    # check for scripts
+                    for script in xmlData.scripts:
+                        if not os.path.exists("./files/" + script):
+                            err = True
+                            fileNotFound.append(script)
+
+                    # check for manifests
+                    if not os.path.exists("./manifests/" + xmlData.puppetManifest):
+                        err = True
+                        fileNotFound.append(xmlData.puppetManifest)
+
+                    if True == err:
+                        self.out['err'] = True
+                        self.out[
+                            'message'] = 'following files were not found: \n'
+                        for _file in fileNotFound:
+                            self.out['message'] += _file + '\n'
+                    else:
+                        # modify the flag files
+                        for flag in xmlData.flags:
+                            helper.randomizeFlaginFile("./files/" + flag)
+
+                        # TODO port forwarding / subdomain thingy
+
+                        # start the box
+                        self.VagrantUp()
+
+                    self.out['data'] = {}
+                    self.out['data']['challengeId'] = _challengeID
+                    self.out['message'] = 'success'
+
         elif "stop" == cmdString:
-            print "stop command triggered"
+            _challengeID = args[2]
+            if not os.path.exists("./data/challenges/" + _challengeID):
+                self.out['error'] = True
+                self.out[
+                    'message'] = 'unable to stop %s, as it doesn\'t exist' % _challengeID
+            else:
+                os.chdir("./data/challenges/" + _challengeID)
+
+                # Stop the VM
+                self.VagrantStop()
+
+                os.chdir("../")
+
+                # delete the challenegeID Dir
+                shutil.rmtree("./" + _challengeID)
+                self.out['message'] = _challengeID + ' deleted successfully'
+                self.out['data'] = {}
+                self.out['data']['challenegeID'] = _challengeID
+
         elif "info" == cmdString:
+            invalidCommand = False
+
             if "all" == args[2]:
                 if "box" == args[3]:
+                    # TODO change this to showing all hackademic
+                    # boxes added to system by parsing challenge.xml
+                    # in each box that exist in ./data/boxes directory
 
                     # Code to list all boxes in system
                     op = subprocess.check_output(['vagrant', 'box', 'list'])
@@ -232,17 +381,35 @@ class commandproc:
 
                 elif "challenge" == args[3]:
                     print "info all challenge called"
+                    # TODO for each dir in ./data/challeneges
+                    # Get status and print it back to client
+
+                else:
+                    invalidCommand = True
+
             elif "box" == args[2]:
                 boxId = args[3]
                 print "info box <box id> called"
+
             elif "challenge" == args[2]:
                 challengeId = args[3]
                 print "info challenge <challenge id> called"
 
+            else:
+                invalidCommand = True
+
+            if True == invalidCommand:
+                self.out['error'] = True
+                self.out['message'] = """usage of info command:
+                info all box
+                info all challenge
+                info box <box ID>
+                info challenge <challenge ID>
+                """
+
         # ------------------------------------------------------------------------
         # Code to respond back to the client
         # ------------------------------------------------------------------------
-        print "responding back via client"
         # make a output fifo pipe
         if not os.path.exists(self.outPipe):
             os.mkfifo(self.outPipe)
@@ -252,8 +419,9 @@ class commandproc:
         self.outfifo = open(self.outPipe, 'w+')
         self.outfifo.write(output)
         self.outfifo.close()
+
         print """[%s] Output sent back to client using pipe:
-		%s""" % (time.time(), self.outPipe)
+        %s""" % (time.time(), self.outPipe)
 
     # Constructor: Calls the classifier method in new thread
     def __init__(self, command):
