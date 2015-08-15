@@ -70,8 +70,8 @@ class TestDaemon(unittest.TestCase):
         if os.path.exists(self.parentdir + "/tmp"):
             shutil.rmtree(self.parentdir + "/tmp")
 
-        for dirs in self.dirsToClean:
-            shutil.rmtree(dirs)
+        # for dirs in self.dirsToClean:
+        #     shutil.rmtree(dirs)
 
     def test_daemon_active(self):
         # Get Process ID from ../tmp/process.pid file
@@ -130,28 +130,52 @@ class TestDaemon(unittest.TestCase):
             line = i_fifo.readline()[:-1]
             if line:
                 data = json.loads(line)
-                print data
+
                 self.assertEquals('success', data['message'])
                 self.assertEquals('ubuntu/trusty64', data['data']['basebox'])
                 self.assertFalse(data['error'])
 
                 challengeBoxPath = data['data'][
                     'basePath'] + "/" + data['data']['challengeId']
-                # TODO Check for vagrant file
+
+                challengePath = data['data'][
+                    'basePath'] + "/" + data['data']['challengeId']
 
                 # Check if challenge directory was created
-                self.assertTrue(
-                    os.path.exists(data['data']['basePath'] + "/" + data['data']['challengeId']))
+                self.assertTrue(os.path.exists(challengePath))
 
                 # Check if required files and folders were created
-                self.assertTrue(os.path.exists(
-                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/files"))
-                self.assertTrue(os.path.exists(
-                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/manifests"))
-                self.assertTrue(os.path.exists(
-                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/challenge.xml"))
-                self.assertTrue(os.path.exists(
-                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/Vagrantfile"))
+                self.assertTrue(
+                    os.path.exists(challengePath + "/challenge.xml"))
+
+                xmlData = vagrantData(challengePath + "/challenge.xml")
+                xmlData.parse()
+
+                self.assertTrue(os.path.exists(challengePath + "/files"))
+
+                for _file in xmlData.files:
+                    self.assertTrue(os.path.exists(challengePath +"/files/" +_file.src))
+
+                for _flag in xmlData.flags:
+                    self.assertTrue(os.path.exists(challengePath +"/files/" +_flag))
+
+                for _script in xmlData.scripts:
+                    self.assertTrue(os.path.exists(challengePath +"/files/" +_script))
+
+                self.assertTrue(os.path.exists(challengePath + "/manifests"))
+
+                self.assertTrue(os.path.exists(challengePath + "/Vagrantfile"))
+
+                self.assertTrue(os.path.exists(challengePath + "/.status"))
+
+                with open(challengePath + "/.status", 'r') as status_file:
+                    status=json.loads(status_file.readline())
+                    self.assertEquals(
+                        data['data']['basebox'], status['basebox'])
+                    self.assertEquals(status['active'], 0)
+
+
+
 
                 # TODO: verify more data as per xml provided
 
@@ -168,11 +192,11 @@ class TestXMLParser(unittest.TestCase):
 
     def setUp(self):
         # Start the daemon
-        self.currentdir = os.path.dirname(
+        self.currentdir=os.path.dirname(
             os.path.abspath(inspect.getfile(inspect.currentframe())))
-        self.parentdir = os.path.dirname(self.currentdir)
-        self.xmlfilepath = self.currentdir + "/sample/challenge.xml"
-        self.d = vagrantData(self.xmlfilepath)
+        self.parentdir=os.path.dirname(self.currentdir)
+        self.xmlfilepath=self.currentdir + "/sample/challenge.xml"
+        self.d=vagrantData(self.xmlfilepath)
 
         self.assertTrue(self.d.parse())
 
@@ -203,8 +227,8 @@ class TestXMLParser(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestDaemon)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    suite=unittest.TestLoader().loadTestsFromTestCase(TestDaemon)
+    unittest.TextTestRunner(verbosity = 2).run(suite)
 
-    suite2 = unittest.TestLoader().loadTestsFromTestCase(TestXMLParser)
-    unittest.TextTestRunner(verbosity=2).run(suite2)
+    suite2=unittest.TestLoader().loadTestsFromTestCase(TestXMLParser)
+    unittest.TextTestRunner(verbosity = 2).run(suite2)

@@ -256,6 +256,14 @@ class commandproc:
 
                     # Modify the vagrantFile according to xml data
                     self.createVagrantFile()
+
+                    # Create a .status file
+                    status = {}
+                    status['basebox'] = xmlData.baseBox
+                    status['active'] = 0
+                    with open('.status', 'w') as o_file:
+                        o_file.write(json.dumps(status))
+
                     self.out['data'] = data
                     self.out['message'] = 'success'
 
