@@ -8,9 +8,12 @@ import subprocess
 import shutil
 import re
 from threading import Thread
+import threading
 from data import vagrantData
 import random
 import string
+
+lock = threading.Lock()
 
 
 class FlagFileNotFound (Exception):
@@ -86,38 +89,55 @@ class commandproc:
             Ex: {%s}""" % (time.time(), boxname, ex)
 
     # Function to call init method in the current directory
-    def vagrantInit(self, boxname):
+    def vagrantInit(self, boxname, boxId):
+        lock.acquire()
         try:
+            os.chdir("./data/boxes/" + boxId)
             op = subprocess.check_output(['vagrant', 'init', boxname])
+            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
         except Exception as ex:
             print """[%s] Exception Occured while initialising vagrant box,
             Ex: {%s}""" % (time.time(), ex)
 
+            os.chdir(self.currentPath)
+            lock.release()
             return False
 
+        os.chdir(self.currentPath)
+        lock.release()
         return True
 
     # Function to start a vagrant box in current dir
-    def VagrantUp(self):
+    def VagrantUp(self, challengeId):
+        lock.acquire()
         try:
+            os.chdir("./data/challenges/" + challengeId)
             op = subprocess.check_output(['vagrant', 'up'])
             print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
         except Exception as ex:
             print """[%s] Exception Occured while vagrant up,
             Ex: {%s}""" % (time.time(), ex)
 
+        os.chdir(self.currentPath)    
+        lock.release()
+
     # Function to stop a vagrant box in current dir
-    def VagrantStop(self):
+    def VagrantStop(self, challengeId):
+        lock.acquire()
         try:
+            os.chdir("./data/challenges/" + challengeId)
             op = subprocess.check_output(['vagrant', 'destroy', '-f'])
             print "[%s] Vagrant destroy called. Output: %s" % (time.time(), op)
         except Exception as ex:
             print """[%s] Exception Occured while vagrant up,
             Ex: {%s}""" % (time.time(), ex)
 
+        os.chdir(self.currentPath)    
+        lock.release()
+
     # Function to create a vagrant file from template
-    def createVagrantFile(self):
-        with open("../../.VagrantFile", 'r') as f:
+    def createVagrantFile(self, path):
+        with open("./data/.VagrantFile", 'r') as f:
             data = f.read()
 
         data = data.replace('~basebox~', self.xmlData.baseBox)
@@ -148,7 +168,7 @@ class commandproc:
                 '~src~', prefix + _script) + "\n  "
         data = data.replace(m.group(0), scriptConfigScript)
 
-        with open('VagrantFile', 'w') as f:
+        with open(path + "/VagrantFile", 'w') as f:
             f.write(data)
 
     def classifier(self, command):
@@ -196,37 +216,35 @@ class commandproc:
                 self.vagrantAddBox(xmlData.baseBox)
 
                 # Create a challenge directory
-                os.chdir(self.currentPath)
                 if not os.path.exists("./data"):
-                    print "making dir ./data"
                     os.makedirs("./data")
 
-                os.chdir("./data")
-                if not os.path.exists("./boxes"):
-                    os.makedirs("./boxes")
-                os.chdir("./boxes")
+                tmpCurrentDir = "./data"
+
+                if not os.path.exists(tmpCurrentDir + "/boxes"):
+                    os.makedirs(tmpCurrentDir + "/boxes")
+                tmpCurrentDir += "/boxes"
 
                 challengeIdBase = xmlData.baseBox.replace('/', '_')
                 i = 1
                 challengeId = challengeIdBase + str(i)
-                while os.path.exists(challengeId):
+                while os.path.exists(tmpCurrentDir + "/" + challengeId):
                     i += 1
                     challengeId = challengeIdBase + str(i)
 
                 data['challengeId'] = challengeId
-                os.makedirs(challengeId)
-                os.chdir("./" + challengeId)
+                os.makedirs(tmpCurrentDir + "/" + challengeId)
+                tmpCurrentDir += "/" + challengeId
 
                 # Init vagrant at that directory
-                if not self.vagrantInit(xmlData.baseBox):
+                if not self.vagrantInit(xmlData.baseBox, challengeId):
                     self.out['error'] = True
                     self.out['message'] = 'vagrant init failed'
                 else:
-                    shutil.copyfile(xmlFile, "challenge.xml")
+                    shutil.copyfile(xmlFile, tmpCurrentDir + "/challenge.xml")
                     # create the files directory and copy the files, to that directory
                     # In same manner as provided in xml
-                    os.makedirs("files")
-                    os.chdir("./files")
+                    os.makedirs(tmpCurrentDir + "/files")
                     directoriesCopies = []
 
                     # Copy the files
@@ -235,7 +253,7 @@ class commandproc:
                             # Copy that folder to this folder
                             directory = helper.getRootFolder(_file.src)
                             helper.copy(
-                                challengePath + "/" + directory, directory)
+                                challengePath + "/" + directory, tmpCurrentDir + "/files/" + directory)
                             directoriesCopies.append(directory)
 
                     # Copy the scripts
@@ -244,24 +262,23 @@ class commandproc:
                             # Copy that folder to this folder
                             directory = helper.getRootFolder(_script)
                             helper.copy(
-                                challengePath + "/" + directory, directory)
+                                challengePath + "/" + directory, tmpCurrentDir + "/files/" + directory)
                             directoriesCopies.append(directory)
 
                     # Copy the manifest file
-                    os.chdir("../")
                     if not xmlData.puppetManifest == '':
-                        os.makedirs("manifests")
+                        os.makedirs(tmpCurrentDir + "/manifests")
                         shutil.copyfile(
-                            challengePath + "/" + xmlData.puppetManifest, "./manifests/default.pp")
+                            challengePath + "/" + xmlData.puppetManifest, tmpCurrentDir + "/manifests/default.pp")
 
                     # Modify the vagrantFile according to xml data
-                    self.createVagrantFile()
+                    self.createVagrantFile(tmpCurrentDir)
 
                     # Create a .status file
                     status = {}
                     status['basebox'] = xmlData.baseBox
                     status['active'] = 0
-                    with open('.status', 'w') as o_file:
+                    with open(tmpCurrentDir +'/.status', 'w') as o_file:
                         o_file.write(json.dumps(status))
 
                     self.out['data'] = data
@@ -275,30 +292,31 @@ class commandproc:
                 self.out[
                     'message'] = 'data directory does not exist. challenge cannot be created'
             else:
-                os.chdir("./data")
-                if not os.path.exists("./boxes"):
+                tmpCurrentDir = "./data"
+                if not os.path.exists(tmpCurrentDir + "/boxes"):
                     self.out['error'] = True
                     self.out[
                         'message'] = 'box for boxId %s not found' % _boxId
-                elif not os.path.exists("./boxes/" +_boxId):
+                elif not os.path.exists(tmpCurrentDir + "/boxes/" + _boxId):
                     self.out['error'] = True
                     self.out[
                         'message'] = 'box for boxId %s not found' % _boxId
                 else:
-                    if not os.path.exists("./challenges"):
-                        os.makedirs("challenges")
+                    if not os.path.exists(tmpCurrentDir + "/challenges"):
+                        os.makedirs(tmpCurrentDir + "/challenges")
 
                     _challengeID = _boxId + helper.getRandStr(5)
-                    while os.path.exists("./challenges/" + _challengeID):
+                    while os.path.exists(tmpCurrentDir + "/challenges/" + _challengeID):
                         _challengeID = _boxId + helper.getRandStr(5)
 
                     # Copy all files to this challenge directory
                     helper.copy(
-                        "./boxes/" + _boxId, "./challenges/" + _challengeID)
+                        tmpCurrentDir + "/boxes/" + _boxId,
+                        tmpCurrentDir + "/challenges/" + _challengeID)
 
                     # load the xml in this directory to memory
-                    os.chdir("./challenges/" + _challengeID)
-                    xmlFile = "./challenge.xml"
+                    tmpCurrentDir += "/challenges/" + _challengeID
+                    xmlFile = tmpCurrentDir + "/challenge.xml"
                     xmlData = vagrantData(xmlFile)
                     xmlData.parse()
 
@@ -308,24 +326,24 @@ class commandproc:
                     fileNotFound = []
 
                     for flags in xmlData.flags:
-                        if not os.path.exists("./files/" + flags):
+                        if not os.path.exists(tmpCurrentDir + "/files/" + flags):
                             err = True
                             fileNotFound.append(flags)
 
                     # check for files
                     for files in xmlData.files:
-                        if not os.path.exists("./files/" + files.src):
+                        if not os.path.exists(tmpCurrentDir + "/files/" + files.src):
                             err = True
                             fileNotFound.append(files.src)
 
                     # check for scripts
                     for script in xmlData.scripts:
-                        if not os.path.exists("./files/" + script):
+                        if not os.path.exists(tmpCurrentDir + "/files/" + script):
                             err = True
                             fileNotFound.append(script)
 
                     # check for manifests
-                    if not os.path.exists("./manifests/" + xmlData.puppetManifest):
+                    if not os.path.exists(tmpCurrentDir + "/manifests/" + xmlData.puppetManifest):
                         err = True
                         fileNotFound.append(xmlData.puppetManifest)
 
@@ -343,7 +361,24 @@ class commandproc:
                         # TODO port forwarding / subdomain thingy
 
                         # start the box
-                        self.VagrantUp()
+                        self.VagrantUp(_challengeID)
+                        # Update basebox status
+                        with open("./boxes/" + _boxId + "/.status", 'r+') as bStatus:
+                            print "%s: opened the basebox .status " % (self.outPipe)
+                            baseboxStatus = json.loads(bStatus.readline())
+                            baseboxStatus['active'] += 1
+                            bStatus.seek(0)
+                            bStatus.write(json.dumps(baseboxStatus))
+                            bStatus.truncate()
+                            bStatus.close()
+
+                            with open(tmpCurrentDir + "/.status", 'w') as cStatus:
+                                status = {
+                                    'status': 'active',
+                                    'basebox': baseboxStatus['basebox'],
+                                    'boxId': _boxId
+                                }
+                                cStatus.write(json.dumps(status))
 
                     self.out['data'] = {}
                     self.out['data']['challengeId'] = _challengeID
@@ -356,15 +391,30 @@ class commandproc:
                 self.out[
                     'message'] = 'unable to stop %s, as it doesn\'t exist' % _challengeID
             else:
-                os.chdir("./data/challenges/" + _challengeID)
+                tmpCurrentDir = "./data/challenges/" + _challengeID
+
+                # get the box ID
+                with open(tmpCurrentDir + '/.status', 'r') as cStatus:
+                    try:
+                        boxId = json.loads(cStatus.readline())['boxId']
+                        cStatus.close()
+
+                        # Update basebox status
+                        with open("./data/boxes/" + boxId + "/.status", 'r+') as bStatus:
+                            baseboxStatus = json.loads(bStatus.readline())
+                            baseboxStatus['active'] -= 1
+                            bStatus.seek(0)
+                            bStatus.write(json.dumps(baseboxStatus))
+                            bStatus.truncate()
+                    except:
+                        print """[%s] found no boxId in .status file for 
+                        challengeId: %s""" % (time.time(), _challengeID)
 
                 # Stop the VM
-                self.VagrantStop()
-
-                os.chdir("../")
+                self.VagrantStop(_challengeID)
 
                 # delete the challenegeID Dir
-                shutil.rmtree("./" + _challengeID)
+                shutil.rmtree(tmpCurrentDir)
                 self.out['message'] = _challengeID + ' deleted successfully'
                 self.out['data'] = {}
                 self.out['data']['challenegeID'] = _challengeID
