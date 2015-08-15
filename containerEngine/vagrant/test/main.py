@@ -30,6 +30,7 @@ def isProcessRunning(pid):
 
 
 class TestDaemon(unittest.TestCase):
+    self.dirsToClean = []
 
     def setUp(self):
         # Start the daemon
@@ -66,8 +67,10 @@ class TestDaemon(unittest.TestCase):
 
         # Do clean up tasks
         if os.path.exists(self.parentdir + "/tmp"):
-            print "1"
-            # shutil.rmtree(self.parentdir + "/tmp")
+            shutil.rmtree(self.parentdir + "/tmp")
+
+        for dirs in self.dirsToClean:
+            shutil.rmtree(dirs)
 
     def test_daemon_active(self):
         # Get Process ID from ../tmp/process.pid file
@@ -114,7 +117,7 @@ class TestDaemon(unittest.TestCase):
         i_pipename = "../tmp/" + randStr
         outfifo = open(o_pipename, 'w+')
         command = randStr + " create " + self.currentdir + "/sample "
-        print "command is %s" % command
+        print "COMMAND: %s" % command
         outfifo.write(command)
         outfifo.close()
 
@@ -126,6 +129,7 @@ class TestDaemon(unittest.TestCase):
             line = i_fifo.readline()[:-1]
             if line:
                 data = json.loads(line)
+                print data
                 self.assertEquals('success', data['message'])
                 self.assertEquals('ubuntu/trusty64', data['data']['basebox'])
                 self.assertFalse(data['error'])
@@ -133,6 +137,27 @@ class TestDaemon(unittest.TestCase):
                 challengeBoxPath = data['data'][
                     'basePath'] + "/" + data['data']['challengeId']
                 # TODO Check for vagrant file
+
+                # Check if challenge directory was created
+                self.assertTrue(
+                    os.path.exists(data['data']['basePath'] + "/" + data['data']['challengeId']))
+
+                # Check if required files and folders were created
+                self.assertTrue(os.path.exists(
+                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/files"))
+                self.assertTrue(os.path.exists(
+                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/manifests"))
+                self.assertTrue(os.path.exists(
+                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/challenge.xml"))
+                self.assertTrue(os.path.exists(
+                    data['data']['basePath'] + "/" + data['data']['challengeId'] + "/Vagrantfile"))
+
+                # TODO: verify more data as per xml provided
+
+                # Add this directory to array for clearing at teardown
+                self.dirsToClean.append(
+                    data['data']['basePath'] + "/" + data['data']['challengeId'])
+
                 # Verify the files, scripts against the challenge XML
                 os.unlink(i_pipename)
                 break
