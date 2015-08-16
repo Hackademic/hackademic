@@ -13,9 +13,6 @@ from data import vagrantData
 import random
 import string
 
-lock = threading.Lock()
-
-
 class FlagFileNotFound (Exception):
     pass
 
@@ -90,7 +87,7 @@ class commandproc:
 
     # Function to call init method in the current directory
     def vagrantInit(self, boxname, boxId):
-        lock.acquire()
+        self.lock.acquire()
         try:
             os.chdir("./data/boxes/" + boxId)
             op = subprocess.check_output(['vagrant', 'init', boxname])
@@ -100,30 +97,32 @@ class commandproc:
             Ex: {%s}""" % (time.time(), ex)
 
             os.chdir(self.currentPath)
-            lock.release()
+            self.lock.release()
             return False
 
         os.chdir(self.currentPath)
-        lock.release()
+        self.lock.release()
         return True
 
     # Function to start a vagrant box in current dir
     def VagrantUp(self, challengeId):
-        lock.acquire()
+        self.lock.acquire()
         try:
             os.chdir("./data/challenges/" + challengeId)
             op = subprocess.check_output(['vagrant', 'up'])
             print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
         except Exception as ex:
+            os.chdir(self.currentPath)   
+
             print """[%s] Exception Occured while vagrant up,
             Ex: {%s}""" % (time.time(), ex)
 
-        os.chdir(self.currentPath)    
-        lock.release()
+        os.chdir(self.currentPath)   
+        self.lock.release()
 
     # Function to stop a vagrant box in current dir
     def VagrantStop(self, challengeId):
-        lock.acquire()
+        self.lock.acquire()
         try:
             os.chdir("./data/challenges/" + challengeId)
             op = subprocess.check_output(['vagrant', 'destroy', '-f'])
@@ -133,7 +132,7 @@ class commandproc:
             Ex: {%s}""" % (time.time(), ex)
 
         os.chdir(self.currentPath)    
-        lock.release()
+        self.lock.release()
 
     # Function to create a vagrant file from template
     def createVagrantFile(self, path):
@@ -356,15 +355,15 @@ class commandproc:
                     else:
                         # modify the flag files
                         for flag in xmlData.flags:
-                            helper.randomizeFlaginFile("./files/" + flag)
+                            helper.randomizeFlaginFile(tmpCurrentDir +"/files/" + flag)
 
                         # TODO port forwarding / subdomain thingy
 
                         # start the box
                         self.VagrantUp(_challengeID)
+
                         # Update basebox status
-                        with open("./boxes/" + _boxId + "/.status", 'r+') as bStatus:
-                            print "%s: opened the basebox .status " % (self.outPipe)
+                        with open("./data/boxes/" + _boxId + "/.status", 'r+') as bStatus:
                             baseboxStatus = json.loads(bStatus.readline())
                             baseboxStatus['active'] += 1
                             bStatus.seek(0)
@@ -465,6 +464,23 @@ class commandproc:
                 info challenge <challenge ID>
                 """
 
+        elif "destroy" == cmdString:
+            self.data = {}
+            if "all" == args[2]:
+                print subprocess.check_output(['pwd'])        
+                for _dir in os.listdir("./data/challenges"):
+                    if os.path.isdir("./data/challenges/" +_dir):
+                        self.VagrantStop(_dir)
+                        shutil.rmtree("./data/challenges/" +_dir)
+
+                # TODO: reset 'active' in .status of everybox to 0
+
+                self.out['error'] = False
+                self.out['message'] = 'all boxes destroyed'
+
+            else:
+                self.out['error'] = True
+                self.out['message'] = 'invalid command'
         # ------------------------------------------------------------------------
         # Code to respond back to the client
         # ------------------------------------------------------------------------
@@ -484,5 +500,7 @@ class commandproc:
     # Constructor: Calls the classifier method in new thread
     def __init__(self, command):
         self.currentPath = os.path.dirname(os.path.realpath(__file__))
+        self.lock = threading.Lock()
+
         thrd = Thread(target=self.classifier, args=(command, ))
         thrd.start()
