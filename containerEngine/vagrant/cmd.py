@@ -8,7 +8,14 @@ import subprocess
 import shutil
 import re
 from threading import Thread
+import threading
 from data import vagrantData
+import random
+import string
+
+
+class FlagFileNotFound (Exception):
+    pass
 
 
 class helper:
@@ -26,6 +33,7 @@ class helper:
                 print('Directory not copied. Error: %s' % e)
 
     @staticmethod
+    # Global function to get root of a relative path
     def getRootFolder(path):
         arr = path.split('/')
         if arr[0] == '':
@@ -34,6 +42,33 @@ class helper:
             except:
                 return ''
         return arr[0]
+
+    @staticmethod
+    def getRandStr(len):
+        return ''.join(random.SystemRandom().choice(
+            string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(len))
+
+    @staticmethod
+    # Global function to randomize a flag in a file
+    # @param: the absolute path of the flag
+    # The function will read the file and change its value, by
+    # a random string of same length
+    # random string contain uppercase alphabets, lowercase alphabets
+    # AND digits
+    def randomizeFlaginFile(path):
+        if not os.path.exists(path):
+            raise FlagFileNotFound(
+                'no file was found at path given for flag file')
+
+        _flag = ''
+        with open(path, 'r+') as _file:
+            flag = _file.readline()
+            _len = len(flag)
+            _flag = helper.getRandStr(_len)
+
+            _file.seek(0)
+            _file.write(_flag)
+            _file.truncate()
 
 
 class commandproc:
@@ -52,20 +87,57 @@ class commandproc:
             Ex: {%s}""" % (time.time(), boxname, ex)
 
     # Function to call init method in the current directory
-    def vagrantInit(self, boxname):
+    def vagrantInit(self, boxname, boxId):
+        self.lock.acquire()
         try:
+            os.chdir("./data/boxes/" + boxId)
             op = subprocess.check_output(['vagrant', 'init', boxname])
+            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
         except Exception as ex:
             print """[%s] Exception Occured while initialising vagrant box,
             Ex: {%s}""" % (time.time(), ex)
 
+            os.chdir(self.currentPath)
+            self.lock.release()
             return False
 
+        os.chdir(self.currentPath)
+        self.lock.release()
         return True
 
+    # Function to start a vagrant box in current dir
+    def VagrantUp(self, challengeId):
+        self.lock.acquire()
+        try:
+            os.chdir("./data/challenges/" + challengeId)
+            op = subprocess.check_output(['vagrant', 'up'])
+            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
+        except Exception as ex:
+            os.chdir(self.currentPath)
+
+            print """[%s] Exception Occured while vagrant up,
+            Ex: {%s}""" % (time.time(), ex)
+
+        os.chdir(self.currentPath)
+        self.lock.release()
+
+    # Function to stop a vagrant box in current dir
+    def VagrantStop(self, challengeId):
+        self.lock.acquire()
+        try:
+            os.chdir("./data/challenges/" + challengeId)
+            op = subprocess.check_output(['vagrant', 'destroy', '-f'])
+            print "[%s] Vagrant destroy called. Output: %s" % (time.time(), op)
+        except Exception as ex:
+            print """[%s] Exception Occured while vagrant up,
+            Ex: {%s}""" % (time.time(), ex)
+
+        os.chdir(self.currentPath)
+        self.lock.release()
+
     # Function to create a vagrant file from template
-    def createVagrantFile(self):
-        with open("../../.VagrantFile", 'r') as f:
+    def createVagrantFile(self, path):
+        with open("./data/.VagrantFile", 'r') as f:
             data = f.read()
 
         data = data.replace('~basebox~', self.xmlData.baseBox)
@@ -96,8 +168,7 @@ class commandproc:
                 '~src~', prefix + _script) + "\n  "
         data = data.replace(m.group(0), scriptConfigScript)
 
-        print subprocess.check_output(['pwd'])
-        with open('VagrantFile', 'w') as f:
+        with open(path + "/VagrantFile", 'w') as f:
             f.write(data)
 
     def classifier(self, command):
@@ -105,7 +176,7 @@ class commandproc:
 
         if len(args) < 3:
             print """[%s] Invalid command: {%s} sent to daemon.
-			Skipping the command!""" % (time.time(), command)
+            Skipping the command!""" % (time.time(), command)
             return
 
         self.outPipe = self.currentPath + "/tmp/" + args[0]
@@ -117,6 +188,7 @@ class commandproc:
         # ------------------------------------------------------------------------
         # Code to preform requested action
         # ------------------------------------------------------------------------
+        os.chdir(self.currentPath)
 
         cmdString = args[1]
         if "create" == cmdString:
@@ -133,7 +205,7 @@ class commandproc:
             if success is not True:
                 self.out['error'] = True
                 self.out['message'] = """Unable to parse provided XML!
-				Error: %s """ % str(success)
+                Error: %s """ % str(success)
             else:
                 # TODO: verify the data loaded from XML
                 data = {}
@@ -144,39 +216,35 @@ class commandproc:
                 self.vagrantAddBox(xmlData.baseBox)
 
                 # Create a challenge directory
-                os.chdir(self.currentPath)
                 if not os.path.exists("./data"):
-                    print "making dir ./data"
-                    op = subprocess.check_output(['pwd'])
-                    print op
                     os.makedirs("./data")
 
-                os.chdir("./data")
-                if not os.path.exists("./boxes"):
-                    os.makedirs("./boxes")
-                os.chdir("./boxes")
+                tmpCurrentDir = "./data"
+
+                if not os.path.exists(tmpCurrentDir + "/boxes"):
+                    os.makedirs(tmpCurrentDir + "/boxes")
+                tmpCurrentDir += "/boxes"
 
                 challengeIdBase = xmlData.baseBox.replace('/', '_')
                 i = 1
                 challengeId = challengeIdBase + str(i)
-                while os.path.exists(challengeId):
+                while os.path.exists(tmpCurrentDir + "/" + challengeId):
                     i += 1
                     challengeId = challengeIdBase + str(i)
 
                 data['challengeId'] = challengeId
-                os.makedirs(challengeId)
-                os.chdir("./" + challengeId)
+                os.makedirs(tmpCurrentDir + "/" + challengeId)
+                tmpCurrentDir += "/" + challengeId
 
                 # Init vagrant at that directory
-                if not self.vagrantInit(xmlData.baseBox):
+                if not self.vagrantInit(xmlData.baseBox, challengeId):
                     self.out['error'] = True
                     self.out['message'] = 'vagrant init failed'
                 else:
-                    shutil.copyfile(xmlFile, "challenge.xml")
+                    shutil.copyfile(xmlFile, tmpCurrentDir + "/challenge.xml")
                     # create the files directory and copy the files, to that directory
                     # In same manner as provided in xml
-                    os.makedirs("files")
-                    os.chdir("./files")
+                    os.makedirs(tmpCurrentDir + "/files")
                     directoriesCopies = []
 
                     # Copy the files
@@ -185,7 +253,7 @@ class commandproc:
                             # Copy that folder to this folder
                             directory = helper.getRootFolder(_file.src)
                             helper.copy(
-                                challengePath + "/" + directory, directory)
+                                challengePath + "/" + directory, tmpCurrentDir + "/files/" + directory)
                             directoriesCopies.append(directory)
 
                     # Copy the scripts
@@ -194,55 +262,289 @@ class commandproc:
                             # Copy that folder to this folder
                             directory = helper.getRootFolder(_script)
                             helper.copy(
-                                challengePath + "/" + directory, directory)
+                                challengePath + "/" + directory, tmpCurrentDir + "/files/" + directory)
                             directoriesCopies.append(directory)
 
                     # Copy the manifest file
-                    os.chdir("../")
                     if not xmlData.puppetManifest == '':
-                        os.makedirs("manifests")
+                        os.makedirs(tmpCurrentDir + "/manifests")
                         shutil.copyfile(
-                            challengePath + "/" + xmlData.puppetManifest, "./manifests/default.pp")
+                            challengePath + "/" + xmlData.puppetManifest, tmpCurrentDir + "/manifests/default.pp")
 
                     # Modify the vagrantFile according to xml data
-                    self.createVagrantFile()
+                    self.createVagrantFile(tmpCurrentDir)
+
+                    # Create a .status file
+                    status = {}
+                    status['basebox'] = xmlData.baseBox
+                    status['active'] = 0
+                    with open(tmpCurrentDir + '/.status', 'w') as o_file:
+                        o_file.write(json.dumps(status))
+
                     self.out['data'] = data
                     self.out['message'] = 'success'
 
         elif "start" == cmdString:
-            print "start command triggered"
-            # TASKS:
-            # Create a clone directory of the challenge directory
-            # Start VagrantBox for this one
-            # Return the ID
+            _boxId = args[2]
+
+            if not os.path.exists("./data"):
+                self.out['error'] = True
+                self.out[
+                    'message'] = 'data directory does not exist. challenge cannot be created'
+            else:
+                tmpCurrentDir = "./data"
+                if not os.path.exists(tmpCurrentDir + "/boxes"):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'box for boxId %s not found' % _boxId
+                elif not os.path.exists(tmpCurrentDir + "/boxes/" + _boxId):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'box for boxId %s not found' % _boxId
+                else:
+                    if not os.path.exists(tmpCurrentDir + "/challenges"):
+                        os.makedirs(tmpCurrentDir + "/challenges")
+
+                    _challengeID = _boxId + helper.getRandStr(5)
+                    while os.path.exists(tmpCurrentDir + "/challenges/" + _challengeID):
+                        _challengeID = _boxId + helper.getRandStr(5)
+
+                    # Copy all files to this challenge directory
+                    helper.copy(
+                        tmpCurrentDir + "/boxes/" + _boxId,
+                        tmpCurrentDir + "/challenges/" + _challengeID)
+
+                    # load the xml in this directory to memory
+                    tmpCurrentDir += "/challenges/" + _challengeID
+                    xmlFile = tmpCurrentDir + "/challenge.xml"
+                    xmlData = vagrantData(xmlFile)
+                    xmlData.parse()
+
+                    # verify the content
+                    # check for flags
+                    err = False
+                    fileNotFound = []
+
+                    for flags in xmlData.flags:
+                        if not os.path.exists(tmpCurrentDir + "/files/" + flags):
+                            err = True
+                            fileNotFound.append(flags)
+
+                    # check for files
+                    for files in xmlData.files:
+                        if not os.path.exists(tmpCurrentDir + "/files/" + files.src):
+                            err = True
+                            fileNotFound.append(files.src)
+
+                    # check for scripts
+                    for script in xmlData.scripts:
+                        if not os.path.exists(tmpCurrentDir + "/files/" + script):
+                            err = True
+                            fileNotFound.append(script)
+
+                    # check for manifests
+                    if not os.path.exists(tmpCurrentDir + "/manifests/" + xmlData.puppetManifest):
+                        err = True
+                        fileNotFound.append(xmlData.puppetManifest)
+
+                    if True == err:
+                        self.out['err'] = True
+                        self.out[
+                            'message'] = 'following files were not found: \n'
+                        for _file in fileNotFound:
+                            self.out['message'] += _file + '\n'
+                    else:
+                        # modify the flag files
+                        for flag in xmlData.flags:
+                            helper.randomizeFlaginFile(
+                                tmpCurrentDir + "/files/" + flag)
+
+                        # TODO port forwarding / subdomain thingy
+
+                        # start the box
+                        self.VagrantUp(_challengeID)
+
+                        # Update basebox status
+                        with open("./data/boxes/" + _boxId + "/.status", 'r+') as bStatus:
+                            baseboxStatus = json.loads(bStatus.readline())
+                            baseboxStatus['active'] += 1
+                            bStatus.seek(0)
+                            bStatus.write(json.dumps(baseboxStatus))
+                            bStatus.truncate()
+                            bStatus.close()
+
+                            with open(tmpCurrentDir + "/.status", 'w') as cStatus:
+                                status = {
+                                    'status': 'active',
+                                    'basebox': baseboxStatus['basebox'],
+                                    'boxId': _boxId
+                                }
+                                cStatus.write(json.dumps(status))
+
+                    self.out['data'] = {}
+                    self.out['data']['challengeId'] = _challengeID
+                    self.out['message'] = 'success'
+
         elif "stop" == cmdString:
-            print "stop command triggered"
+            _challengeID = args[2]
+            if not os.path.exists("./data/challenges/" + _challengeID):
+                self.out['error'] = True
+                self.out[
+                    'message'] = 'unable to stop %s, as it doesn\'t exist' % _challengeID
+            else:
+                tmpCurrentDir = "./data/challenges/" + _challengeID
+
+                # get the box ID
+                with open(tmpCurrentDir + '/.status', 'r') as cStatus:
+                    try:
+                        boxId = json.loads(cStatus.readline())['boxId']
+                        cStatus.close()
+
+                        # Update basebox status
+                        with open("./data/boxes/" + boxId + "/.status", 'r+') as bStatus:
+                            baseboxStatus = json.loads(bStatus.readline())
+                            baseboxStatus['active'] -= 1
+                            bStatus.seek(0)
+                            bStatus.write(json.dumps(baseboxStatus))
+                            bStatus.truncate()
+                    except:
+                        print """[%s] found no boxId in .status file for 
+                        challengeId: %s""" % (time.time(), _challengeID)
+
+                # Stop the VM
+                self.VagrantStop(_challengeID)
+
+                # delete the challenegeID Dir
+                shutil.rmtree(tmpCurrentDir)
+                self.out['message'] = _challengeID + ' deleted successfully'
+                self.out['data'] = {}
+                self.out['data']['challenegeID'] = _challengeID
+
         elif "info" == cmdString:
+            invalidCommand = False
+
             if "all" == args[2]:
                 if "box" == args[3]:
+                    # change this to showing all hackademic
+                    # boxes added to system by parsing challenge.xml
+                    # in each box that exist in ./data/boxes directory
 
-                    # Code to list all boxes in system
-                    op = subprocess.check_output(['vagrant', 'box', 'list'])
-                    op_arr = op.split('\n')
-                    if len(op_arr) > 0:
-                        del op_arr[-1]
+                    self.out['data'] = []
+                    tmpCurrentDir = "./data/boxes"
 
-                    self.out['data'] = op_arr
+                    for _dir in os.listdir(tmpCurrentDir):
+                        if os.path.isdir(tmpCurrentDir + "/" + _dir):
+                            with open(tmpCurrentDir + "/" + _dir + "/.status", 'r') as status:
+                                statusData = json.loads(status.readline())
+                                statusData['last_modified'] = os.stat(
+                                    tmpCurrentDir + "/" + _dir).st_mtime
+                                statusData['boxId'] = _dir
+                                self.out['data'].append(statusData)
+
                     self.out['message'] = 'success'
 
                 elif "challenge" == args[3]:
-                    print "info all challenge called"
+                    # for each dir in ./data/challeneges
+                    # Get status and print it back to client
+
+                    self.out['data'] = []
+                    tmpCurrentDir = "./data/challenges"
+
+                    for _dir in os.listdir(tmpCurrentDir):
+                        if os.path.isdir(tmpCurrentDir + "/" + _dir):
+                            with open(tmpCurrentDir + "/" + _dir + "/.status", 'r') as status:
+                                statusData = json.loads(status.readline())
+                                statusData['last_modified'] = os.stat(
+                                    tmpCurrentDir + "/" + _dir).st_mtime
+                                statusData['challengeId'] = _dir
+                                self.out['data'].append(statusData)
+
+                    self.out['message'] = 'success'
+
+                else:
+                    invalidCommand = True
+
             elif "box" == args[2]:
                 boxId = args[3]
-                print "info box <box id> called"
+
+                tmpCurrentDir = "./data/boxes/" + boxId
+                self.out['data'] = []
+                if not os.path.exists(tmpCurrentDir):
+                    self.out['error'] = True
+                    self.out['message'] = 'box doesn\'t exist'
+                elif not os.path.exists(tmpCurrentDir + "/.status"):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'no status information for the box available'
+                else:
+                    with open(tmpCurrentDir + "/.status", 'r') as status:
+                        self.out['data'] = json.loads(status.readline())
+                        self.out['data']['last_modified'] = os.stat(
+                            tmpCurrentDir).st_mtime
+                        self.out['data']['boxId'] = boxId
+                        self.out['error'] = False
+
             elif "challenge" == args[2]:
                 challengeId = args[3]
-                print "info challenge <challenge id> called"
 
+                tmpCurrentDir = "./data/challenges/" + challengeId
+                self.out['data'] = []
+                if not os.path.exists(tmpCurrentDir):
+                    self.out['error'] = True
+                    self.out['message'] = 'challenge doesn\'t exist'
+                elif not os.path.exists(tmpCurrentDir + "/.status"):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'no status information for the challenge available'
+                else:
+                    with open(tmpCurrentDir + "/.status", 'r') as status:
+                        self.out['data'] = json.loads(status.readline())
+                        self.out['data']['last_modified'] = os.stat(
+                            tmpCurrentDir).st_mtime
+                        self.out['data']['challengeId'] = challengeId
+                        self.out['error'] = False
+
+            else:
+                invalidCommand = True
+
+            if True == invalidCommand:
+                self.out['error'] = True
+                self.out['message'] = """usage of info command:
+                info all box
+                info all challenge
+                info box <box ID>
+                info challenge <challenge ID>
+                """
+
+        elif "destroy" == cmdString:
+            self.data = {}
+            if "all" == args[2]:
+                print subprocess.check_output(['pwd'])
+                for _dir in os.listdir("./data/challenges"):
+                    if os.path.isdir("./data/challenges/" + _dir):
+                        self.VagrantStop(_dir)
+                        shutil.rmtree("./data/challenges/" + _dir)
+
+                # reset 'active' in .status of everybox to 0
+                for _dir in os.listdir("./data/boxes"):
+                    if not os.path.isdir("./data/boxes/" +_dir): continue
+                    with open("./data/boxes/" +_dir +"/.status", 'r+') as status:
+                        jStatus = json.loads(status.readline())
+                        jStatus['active'] = 0
+                        status.seek(0)
+                        status.write(json.dumps(jStatus))
+                        status.truncate()
+
+
+                self.out['error'] = False
+                self.out['message'] = 'all boxes destroyed'
+
+            else:
+                self.out['error'] = True
+                self.out['message'] = 'invalid command'
         # ------------------------------------------------------------------------
         # Code to respond back to the client
         # ------------------------------------------------------------------------
-        print "responding back via client"
         # make a output fifo pipe
         if not os.path.exists(self.outPipe):
             os.mkfifo(self.outPipe)
@@ -252,11 +554,14 @@ class commandproc:
         self.outfifo = open(self.outPipe, 'w+')
         self.outfifo.write(output)
         self.outfifo.close()
+
         print """[%s] Output sent back to client using pipe:
-		%s""" % (time.time(), self.outPipe)
+        %s""" % (time.time(), self.outPipe)
 
     # Constructor: Calls the classifier method in new thread
     def __init__(self, command):
         self.currentPath = os.path.dirname(os.path.realpath(__file__))
+        self.lock = threading.Lock()
+
         thrd = Thread(target=self.classifier, args=(command, ))
         thrd.start()
