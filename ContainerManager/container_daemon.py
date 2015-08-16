@@ -4,9 +4,12 @@ import signal
 import socket
 import thread
 import base64
+import random
 from time import sleep
 from docker import Client
-from create_container import ContainerManager
+from docker import utils
+from docker import errors
+from logging_manager import LoggingManager
 
 __author__ = "AnirudhAnand (a0xnirudh)"
 
@@ -16,14 +19,35 @@ class ContainerDaemon():
 
     def __init__(self):
         self.client = Client(base_url="unix://var/run/docker.sock")
-        self.create = ContainerManager()
         self.timer = "hour"
         self.HOST = '127.0.0.1'
         self.PORT = 5506
+        self.logs = LoggingManager()
 
-    def createcontainer(self):
-        cli = self.create.create_container()
-        self.client.start(cli.get("Id"))
+    def create_container(self, challenge=None):
+        port = self.generate_port()
+        try:
+            cli = self.client.create_container(image="hackademic:latest",
+                                               ports=[80], host_config=utils.
+                                               create_host_config
+                                               (port_bindings={80: port}),
+                                               detach=True)
+            self.client.start(cli.get("Id"))
+
+        except (errors.APIError) as exception:
+            self.logs.container_runtime_log("Runtime Error: \n" +
+                                            str(exception))
+            exit("Check logs for more details")
+
+        return "[+] Goto http://localhost:" + str(port) + "/" + str(challenge)
+
+    def generate_port(self):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        while True:
+            port = random.randint(1500, 10000)
+            result = sock.connect_ex(('127.0.0.1', port))
+            if result != 0:
+                return port
 
     def list_containers(self):
         return str(self.client.containers())
@@ -55,11 +79,24 @@ class ContainerDaemon():
             thread.start_new_thread(self.client_thread, (conn,))
 
     def client_thread(self, conn):
-        base = base64.b64encode('list_containers\n')
+        createcontainer = base64.b64encode('create_container\n')
+        listcontainers = base64.b64encode('list_containers\n')
+        killcontainer = base64.b64encode('kill_container\n')
         while True:
             data = conn.recv(1024)
-            if base == base64.b64encode(data):
+
+            if createcontainer == base64.b64encode(data):
+                containers = self.create_container()
+                conn.sendall(containers)
+
+            if listcontainers == base64.b64encode(data):
                 containers = self.list_containers()
+                conn.sendall(containers)
+
+            if killcontainer == base64.b64encode(data):
+                containerid = conn.recv(1024)
+                containerid = containerid.strip("\n")
+                containers = self.kill_container(containerid)
                 conn.sendall(containers)
 
         conn.close()
