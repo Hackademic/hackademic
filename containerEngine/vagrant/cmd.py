@@ -13,6 +13,7 @@ from data import vagrantData
 import random
 import string
 
+
 class FlagFileNotFound (Exception):
     pass
 
@@ -112,12 +113,12 @@ class commandproc:
             op = subprocess.check_output(['vagrant', 'up'])
             print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
         except Exception as ex:
-            os.chdir(self.currentPath)   
+            os.chdir(self.currentPath)
 
             print """[%s] Exception Occured while vagrant up,
             Ex: {%s}""" % (time.time(), ex)
 
-        os.chdir(self.currentPath)   
+        os.chdir(self.currentPath)
         self.lock.release()
 
     # Function to stop a vagrant box in current dir
@@ -131,7 +132,7 @@ class commandproc:
             print """[%s] Exception Occured while vagrant up,
             Ex: {%s}""" % (time.time(), ex)
 
-        os.chdir(self.currentPath)    
+        os.chdir(self.currentPath)
         self.lock.release()
 
     # Function to create a vagrant file from template
@@ -277,7 +278,7 @@ class commandproc:
                     status = {}
                     status['basebox'] = xmlData.baseBox
                     status['active'] = 0
-                    with open(tmpCurrentDir +'/.status', 'w') as o_file:
+                    with open(tmpCurrentDir + '/.status', 'w') as o_file:
                         o_file.write(json.dumps(status))
 
                     self.out['data'] = data
@@ -355,7 +356,8 @@ class commandproc:
                     else:
                         # modify the flag files
                         for flag in xmlData.flags:
-                            helper.randomizeFlaginFile(tmpCurrentDir +"/files/" + flag)
+                            helper.randomizeFlaginFile(
+                                tmpCurrentDir + "/files/" + flag)
 
                         # TODO port forwarding / subdomain thingy
 
@@ -423,34 +425,84 @@ class commandproc:
 
             if "all" == args[2]:
                 if "box" == args[3]:
-                    # TODO change this to showing all hackademic
+                    # change this to showing all hackademic
                     # boxes added to system by parsing challenge.xml
                     # in each box that exist in ./data/boxes directory
 
-                    # Code to list all boxes in system
-                    op = subprocess.check_output(['vagrant', 'box', 'list'])
-                    op_arr = op.split('\n')
-                    if len(op_arr) > 0:
-                        del op_arr[-1]
+                    self.out['data'] = []
+                    tmpCurrentDir = "./data/boxes"
 
-                    self.out['data'] = op_arr
+                    for _dir in os.listdir(tmpCurrentDir):
+                        if os.path.isdir(tmpCurrentDir + "/" + _dir):
+                            with open(tmpCurrentDir + "/" + _dir + "/.status", 'r') as status:
+                                statusData = json.loads(status.readline())
+                                statusData['last_modified'] = os.stat(
+                                    tmpCurrentDir + "/" + _dir).st_mtime
+                                statusData['boxId'] = _dir
+                                self.out['data'].append(statusData)
+
                     self.out['message'] = 'success'
 
                 elif "challenge" == args[3]:
-                    print "info all challenge called"
-                    # TODO for each dir in ./data/challeneges
+                    # for each dir in ./data/challeneges
                     # Get status and print it back to client
+
+                    self.out['data'] = []
+                    tmpCurrentDir = "./data/challenges"
+
+                    for _dir in os.listdir(tmpCurrentDir):
+                        if os.path.isdir(tmpCurrentDir + "/" + _dir):
+                            with open(tmpCurrentDir + "/" + _dir + "/.status", 'r') as status:
+                                statusData = json.loads(status.readline())
+                                statusData['last_modified'] = os.stat(
+                                    tmpCurrentDir + "/" + _dir).st_mtime
+                                statusData['challengeId'] = _dir
+                                self.out['data'].append(statusData)
+
+                    self.out['message'] = 'success'
 
                 else:
                     invalidCommand = True
 
             elif "box" == args[2]:
                 boxId = args[3]
-                print "info box <box id> called"
+
+                tmpCurrentDir = "./data/boxes/" + boxId
+                self.out['data'] = []
+                if not os.path.exists(tmpCurrentDir):
+                    self.out['error'] = True
+                    self.out['message'] = 'box doesn\'t exist'
+                elif not os.path.exists(tmpCurrentDir + "/.status"):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'no status information for the box available'
+                else:
+                    with open(tmpCurrentDir + "/.status", 'r') as status:
+                        self.out['data'] = json.loads(status.readline())
+                        self.out['data']['last_modified'] = os.stat(
+                            tmpCurrentDir).st_mtime
+                        self.out['data']['boxId'] = boxId
+                        self.out['error'] = False
 
             elif "challenge" == args[2]:
                 challengeId = args[3]
-                print "info challenge <challenge id> called"
+
+                tmpCurrentDir = "./data/challenges/" + challengeId
+                self.out['data'] = []
+                if not os.path.exists(tmpCurrentDir):
+                    self.out['error'] = True
+                    self.out['message'] = 'challenge doesn\'t exist'
+                elif not os.path.exists(tmpCurrentDir + "/.status"):
+                    self.out['error'] = True
+                    self.out[
+                        'message'] = 'no status information for the challenge available'
+                else:
+                    with open(tmpCurrentDir + "/.status", 'r') as status:
+                        self.out['data'] = json.loads(status.readline())
+                        self.out['data']['last_modified'] = os.stat(
+                            tmpCurrentDir).st_mtime
+                        self.out['data']['challengeId'] = challengeId
+                        self.out['error'] = False
 
             else:
                 invalidCommand = True
@@ -467,13 +519,22 @@ class commandproc:
         elif "destroy" == cmdString:
             self.data = {}
             if "all" == args[2]:
-                print subprocess.check_output(['pwd'])        
+                print subprocess.check_output(['pwd'])
                 for _dir in os.listdir("./data/challenges"):
-                    if os.path.isdir("./data/challenges/" +_dir):
+                    if os.path.isdir("./data/challenges/" + _dir):
                         self.VagrantStop(_dir)
-                        shutil.rmtree("./data/challenges/" +_dir)
+                        shutil.rmtree("./data/challenges/" + _dir)
 
-                # TODO: reset 'active' in .status of everybox to 0
+                # reset 'active' in .status of everybox to 0
+                for _dir in os.listdir("./data/boxes"):
+                    if not os.path.isdir("./data/boxes/" +_dir): continue
+                    with open("./data/boxes/" +_dir +"/.status", 'r+') as status:
+                        jStatus = json.loads(status.readline())
+                        jStatus['active'] = 0
+                        status.seek(0)
+                        status.write(json.dumps(jStatus))
+                        status.truncate()
+
 
                 self.out['error'] = False
                 self.out['message'] = 'all boxes destroyed'
