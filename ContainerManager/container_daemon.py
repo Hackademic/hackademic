@@ -1,6 +1,9 @@
 import os
 import re
 import signal
+import socket
+import thread
+import base64
 from time import sleep
 from docker import Client
 from create_container import ContainerManager
@@ -15,13 +18,15 @@ class ContainerDaemon():
         self.client = Client(base_url="unix://var/run/docker.sock")
         self.create = ContainerManager()
         self.timer = "hour"
+        self.HOST = '127.0.0.1'
+        self.PORT = 5506
 
     def createcontainer(self):
         cli = self.create.create_container()
         self.client.start(cli.get("Id"))
 
     def list_containers(self):
-        self.client.containers()
+        return str(self.client.containers())
 
     def kill_container(self, containerid):
         self.client.kill(containerid)
@@ -36,6 +41,29 @@ class ContainerDaemon():
                 if flag:
                     self.kill_container(container_list[i].get("Id"))
 
+    def create_socket(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        try:
+            s.bind((self.HOST, self.PORT))
+        except socket.error as msg:
+            print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
+            sys.exit(1)
+        s.listen(10)
+        while True:
+            conn, addr = s.accept()
+            thread.start_new_thread(self.client_thread, (conn,))
+
+    def client_thread(self, conn):
+        base = base64.b64encode('list_containers\n')
+        while True:
+            data = conn.recv(1024)
+            if base == base64.b64encode(data):
+                containers = self.list_containers()
+                conn.sendall(containers)
+
+        conn.close()
+
 
 def main():
     containerdaemon = ContainerDaemon()
@@ -43,28 +71,7 @@ def main():
     if child_pid == 0:
         containerdaemon.auto_container_killer()
     else:
-        while True:
-            try:
-                print("Choose from the menu: \n1) Create Containers")
-                print("2) List Containers\n3) kill Container\n4) Exit daemon")
-                option = raw_input("\nEnter your choice: ")
-
-                if option == '1':
-                    containerdaemon.createcontainer()
-                elif option == '2':
-                    containerdaemon.list_containers()
-                elif option == '3':
-                    Id = raw_input("Enter the container Id: ")
-                    containerdaemon.kill_container(Id)
-                elif option == '4':
-                    os.kill(child_pid, signal.SIGTERM)
-                    break
-                else:
-                    print "Invalid option. Please choose a correct one"
-            except KeyboardInterrupt:
-                os.kill(child_pid, signal.SIGTERM)
-                break
-
+        containerdaemon.create_socket()
 
 if __name__ == '__main__':
     main()
