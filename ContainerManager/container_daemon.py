@@ -1,9 +1,9 @@
 import os
 import re
+import sys
 import signal
 import socket
 import thread
-import base64
 import random
 from time import sleep
 from docker import Client
@@ -11,7 +11,7 @@ from docker import utils
 from docker import errors
 from logging_manager import LoggingManager
 
-__author__ = "AnirudhAnand (a0xnirudh)"
+__author__ = "AnirudhAnand (a0xnirudh) < anirudh@init-lab.com >"
 
 
 class ContainerDaemon():
@@ -39,7 +39,7 @@ class ContainerDaemon():
                                             str(exception))
             exit("Check logs for more details")
 
-        return "[+] Goto http://localhost:" + str(port) + "/" + str(challenge)
+        return "http://localhost:" + str(port) + "/" + str(challenge)
 
     def generate_port(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -79,24 +79,25 @@ class ContainerDaemon():
             thread.start_new_thread(self.client_thread, (conn,))
 
     def client_thread(self, conn):
-        createcontainer = base64.b64encode('create_container\n')
-        listcontainers = base64.b64encode('list_containers\n')
-        killcontainer = base64.b64encode('kill_container\n')
         while True:
             data = conn.recv(1024)
 
-            if createcontainer == base64.b64encode(data):
-                containers = self.create_container()
+            if 'kill_container' in str(data):
+                challenge = str(data).split(':')[1]
+                containers = self.create_container(challenge)
                 conn.sendall(containers)
 
-            if listcontainers == base64.b64encode(data):
+            if data == 'list_containers':
                 containers = self.list_containers()
                 conn.sendall(containers)
 
-            if killcontainer == base64.b64encode(data):
-                containerid = conn.recv(1024)
+            if 'kill_container' in str(data):
+                containerid = str(data).split(':')[1]
                 containerid = containerid.strip("\n")
-                containers = self.kill_container(containerid)
+                try:
+                    containers = self.kill_container(containerid)
+                except (TypeError) as exception:
+                    pass
                 conn.sendall(containers)
 
         conn.close()
