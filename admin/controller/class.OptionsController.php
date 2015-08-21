@@ -142,8 +142,8 @@ class OptionsController extends HackademicBackendController
         $this->setViewTemplate('options.tpl');
         $this->addToView('plugins', $this->_getPlugins());
         $this->addToView('user_themes', $this->_getUserThemes());
-        $this->addToView('_active_plugins', $this->_active_plugins);
-        $this->addToView('_active_user_theme', $this->_active_user_theme);
+        $this->addToView('active_plugins', $this->_active_plugins);
+        $this->addToView('active_user_theme', $this->_active_user_theme);
         $this->addToView('system_theme',  '');
     }
 
