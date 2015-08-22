@@ -73,11 +73,11 @@ class OptionsController extends HackademicBackendController
                 array_push($this->_active_plugins, $value);
             }
         }
-        $this->_notifyEnabledPlugins(array_diff($this->_active_plugins, Options::getOption('_active_plugins')->value));
-        $this->_notifyDisabledPlugins(array_diff(Options::getOption('_active_plugins')->value, $this->_active_plugins));
+        $this->_notifyEnabledPlugins(array_diff($this->_active_plugins, Options::getOption('active_plugins')->value));
+        $this->_notifyDisabledPlugins(array_diff(Options::getOption('active_plugins')->value, $this->_active_plugins));
 
         // Handle theme
-        $new_user_theme_path =  $_POST['_active_user_theme'];
+        $new_user_theme_path =  $_POST['active_user_theme'];
         if ($this->_active_user_theme != $new_user_theme_path) {
             $this->smarty->clear_all_cache();
             Plugin::do_action_ref_array('enable_user_theme', array($new_user_theme_path));
@@ -86,9 +86,9 @@ class OptionsController extends HackademicBackendController
         $this->_active_user_theme = $new_user_theme_path;
 
         // Update options in database
-        Options::updateOption('_active_plugins', $this->i_active_plugins);
+        Options::updateOption('active_plugins', $this->i_active_plugins);
 
-        Options::updateOption('_active_user_theme', $this->_active_user_theme);
+        Options::updateOption('active_user_theme', $this->_active_user_theme);
         Options::updateOption('active_admin_theme', $this->_active_user_theme);
     }
 
@@ -129,8 +129,8 @@ class OptionsController extends HackademicBackendController
      */
     private function _setDefaultTemplateVars()
     {
-        $this->_active_plugins = Options::getOption('_active_plugins')->value;
-        $this->_active_user_theme = Options::getOption('_active_user_theme')->value;
+        $this->_active_plugins = Options::getOption('active_plugins')->value;
+        $this->_active_user_theme = Options::getOption('active_user_theme')->value;
     }
 
     /**
