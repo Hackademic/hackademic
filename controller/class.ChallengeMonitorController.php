@@ -57,7 +57,10 @@ if (!defined('EXPERIMENTATION_BONUS_ID')) {
 }
 class ChallengeMonitorController
 {
-
+    public function go()
+    {
+        // Check Permissions
+    }
     public function getPkgName()
     {
         $url = $_SERVER['REQUEST_URI'];
