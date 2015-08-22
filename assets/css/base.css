@@ -4,6 +4,7 @@ body {height:95%;}
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    margin-bottom: 30px;
     width: 95%;
     min-height: 98%;
    -webkit-border-radius: 30px;
@@ -39,6 +40,12 @@ body {height:95%;}
 
 .user_add { width: auto; margin: auto; height: 450px;}
 .user_add tr {margin-bottom: 10px;}
+.user_add tr td label{
+    box-sizing: border-box;
+    display: block;
+    text-align: right;
+    width: 100%;
+}
 .user_add .submit_btn {text-align: center;}
 .submit_btn {text-align: center;}
 .header_bar {
@@ -74,7 +81,7 @@ body {height:95%;}
     padding: 6px 8px;
 }
 .align_center{
-	display:block;
-	width:100%;
-	text-align:center;
+    display:block;
+    width:100%;
+    text-align:center;
 }
