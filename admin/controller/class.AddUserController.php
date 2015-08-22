@@ -86,7 +86,7 @@ class AddUserController extends HackademicBackendController
                     $joined=date("Y-m-d H-i-s");
                     $result = User::addUser(
                         $username, $full_name, $email, $password,
-                        $joined, $activated, $typ
+                        $joined, $activated, $type
                     );
                     $usr = User::findByUserName($username);
                     $res2 = ClassMemberships::addMembership($usr->id, GLOBAL_CLASS_ID);
