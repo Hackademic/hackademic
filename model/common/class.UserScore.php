@@ -246,7 +246,7 @@ class UserScore
     private static function findBySQL($sql, $params = null)
     {
         global $db;
-        $statement_handle = $db->read($sql, $params, $_action_type);
+        $statement_handle = $db->read($sql, $params, self::$_action_type);
         $object_array = array();
         while ($row = $db->fetchArray($statement_handle)) {
             $object_array[] = self::instantiate($row);
