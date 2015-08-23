@@ -232,7 +232,7 @@ class commandproc:
                     i += 1
                     challengeId = challengeIdBase + str(i)
 
-                data['challengeId'] = challengeId
+                data['boxId'] = challengeId
                 os.makedirs(tmpCurrentDir + "/" + challengeId)
                 tmpCurrentDir += "/" + challengeId
 
@@ -418,7 +418,7 @@ class commandproc:
                 shutil.rmtree(tmpCurrentDir)
                 self.out['message'] = _challengeID + ' deleted successfully'
                 self.out['data'] = {}
-                self.out['data']['challenegeID'] = _challengeID
+                self.out['data']['challenegeId'] = _challengeID
 
         elif "info" == cmdString:
             invalidCommand = False
@@ -483,6 +483,7 @@ class commandproc:
                             tmpCurrentDir).st_mtime
                         self.out['data']['boxId'] = boxId
                         self.out['error'] = False
+                        self.out['message'] = 'success'
 
             elif "challenge" == args[2]:
                 challengeId = args[3]
@@ -503,6 +504,7 @@ class commandproc:
                             tmpCurrentDir).st_mtime
                         self.out['data']['challengeId'] = challengeId
                         self.out['error'] = False
+                        self.out['message'] = 'success'
 
             else:
                 invalidCommand = True
@@ -527,14 +529,14 @@ class commandproc:
 
                 # reset 'active' in .status of everybox to 0
                 for _dir in os.listdir("./data/boxes"):
-                    if not os.path.isdir("./data/boxes/" +_dir): continue
-                    with open("./data/boxes/" +_dir +"/.status", 'r+') as status:
+                    if not os.path.isdir("./data/boxes/" + _dir):
+                        continue
+                    with open("./data/boxes/" + _dir + "/.status", 'r+') as status:
                         jStatus = json.loads(status.readline())
                         jStatus['active'] = 0
                         status.seek(0)
                         status.write(json.dumps(jStatus))
                         status.truncate()
-
 
                 self.out['error'] = False
                 self.out['message'] = 'all boxes destroyed'
@@ -542,6 +544,10 @@ class commandproc:
             else:
                 self.out['error'] = True
                 self.out['message'] = 'invalid command'
+
+        else:
+            self.out['error'] = True
+            self.out['error'] = 'Invalid command'
         # ------------------------------------------------------------------------
         # Code to respond back to the client
         # ------------------------------------------------------------------------
