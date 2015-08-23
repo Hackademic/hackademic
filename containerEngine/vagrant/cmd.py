@@ -168,7 +168,20 @@ class commandproc:
                 '~src~', prefix + _script) + "\n  "
         data = data.replace(m.group(0), scriptConfigScript)
 
-        with open(path + "/VagrantFile", 'w') as f:
+        with open(path + "/Vagrantfile", 'w') as f:
+            f.write(data)
+
+    # Function to modify a vagrant file when
+    # Start command is sent
+    def modifyVagrantFile(self, path, hostname):
+        with open("./data/.Vagrantfile", 'r') as f:
+            data = f.read()
+
+        # TODO: Come up with a way to get unique IP
+        ip = '192.168.50.2'
+
+        data = data.replace('~hostname~', hostname)
+        with open(path, 'w') as f:
             f.write(data)
 
     def classifier(self, command):
@@ -359,7 +372,9 @@ class commandproc:
                             helper.randomizeFlaginFile(
                                 tmpCurrentDir + "/files/" + flag)
 
-                        # TODO port forwarding / subdomain thingy
+                        # Subdomain thingy
+                        self.modifyVagrantFile(
+                            tmpCurrentDir + "/Vagrantfile", _challengeID)
 
                         # start the box
                         self.VagrantUp(_challengeID)
