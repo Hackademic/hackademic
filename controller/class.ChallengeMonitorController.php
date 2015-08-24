@@ -155,7 +155,7 @@ class ChallengeMonitorController
                 || ($_SESSION['chid'] != $chid && $chid != null)
             ) {
                 if (!$pair) {
-                    _invalidChallenge();
+                    $this->_invalidChallenge();
              } else {
                     $_SESSION['pkg_name'] = $pkg_name;
                     $_SESSION['chid'] = $chid;
