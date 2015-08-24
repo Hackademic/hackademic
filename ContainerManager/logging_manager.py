@@ -8,7 +8,7 @@
 import os
 import logging
 
-__author__ = 'AnirudhAnand (a0xnirudh)'
+__author__ = 'AnirudhAnand (a0xnirudh) <anirudh@init-labs.org>'
 
 
 class LoggingManager:

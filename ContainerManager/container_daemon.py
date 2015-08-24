@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+import json
 import signal
 import socket
 import thread
@@ -11,7 +12,7 @@ from docker import utils
 from docker import errors
 from logging_manager import LoggingManager
 
-__author__ = "AnirudhAnand (a0xnirudh) < anirudh@init-lab.com >"
+__author__ = "AnirudhAnand (a0xnirudh) < anirudh@init-labs.org >"
 
 
 class ContainerDaemon():
@@ -50,7 +51,7 @@ class ContainerDaemon():
                 return port
 
     def list_containers(self):
-        return str(self.client.containers())
+        return json.dumps(self.client.containers())
 
     def kill_container(self, containerid):
         self.client.kill(containerid)
@@ -82,7 +83,7 @@ class ContainerDaemon():
         while True:
             data = conn.recv(1024)
 
-            if 'kill_container' in str(data):
+            if 'create_container' in str(data):
                 challenge = str(data).split(':')[1]
                 containers = self.create_container(challenge)
                 conn.sendall(containers)

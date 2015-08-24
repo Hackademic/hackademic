@@ -1,7 +1,8 @@
-import socket
 import sys
+import json
+import socket
 
-__author__ = "AnirudhAnand (a0xnirudh) < anirudh@init-lab.com"
+__author__ = "AnirudhAnand (a0xnirudh) < anirudh@init-labs.org"
 
 
 class Communicator():
@@ -19,6 +20,7 @@ class Communicator():
         else:
             client_socket.send(self.function)
         data = client_socket.recv(1024)
+        data = json.dumps(data)
         print data
         return
 

@@ -9,7 +9,7 @@ import os
 import subprocess
 from logging_manager import LoggingManager
 
-__author__ = 'AnirudhAnand (a0xnirudh)'
+__author__ = 'AnirudhAnand (a0xnirudh) <anirudh@init-labs.org'
 
 
 class Install:
