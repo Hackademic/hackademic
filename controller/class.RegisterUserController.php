@@ -91,6 +91,8 @@ class RegisterUserController extends HackademicController
                     $this->addSuccessMessage("You have been registered succesfully");
                 }
             }
+        } else {
+              $this->addToView('cached', $this);
         }
         return $this->generateView(self::$_action_type);
     }
