@@ -123,7 +123,7 @@ class User
          ':token' => $token,
         ':username' => $username
         );
-        $query = $db->update($sql, $params);
+        $query = $db->update($sql, $params, self::$_action_type);
         if ($db->affectedRows($query)) {
             return true;
         } else {
