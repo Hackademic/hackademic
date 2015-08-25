@@ -6,6 +6,12 @@ from cmd import commandproc
 
 
 class dpipes:
+    # Global variables for this class
+    baseIP = '192.168.10.'
+    IPcount = 2
+
+    # TODO: get this by parsing the 'config.inc.php'
+    domain = 'hector'
 
     def __init__(self, pipePath):
         self.pipePath = pipePath
@@ -24,7 +30,13 @@ class dpipes:
             if line:
                 print '[%s] Command Recieved: %s' % (time.time(), line)
                 # Spawn a new thread and process the argument
-                commandproc(line)
+
+                # TODO: assumption no of IPs used will be less than 255 - 1
+                # come up with more scalable system here
+                ip = self.baseIP + str(self.IPcount)
+                self.IPcount += 1
+
+                commandproc(line, ip, self.domain)
 
             # Wait for 1 seconds now
             time.sleep(1)

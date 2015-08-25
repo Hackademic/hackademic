@@ -13,6 +13,7 @@ from data import vagrantData
 import random
 import string
 
+
 class FlagFileNotFound (Exception):
     pass
 
@@ -78,8 +79,7 @@ class commandproc:
     out = {}
 
     # TODO: make this to load from 3rd part
-    baseIP = '192.168.10.'
-    IPcount = 2
+    privateIP = ''
 
     # Function to add a vagrant box if not exists
     def vagrantAddBox(self, boxname):
@@ -114,8 +114,7 @@ class commandproc:
         self.lock.acquire()
         try:
             os.chdir("./data/challenges/" + challengeId)
-            op = subprocess.check_output(['vagrant', 'up'])
-            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
+            subprocess.call(['vagrant', 'up'])
         except Exception as ex:
             os.chdir(self.currentPath)
 
@@ -181,11 +180,9 @@ class commandproc:
         with open(path, 'r') as f:
             data = f.read()
 
-        # Come up with a way to get unique IP
-        ip = self.baseIP +str(++self.IPcount)
-
-        data = data.replace('~hostname~', hostname.replace('_', '.'))
-        data = data.replace('~private_ips~', ip)
+        data = data.replace(
+            '~hostname~', hostname.replace('_', '.') + '.' + self.domain)
+        data = data.replace('~private_ips~', self.privateIP)
         with open(path, 'w') as f:
             f.write(data)
 
@@ -406,7 +403,7 @@ class commandproc:
 
                     self.out['data'] = {}
                     self.out['data']['challengeId'] = _challengeID
-                    self.out['data']['flags'] = flag_info    
+                    self.out['data']['flags'] = flag_info
                     self.out['message'] = 'success'
 
         elif "stop" == cmdString:
@@ -589,9 +586,12 @@ class commandproc:
         %s""" % (time.time(), self.outPipe)
 
     # Constructor: Calls the classifier method in new thread
-    def __init__(self, command):
+    def __init__(self, command, ip, domain):
         self.currentPath = os.path.dirname(os.path.realpath(__file__))
         self.lock = threading.Lock()
+
+        self.privateIP = ip
+        self.domain = domain
 
         thrd = Thread(target=self.classifier, args=(command, ))
         thrd.start()
