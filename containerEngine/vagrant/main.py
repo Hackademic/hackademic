@@ -16,6 +16,9 @@ errfilePath = currentPath + "/tmp/err"
 class vagrantpyd(daemon):
 
     def run(self):
+        # TODO: Load the domain name of the system from config.inc.php
+        # And store that as env variable
+
         # Define event listener for named pipe here
         # Currently writing to temp code to test daemon for now
         try:

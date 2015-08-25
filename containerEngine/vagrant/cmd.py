@@ -13,7 +13,6 @@ from data import vagrantData
 import random
 import string
 
-
 class FlagFileNotFound (Exception):
     pass
 
@@ -69,6 +68,7 @@ class helper:
             _file.seek(0)
             _file.write(_flag)
             _file.truncate()
+        return _flag
 
 
 class commandproc:
@@ -76,6 +76,10 @@ class commandproc:
     # Defining the main output variable to be sent back to the
     # system. It will be passed by reference to all classes
     out = {}
+
+    # TODO: make this to load from 3rd part
+    baseIP = '192.168.10.'
+    IPcount = 2
 
     # Function to add a vagrant box if not exists
     def vagrantAddBox(self, boxname):
@@ -174,13 +178,14 @@ class commandproc:
     # Function to modify a vagrant file when
     # Start command is sent
     def modifyVagrantFile(self, path, hostname):
-        with open("./data/.Vagrantfile", 'r') as f:
+        with open(path, 'r') as f:
             data = f.read()
 
-        # TODO: Come up with a way to get unique IP
-        ip = '192.168.50.2'
+        # Come up with a way to get unique IP
+        ip = self.baseIP +str(++self.IPcount)
 
-        data = data.replace('~hostname~', hostname)
+        data = data.replace('~hostname~', hostname.replace('_', '.'))
+        data = data.replace('~private_ips~', ip)
         with open(path, 'w') as f:
             f.write(data)
 
@@ -367,10 +372,13 @@ class commandproc:
                         for _file in fileNotFound:
                             self.out['message'] += _file + '\n'
                     else:
+                        flag_info = []
+
                         # modify the flag files
                         for flag in xmlData.flags:
-                            helper.randomizeFlaginFile(
+                            _new_flag = helper.randomizeFlaginFile(
                                 tmpCurrentDir + "/files/" + flag)
+                            flag_info.append({"/files/" + flag: _new_flag})
 
                         # Subdomain thingy
                         self.modifyVagrantFile(
@@ -398,6 +406,7 @@ class commandproc:
 
                     self.out['data'] = {}
                     self.out['data']['challengeId'] = _challengeID
+                    self.out['data']['flags'] = flag_info    
                     self.out['message'] = 'success'
 
         elif "stop" == cmdString:
