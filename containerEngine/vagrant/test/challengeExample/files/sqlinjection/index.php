@@ -1,6 +1,6 @@
 <?php
 	// Do installation if not already done
-	if (file_exists(__DIR__ .'/install.php')) include __DIR__ '/install.php';
+	if (file_exists(__DIR__ .'/install.php')) include __DIR__ .'/install.php';
 
 
 	$con = mysql_connect('localhost', 'root', '');

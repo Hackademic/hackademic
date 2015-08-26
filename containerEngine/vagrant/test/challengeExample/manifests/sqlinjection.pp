@@ -30,3 +30,20 @@ service { 'mysql':
   require => Package['mysql-server'],
   ensure => running,
 }
+
+# Install apache 2 package
+package {'php5-mysql':
+	require => Exec['apt-update'],
+	ensure => installed,
+}
+
+class { 'apache':
+	default_mods        => false,
+	default_confd_files => false,
+	default_vhost       => false,
+}
+
+apache::vhost {'ubuntutrusty641kjdhf.hector':
+	port => '80',
+	docroot => 'var/www/html/sqlinjection',
+}
