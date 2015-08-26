@@ -9,12 +9,11 @@ class dpipes:
     # Global variables for this class
     baseIP = '192.168.10.'
     IPcount = 2
+    domain = 'localhost'
 
-    # TODO: get this by parsing the 'config.inc.php'
-    domain = 'hector'
-
-    def __init__(self, pipePath):
+    def __init__(self, pipePath, domainName):
         self.pipePath = pipePath
+        self.domain = domainName
 
     def create(self):
         # make a fifo pipe
