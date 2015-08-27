@@ -3,9 +3,10 @@ exec { 'apt-update':                    # exec resource named 'apt-update'
   command => '/usr/bin/apt-get update'  # command this resource will run
 }
 
-# install apache2 package
-package { 'apache2':
-  require => Exec['apt-update'],        # require 'apt-update' before installing
+# install packages
+package {
+[mysql-server,php5,mysql,php5-mysql
+ ]: require => Exec['apt-update'],        # require 'apt-update' before installing
   ensure => installed,
 }
 
@@ -13,28 +14,10 @@ package { 'apache2':
 service { 'apache2':
   ensure => running,
 }
-
-# install mysql-server package
-package { 'mysql-server':
-  ensure => installed,
-}
-
-# install php5 package
-package { 'php5':
-  require => Exec['apt-update'],        # require 'apt-update' before installing
-  ensure => installed,
-}
-
 # ensure mysql service is running
 service { 'mysql':
   require => Package['mysql-server'],
   ensure => running,
-}
-
-# Install apache 2 package
-package {'php5-mysql':
-	require => Exec['apt-update'],
-	ensure => installed,
 }
 
 class { 'apache':
