@@ -109,6 +109,7 @@ class commandproc:
         self.lock.release()
         return True
 
+
     # Function to start a vagrant box in current dir
     def VagrantUp(self, challengeId):
         self.lock.acquire()
@@ -167,7 +168,7 @@ class commandproc:
                 prefix = 'files'
             else:
                 prefix = 'files/'
-            fileConfigScript += fileConfig.replace(
+            scriptConfigScript += scriptConfig.replace(
                 '~src~', prefix + _script) + "\n  "
         data = data.replace(m.group(0), scriptConfigScript)
 
@@ -177,6 +178,7 @@ class commandproc:
     # Function to modify a vagrant file when
     # Start command is sent
     def modifyVagrantFile(self, path, hostname):
+        print "domain Name = %s ; " % self.domain
         with open(path, 'r') as f:
             data = f.read()
 
@@ -286,6 +288,10 @@ class commandproc:
                         shutil.copyfile(
                             challengePath + "/" + xmlData.puppetManifest, tmpCurrentDir + "/manifests/default.pp")
 
+                    if not xmlData.modules == None:
+                        helper.copy(
+                            challengePath + "/" + xmlData.modules, tmpCurrentDir + "/modules")
+
                     # Modify the vagrantFile according to xml data
                     self.createVagrantFile(tmpCurrentDir)
 
@@ -349,7 +355,7 @@ class commandproc:
                     for files in xmlData.files:
                         if not os.path.exists(tmpCurrentDir + "/files/" + files.src):
                             print "[%s] file not found %s" % (time.time(),
-                                tmpCurrentDir + "/files/" + files.src)
+                                                              tmpCurrentDir + "/files/" + files.src)
 
                             err = True
                             fileNotFound.append(files.src)
@@ -358,7 +364,7 @@ class commandproc:
                     for script in xmlData.scripts:
                         if not os.path.exists(tmpCurrentDir + "/files/" + script):
                             print "[%s] script not found %s" % (time.time(),
-                                tmpCurrentDir + "/files/" + script)
+                                                                tmpCurrentDir + "/files/" + script)
                             err = True
                             fileNotFound.append(script)
 

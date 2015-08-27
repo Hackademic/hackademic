@@ -8,4 +8,5 @@
 	<scripts>
 		<script>script/sh1.sh</script>
 	</scripts>
+	<modules>modules</modules>
 </root>
