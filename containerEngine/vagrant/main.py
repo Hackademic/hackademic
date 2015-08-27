@@ -23,6 +23,7 @@ class vagrantpyd(daemon):
         # Define event listener for named pipe here
         # Currently writing to temp code to test daemon for now
         try:
+            print "domainName = %s" % domainName
             mypipe = dpipes(pipePath, domainName)
             mypipe.create()
         except Exception as inst:
@@ -56,34 +57,39 @@ if not os.path.exists(errfilePath):
     file = open(errfilePath, 'a+')
     file.close()
 
+def loadDomainInfo():
+    global domainName
+    if not os.path.exists("../../config.inc.php"):
+        print "Hackademic config file 'config.inc.php' not found"
+        sys.exit(1)
+    else:
+        with open("../../config.inc.php") as conf:
+            confData = conf.read()
+            match = re.search('define\(\'SOURCE_ROOT_PATH\',\s*\"(.*)\"\);', confData)
+            if match:
+                if match.group(1):
+                    domainName = match.group(1).split('/')[2]
+                    print "Using domain name as: %s" % domainName
+                else:
+                    print "Correct SOURCE_ROOT_PATH not found in 'config.inc.php"
+                    sys.exit(1)
+            else:
+                print "SOURCE_ROOT_PATH not found in 'config.inc.php"
+                sys.exit(1)
 
 if __name__ == "__main__":
     daemon = vagrantpyd(pidFilePath, logfilePath, errfilePath)
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             # Code to check if config file exists
-            if not os.path.exists("../../config.inc.php"):
-                print "Hackademic config file 'config.inc.php' not found"
-            else:
-                with open("../../config.inc.php") as conf:
-                    confData = conf.read()
-                    match = re.search('define\(\'SOURCE_ROOT_PATH\',\s*\"(.*)\"\);', confData)
-                    if match:
-                        if match.group(1):
-                            domainName = match.group(1).split('/')[2]
-                            print "Using domain name as: %s" % domainName
-                        else:
-                            print "Correct SOURCE_ROOT_PATH not found in 'config.inc.php"
-                            sys.exit(1)
-                    else:
-                        print "SOURCE_ROOT_PATH not found in 'config.inc.php"
-                        sys.exit(1)
-                print "Vagrantpyd starting..."
-                daemon.start()
+            loadDomainInfo()
+            print "Vagrantpyd starting..."
+            daemon.start()
         elif 'stop' == sys.argv[1]:
             print "Vagrantpyd stopping..."
             daemon.stop()
         elif 'restart' == sys.argv[1]:
+            loadDomainInfo()
             print "Vagrantpyd restarting..."
             daemon.restart()
         else:

@@ -19,6 +19,9 @@ class vagrantFile:
 class vagrantData:
     baseBox = None
     puppetManifest = None
+    flags = []
+    files = []
+    scripts = []
 
     def parse(self):
         for child in self.root:
