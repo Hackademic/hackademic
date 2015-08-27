@@ -99,7 +99,7 @@ class ContainerDaemon():
                     containers = self.kill_container(containerid)
                 except (TypeError) as exception:
                     pass
-                conn.sendall(containers)
+                conn.close()
 
         conn.close()
 
