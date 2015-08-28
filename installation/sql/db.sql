@@ -332,6 +332,7 @@ INSERT INTO `pages` (`url`, `file`) VALUES
 ('admin/logout', 'admin/pages/logout.php'),
 ('admin/manageclass', 'admin/pages/manageclass.php'),
 ('admin/menumanager', 'admin/pages/menumanager.php'),
+('admin/containers', 'admin/pages/containers.php'),
 ('admin/showclass', 'admin/pages/showclass.php');
 
 -- --------------------------------------------------------
