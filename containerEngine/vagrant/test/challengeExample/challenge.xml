@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<basebox>ubuntu/trusty64</basebox>
+	<files>
+		<file type="dir" src="/files/sqlinjection" dest="/home/vagrant/sqlinjection" />
+	</files>
+	<puppet>manifests/sqlinjection.pp</puppet>
+	<scripts>
+		<script>script/sh1.sh</script>
+	</scripts>
+	<modules>modules</modules>
+</root>

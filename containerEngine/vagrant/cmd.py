@@ -69,6 +69,7 @@ class helper:
             _file.seek(0)
             _file.write(_flag)
             _file.truncate()
+        return _flag
 
 
 class commandproc:
@@ -76,6 +77,9 @@ class commandproc:
     # Defining the main output variable to be sent back to the
     # system. It will be passed by reference to all classes
     out = {}
+
+    # TODO: make this to load from 3rd part
+    privateIP = ''
 
     # Function to add a vagrant box if not exists
     def vagrantAddBox(self, boxname):
@@ -105,13 +109,13 @@ class commandproc:
         self.lock.release()
         return True
 
+
     # Function to start a vagrant box in current dir
     def VagrantUp(self, challengeId):
         self.lock.acquire()
         try:
             os.chdir("./data/challenges/" + challengeId)
-            op = subprocess.check_output(['vagrant', 'up'])
-            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
+            subprocess.call(['vagrant', 'up'])
         except Exception as ex:
             os.chdir(self.currentPath)
 
@@ -164,11 +168,24 @@ class commandproc:
                 prefix = 'files'
             else:
                 prefix = 'files/'
-            fileConfigScript += fileConfig.replace(
+            scriptConfigScript += scriptConfig.replace(
                 '~src~', prefix + _script) + "\n  "
         data = data.replace(m.group(0), scriptConfigScript)
 
-        with open(path + "/VagrantFile", 'w') as f:
+        with open(path + "/Vagrantfile", 'w') as f:
+            f.write(data)
+
+    # Function to modify a vagrant file when
+    # Start command is sent
+    def modifyVagrantFile(self, path, hostname):
+        print "domain Name = %s ; " % self.domain
+        with open(path, 'r') as f:
+            data = f.read()
+
+        data = data.replace(
+            '~hostname~', hostname.replace('_', '.') + '.' + self.domain)
+        data = data.replace('~private_ips~', self.privateIP)
+        with open(path, 'w') as f:
             f.write(data)
 
     def classifier(self, command):
@@ -232,7 +249,7 @@ class commandproc:
                     i += 1
                     challengeId = challengeIdBase + str(i)
 
-                data['challengeId'] = challengeId
+                data['boxId'] = challengeId
                 os.makedirs(tmpCurrentDir + "/" + challengeId)
                 tmpCurrentDir += "/" + challengeId
 
@@ -270,6 +287,10 @@ class commandproc:
                         os.makedirs(tmpCurrentDir + "/manifests")
                         shutil.copyfile(
                             challengePath + "/" + xmlData.puppetManifest, tmpCurrentDir + "/manifests/default.pp")
+
+                    if not xmlData.modules == None:
+                        helper.copy(
+                            challengePath + "/" + xmlData.modules, tmpCurrentDir + "/modules")
 
                     # Modify the vagrantFile according to xml data
                     self.createVagrantFile(tmpCurrentDir)
@@ -333,19 +354,27 @@ class commandproc:
                     # check for files
                     for files in xmlData.files:
                         if not os.path.exists(tmpCurrentDir + "/files/" + files.src):
+                            print "[%s] file not found %s" % (time.time(),
+                                                              tmpCurrentDir + "/files/" + files.src)
+
                             err = True
                             fileNotFound.append(files.src)
 
                     # check for scripts
                     for script in xmlData.scripts:
                         if not os.path.exists(tmpCurrentDir + "/files/" + script):
+                            print "[%s] script not found %s" % (time.time(),
+                                                                tmpCurrentDir + "/files/" + script)
                             err = True
                             fileNotFound.append(script)
 
                     # check for manifests
-                    if not os.path.exists(tmpCurrentDir + "/manifests/" + xmlData.puppetManifest):
+                    if not os.path.exists(tmpCurrentDir + "/manifests/default.pp"):
                         err = True
                         fileNotFound.append(xmlData.puppetManifest)
+
+                    # local variable to store flag information
+                    flag_info = []
 
                     if True == err:
                         self.out['err'] = True
@@ -356,12 +385,17 @@ class commandproc:
                     else:
                         # modify the flag files
                         for flag in xmlData.flags:
-                            helper.randomizeFlaginFile(
+                            _new_flag = helper.randomizeFlaginFile(
                                 tmpCurrentDir + "/files/" + flag)
+                            flag_info.append({"/files/" + flag: _new_flag})
 
-                        # TODO port forwarding / subdomain thingy
+                        # Subdomain thingy
+                        print "modifying the vagrant file for network info"
+                        self.modifyVagrantFile(
+                            tmpCurrentDir + "/Vagrantfile", _challengeID)
 
                         # start the box
+                        print "starting vagrant box"
                         self.VagrantUp(_challengeID)
 
                         # Update basebox status
@@ -383,6 +417,7 @@ class commandproc:
 
                     self.out['data'] = {}
                     self.out['data']['challengeId'] = _challengeID
+                    self.out['data']['flags'] = flag_info
                     self.out['message'] = 'success'
 
         elif "stop" == cmdString:
@@ -418,7 +453,7 @@ class commandproc:
                 shutil.rmtree(tmpCurrentDir)
                 self.out['message'] = _challengeID + ' deleted successfully'
                 self.out['data'] = {}
-                self.out['data']['challenegeID'] = _challengeID
+                self.out['data']['challenegeId'] = _challengeID
 
         elif "info" == cmdString:
             invalidCommand = False
@@ -483,6 +518,7 @@ class commandproc:
                             tmpCurrentDir).st_mtime
                         self.out['data']['boxId'] = boxId
                         self.out['error'] = False
+                        self.out['message'] = 'success'
 
             elif "challenge" == args[2]:
                 challengeId = args[3]
@@ -503,6 +539,7 @@ class commandproc:
                             tmpCurrentDir).st_mtime
                         self.out['data']['challengeId'] = challengeId
                         self.out['error'] = False
+                        self.out['message'] = 'success'
 
             else:
                 invalidCommand = True
@@ -527,14 +564,14 @@ class commandproc:
 
                 # reset 'active' in .status of everybox to 0
                 for _dir in os.listdir("./data/boxes"):
-                    if not os.path.isdir("./data/boxes/" +_dir): continue
-                    with open("./data/boxes/" +_dir +"/.status", 'r+') as status:
+                    if not os.path.isdir("./data/boxes/" + _dir):
+                        continue
+                    with open("./data/boxes/" + _dir + "/.status", 'r+') as status:
                         jStatus = json.loads(status.readline())
                         jStatus['active'] = 0
                         status.seek(0)
                         status.write(json.dumps(jStatus))
                         status.truncate()
-
 
                 self.out['error'] = False
                 self.out['message'] = 'all boxes destroyed'
@@ -542,6 +579,10 @@ class commandproc:
             else:
                 self.out['error'] = True
                 self.out['message'] = 'invalid command'
+
+        else:
+            self.out['error'] = True
+            self.out['error'] = 'Invalid command'
         # ------------------------------------------------------------------------
         # Code to respond back to the client
         # ------------------------------------------------------------------------
@@ -559,9 +600,12 @@ class commandproc:
         %s""" % (time.time(), self.outPipe)
 
     # Constructor: Calls the classifier method in new thread
-    def __init__(self, command):
+    def __init__(self, command, ip, domain):
         self.currentPath = os.path.dirname(os.path.realpath(__file__))
         self.lock = threading.Lock()
+
+        self.privateIP = ip
+        self.domain = domain
 
         thrd = Thread(target=self.classifier, args=(command, ))
         thrd.start()

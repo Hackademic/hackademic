@@ -19,6 +19,10 @@ class vagrantFile:
 class vagrantData:
     baseBox = None
     puppetManifest = None
+    flags = []
+    files = []
+    scripts = []
+    modules = None
 
     def parse(self):
         for child in self.root:
@@ -50,11 +54,16 @@ class vagrantData:
                 if len(child) > 0:
                     for grandchild in child:
                         self.flags.append(grandchild.text)
+
             elif "scripts" == child.tag:
                 self.scripts = []
                 if len(child) > 0:
                     for grandchild in child:
                         self.scripts.append(grandchild.text)
+
+            elif "modules" == child.tag:
+                self.modules = child.text
+
         return True
 
     def __init__(self, filename):
