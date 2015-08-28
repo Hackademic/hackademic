@@ -1,10 +1,22 @@
 #!/usr/bin/env python
+"""The main file for Vagrant Daemon.
+
+Allows you to programatically control vagrant, create, start, stop,
+destroy or collect info on existing boxes and VMs. The daemon setups
+boxes based on a **challenge.xml** file provided to it. All
+communcication using named pipes.
+
+.. moduleauthor:: Minhaz A V <minhazav@gmail.com>
+
+"""
+
 import sys
 import time
 import os
 import re
 from daemon import daemon
 from pipes import dpipes
+
 
 # define all paths required
 currentPath = os.path.dirname(os.path.realpath(__file__))
@@ -15,13 +27,22 @@ errfilePath = currentPath + "/tmp/err"
 domainName = None
 
 class vagrantpyd(daemon):
+    """Subclass of daemon class.
+
+    contains overridden methods, **run()** and **_stop()** which are called
+    when daemon is started or stopped respectively.
+
+    """
 
     def run(self):
-        # TODO: Load the domain name of the system from config.inc.php
-        # And store that as env variable
+        """**run()** called after daemon is started
 
-        # Define event listener for named pipe here
-        # Currently writing to temp code to test daemon for now
+        Once daemon has started, it creates an object of **dpipes**
+        class which listens to incoming requests via pipes
+
+        Returns:
+            void.
+        """
         try:
             print "domainName = %s" % domainName
             mypipe = dpipes(pipePath, domainName)
@@ -33,6 +54,14 @@ class vagrantpyd(daemon):
             sys.exit(1)
 
     def _stop(self):
+        """**_stop()** called after daemon is stopped
+
+        Once daemon has stopped, it destroys pipes meant to recieve the
+        commands
+
+        Returns:
+            void.
+        """
         try:
             mypipe = dpipes(pipePath, None)
             mypipe.destroy()
@@ -40,6 +69,7 @@ class vagrantpyd(daemon):
             # TODO print correct exception message
             print "[%s] Unable to destroy pipes. Exception: %s" % (time.time(), e)
             sys.exit(1)
+
 
 # Create a tmp directory if not exists
 # if required by the files needed
@@ -58,6 +88,14 @@ if not os.path.exists(errfilePath):
     file.close()
 
 def loadDomainInfo():
+    """Function to load information of domain name of the machine.
+
+    It parses the **config.inc.php** file located at **../../** relative to
+    this directory and modifies the global variable with this information
+    This is later used by **cmd** module while starting a challenge, to update
+    **/etc/hosts** information
+
+    """
     global domainName
     if not os.path.exists("../../config.inc.php"):
         print "Hackademic config file 'config.inc.php' not found"

@@ -1,4 +1,13 @@
-"""Generic linux daemon base class for python 3.x."""
+"""Generic linux daemon base class for python 3.x.
+
+.. module:: daemon
+    :platform: unix
+    :synopsis: Used for daemonising current process or to kill once
+    using its PID
+
+.. moduleauthor:: Minhaz A V <minhazav@gmail.com>
+"""
+
 import sys
 import os
 import time
@@ -7,18 +16,40 @@ import signal
 
 
 class daemon:
+    """Daemon class deals with daemonising current process.
 
-    # Constructor
-    # @param pidfile: file path for storing process information
-    # @param logfile: file path to redirect stdout to
-    # @param errfilePath: file path to redirect stderr to
+    This is done by detaching current process with calling terminal,
+    using UNIX double fork magic.
+
+    """
+
     def __init__(self, pidfile, logfile, errfilePath):
+        """Constructor of daemon class
+
+        Args:
+            pidfile (str): path of file to store PID information of the process
+            logfile (str): path of the file which will be used for redirecting STDOUT
+            errfilePath (str): path of the file which will be used for redirecting STDERR
+
+        Returns:
+            void.
+
+        """
         self.pidfile = pidfile
         self.logfile = logfile
         self.errfilePath = errfilePath
 
-    # Deamonize class. UNIX double fork mechanism
     def daemonize(self):
+        """Function to daemonize the process.
+
+        UNIX double fork mechanism. It detaches the current process from calling
+        termincal and become child of init process. Stores the PID of the process
+        in **self.pidfile**
+
+        Returns:
+            void.
+
+        """
         try:
             pid = os.fork()
             if pid > 0:
@@ -65,12 +96,19 @@ class daemon:
         with open(self.pidfile, 'w+') as f:
             f.write(pid + '\n')
 
-    # Function to delete the pid file
     def delpid(self):
+        """Method to delete the pid file"""
         os.remove(self.pidfile)
 
-    # Function to start the daemon
     def start(self):
+        """Function to start the daemon.
+
+        Calls the daemonize method to daemonize the process and then
+        calls the run() method.
+
+        Returns:
+            void.
+        """
         # Check for a pidfile to see if the daemon already runs
         try:
             with open(self.pidfile, 'r') as pf:
@@ -90,8 +128,14 @@ class daemon:
         self.daemonize()
         self.run()
 
-    # Function to Stop the daemon
     def stop(self):
+        """Function to Stop the daemon
+
+        It recieves the PID from **pidfile** and signals it to kill
+
+        Returns:
+            void.
+        """
         # Get the pid from the pidfile
         try:
             with open(self.pidfile, 'r') as pf:
@@ -121,8 +165,11 @@ class daemon:
 
         self._stop()
 
-    # Function to Restart the daemon
     def restart(self):
+        """Function to Restart the daemon
+
+        Calls **stop()** then **start()**. Simple right?
+        """
         self.stop()
         self.start()
 

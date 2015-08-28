@@ -1,4 +1,12 @@
-# Code to deal with the requested command
+"""Class to deal with the requested command
+
+.. module:: cmd
+    :platform: unix
+    :synopsis: it processes the command and takes action based on that
+
+.. moduleauthor:: Minhaz A V <minhazav@gmail.com>
+"""
+
 import os
 import sys
 import time
@@ -7,11 +15,11 @@ import data
 import subprocess
 import shutil
 import re
-from threading import Thread
-import threading
-from data import vagrantData
 import random
 import string
+import threading
+from threading import Thread
+from data import vagrantData
 
 
 class FlagFileNotFound (Exception):
@@ -19,10 +27,18 @@ class FlagFileNotFound (Exception):
 
 
 class helper:
+    """helper class to bundle certain required methods"""
 
     @staticmethod
-    # Global function to copy file or directory
     def copy(src, dest):
+        """Global function to copy file or directory.
+
+        Copies files or directory from source to destination.
+
+        Args:
+            src (str): source path of file or dir
+            dest (str): destination path of file or dir
+        """
         try:
             shutil.copytree(src, dest)
         except OSError as e:
@@ -33,8 +49,21 @@ class helper:
                 print('Directory not copied. Error: %s' % e)
 
     @staticmethod
-    # Global function to get root of a relative path
     def getRootFolder(path):
+        """Global function to get root of a relative path
+
+        >>getRootFolder("./dir1/dir2/file")
+        dir1
+
+        >>getRootFolder("/dir1")
+        dir1
+
+        Args:
+            path (str): relative path of a file or dir
+
+        Returns:
+            str. The root path of given relative path
+        """
         arr = path.split('/')
         if arr[0] == '':
             try:
@@ -45,17 +74,29 @@ class helper:
 
     @staticmethod
     def getRandStr(len):
+        """Function to get a random string of required length
+
+        Args:
+            len (str): the length of random string required
+
+        Returns:
+            str. The random string
+        """
         return ''.join(random.SystemRandom().choice(
             string.ascii_lowercase + string.ascii_uppercase + string.digits) for _ in range(len))
 
     @staticmethod
-    # Global function to randomize a flag in a file
-    # @param: the absolute path of the flag
-    # The function will read the file and change its value, by
-    # a random string of same length
-    # random string contain uppercase alphabets, lowercase alphabets
-    # AND digits
     def randomizeFlaginFile(path):
+        """Global function to randomize a flag in a file
+
+        The function will read the file and change its value, by
+        a random string of same length random string contain uppercase
+        alphabets, lowercase alphabets
+        AND digits
+
+        Args:
+            path (str): the absolute path of the flag
+        """
         if not os.path.exists(path):
             raise FlagFileNotFound(
                 'no file was found at path given for flag file')
@@ -73,6 +114,23 @@ class helper:
 
 
 class commandproc:
+    """Class to deal with requested command.
+
+    The command looks like: **<pipename> <command>**. This class
+    processes the <command> and send reply via <pipename>
+
+    Accepted commands are as follows:
+     - <pipename> create <challenge path>
+     - <pipename> start <box ID>
+     - <pipename> start <box ID>
+     - <pipename> destroy all
+     - <pipename> info all box
+     - <pipename> info all challenge
+     - <pipename> info box <box ID>
+     - <pipename> info box <challnege ID>
+
+    Response is sent back via <pipename> in **JSON** format.
+    """
 
     # Defining the main output variable to be sent back to the
     # system. It will be passed by reference to all classes
@@ -81,8 +139,12 @@ class commandproc:
     # TODO: make this to load from 3rd part
     privateIP = ''
 
-    # Function to add a vagrant box if not exists
     def vagrantAddBox(self, boxname):
+        """Function to add a vagrant box if not exists.
+
+        Args:
+            boxname (str): the name of box, ex ubuntu/trusty64
+        """
         try:
             op = subprocess.check_call(
                 ['vagrant', 'box', 'add', boxname])
@@ -90,13 +152,21 @@ class commandproc:
             print """[%s] Exception Occured while adding box {%s},
             Ex: {%s}""" % (time.time(), boxname, ex)
 
-    # Function to call init method in the current directory
     def vagrantInit(self, boxname, boxId):
+        """Function to call init method in the current directory.
+
+        Does the Vagrant init thingy.
+
+        Args:
+            boxname (str): the name of box, ex ubuntu/trusty64
+            boxID (str): the id of box, retrieved during create command
+
+        """
         self.lock.acquire()
         try:
             os.chdir("./data/boxes/" + boxId)
             op = subprocess.check_output(['vagrant', 'init', boxname])
-            print "[%s] Vagrant up called. Output: %s" % (time.time(), op)
+            print "[%s] Vagrant init called. Output: %s" % (time.time(), op)
         except Exception as ex:
             print """[%s] Exception Occured while initialising vagrant box,
             Ex: {%s}""" % (time.time(), ex)
@@ -109,9 +179,14 @@ class commandproc:
         self.lock.release()
         return True
 
-
-    # Function to start a vagrant box in current dir
     def VagrantUp(self, challengeId):
+        """Function to start a vagrant box in current dir.
+
+        Starts the VM
+
+        Args:
+            challengeId (str): the challengeId retrived during create command
+        """
         self.lock.acquire()
         try:
             os.chdir("./data/challenges/" + challengeId)
@@ -125,8 +200,14 @@ class commandproc:
         os.chdir(self.currentPath)
         self.lock.release()
 
-    # Function to stop a vagrant box in current dir
     def VagrantStop(self, challengeId):
+        """Function to stop a vagrant box in current dir.
+
+        Stops the VM
+
+        Args:
+           challengeId (str): the challengeId retrived during create command 
+        """ 
         self.lock.acquire()
         try:
             os.chdir("./data/challenges/" + challengeId)
@@ -139,8 +220,16 @@ class commandproc:
         os.chdir(self.currentPath)
         self.lock.release()
 
-    # Function to create a vagrant file from template
     def createVagrantFile(self, path):
+        """Function to create a vagrant file from template.
+
+        creates the vagrant file for a challenge based on template
+        and data loaded from challenge.xml
+
+        Args:
+            path (str): path of the challenge directory
+        """
+
         with open("./data/.VagrantFile", 'r') as f:
             data = f.read()
 
@@ -175,9 +264,16 @@ class commandproc:
         with open(path + "/Vagrantfile", 'w') as f:
             f.write(data)
 
-    # Function to modify a vagrant file when
-    # Start command is sent
     def modifyVagrantFile(self, path, hostname):
+        """Function to modify a vagrant file when Start command is sent.
+
+        This further modifies the Vagrant file with host and private IP information.
+
+        Args:
+            path (str): the path of challenge dir
+            hostname (str): the hostname for the VM
+
+        """
         print "domain Name = %s ; " % self.domain
         with open(path, 'r') as f:
             data = f.read()
@@ -189,6 +285,11 @@ class commandproc:
             f.write(data)
 
     def classifier(self, command):
+        """Parses the command and takes action based on that
+
+        Args:
+            command (str): the command
+        """
         args = command.split(' ')
 
         if len(args) < 3:
@@ -599,8 +700,17 @@ class commandproc:
         print """[%s] Output sent back to client using pipe:
         %s""" % (time.time(), self.outPipe)
 
-    # Constructor: Calls the classifier method in new thread
     def __init__(self, command, ip, domain):
+        """Constructor: Calls the classifier method in new thread
+
+        It recieves the command from pipes class and calls the classifier
+        method to deal with it in a new thread.
+
+        Args:
+            command (str): the command requested
+            ip (str): the ip to be allocated in case of start command.
+            domain (str): the domain of the host machine.
+        """
         self.currentPath = os.path.dirname(os.path.realpath(__file__))
         self.lock = threading.Lock()
 
