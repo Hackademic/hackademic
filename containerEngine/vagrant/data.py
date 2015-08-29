@@ -1,22 +1,35 @@
-"""
-Code to deal with data sent from xml file
-@class vagrantData recieves the xml file path as param
-loads it, and retrieve data from it.
+"""Class to deal with data sent from xml file
 
-#TODO - add error handling for all cases
+.. module:: data
+    :platform: unix, windows
+    :synopsis: reads the xml and stores required information in memory
+
+.. moduleauthor:: Minhaz A V <minhazav@gmail.com>
 """
 import xml.etree.ElementTree as ET
 
 
 class vagrantFile:
+    """Simple class to store src, dest, type information
+    about the files
+    """
 
     def __init__(self, src, dest, type):
+        """Constructor
+        Args:
+            src (str): the source path of file in the host machine
+            dest (str): the destination path of file in the VM
+            type (str): **file** / **dir** suggesting weather its a file or directory respectively
+        """
         self.src = src
         self.dest = dest
         self.isADir = (type == 'dir')
 
 
 class vagrantData:
+    """Class to read the challenge.xml and load the info to memory
+    """
+    
     baseBox = None
     puppetManifest = None
     flags = []
@@ -25,6 +38,7 @@ class vagrantData:
     modules = None
 
     def parse(self):
+        """Method to parse the xml"""
         for child in self.root:
             if "basebox" == child.tag:
                 self.baseBox = child.text
@@ -67,5 +81,10 @@ class vagrantData:
         return True
 
     def __init__(self, filename):
+        """Constructor
+
+        Args:
+            filename (str): the path of challenge.xml file
+        """
         tree = ET.parse(filename)
         self.root = tree.getroot()
