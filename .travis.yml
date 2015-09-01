@@ -1,0 +1,37 @@
+sudo: true
+language: php
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - hhvm
+  - nightly
+
+env:
+  - DB=mysql
+
+
+before_script:
+    #- curl -sS https://getcomposer.org/installer | php; sudo mv composer.phar /usr/local/bin/composer
+    #- composer install
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hackademic;" -uroot; fi
+
+script:
+  - phpunit --configuration phpunit_mysql.xml --coverage-text
+
+install:
+ - composer install
+
+notifications:
+  irc:
+    channels: "irc.freenode.org#hackademic-dev"
+    template:
+      - "%{repository}@%{branch}: %{message} (%{build_url})"
+    on_success: change
+    on_failure: change
+    use_notice: true
+  email: false
+
+after_success:
+  coveralls --rcfile=.coveragerc
