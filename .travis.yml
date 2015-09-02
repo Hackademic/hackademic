@@ -11,10 +11,7 @@ php:
 env:
   - DB=mysql
 
-
 before_script:
-    #- curl -sS https://getcomposer.org/installer | php; sudo mv composer.phar /usr/local/bin/composer
-    #- composer install
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hackademic;" -uroot; fi
 
 script:
