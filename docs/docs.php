@@ -5,25 +5,30 @@ global $connection;
 error_reporting(E_ALL); 
 ini_set('display_errors', 1);
 
-function buildActionsOutput() {
+function buildActionsOutput()
+{
   $handle = query("select * from actions");
-  $preface = "This page contains a list of all the actions that are triggered by the Plugin API in OWASP Hackademic Challenges. You can click each link in the list to see the specifics for each action.";
+  $preface = "This page contains a list of all the actions that are triggered by
+	          the Plugin API in OWASP Hackademic Challenges. You can click each link
+	          in the list to see the specifics for each action.";
   $links = '### Actions' . "\n";
   $output = '';
-  while($row = fetchArray($handle)) {
+  while ($row = fetchArray($handle)) {
     $links .= "* [" . $row['action'] . "](#" . $row['action'] . ")\n";
     $output .= buildActionsBody($row);
   }
   return $links . "\n" . $output;
 }
 
-function write($filename, $output) {
+function write($filename, $output)
+{
   $fh = fopen($filename, 'w');
   fwrite($fh, $output);
   fclose($fh);
 }
 
-function connect() {
+function connect()
+{
   global $connection;
   try {
   	$connection = new PDO("mysql:host=localhost;dbname=plugindocs", 'root', '');
@@ -34,20 +39,23 @@ function connect() {
   $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 
-function query($sql, $params = NULL) {
+function query($sql, $params = null)
+{
   global $connection;
 	$statement_handle = $connection->prepare($sql);
 	$statement_handle->execute($params);
 	return $statement_handle;
 }
   
-function fetchArray($statement_handle) {
+function fetchArray($statement_handle)
+{
 	$statement_handle->setFetchMode(PDO::FETCH_ASSOC);
 	$row = $statement_handle->fetch();
   return $row;
 }
 
-function buildActionsBody($m) {
+function buildActionsBody($m)
+{
   $output = '#### <a name="' . $m['action'] .'"></a>Action: ' . $m['action'] . "\n";
   $output .= $m['description'] . "\n\n";
   $output .= '##### Parameters' . "\n";
@@ -57,7 +65,8 @@ function buildActionsBody($m) {
   return $output;
 }
 
-function buildActionsUsage($m) {
+function buildActionsUsage($m)
+{
   $output = '```php' . "\n";
   $output .= "Plugin::add_action('" . $m['action'] . "', '[plugin]_" . $m['action'] . "', 10, 1);\n\n";
   $output .= "function [plugin]_" . $m['action'];
@@ -68,20 +77,23 @@ function buildActionsUsage($m) {
   return $output;
 }
 
-function buildActionsPage() {
+function buildActionsPage()
+{
   $output = buildActionsOutput();
   $links = "***\n\n##### Overview\n\n" . buildOverviewLinks();
   
   write('Plugin-API-Actions.md', $output . $links);
 }
 
-function buildOverviewPage() {
+function buildOverviewPage()
+{
   $intro = "The OWASP Hackademic Challenges Plugin API allows developers to build plugins and themes to customise the functionality of the system. To learn more about how to extend Hackademic Challenges you can read about: \n\n";
   $output = $intro . buildOverviewLinks();
   write('Plugin-API-Overview.md', $output);
 }
 
-function buildOverviewLinks() {
+function buildOverviewLinks()
+{
   $link1 = "* [Install a plugin or theme](./Plugin-API-Install)\n";
   $link2 = "* [Develop a plugin](./Plugin-API-Plugin)\n";
   $link3 = "* [Develop a theme](./Plugin-API-Theme)\n";
@@ -90,7 +102,8 @@ function buildOverviewLinks() {
   return $link1 . $link2 . $link3 . $link4 . $link5;
 }
 
-function buildInstallPage() {
+function buildInstallPage()
+{
   $intro = "The OWASP Hackademic Challenges Plugin API allows developers to extend the system by installing plugins and themes.\n\n";
   
   $plugin = "#### Install a plugin\n";
@@ -113,7 +126,8 @@ function buildInstallPage() {
   write('Plugin-API-Install.md', $output);
 }
 
-function buildMenuPage() {
+function buildMenuPage()
+{
   $intro = "The OWASP Hackademic Challenges Plugin API allows developers to extend the system by adding pages, menus and menu items. The system makes use of the Smarty templating engine so if you are not familiar with Smarty it is a good idea to read up on how it works. This basic tutorial simply covers the Hackademic Challenges implementation of the Smarty templating engine.\n\n";
   
   $body = "#### Adding a page\n";
@@ -292,7 +306,8 @@ function buildMenuPage() {
   write('Plugin-API-Pages-and-Menus.md', $output);
 }
 
-function buildPluginPage() {
+function buildPluginPage()
+{
   $intro = "This tutorial will show you how to build a plugin for the OWASP Hackademic Challenges. We will use the example plugin as a base and explain what it does, how and why so if you want to, you can download it and follow along in the real code.\n\n";
   $body = "#### Set up\n\n";
   $body .= "The OWASP Hackademic Challenges follows the same guidelines as the [Drupal Coding Standards](https://drupal.org/coding-standards) for formatting and writing code. We recommend that your plugin also adheres to this standard to make it easier for other developers in the project to work with your code. If you don't want to read the full document here is the quick version: \n\n";
@@ -365,7 +380,8 @@ function buildPluginPage() {
   write('Plugin-API-Plugin.md', $output);
 }
 
-function buildThemePage() {
+function buildThemePage()
+{
   $intro = "OWASP Hackademic Challenges uses the Smarty Template Engine to present content. To build a theme for the OWASP Hackademic Challenges you need to create a set of template files that correspond to the system templates but with different content of course.\n\n";
   $body = "#### Being recognised\n\n";
   $body .= "For the system to be able to detect your theme it must be placed in the `/user/themes` folder. Your theme should be contained in its own folder with a unique name that suits your theme. The system will be looking for a specific file which must contain some mandatory metadata about your theme. This file should be placed in your theme folder and it should be named the same as the folder but with a `.php` extension. So if your theme name is 'my dark theme' your file should be named 'my_dark_theme.php'.\n\n";
