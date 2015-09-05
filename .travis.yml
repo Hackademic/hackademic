@@ -12,7 +12,8 @@ env:
   - DB=mysql
 
 before_script:
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS hackademic;" -uroot; fi
+  - mysql -e "create database IF NOT EXISTS hackademic;" -uroot
+  - mysql -uroot "hackademic" < "installation/sql/db.sql"
 
 script:
   - vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-html ./report hackademic_devtests/successTest.php
