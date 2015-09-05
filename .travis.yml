@@ -11,12 +11,16 @@ php:
 env:
   - DB=mysql
 
+
 before_script:
+    #- curl -sS https://getcomposer.org/installer | php; sudo mv composer.phar /usr/local/bin/composer
+    #- composer install
   - mysql -e "create database IF NOT EXISTS hackademic;" -uroot
   - mysql -uroot "hackademic" < "installation/sql/db.sql"
 
 script:
-  - vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-html ./report hackademic_devtests/successTest.php
+    #  - phpunit --configuration phpunit_mysql.xml --coverage-text
+  - vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-html ./report hackademic_devtests/model/common/class.PageTest.php
 
 install:
  - composer install
