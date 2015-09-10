@@ -93,3 +93,4 @@ Contact Us
 Feel free to connect with us over `#hackademic-dev` channel on Freenode.
 We also run a mailing list which is `owasp-hackademic-challenges@lists.owasp.org`
 that you can join [here](https://lists.owasp.org/mailman/listinfo/owasp-hackademic-challenges).
+You can also check out the slack discussion on the owasp slack channel [here](https://owasp.slack.com/messages/project-hackademic/)
