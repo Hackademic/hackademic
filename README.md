@@ -86,6 +86,7 @@ Some of the ways you can help:
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for installation guidelines and other developer-oriented explanations.
 
+We are also experimenting with a trello board [here](https://trello.com/b/Y6oHvP3P/hakcademic-roadmap)
 
 Contact Us
 ----------
