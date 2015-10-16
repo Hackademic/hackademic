@@ -19,7 +19,11 @@ CREATE TABLE IF NOT EXISTS  articles  (
 -- Dumping data for table  articles
 --
 INSERT INTO articles ( title , content , date_posted , created_by , last_modified , last_modified_by , ordering , is_published ) VALUES
+<<<<<<< HEAD
 ('Welcome to Hackademic v0.9!', '<p><img width=\"840\" height=\"188\" logo\"=\" alt=\"owasp\" src=\"http://www.techtoweb.com/wp-content/uploads/2012/12/owasp-security.png\"></p> <p>Thank you for installling and using the Hackademic challenges project.</p> <p>You can find our code on github <a href=\"https://github.com/Hackademic/hackademic\">here</a>, for any problems or support, please open an issue on our github repository.</p><p>Hackademic is a FOSS project under the OWASP umbrela organization.</p>', '2013-08-18 00:00:17', 'admin', '2013-08-18 00:04:27', 'admin', 0, 1);
+=======
+('Welcome to Hackademic v0.9!', '<p><img width=\"840\" height=\"188\" logo\"=\" alt=\"owasp\" src=\"http://www.techtoweb.com/wp-content/uploads/2012/12/owasp-security.png\"></p> <p>Thank you for installing and using the Hackademic challenges project.</p> <p>You can find our code on Github <a href=\"https://github.com/Hackademic/hackademic\">here</a>, for any problems or support, please open an issue on our github repository.</p><p>Hackademic is a FOSS project under the OWASP umbrella organization.</p>', '2013-08-18 00:00:17', 'admin', '2013-08-18 00:04:27', 'admin', 0, 1);
+>>>>>>> c680512de0830398716daed604d39d54cc2a6567
 
 -- --------------------------------------------------------
 
@@ -415,7 +419,11 @@ CREATE TABLE IF NOT EXISTS  users  (
 -- Dumping data for table users
 --
 
+<<<<<<< HEAD
 INSERT INTO users (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
+=======
+INSERT INTO `users` (`username`, `full_name`, `email`, `password`, `joined`, `last_visit`, `is_activated`, `type`, `token`) VALUES
+>>>>>>> c680512de0830398716daed604d39d54cc2a6567
 ('Guest','Guest User','guest@hackademic.com','empty pass this user is never supposed to login normally','2010-01-01 00:00:00','2010-01-01 00:00:00',1,0,0);
 -- --------------------------------------------------------
 
