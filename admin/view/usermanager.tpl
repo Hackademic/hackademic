@@ -99,7 +99,7 @@
 		</td>
 		<td>{$user->joined|date_format}</td>
 		<td>{if $user->last_visit}{$user->last_visit|date_format}{else} Never {/if}</td>
-		<td>{if $user->is_activated} Yes {else} No {/if}</td>
+		<td>{if $user->is_activated} Yes {else} No <a href="{$site_root_path}?url=admin/edituser&id={$user->id}&activate=1">Activate</a>{/if}</td>
 		<td>{if $user->type==1} Admin {elseif $user->type==2} Teacher {else} Student {/if}</td>
 	   </tr>
 	{/foreach}

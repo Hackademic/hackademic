@@ -46,7 +46,9 @@ class UserManagerController extends HackademicBackendController {
 			$this->addSuccessMessage("Class has been added succesfully");
 		} elseif (isset($_GET['source']) && $_GET['source']=="addtoclass") {
 			$this->addSuccessMessage("User has been added to the class succesfully");
-		} 
+		} elseif (isset($_GET['source']) && $_GET['source']=="activate") {
+			$this->addSuccessMessage("User has been activated succesfully");
+		}  
 		if (isset($_GET['search']) && isset($_GET['category']) && $_GET['search']!='' && $_GET['category']!='') {
 			$total_pages = User::getNumberofUsers($_GET['search'], $_GET['category']);
 		} else {
