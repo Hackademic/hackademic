@@ -1,2 +1,298 @@
 Install logs will be available here for debugging:
 
+2015-10-08 16:34:22,780 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-08 16:37:44,942 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-08 16:52:13,684 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:18:37,471 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:19:02,125 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:19:04,485 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:19:05,974 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:19:08,066 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:19:12,111 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:28:55,298 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:42:47,183 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:44:18,149 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:46:08,734 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 00:47:45,073 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 01:28:37,289 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:10,948 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:19,969 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:24,032 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:25,570 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:27,182 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:28,737 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:29,979 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:31,218 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:32,196 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:33,126 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:34,452 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:42:35,417 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:43:09,978 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:44:52,672 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 04:46:07,320 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 07:59:01,783 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 08:35:55,578 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 09:31:52,304 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 17:57:11,308 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-09 17:57:40,080 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-10 14:31:47,924 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+2015-10-10 14:33:34,410 - install_log - ERROR - Image File Download Error: 
+Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
+Traceback (most recent call last):
+  File "install.py", line 67, in docker_image
+    stderr=subprocess.STDOUT, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 540, in check_call
+    raise CalledProcessError(retcode, cmd)
+CalledProcessError: Command 'docker pull phusion/baseimage:latest' returned non-zero exit status 1
