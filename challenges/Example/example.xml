@@ -2,23 +2,46 @@
 <challenge>
     <title>Example Template For Challenge .xml Files creation</title>
     <author>
-	Name or email or both
+	     Name or email or both
     </author>
-    <category>In what category does your challenge belong?(web? crypto? networks?)</category>
+    <category>In what category does your challenge belong?(Value used to make the admin's life easier)</category>
     <description>
-	Insert some text describing the scenario of the challenge(what the users are supposed to do and if there is any fictional story)
+	       text describing the scenario of the challenge(what the users are supposed to do and if there is any fictional story) will be presented to the users as is
     </description>
     <level>
-	Either an interger from 1  to 10 with 1 being the easiest , or one of beginner, intermediate, advanced , hide_yo_wife
-	The level will be the max points a user can get.
-	beginner:	2pts	
-	intermediate	4pts
-	advanced	6pts
-	hide_yo_wife	8pts
-	b4d1d3a		10pts
+	     Either an interger from 1  to 100 with 1 being the easiest
+	      The level will be the max points a user can get.
     </level>
-	<duration>
-	The duration after which a user is disqualified.
-	The timer starts when a username starts a challenge for first time.
-	</duration>
+    <container_provider><!-- If you don't add a container provider section the platform assumes your challenge
+      doesn't need sandboxing so it will happily copy all your challenge files to the challenge/ folder and execute them
+      using the server's php installation this is useful for challenges that only serve files to be executed by the user
+    such as forensics, cryptanalysis e.t.c.-->
+        one of vagrant,docker
+        Note:
+          Bellow you can find examples of all provider directives. Also, for each kind of provider there should be
+           example/template challenges provided in the repository 
+          * Docker means that the challenge contains a service which should run inside a docker container.
+              Should you choose docker you can either provide a folder which will be copied in /var/www/ of the target container
+              or you can provide a Dockerfile along with the challenge files which will be used to configure the container
+          * Vagrant means that the challenge will should be launched inside a virtual machine. In that case you can choose to
+    </container_provider>
+    <container_provider>
+      <type>docker</type><!-- By default(if you don't provide any directives) the platform will copy everything in the
+    challenge folder at the target's web root and expose port 80-->
+      <dockerfile>(optional)relative path to your dockerfile</dockerfile>
+      <copy>(optional)if you don't provide a dockerfile you can list here the files to be added to the target container,
+        you can have multiple copy directives, one for each file
+      e.g. challenge_folder/ /var/www/html/
+      </copy>
+      <run> a set of commands to be run when the container starts, you can have multiple run statements</run>
+    </container_provider>
+    <container_provider>
+      <type>vagrant</type>
+      <provisioner><!-- Note: for now we only support puppet, ansible is next. If you add a puppet provisioner entry
+      then you're expected to have your manifests in the manifests/ folder -->
+        <type>puppet</type>
+      <puppet_custom_facts>
+        text here will appear in the config.vm.provision "puppet" do |puppet| section of the target vagrantfile as is
+      </puppet_custom_facts></provisioner>
+    </container_provider>
 </challenge>
