@@ -1,0 +1,36 @@
+---
+# Update the repo, because most boxes are heavily outdated
+- name: Commmon | Update repository
+  apt: update_cache=yes
+
+# Required for adding other apt repos
+- name: Commmon | python-software-properties
+  apt: pkg=python-software-properties state=installed
+
+# Add custom repos
+- name: PHP 5.5 Custom Repo
+  apt_repository: repo='ppa:ondrej/php5' update_cache=yes
+
+- name: Common | Install ACL
+  apt: pkg=acl state=installed
+
+- name: Common | Install cURL
+  apt: pkg=curl state=installed
+
+- name: Common | Install Git
+  apt: pkg=git-core state=installed
+
+- name: Common | Install Vim
+  apt: pkg=vim state=installed
+
+- name: Common | Install run-one
+  apt: pkg=run-one state=installed
+
+# Hostname
+- name: Common | Set the hostname /etc/hostname
+  shell: echo {{ hostname }} > /etc/hostname
+  when: hostname is defined
+
+- name: Set the hostname
+  shell: hostname {{ hostname }}
+  when: hostname is defined

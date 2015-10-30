@@ -1,0 +1,21 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    root_folder: "/var/www/html/"
+    write_folder: "/var/www/html/"
+    db_name: hackademic
+    db_user: hackademic
+    db_pass: hackademicDevPassPleaseChange!
+    apache_user: vagrant
+    apache_group: vagrant
+    apache_docroot: "{{ root_folder }}/web"
+    apache_hostname: "localhost"
+  handlers:
+    - name: restart apache
+      service: name=apache2 state=reloaded
+  tasks:
+    - include: tasks/common.yml
+    - include: tasks/apache.yml
+    - include: tasks/mysql.yml
+    - include: tasks/php.yml

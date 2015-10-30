@@ -1,0 +1,39 @@
+---
+- name: Apache
+  apt: pkg=apache2 state=installed
+
+- name: Apache | Stop for user/group change
+  service: name=apache2 state=stopped
+
+- name: Apache | Define envvars
+  template: src=../files/apache/envvars dest=/etc/apache2/envvars
+
+- name: Apache | Changing lock file owner/group
+  file: path=/var/lock/apache2 owner={{ apache_user }} group={{ apache_group }}
+
+- name: Apache | Start for user/group change
+  service: name=apache2 state=started
+
+- name: Apache Modules
+  command: a2enmod {{ item }}
+  notify: restart apache
+  with_items:
+    - rewrite
+    - vhost_alias
+    - headers
+    - expires
+    - filter
+
+- name: Apache | Copy Host Config
+  template: src=../files/apache/app.conf dest=/etc/apache2/sites-available/app.conf
+
+- name: Apache | Enable Host Config
+  command: a2ensite app.conf
+  notify: restart apache
+
+- name: Apache | Disable Default Host Config
+  command: a2dissite 000-default.conf
+  notify: restart apache
+
+- name: Apache | Ensure application files are present
+  file: path={{ apache_docroot }} state=directory

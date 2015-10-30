@@ -1,0 +1,27 @@
+---
+- name: PHP and Modules
+  apt: pkg={{ item }} state=latest
+  notify: restart apache
+  tags: common
+  with_items:
+    - php5
+    - php5-mysql
+    - php5-xmlrpc
+    - php-soap
+    - php5-gd
+    - php5-curl
+    - php5-intl
+    - php5-imap
+    - php5-memcached
+    - php5-mongo
+    - php5-xdebug
+
+# PHP Apache config
+- name: PHP | Apache config
+  copy: src=../files/php/php.ini dest=/etc/php5/apache2/php.ini owner=vagrant group=vagrant mode=0644 force=yes
+  notify:
+    - restart apache
+
+# PHP CLI config
+- name: PHP | Apache config
+  copy: src=../files/php/php.ini dest=/etc/php5/cli/php.ini owner=vagrant group=vagrant mode=0644 force=yes
