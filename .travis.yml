@@ -20,6 +20,10 @@ before_script:
 
 script:
     #  - phpunit --configuration phpunit_mysql.xml --coverage-text
+    #check for style first
+  - php ./development/scripts/PSR_COMPLIANCE_TRAVIS.php
+
+  #Run the tests
   - vendor/bin/phpunit --configuration phpunit_mysql.xml --coverage-html ./report hackademic_devtests/model/common/class.PageTest.php
 
 install:
