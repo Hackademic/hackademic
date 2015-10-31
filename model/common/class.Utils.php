@@ -5,7 +5,7 @@
  *
  * Hackademic Utils Class
  * Generic, common and utility methods
- * 
+ *
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:
@@ -31,8 +31,6 @@
  *
  */
 
-require_once("PasswordHash.php");
-//require_once(HACKADEMIC_PATH."/esapi/User.php");
 
 class Utils {
 
@@ -60,24 +58,18 @@ class Utils {
 		$pattern = '/^[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@' . $hostname . '$/i';
 		return preg_match($pattern, $email);
 	}
-	
-	public static function getPassUtil(){
-		return $util =  new PasswordHash(8, true);
-	}
 
 	public static function hash($password){
-		$util = new PasswordHash(8, true);
-		$hash = $util->HashPassword($password);
-		if (strlen($hash) < 20){
-			throw new Exception('Hash length is less than 20 characters');
+		$hash = password_hash($password);
+		if (FALSE === $hash)){
+			throw new Exception('Password could not be hashed');
 			return false;
 		}
 		return $hash;
 	}
 
 	public static function check($input, $hash){
-		$util = new PasswordHash(8, true);
-		return $check = $util->CheckPassword($input, $hash);
+		return password_verify($input,$hash);
 	}
 
 	public static function sanitizeInput($input) {
