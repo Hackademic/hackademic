@@ -12,3 +12,4 @@ nbproject/
 composer.lock
 vendor/
 *.pyc
+*.logs
