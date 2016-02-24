@@ -74,7 +74,8 @@ class ContainerDaemon():
         try:
             s.bind((self.HOST, self.PORT))
         except socket.error as msg:
-            print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1]
+            print 'Bind failed. Error Code : ' + str(msg[0]) + ' Message '
+            + msg[1]
             sys.exit(1)
         s.listen(10)
         while True:
@@ -115,4 +116,9 @@ def main():
         containerdaemon.create_socket()
 
 if __name__ == '__main__':
-    main()
+    logs = LoggingManager()
+    try:
+        main()
+    except Exception as exception:
+        logs.daemon_runtime_log("Runtime Error: \n" +
+                                str(exception))

@@ -63,3 +63,13 @@ class LoggingManager:
         logger = self.create_logger('container_runtime_log', 'container.logs')
         logger.exception(exception)
         return
+
+    def daemon_runtime_log(self, exception=None):
+        """
+        All logs during the daemon runtime will be handled here.
+
+        :param exception:   ->  Any additional logging Messages
+        """
+        logger = self.create_logger('daemon_runtime_log', 'daemon_container.logs')
+        logger.exception(exception)
+        return
