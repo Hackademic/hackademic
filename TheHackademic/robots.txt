@@ -1,0 +1,17 @@
+User-agent: *
+Disallow: /challenge_4/inside/just_admin.php
+
+User-agent: Googlebot-Image
+Disallow:
+
+
+User-agent: *
+Disallow: /viewcart
+
+User-agent: *
+Disallow: /ebooks/
+
+
+User-agent: *
+Disallow: /dynamic/
+

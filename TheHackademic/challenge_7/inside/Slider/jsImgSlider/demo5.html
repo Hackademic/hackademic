@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo 5 - Semi-transparent Thumbnails</title>
+    <link href="themes/5/js-image-slider.css" rel="stylesheet" type="text/css" />
+    <script src="themes/5/js-image-slider.js" type="text/javascript"></script>
+    <link href="generic.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="div1"><h2>Demo 5 - Semi-transparent Thumbnails</h2>
+        <p>Demos: <a href="demo1.html">1</a><a href="demo2.html">2</a><a href="demo3.html">3</a><a href="demo4.html">4</a>
+        <a href="demo5.html" class="current">5</a><a href="demo6.html">6</a><a href="demo7.html">7</a><a href="demo8.html">8</a></p>
+    </div>
+
+    <div id="sliderFrame">
+        <div id="slider">
+            <a href="http://www.menucool.com/">
+                <img src="images/image-slider-1.jpg" alt="Welcome to Menucool.com" />
+            </a>
+            <a class="lazyImage" href="images/image-slider-2.jpg" title="Customizable Transition Effects">Customizable Transition Effects</a>
+            <a href="http://www.menucool.com/javascript-image-slider">
+                <b data-src="images/image-slider-3.jpg" data-alt="#htmlcaption3">Image Slider</b>
+            </a>
+            <a class="lazyImage" href="images/image-slider-4.jpg" title="Pure Javascript. No jQuery. No flash.">Plain Javascript Slider</a>
+            <a class="lazyImage" href="images/image-slider-5.jpg" title="#htmlcaption5">Lazy Loading Image</a>
+            <a class="lazyImage" href="images/image-slider-1.jpg" title="Light weight Image Slider">Light weight Image Slider</a>
+            <a class="lazyImage" href="images/image-slider-2.jpg" title="Fine tuned. Sleek & Smooth">Fine tuned. Sleek & Smooth</a>
+            <a class="lazyImage" href="images/image-slider-3.jpg" title="Easy-to-Use Slider">Easy-to-Use Slider</a>
+        </div>
+        <div style="display: none;">
+            <div id="htmlcaption3">
+                <em>HTML</em> caption. Back to <a href="http://www.menucool.com/">Menucool</a>.
+            </div>
+            <div id="htmlcaption5">
+                Smart Lazy Loading Image
+            </div>
+        </div>
+                
+        <!--thumbnails-->
+        <div id="thumbs">
+            <div class="thumb"><img src="images/thumb1.jpg" /></div>
+            <div class="thumb"><img src="images/thumb2.jpg" /></div>
+            <div class="thumb"><img src="images/thumb3.jpg" /></div>
+            <div class="thumb"><img src="images/thumb4.jpg" /></div>
+            <div class="thumb"><img src="images/thumb5.jpg" /></div>
+            <div class="thumb"><img src="images/thumb1.jpg" /></div>
+            <div class="thumb"><img src="images/thumb2.jpg" /></div>
+            <div class="thumb"><img src="images/thumb3.jpg" /></div>
+        </div>
+    </div>
+
+    <div class="div2">
+        Let's add a semi-transparent effect to the thumbnails, and each thumbnail will get back to its full opacity when hovered over.
+        This can be easily done via the two built-in CSS class: <b class="cn">thumb</b> and <b class="cn">thumb-on</b>:
+        <code>#thumbs .thumb img{ opacity:0.6;filter:alpha(opacity:60); }
+#thumbs .thumb-on img{ opacity:1;filter:alpha(opacity:100);}</code>
+        <p>And there you have it!</p>
+        <p>&nbsp;</p>
+        <p>If there are lots of thumbnails and the containing block does not have enough room to show them, 
+        you can consider showing the thumbnails in multiple columns or rows by tweaking the js-image-slider.css. 
+        Another solution is to make the slider work together with Menucool jQuery Slider. 
+        See <a href="http://www.menucool.com/slider/jquery-slideshow">jQuery Slideshow</a>.</p>
+        <p>Visit online <a href="http://www.menucool.com/slider/javascript-image-slider-demo5">Demo 5</a> and 
+        <a href="http://www.menucool.com/javascript-image-slider" target="_blank">JavaScript Image Slider</a> for detailed instructions.</p>
+        <p>This demo requires a license for having used advanced features of the slider.</p>
+    </div>
+
+</body>
+</html>
