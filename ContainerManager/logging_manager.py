@@ -6,15 +6,18 @@
 """
 
 import os
+import sys
 import logging
 
+sys.path.insert(1, os.path.abspath(os.path.join(os.path.dirname(__file__),
+                '..')))
 __author__ = 'AnirudhAnand (a0xnirudh) <anirudh@init-labs.org>'
 
 
 class LoggingManager:
 
     def __init__(self):
-        self.path = os.getcwd()
+        self.path = os.path.abspath(os.path.dirname(__file__))
         return
 
     def create_logger(self, name, filename):
