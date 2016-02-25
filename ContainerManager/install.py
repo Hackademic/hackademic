@@ -7,8 +7,12 @@
 """
 
 import os
+import sys
 import subprocess
 from logging_manager import LoggingManager
+
+sys.path.insert(1, os.path.abspath(os.path.join(os.path.dirname(__file__),
+                '..')))
 
 __author__ = 'AnirudhAnand (a0xnirudh) <anirudh@init-labs.org'
 
@@ -18,7 +22,13 @@ class Install:
     def __init__(self):
         self.user = os.environ['USER']
         self.install = LoggingManager()
+        self.file_location = os.path.abspath(os.path.dirname(__file__))
+        self.pip_install_tools = self.file_location + "/pip.txt"
         return
+
+    def run_command(self, command):
+        print "[+] Running the command: %s" % command
+        os.system(command)
 
     def install_docker(self):
 
@@ -94,6 +104,12 @@ class Install:
             self.install.install_log('Docker Build error: \n' + str(exception))
             exit("[+] Docker Build Interrupted. Check logs for more details..")
 
+    def install_pip_tools(self):
+        print("[+] Installing additional requirements")
+        install_file = open(self.pip_install_tools, "r")
+        for i in install_file.readlines():
+            self.run_command("sudo -E pip install --upgrade " + i)
+
     def install_finish(self):
         print("[+] Installation is Successful. Happy hacking !")
 
@@ -103,6 +119,7 @@ def main():
     docker.docker_image()
     docker.install_docker()
     docker.build_docker()
+    docker.install_pip_tools()
     docker.install_finish()
 
 
