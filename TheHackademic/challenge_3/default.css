@@ -1,0 +1,1345 @@
+@import url("../../reset.css");
+
+/* Common */
+body {
+	font: .75em/1.2 Arial, Helvetica, sans-serif;
+	padding: 10px 0;
+	color: #000;
+	overflow-y: visible;
+	_overflow-y: auto;
+}
+strong {
+	font-weight: bold;
+}
+legend {
+	display: none;
+}
+.error {
+	color: #f00;
+}
+span.translatedFileText, span.untranslatedText {
+
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.unavailable {
+	display: none;
+}
+/* 16762 - used to make text appear disabled like a form element */
+.disabled {
+	color: #ccc;
+}
+
+/* Layout */
+div#header, div#main, div#footerhps {
+	width: 63.2em;
+	margin: 0 auto;
+}
+
+div#header {
+	margin-bottom: 15px;
+	height: 78px;
+	overflow: hidden;
+}
+/* END OF NOTE */
+div#control {
+	float: right;
+	width: 33%;
+}
+div#content {
+	float: left;
+	width: 60%;
+}
+div#footerhps {
+	clear: both;
+	padding-top: 2.6em;
+}
+ 
+/* Header */
+div#header h1 {
+	font-size: 24px;
+	padding-top: 24px;
+		width: 100%;
+	overflow-x: auto;
+	white-space: pre;
+		margin-bottom: 0 !important;
+}
+div#header div.logo {
+	width: 150px;
+	height: 50px;
+/*	overflow: hidden; */
+}
+div#header img {
+	border: none;
+}
+
+/* Main */
+div#main.control div#control {
+	float: none;
+}
+div#main.content div#content {
+	width: 100%;
+}
+div#main h1 { 
+	font-size: 1.4em;
+	color: #326698;
+	position: relative;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+h1 img {
+	position: absolute;
+	right: 0;
+	top: -10px;
+}
+p.description {
+	text-align: right;
+	font-size: .9em;
+}
+p.description a.secure {
+	background: url(/WEBSCR-500-20080131-1/en_US/i/icon/secure_lock_2.gif) no-repeat right center;
+	padding: 2px 20px 2px 0;
+}
+p.instructions {
+	margin: -0.5em 0 1.5em 0;
+	text-align: left;
+	width: 60%;
+}
+
+p.instructions strong.requiredText{
+	margin-top: 1.1em;
+	display: block;
+}
+div#main.content p.instructions {
+	width: 70%;
+}
+input.transparentButton { 
+	margin: 0 !important; 
+	padding: 0 !important;
+	border: none !important;
+	background: transparent !important;
+	text-align: left !important;
+	color: #03c !important;
+	font-size: 1.1em !important;
+	cursor: pointer;
+	_cursor: hand;	
+}
+
+/* Footer */
+div#footerhps p {
+	font-size: .9em;
+	color: #666;
+}
+div#footerhps a {
+	color: #666;
+}
+
+/* Forms */ 
+form {
+	margin-top: 30px;
+}
+form.signup {
+	width: 35.25em;
+	_width: 35.725em;
+}
+form p {
+	margin: 1.2em 0;
+	font-size: 1.2em;
+}
+form p.note, div.notes p {
+	font-size: .9em;
+}
+div#content p, div#content div.buttonrow {
+	padding-left: 14.8em;
+	_padding-left: 15em;
+}
+div#content p.note {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: .9em;
+	padding-left: 16.25em;
+	_padding-left: 16.45em;
+	color: #aaa !important;
+}
+div#content p.footernote {
+	margin: 1.2em 0em 0em 0em;
+	font-size: .9em;
+	padding-left: 16.25em;
+	_padding-left: 16.45em;
+	color: #aaa !important;
+}
+div#content p.returnto {
+	margin-top: 50px;
+	font-size: 1.1em;
+	padding-left: 0;
+}
+div#content form p.note {
+	color: #aaa;
+	margin: 0;
+}
+form p#tos, form p#existingPP {
+	padding-left: 13.4em;
+	_padding-left: 13.6em;
+	margin: 7px 0px 0px 0px !important;
+	width: 300px;
+	z-index: 10;
+	font-size: 1.1em;
+}
+div#content .selected {
+	background-color: #edf4fc;
+}
+div#content div.fieldrow {
+	padding: 2px 0;
+	_padding: 1px 0;
+}
+div.fieldrow, div.fieldRow, fieldset.payment-type {
+	margin-bottom: 2px;
+}
+div.funding-mix fieldset#funding-mix div.payment-type {
+	padding: 0;
+}
+div.fieldrow label, div.fieldRow label, div.fieldrow span.label {
+	display: block;
+	float: left;
+	width: 14.2em;
+	margin: 0 5px 0 0;
+	padding: 0 0 0 2px;
+}
+div.payment-type span.label {
+	width: 12em !important;
+}
+div.fieldrow input, div.fieldRow input {
+	border: 1px solid #83a8cc;
+	padding: 1px 1px;
+	width: 18em;
+}
+
+input.radio {
+	width: 1em !important;
+	margin-right: 2px;
+	border: 0 !important;
+}
+div.fieldrow select{
+	width: 18.25em;
+	_width: 18.3em;
+}
+
+div.fieldrow select#credit_card_type {
+	margin-left: 44px;
+	_margin-left: 0;
+}
+div.fieldrow div.value {display:block; padding:0; width:40em; 	float:left;}
+div.buttonrow input, div.buttonRow input {
+	width: auto;
+	height: 22px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 1px 10px 2px 10px;
+	_padding: 1px 10px 0 10px;
+	margin-right: 10px;
+	letter-spacing: 1px;
+	background: #fcbb49 url(btn_main_1x50.gif) repeat-x top left;
+	color: #fff;
+	border: 1px solid #f90;
+}
+div.buttonrow input#review, div.buttonRow input#review {
+	padding: 1px 2px 2px 2px;
+}
+div.buttonrow input:hover, div.buttonRow input:hover {
+	cursor: pointer;
+}
+div.buttonrow input:active, div.buttonRow input:active {
+	border: 1px solid #000 !important;
+}
+div.buttonrow input.done, div.buttonRow input.done {
+	background: #afc8f1 url(btn_secondary_1x50.gif) repeat-x top left;
+	border: 1px solid #85a7ca;
+	font-size: 11px;
+	padding: 2px 10px !important;
+	_padding: 2px 10px 0 10px;
+	color: #fff ;
+}	
+div.buttonrow input.cancel, div.buttonRow input.cancel {
+	background: #cfcfcf urlbtn_cancel_1x50.gif) repeat-x top left;
+	border: 1px solid #acadaf;
+	font-size: 11px;
+	padding: 2px 10px !important;
+	_padding: 2px 10px 0 10px;
+	color: #777;
+}	
+div.buttonrow input.disabled, div.buttonRow input.disabled {
+	background: #bcbcbb url(btn_cancel_1x50.gif) repeat-x top left;
+	border: 1px solid #acadaf;
+	font-size: 11px;
+	padding: 2px 10px;
+	_padding: 2px 10px 0 10px;
+	color: #acadaf;
+}
+div.buttonrow input.disabled:hover, div.buttonRow input.disabled:hover {
+	cursor: default;
+}
+
+/* Field Sets */
+/* Payment Types */
+fieldset.payment-type {
+	margin: 0;
+	padding: 2px;
+}
+fieldset.payment-type:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+fieldset.payment-type input {
+	float: left;
+	width: auto;
+	margin: 3px 2px 0 0;
+	_margin: 0;
+}
+fieldset.payment-type input.hidden {
+	display: none;
+}
+fieldset.payment-type label {
+	height: 23px;
+	width: 37px;
+	text-indent: -12345px;
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+
+/* For Opera */
+@media all and (min-width: 0) {
+	fieldset.payment-type {
+		margin: 0;
+		padding: 0;
+	}
+	fieldset.payment-type input {
+		margin-right: 2.5px;
+	}
+	fieldset.payment-type label {
+		margin-right: 6px;
+	}
+}
+
+
+div.checkbox {
+	clear: both;
+	padding-left: 14.8em !important;
+	margin-bottom: 4px;
+}
+div.checkbox label, div.checkbox input {
+	width: auto;
+}
+div.checkbox label {
+	float: none;
+	padding-left: 1.5em;
+}
+div.checkbox input {
+	float: left;
+	margin-top: 4px;
+	_margin-top: 0;
+}
+div.region {
+	float: left;
+}
+div.region select {
+	width: auto !important;
+}
+
+
+
+div.hidden {
+	display: none;
+}
+
+
+div.country_specific_es {
+		clear:left;
+}
+
+/* Fix for postal code in Review page for IT  */
+body#review div.postal-code.country_specific label {
+        width: 8em !important;
+        text-align: left !important;
+        padding-left: 2px;
+}
+
+div.postal-code.country_specific_fr label {
+	width: 8em !important;
+	_width: 7.7em !important;
+	text-align: left !important;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+div.postal-code.country_specific input {
+	width: 5.6em;
+	float: none;
+}
+
+
+
+body#billing div#content div.buttonrow {
+	margin-top: 3.3em;
+}
+div.fieldrow.extended-address{
+	height: auto!important;
+}
+div.fieldrow.extended-address span.optional-text{
+	font-size: 11px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #666;
+}
+/* Create Account */
+div#create-account {
+	padding-left: 14.8em;
+	_padding-left: 15em;
+	margin-top: 30px;
+	width: 25.3em;
+}
+div#create-account .change-link {
+	display: none;
+	text-decoration: none;
+	color: #000;
+}
+div#create-account div.selected {
+	background-color: #fff !important;
+}
+
+
+div#create-account h2.expanded {
+	background-image: url(scr_dhtml_closed_22x22.gif);
+}
+div#create-account h2 span.optional {
+	font-size: .9em;
+}
+div#create-account fieldset {
+	font-size: .9em;
+	padding: 0 2.5em;
+	width: auto;
+	display: none; 
+}
+
+
+body#login div#control div.login {
+	padding: 10px;
+	border: none;
+	margin: 0;
+}
+body#login div#control div.login fieldset {
+	background: none;
+	padding: 0;
+}
+body#login div#control div.login div.fieldrow, body#login div#control div.login div.fieldRow {
+	margin-bottom: 6px;
+	margin-right: 0;
+	padding-right: 0;
+}
+
+
+/* added to correct font size for Review page after Pinless Debit spec required moving the paragraph inside the form */
+body#review p.instructions {
+	font-size: 1em;
+}
+/*body#review div.fieldrow label, div.fieldRow label, div.fieldrow span.label {*/
+body#review div.fieldrow label, div.fieldRow label {
+	width: 17.75em;
+}
+body#review form {
+	margin-top: 5px;
+}
+body#review select {
+	width: 20em;
+}
+body#review fieldset {padding:17px 0; border-top:0 none #fff; border-bottom:1px solid #ddd;	 clear: both;}
+body#review fieldset:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+body#review div.share-tel {
+	padding: 2px 0 !important;
+	margin: -4px 0 0 0;
+	width: 25em; /* 35em? */
+}
+body#review div.share-tel label {
+	float: left;
+	font-size: .9em;
+	width: 25em; /* 33em? */
+	margin-top: 2px;
+	padding-left: 2px;
+	padding-right: 0;
+}
+body#review div.share-tel input {
+	width: 1.2em;
+	float: left;
+}
+body#review a#change-contact-information {
+	padding-top: 3px;
+}
+body#review div.buttonrow#primary {
+	text-align: right;
+	height: 24px;
+	background-color: #f4f7f9;
+	padding: 6px 10px 6px 0;
+}	
+body#review div.credit-card {
+	clear: both;
+}
+/* Wipe the bottom border from the last fieldset on the page */
+body#review fieldset.last {
+	border-bottom: none;
+}
+
+body#review #contact-information, body#review #shipping-address, body#review #funding-mix-box {
+	padding: 0px 0px 10px 4em;
+}
+/* Funding Mix */
+body#review fieldset#funding-mix {padding:0; border:none; clear:both;}
+body#review fieldset#funding-mix input#cvv2_number {
+   width: 2.5em;
+}
+body#review fieldset#funding-mix div.fieldrow {height:2.5em!important; width:38em;}
+
+/* padding-left: 2px !important is needed for WAC flow. */
+body#review fieldset#funding-mix div.fieldrow label, body#review fieldset#funding-mix div.fieldrow span.label{display:block; float:left; height:1.7em; width:22em; padding-left:2px !important;}
+body#review fieldset#funding-mix div.disclaimer {
+   display: block;
+   width: 40em;
+   padding: 0 0 1.5em 4em;
+}
+body#review fieldset#funding-mix div.fieldrow.cvv2-code label {
+   width: auto;
+}
+body#review fieldset#funding-mix div.fieldrow.cvv2-code .value {
+   width: auto;
+   text-align: left;
+}
+body#review fieldset#funding-mix div.fieldrow.cvv2-code .value input {
+   margin-right: 0.5em;
+}
+body#review fieldset#funding-mix div.fieldrow.upsell {
+   padding-left: 4em;
+   padding-bottom: 1em;
+   height: auto !important;
+}
+body#review fieldset#funding-mix div.fieldrow.disclaimer {
+   font-size: 90%;
+   color: #999;
+   padding-left: 4.65em;
+   height: auto !important;
+}
+body#review fieldset#funding-mix div.fieldrow.instruction {
+   padding-left: 4em;
+   height: auto !important;
+}
+
+body#review fieldset#funding-mix div.fieldrow.instruction input, body#review fieldset#funding-mix div.fieldrow.upsell input {
+   margin: 2px 0 -1px 0;
+   height: auto !important;
+   width: auto !important;
+}
+body#review fieldset#funding-mix div.help-link {
+   width: 38em;
+   padding-left: 4em;
+}
+
+body#review fieldset#funding-mix div.fieldrow .value {
+   display: block;
+   float: left;
+   width: 10em;
+   text-align: right;
+}
+body#review fieldset#funding-mix div.fieldrow .amount {
+   display: block;
+   float: left;
+   width: 7em;
+   text-align: right;
+}
+body#review fieldset#funding-mix div.fieldrow .currency {
+   display: block;
+   float: right;
+   width: 3em;
+   text-align: right;
+}
+body#review fieldset#funding-mix div.backup-funds {
+   clear: both;
+   color: #999;
+   font-size: 90%;
+   padding: .75em 0 0 4.5em;
+}
+
+body#review fieldset#funding-mix div#navigational-links {padding: 1.75em 0 0 0; _padding:0; clear: left;}
+
+body#review fieldset#funding-mix div.chinaBankList {
+   margin-top: 1.5em;
+   float: left;
+   padding-left: 4em;
+}
+
+
+/* Exchange Rate */
+body#review div#exchange-rate {width:38em; padding:1.5em 0 0 4em;}
+body#review a#exchange-rate-options {
+	width: 38em;
+	padding-left: .5em;
+}
+
+/* Open WAX add CC messaging */
+body#review div#open-wax-cc-add {
+	width: 38em;
+	padding: 1.5em 0 1.75em 4em;
+}
+
+/* CC Statement Block */
+body#review div#ccStatement {width:38em; color: #999; float: left; padding-left: 4em;}
+
+/* Edit Module */
+body#review div.edit {
+	border: 1px solid #cde;
+	padding: 1px;
+	margin: 0 0 0 21.25em;
+	clear: both;
+}
+body#review div.edit h3 {
+	margin-bottom: .5em;
+}
+body#review div.edit fieldset {
+	padding: 10px;
+	background: url(scr_hashedbg_4x4.gif) repeat center;
+	padding: 10px;
+	border: none;
+	margin: 0;
+}
+body#review div.edit fieldset label {
+	/*width: 5em;*/
+	/* increased to 8em to make room for
+	address line X labels */
+	width: 8em;
+}	
+body#review div.edit li {
+	padding: 2px 0;
+}	
+body#review div.edit fieldset li label, body#review div.edit fieldset li input {
+	width: auto;
+	float: none;
+}	
+body#review div.edit fieldset li label {
+	line-height: 1.6;
+	margin: 0;
+	padding: 0;
+	display: inline;
+}	
+body#review div.edit fieldset li a {
+	font-size: .9em;
+	padding-left: 5px;
+}
+body#review div.edit fieldset li input {
+	vertical-align: text-top;
+	_vertical-align: middle;
+	margin-right: .25em;
+}	
+body#review div.edit fieldset div.checkbox {
+ 	/*padding-left: 5.5em !important;*/
+	/* increased to 6.5em to match
+	 increase in field labels */
+	padding-left: 6.5em !important;
+}
+body#review div.edit fieldset div.checkbox label {
+	width: auto;
+	font-size: .9em;
+}
+body#review div.edit div.buttonrow {
+	clear: both;
+	margin: 0;
+	padding: 6px 0 0 0;
+}	
+body#review div.edit div.buttonrow input {
+	padding: 3px 2px;
+}	
+body#review div.edit div.buttonrow a {
+	display: inline;
+	vertical-align: 4%;
+	font-size: .9em;
+}
+body#review #insert-shipping-address div.buttonrow {
+	padding-left: 8.5em;
+	_padding-left: 8.7em;
+}
+body#review fieldset.add div.buttonrow {
+	padding-left: 5.6em;
+	_padding-left: 5.8em;
+}	
+body#review div.edit div.gift-certificate {
+	margin: 0;
+}
+body#review div.edit div.gift-certificate .note {
+	font-size: .9em;
+}
+body#review div.edit div.gift-certificate label {
+	float: none;
+	width: auto;
+	margin: 0;
+	padding: 0;
+}
+body#review div.edit div.gift-certificate input {
+	margin-right: 5px;
+}
+/* This rule differs from the EC flow: NEEDS MARGIN */
+body#review fieldset div.shipping-address p#no-shipping-note {
+	font-size: 1em;
+	color: #000;
+	float: left;
+	padding: 0 !important;
+	margin: 0 !important;
+	margin-left: 48px !important;
+}
+/* End - This rule differs from the EC flow: NEEDS MARGIN */
+body#review div.edit div.postal-code label {
+	width: 8em;
+}	
+body#review .add div.tel label, body#review .add div.tel input {
+	width: 9em;
+}	
+body#review #insert-phone-number div.buttonrow {
+	padding-left: 9.6em;
+	_padding-left: 9.8em;
+}	
+body#review #insert-phone-number p.note { 
+	padding-left: 10.8em !important;
+	_padding-left: 11em !important;
+	color: #666 !important;
+}		
+body#review a.change-link {
+	display: none; /* the display is handled with JS */
+	clear: both;
+}
+body#review .type {
+	display: none;
+}
+body#review .value .value {
+	padding: 0;
+}
+body#review div#content p.note {
+	color: #000;
+	margin-bottom: .25em;
+	padding: 0;
+}
+body#review table input {
+	width: auto !important;
+}
+body#review .edit {
+	display: none;
+}
+
+/* 
+	This shows the edit shipping for
+	the non-js case 
+*/
+body#review .edit.expand {
+	display: block;
+}
+
+/* 12766 - Ref. Txn start */
+body#review div.billing-agree, div.billing-agree-withoutcheckbox {
+	padding: 2px 0 !important;
+	margin: -4px 0 0 0;
+	width: 25em;
+}
+body#review div.billing-agree label {
+	font-size: 1.0em; 
+	margin-top: 2px;
+	_margin-top: 4px;
+	margin-left: 2px;
+	width: auto;
+}
+body#review div.billing-agree-withoutcheckbox label {
+	font-size: 1.0em; 
+	margin-top: 2px;
+	_margin-top: 4px;
+	margin-left: -2px;
+	_margin-left: 0;
+	width: auto;
+}
+body#review div.billing-agree, div.billing-agree-withoutcheckbox input {
+	margin-left: 0.25em;
+	_margin-left: -0.25em;
+}
+
+body#review .adr.v2 .region {
+	display: block;
+ }
+
+
+body#review .adr v3 .address, body#review .adr.v4 .street-address {
+ 	display: inline;
+}
+
+body#review .adr.v3 .extended-address, body#review .adr.v4 .extended-address {
+ 	display: inline;
+}
+
+/* body#review .adr v4 .country */
+body#review .adr.v4 .country {
+ 	display: inline;
+}
+ 
+
+body#review .adr.v4 .postal-code {
+ 	display: block;
+}
+
+
+
+
+/* Used to avoid showing the text links when non-JS */
+body#review a#edit-new-address,
+body#review a#edit-new-phone,
+body#review a#add-shipping-address {
+	display: none;
+}
+
+div#edit-gift-certificate.expanded {
+	position: relative; 
+	top: .6em;
+}
+
+
+div.bcupsell h3 {
+	visibility: hidden;
+
+
+}
+div.bcupsell div.benefitstbc {
+	padding: 10px 0 10px 61px !important;
+}
+div.bcupsell div input {
+	width: auto;
+	_width: 80px;
+	margin-left: 15px;
+}
+div#csc-information2 {
+	display: none;  
+	z-index: 1; 
+	position: absolute;
+	left: 760px;
+	top: 490px;
+	_top: 480px;
+	
+}
+div#save-information2 {
+	display: none; 
+	z-index: 1; 
+	position: absolute;
+	left: 590px;
+	top: 800px;
+	_top: 780px;
+}
+
+dl.quick-faq, dl.quick-faq-hover {
+	position: relative;
+	display: inline;
+}
+dl.quick-faq, dl.quick-faq dt, dl.quick-faq dd, dl.quick-faq-hover, dl.quick-faq-hover dt, dl.quick-faq-hover dd {
+	margin: 0;
+	padding: 0;
+}
+dl.quick-faq:hover dd, dl.quick-faq.hover dd, dl.quick-faq-hover:hover dd, dl.quick-faq-hover.hover dd {		
+	display: block;
+}
+dl.quick-faq dt, dl.quick-faq-hover dt {	
+	display: inline;
+}
+dl.quick-faq dd {	
+	display: none;
+	position: absolute;
+	bottom: 1em;
+	top: -7em;
+	left: 30%;
+	_left: 10%;
+	width: 100%;
+}
+dl.quick-faq-hover dd {	
+	display: block;
+	position: absolute;
+	bottom: 1em;
+	top: -7em;
+	left: 30%;
+	width: 100%;
+}
+
+div.tooltip {
+	background: url(/WEBSCR-500-20080131-1/en_US/i/scr/scr_tooltip_bottom_left.gif) no-repeat left bottom;
+	font: 11px Arial, Helvetica, sans-serif;
+	border-top: 1px solid #000;
+	width: 250px;
+	position: relative;
+	left:20px;
+	top: 30px;
+}
+div.tooltip div.content {
+	padding: 5px 20px 15px 5px;
+	background: url(/WEBSCR-500-20080131-1/en_US/i/scr/scr_tooltip_right_6x500.gif) no-repeat 100% 100%;
+	position: relative;
+	right: -5px;
+	text-align: left;
+}
+div.tooltip div.content p {
+	margin: 0 0 5px 0 !important;
+	padding: 0 !important;
+	font: 11px Arial, sans-serif;
+}
+/*----------------------------------*/
+
+/* Done */
+body#done form {
+	margin-top: 5px;
+}
+body#done fieldset#create-account .fieldrow input {
+	width: 175px;
+}
+body#done fieldset div.buttonrow {
+	margin-top: 20px;
+}
+body#done .email {
+	margin: 10px 0;
+}
+body#done .create-password {
+	margin: 10px 0;
+}
+body#done .create-password p.note {
+	margin-left: 180px;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 0.9em;
+	color: #aaa;
+}
+body#done .confirm-password {
+	margin: 10px 0;
+}
+body#done .create-password-button {
+	margin-left: 180px;
+}
+body#done div.notes {
+	padding-top: 10px ;
+	clear: both;
+}
+body#done div.doubleclick {
+	margin: 30px 0 25px 0;
+	padding-top: 30px;
+	border-top: 1px solid #e8e8e8;
+}
+body#done div.order-information {
+	line-height: 17px;
+	width: 100%;
+	/*margin-top: 60px;*/
+}
+body#done div.order-information h2 {
+	font-size: 11px;
+	color: #aaa;
+	text-transform: uppercase;
+}
+body#done div.order-information:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+} 
+body#done #shipping-address {
+	float: left;
+	margin-right: 100px;
+}
+body#done #merchant-contact-information {
+	float: left;
+}
+body#done fieldset div.notes {
+	padding-left: 14.875em;
+	_padding-left: 14.9em;
+	margin-top: 0;
+	padding-top: 0;
+}
+div.buttonrow div.done input {
+ background: #afc8f1 url(btn_secondary_1x50.gif) repeat-x top left;
+ border: 1px solid #85a7ca; 
+ width: 175px;
+}	
+
+/* OpenWAX LoginChallenge page */
+body#loginChallenge p.instructions {
+	font-size: 1em !important;
+	width: 50.1%;
+}
+body#loginChallenge p.instructions strong{
+	padding-left: .3em;
+}
+body#loginChallenge div#main.control div#control{
+	float: right;
+	display: none;
+	margin-top: -30px;
+}
+body#loginChallenge div#main.control div#control-challenge{
+	float: right;
+	margin-top: -30px;
+}
+body#loginChallenge div#main.control div#content {
+	width: 50%;
+}
+body#loginChallenge div#content p.login {
+	margin: 1em 0 0 0;
+	padding: 0;
+	font-size: 1em !important;
+}
+body#loginChallenge div#control {
+	border: 5px solid #cdf;
+	padding: 10px;
+	width: 40%;
+}
+body#loginChallenge h3 {
+	color: #326698;
+}
+body#loginChallenge div#control-challenge {
+	border: 5px solid #cdf;
+	padding: 20px;
+	_padding-top: 0;
+	width: 40%;
+	margin-top: 30px;
+	_margin-top: 15px;
+} 
+body#loginChallenge div#control div.login, body#loginChallenge div#control-challenge div.login {
+	padding: 10px;
+	border: none;
+	margin: 0;
+}
+body#loginChallenge div#control div.login fieldset, body#loginChallenge div#control-challenge div.login fieldset {
+	background: none;
+	padding: 0;
+}
+body#loginChallenge div#control div.login div.fieldrow, body#loginChallenge div#control div.login div.fieldRow {
+	margin-bottom: 6px;
+	margin-right: 0;
+	padding-right: 0;
+}
+body#loginChallenge div.buttonrow, body#loginChallenge div.buttonRow, body#loginChallenge div.notes {
+	margin-left: 8.4em;
+}
+body#loginChallenge div#control div.login p.intro {
+	font-weight: bold;
+	color: #013368;
+}
+body#loginChallenge div#control div.login label {
+	width: 8em;
+	_width: 7.75em;
+	display: block;
+	float: left;
+}
+body#loginChallenge div#control div.login input {
+	width: auto;
+	margin: 0;
+}
+body#loginChallenge div.fieldrow input, body#login div.fieldRow input {
+	width: 13.25em;
+	_width: 12.9em;
+}
+body#loginChallenge div#control-challenge div.login-challenge p.login-challenge {
+	font-weight: bold;
+	color: #069;
+	padding-left: 50px;
+}
+body#loginChallenge div#control-challenge div.login-challenge p.note {
+	font-size: 1em !important;
+	padding-left: 30px;
+	margin-top: -10px;
+} 
+body#loginChallenge div.content-below {
+	width: 100%;
+}
+body#loginChallenge div.content-below:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	height: 0;
+} 
+body#loginChallenge p#return {
+	width: 50%;
+	padding: 20em 1em 0 0;
+	font-size: .9em !important;
+	float: left;
+	margin-right: 100px;
+}
+body#loginChallenge p#continue {
+	float: left;
+	font-size: 13px;
+}
+
+body#loginChallenge p#continue1 {
+	padding-top: 120px;
+	padding-left: 480px;
+	font-size: 13px;
+}
+
+body#loginChallenge p.note {
+	padding-bottom: 15px;
+	margin-bottom: 0;
+}
+body#loginChallenge ul {
+	list-style: disc;
+	margin: 1em 0 0 1em;
+}
+body#loginChallenge li {
+	padding: .3em;
+}
+body#done form p.tos {
+	margin-bottom: 0;
+	width: 300px;
+	z-index: 10;
+	font-size: 1.1em;
+}
+
+/* Something broke the styles in Done.aml, so here's a hotfix */
+body#done ul.transfer-note {
+	list-style-type: disc;
+	margin: 15px 0 10px 35px;
+}
+body#done span.small {
+	font-size: 11px;
+}
+
+/*Luxmber 15375 update*/
+
+div#content p.toslux {
+font-size:11px;
+color:#808080;
+padding-left: 16.2em;
+_padding-left: 16.4em;
+margin-bottom:2px;
+}
+
+div#content p.toslux.black strong{
+color:#000;
+font-weight:bold;
+}
+
+div#content p.toslux.simple {
+color:#000;
+}
+
+div#content ul.toslux {
+padding-left: 17.4em;
+_padding-left: 18em;
+margin-bottom: 0;
+font-size: 11px;
+list-style:disc;
+color:#808080;
+}
+
+
+/*writen  for spec:tax-shipping */
+
+
+#alertContainerSecond{
+border:1px solid #ffcc00;
+float:left;
+width:450px;
+margin:0 0 20px 0;
+padding:10px;
+background-color: #ffffcc;
+}
+
+.listContainer{
+float:left;
+}
+
+
+#alertContainerThird{
+border:1px solid #ffcc00;
+float:left;
+width:450px;
+margin:0 0 20px 0;
+padding:10px;
+background-color: #ffffcc;
+}
+
+.errorLeftBox{
+width:50px;
+float:left;
+height:50px;
+background: url(icon_noncritalert.gif) no-repeat top left;
+}
+
+.errorRightBox{
+width:400px;
+float:left;
+color:#ff0000;
+}
+
+/*#shipping-address-conflict,#to-existing-address,#listExisting,#buttonrow-conflict-third,#to-existing-addressThird{
+display:none;
+}
+
+#used-for-conflict{
+display:none;
+} */
+
+div.fieldrow input.radioBorderNone, div.fieldRow input.radioBorderNone, div.fieldRow input.checkboxBorderNone, div.fieldrow input.checkboxBorderNone{
+border: 0pt none;
+
+}
+
+/* 18772 - Donation Quick hits start*/
+#printReceipt{
+display:inline;
+float:left;
+margin-top:3px;
+margin-left:-15px;
+}
+
+div#confirmationMain{float:left; margin-top:-2px !important; width:100%; padding-bottom:10px;  /*margin-bottom:10px;*/}
+
+div#confirmationText{
+padding-left:0px;
+padding-top:4px;
+float:left;
+margin-right:3px;
+}
+div#confirmationLink{
+padding-left:0px;
+/*padding-top:5px;*/
+float:left;
+clear:left;
+}
+
+div.exp-date input {
+	width: 3em;
+	text-align: center;
+	margin-right: 4px;
+}
+div.exp-date input#birth_date_b, div.exp-date input#birth_date_c {
+	margin-left: 4px;
+}
+p.text {
+	padding-left: 0 !important;
+	margin-top: 0 !important;
+	font-size: inherit;
+}
+
+body#review fieldset#promodetails div.fields {
+	background-color: #e6edf5;
+	padding: 10px 40px 10px 10px;
+	border: 1px solid #ddd !important; 
+}
+
+fieldset#promodetails p {
+	padding-left: 0;
+	font-size: 1em;
+	margin:0.5em 0em;
+}
+
+fieldset#promodetails p.first {
+	margin-top: 0em;
+}
+
+fieldset#promodetails p.last {
+	margin-bottom: 0em;
+}
+
+body#review fieldset#promodetails {
+	border: 0;
+}
+
+span#ssn_a {
+	margin: 0em 1em;
+	text-align: center;
+}
+
+span#ssn_b {
+	margin: 0em 1.3em;
+	text-align: center;
+}
+
+span.ssn_separator {
+	margin: 0 .25em;
+	text-align: center;
+}
+body#billing #promotext, body#billing #promotextCC{
+	margin-left: 15em;
+}
+body#review span#promotext {
+	padding-left: 4em;
+	display: block;
+	width: 38em;
+}
+
+.fixclear {
+	clear: both;
+}
+
+body#review fieldset#promodetails span.ssn {
+	display: block;
+	margin-top: 5px;
+}
+
+/* For 'Continue' button on WebAccept success page */
+.buttonDiv {
+	text-align: right;
+}
+
+/* For Y! Toolbar spec 17250 */
+#toolbar {
+	display:none;
+}
+
+/* donation quick hits -- formatting 
+div#cowp-wrapper {
+font-size:11px !important;
+font-family:Arial !important;
+}*/
+
+div.transactioncredit label {width: 29em !important;}
+.panel .body .processing { margin: 2em 0em 3em 0em; text-align: center;  width: 100%;}
+.panel .body .processing h4 { letter-spacing: .075em; font-size: 105%; }
+.panel .body .processing p { margin: 2.5em 0em; }
+.panel .bcterms {overflow: scroll; height: 150px; margin-bottom: 10px; border: 1px solid #666; width: 99%;}
+.panel .body form { margin: 1em 0em; }
+.panel .body form p { font-size: 1em; }
+/* PPSCR00542175 - clear previous row when selectbox is moved off-screen */
+body#billing div.fieldrow.given-name {clear: left;}
+.txt{font-family:arial;font-size:12px; color:#333333;}
+.txt li{list-style-position:outside!important;}
+.pageheader {position: absolute;width: 480px;}
+body#review .incentive.expandRebate {
+    display: block; 
+	float: left;
+    width:396px;
+    min-height: 53px!important;
+    _height: 53px;
+    margin-top: -20px!important; 
+    
+}
+
+body#review div.incentive {
+	border: 1px solid #84A3CF;
+	background-color: #EAF1F7;
+	padding: 1px;
+	margin: 0 0 0 21.8em;
+	_margin-left: 11em;
+	clear: both;
+}
+
+body#review div.incentive fieldset {
+	padding: 10px;
+	border: none;
+	margin: 0;
+}
+
+body#billing p.instructions { float:none; margin:-5px 0 25px; font-size:1em; }
+body#billing #control { width:33%; }
+body#billing .loginOffset { padding:0 0 0 17px; border-left:1px solid #bbb; }
+body#billing #control h2, body#billing #content h2 { margin:0 0 1.4em; }
+body#billing #control h2 { margin-left:17px; }
+body#billing #control p.instructions { margin:6px 0 12px; font-weight:bold; }

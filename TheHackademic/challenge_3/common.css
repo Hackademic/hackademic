@@ -1,0 +1,553 @@
+
+/* Common Classes */
+.single * {
+	background-image: none !important;
+}
+li.last {
+	border-right: none !important;
+}
+.required  {
+	color: #ff6633;
+}
+p.note {
+	font-size: 11px !important;
+}
+form p.helpText {
+	margin: 2px  0 0 0 !important;
+	padding: 0;
+	color: #808080;
+	font-size: 11px !important;
+}
+
+/* Accessibility Aids */
+.accessAid  {
+	display: none;
+}
+
+/* Header */
+div.sectionBreak {
+	width: 100%;
+	height: 28px;
+	margin-bottom: 5px;
+	background: #336699 url(secondary_bg.gif) repeat-x 10px 0;
+}
+div#xptWAXHeader div.sectionBreak,  div#headerMerchant div.sectionBreak {
+	border-bottom: 5px solid #336699;
+	background: none;
+	margin-top: -28px;
+}
+
+div#ebayCheckoutHeader div.sectionBreak {
+	height: 20px;
+}
+
+/* Tabs */
+ /* Primary Navigation */
+div#navPrimary { 
+	width: 620px;
+	text-align: left;
+	margin: 17px auto 0 auto;
+	font-size:1em;
+	position: relative;
+	z-index: 1;
+}
+div#navPrimary ul {
+	margin: 0;
+	padding: 0 0 0 7px;
+	list-style: none;
+	text-align: center;
+	font-size: 12px;
+	height: 3.3em;
+}
+div#navPrimary li {
+	margin: 0;
+	padding: 0;
+	display: inline;
+}
+div#navPrimary a {
+	float:left;
+	background:url(left_both.gif) no-repeat left top;
+	text-decoration:none;
+	margin: 0 1px 0 0;
+	padding: 0 0 0 7px;
+	color: #fff;
+}
+div#navPrimary a span {
+	float: none;
+	display: block;
+	background: #023365 url(/WEBSCR-500-20080131-1/en_US/i/nav/right_both.gif) no-repeat right top;
+	padding: 10px 16px 6px 6px;
+	text-decoration: none;
+	font-weight: bold;
+	white-space: nowrap;
+}
+div#navPrimary .expanded a {
+	background-position:0 -149px;
+}
+div#navPrimary .expanded a span {
+	background-color: #369;
+	background-position: 100% -149px;
+	padding-bottom: 16px;
+}
+  /* Secondary Navigation */
+div#navSecondary {
+	background: #336699 url(/WEBSCR-500-20080131-1/en_US/i/nav/secondary_bg.gif) repeat-x 10px 0;
+	height: 28px;
+	width: 100%;
+	clear: both;
+	border-bottom: 1px solid #999;
+	margin: 0;
+	position: relative;
+	top: -10px;
+	z-index: 0;
+}
+div#navPrimary ul ul {
+	display: none;
+}
+div#navPrimary li.expanded ul {
+	display: block;
+	width: 650px;
+	position: absolute;
+	font-size: 11px; 
+	top: 33px;	
+	left: 15px;	
+	z-index: 1;
+}
+div#navPrimary li.expanded ul a {
+	background: none;
+	margin: 0;
+	padding: 0 0 0 2px;
+}
+div#navPrimary li.expanded ul a span {
+	padding: 10px 16px 3px 16px;
+	background: url(/WEBSCR-500-20080131-1/en_US/i/nav/sub_right_both.gif) no-repeat 100% 0;
+}
+
+div#navPrimary li.expanded ul li:last-child a span {
+	background: none;
+}
+div#navPrimary li.expanded ul li.last a span{
+	background: none;
+}
+div#navPrimary li.expanded ul li.selected a {
+	background: url(/WEBSCR-500-20080131-1/en_US/i/nav/sub_left_both.gif) no-repeat 0 -142px;
+	color: #000;
+	margin-left: -2px;
+	cursor: text;
+}
+div#navPrimary li.expanded ul li.selected a span {
+	background: url(/WEBSCR-500-20080131-1/en_US/i/nav/sub_right_both.gif) no-repeat 100% -142px;
+}
+
+
+div#footer {
+	width: 640px;
+	margin: 24px auto;
+	padding-bottom: 24px;
+	clear: both; 
+	font-size: 11px;
+	line-height: 1.25em;
+	text-align: center;
+}
+div#footer ul {
+	list-style-type: none;
+	margin: 20px 0 0 0;
+	padding: 0;
+}
+div#footer ul li {
+	display: inline;
+	border-right: 1px solid #000;
+	margin: 0;
+	padding: 0 6px 0 3px; 
+	_padding: 0 3px 0 6px; 
+}
+div#footer ul li a {
+	white-space: nowrap;
+}
+div#footer ul li:last-child {
+	border-right: none !important;
+}
+div#footer p {
+	margin: 20px 0 0 0;
+}
+
+div#footer p#legal {
+	width: 640px;
+	margin-left: auto;
+	margin-right: auto;
+}
+div#footerSecure {
+	margin: 10px 0 0 0;
+}
+
+div#footerSecure p {
+	margin: 0 0 15px 0;
+}
+
+/* Common Containers */
+div.simpleBox {
+	float: right;
+	width: 23%;
+	border: 1px solid #DBDBDB; 
+	padding: 0 10px;
+	margin: 0 0 10px 10px;
+	font-size: 11px !important;
+}
+div.simpleBox h4, div.simpleBox div.h4 {
+	background-color: #F9F9F9;
+	font-size: 11px !important;
+	font-weight: bold;
+	text-align: center;
+	margin: 0 -10px;
+	padding: 4px;
+}
+div.simpleBox li {
+	margin-bottom: .5em;
+}
+.preferred {
+	font-weight: bold;
+}
+
+
+div.generalBox, div.generalBox div.content, div.generalBox div.title, div.title * { 
+	background: #fff url(/WEBSCR-500-20080131-1/en_US/i/scr/grey_box.gif) no-repeat bottom right; 
+}
+div.attention, div.attention div.content, div.attention div.title, div.attention div.title * { 
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/scr/yellow_box.gif); 
+} 
+div.generalBox { 
+	
+	padding-right: 10px; 
+	margin: 0 0 20px 0; 
+} 
+
+div.generalBox div.title { 
+	background-position: top right; 
+	margin-right: -10px;  
+	padding-right: 10px; 
+} 
+/* set the top-left image */
+div.generalBox div.title * { 
+	background-position: top left; 
+	margin: 0 !important; /* reset main site styles*/ 
+	border: 0; /* ditto */ 
+	padding: 10px 0px 15px 10px; 
+	
+}
+div.generalBox div.title * * { 
+            background: none;
+            padding: 0;
+}
+div.generalBox div.title h4 { 
+	font-size: 11px !important;
+}
+/* set the lower-left corner image */ 
+div.generalBox div.content { 
+	background-position: bottom left; 
+	margin-right: 0; /* interior-padding right */ 
+	padding: 1px 0 1px 10px; /* mirror .cssbox_head right/left */ 
+} 
+div.generalBox div.content p { 
+	font-size: 11px !important;
+	padding: 0;
+} 
+div.generalBox div.content ul, div.generalBox div.content ol {
+	padding: 0;
+}
+div.generalBox div.content ul  {
+	margin: 0 0 15px 15px;
+	_margin: 0 0 15px 16px;	
+}
+div.generalBox div.content ol  {
+	margin: 0 0 15px 20px;
+	_margin: 0 0 15px 25px;
+}
+div.generalBox div.content ol  {
+ 	margin: 0 0 15px 21px;
+	_margin: 0 0 15px 25px;
+}
+div.generalBox div.content li {
+	margin: 0 0 3px 0;
+	font-size: 11px !important;
+}
+div.generalBox div.content a {
+	font-size: 11px !important;
+}
+div.generalBox div.content img {
+	margin-bottom: 10px;
+}
+div.generalBox div.content p img {
+	display: block;
+	margin: 15px auto 0 auto;
+}
+div.generalBox div.content ul.resources {
+	list-style-type:none;
+	margin: 0 0 15px 0;
+}
+div.generalBox div.content h5 {
+	margin: 0;
+	font-size: 11px !important;
+}
+
+/* Message Boxes */
+div.messageBox {
+	font-size: 12px;
+	margin: 0 0 10px 0;
+	border: 1px solid #000;
+	padding: 12px 40px 0 12px;
+	background-repeat: no-repeat;
+	background-position: 20px 14px;
+	background-color: #ffffcc;
+	border-color: #ffcc00;
+	width: auto;
+	min-height: 48px;
+	_height: 48px;
+}
+div.messageBox.res-center-critical {
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/icon/alert_critical.gif);
+	color: #000;
+	padding-left: 80px;
+}
+div.messageBox.res-center-non-critical {
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/icon/alert_non_critical.gif);
+	color: #000;
+	padding-left: 80px;
+}
+div.messageBox.notification {
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/icon/icon_notification.gif);
+	background-color: #eff7fe;
+	border-color: #83a8cc;
+	color: #000;
+	padding-left: 80px;
+}
+table.notificationBox td.notificationIcon
+{
+	background-image: url('/en_US/i/icon/icon_notification.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+div.messageBox.confirmation {
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/icon/icon_confirmation.gif);
+	background-color: #fafff1;
+	border-color: #a9d260;
+	color: #000;
+	padding-left: 80px;
+}
+div.messageBox.error {
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/icon/icon_critalert.gif);
+	background-color: #ffffcc;
+	border-color: #ffcc00;
+	color: #c60000;
+	padding-left: 80px;
+}
+div.messageBox.alert {
+	background-image: url(/WEBSCR-500-20080131-1/en_US/i/icon/icon_noncritalert.gif);
+	background-color: #ffffcc;
+	border-color: #ffcc00;
+	color: #000;
+	padding-left: 80px;
+}
+div.messageBox p {
+	margin: 0 0 12px 0 !important;
+	line-height: 1.5;
+}
+div.messageBox ul, div.messageBox ol {
+	margin: 0 0 12px 23px;
+	padding: 0;
+	line-height: 1.5;
+}
+
+/* hCard */
+div.vcard div, div.vcard span { 
+      white-space: nowrap; 
+}
+
+p.secureTransaction {
+	text-align: right;
+	font-size: .9em !important;
+	
+}
+p.secureTransaction a {
+	background: url(/WEBSCR-500-20080131-1/en_US/i/icon/secure_lock_2.gif) no-repeat right center;
+	padding: 2px 20px 2px 0;
+}
+p.instructions {
+	margin-top: -1.1em;
+	text-align: left;
+	float: left;
+}
+
+p.instructions span.requiredText {
+	background: url(/WEBSCR-500-20080131-1/en_US/i/scr/asterisk.gif) no-repeat ; 
+	background-position: 0% 37%; 
+	padding-left: 10px;
+	font-size: 13px;
+}
+
+input#emptyField {
+	visibility: hidden;
+	display: none;
+}
+
+/* class for the primary action button on a form */
+input.primaryButton {
+	font-weight: bold;
+}
+
+div#GlobalContentBox{
+	width: 760px;
+	margin: 10px auto;
+	padding-bottom: 5px;
+	clear: both; 
+	font-size: 11px;
+	line-height: 1.25em;
+	text-align: left;
+}
+
+/* Site Redesign Styles requires platform teams approval for any modification */
+
+div.betalink {position:relative; top:0; left:50%; width:232px; height:auto; margin-left:-126px; padding:1px 0 3px 0; background:#666 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/optin_bg.gif) bottom center no-repeat; text-align:center;}
+div.betalink a {color:#fff; font:12px/normal Arial, Helvetica, sans-serif; text-decoration:underline;}
+
+#header.srd {width:760px !important; height:100px; margin:0 auto; font:12px/normal Arial, Helvetica, sans-serif;}
+body > #header.srd {height:auto; min-height:100px;}
+#header.srd h1 {position:absolute; margin:0; padding:24px 0 24px 10px;height:auto;}
+#header.srd form#searchForm {float:right; width:180px; padding:4px 1px 4px 20px; background:#d5d5d5 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/hdr_search_bg.gif) bottom left no-repeat;}
+#header.srd form#searchForm fieldset {margin:0; border:0; padding:0;}
+#header.srd form#searchForm legend, #header form#searchForm label {display:block; position:absolute; top:0; left:-500em; width:1px; height:1px; overflow:hidden; text-indent:-9999em; line-height:0;}
+#header.srd form#searchForm input {margin:0; padding:2px; font-size:.9em;}
+#header.srd form#searchForm input#searchBox {width:95px;}
+#header.srd form#searchForm input.button {margin-left:2px;border:1px solid #999; background:#fde9b5; font-size:.9em;}
+#header.srd ul {margin:0; padding:0; list-style-type:none;}
+#header.srd ul li {margin:0;}
+#header.srd #rosetta { position: relative; border: 1px solid #fff; z-index: 3; width: 180px; overflow: hidden; top:40px; left:575px;}
+
+#navGlobal.srd {float:right; margin-top:.45em; text-align:right;width:375px;font-family:Arial, Helvetica, sans-serif;font-size:0.9em;font-weight:normal;}
+/*#navGlobal.srd ul{ font-size:10px;}*/
+#navGlobal.srd li {display:inline; border-right:1px solid #333; padding-left:.9em;}
+#navGlobal.srd li a {margin-right:1em;color:#084482;}
+#navGlobal.srd .last {border:none;}#header {width:760px !important; height:78px; margin:0 auto; font:12px/normal Arial, Helvetica, sans-serif;}
+
+div#navPrimary.srd {clear:both; z-index:2; position:relative; left:0 !important; width:760px !important; min-height:6px; margin:0 auto !important; border-bottom:1px solid #fff; padding:0; color:#333; background:none !important; font:12px/normal Arial, Helvetica, sans-serif;}
+div#navPrimary.srd ul {height:auto !important; overflow:auto; margin:0 0 3em 0 !important; border:0; padding:0 0 0 10px !important; background:url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_main_bg.gif) bottom left repeat-x; font-size:12px; list-style-type:none;}
+div#navPrimary.srd ul li {float:left; display:block; margin:.45em .45em 0 0 !important; padding:.27em .9em !important; background:#1A4773 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_prim_bg.gif) top left repeat-x;}
+div#navPrimary.srd ul li:hover, div#navPrimary.srd ul li.hover {background:#1A4773 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_prim_bg_hover.gif) top left repeat-x;}
+div#navPrimary.srd ul li a {display:block; float:none !important; margin:0 !important; padding:0 !important; color:#fff; background:none !important; font-weight:bold; text-decoration:none; text-align:center;}
+div#navPrimary.srd ul li.active {margin-top:0 !important; border-left:1px solid #ccc; border-right:1px solid #ccc; padding:.7em .9em .5em .9em !important; background:#f8f8f8 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_prim_bg_active.gif) top left repeat-x;}
+div#navPrimary.srd ul li.active:hover, div#navPrimary.srd ul li.active {background:#f8f8f8 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_prim_bg_active.gif) top left repeat-x;}
+div#navPrimary.srd ul li.active a {color:#333;}
+div#navPrimary.srd ul li ul {display:none;}
+div#navPrimary.srd ul li.active ul {display:block; overflow:visible; width:100%; position:absolute; top:2.3em !important; left:0; padding:0 !important; background:url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_second_bg.gif) left bottom repeat-x;}
+div#navPrimary.srd ul li.active ul li {margin:0 !important; padding:.45em .9em .8em .9em !important; background:transparent none;}
+div#navPrimary.srd ul li.active ul li a {display:block; color:#1C4266; font-weight:normal;}
+div#navPrimary.srd ul li.active ul li a:hover, div#navPrimary.srd ul li.active ul li a:focus {text-decoration:underline;}
+div#navPrimary.srd ul li.active ul li.active:hover, div#navPrimary.srd ul li.active ul li.active {border:none; background:none;}
+div#navPrimary.srd ul li.active ul li.active:hover{text-decoration:underline;}
+div#navPrimary.srd ul li.active ul li.active a {color:#333; font-weight:bold;}
+div#navPrimary.srd ul li.active ul li.active a:hover {text-decoration:none;}
+div#navPrimary.srd ul li ul li ul, div#navPrimary.srd ul li.active ul li ul {display:none;}
+div#navPrimary.srd ul li.active ul li:hover ul, div#navPrimary.srd ul li.active ul li.hover ul {display:block; z-index:10; width:auto; left:auto; margin:-.1em 0 0 -.9em !important; border:1px solid #ccc; border-top:none; padding:0 1em; background:#fff;}
+div#navPrimary.srd ul li.active ul li:hover ul li, div#navPrimary.srd ul li.active ul li.hover ul li {float:none !important; margin:1em 0; padding:0; text-align:left;}
+div#navPrimary.srd ul li.active ul li:hover ul li a, div#navPrimary.srd ul li.active ul li.hover ul li a {display:inline;}
+div#navPrimary.srd ul li.active ul li:hover ul li a:hover, div#navPrimary.srd ul li.active ul li.hover ul li a:hover {text-decoration:underline;}
+div#navPrimary.srd ul li.active ul li.active ul li a {color:#1C4266; font-weight:normal;}
+
+div#sectionBreak.srd {width:760px; margin:0 auto 1em auto; height:6px; background:url(/WEBSCR-500-20080131-1/en_US/i/pui/core/nav_main_bg.gif) bottom left repeat-x;}
+
+div#footer.srd {clear:both; margin:0 auto !important; border:0; padding:2em 9em 1em 9em !important; color:#999; background:#fff; font:normal 11px/normal Arial, Helvetica, sans-serif !important; text-align:center;}
+div#footer.srd img {vertical-align:middle;}
+div#footer.srd ul {margin:.7em 0;list-style-type:none;}
+div#footer.srd ul li {display:inline; margin:0; border-right:1px solid #999; padding:0 0 0 .4em !important;}
+div#footer.srd ul li.last {border-right:0;}
+div#footer.srd ul li a {margin-right:.5em;color:#084482 !important; text-decoration:underline; white-space:nowrap;} 
+div#footer.srd p {margin:20px 0 0 0; padding:0;} 
+
+#navFull {overflow:auto;padding:2em 0 1em 0;}
+#navFull ul {list-style-type:none;}
+#navFull li {float:left; width:14em;}
+#navFull ul ul {list-style-type:disc;}
+#navFull ul ul li {float:none; width:auto;}
+
+.overlay {position:absolute; display:block;}
+.mask {z-index:0; display:none; position:absolute; top:0; left:0; background-color:#ccc; opacity:.50; filter: alpha(opacity=50); -moz-opacity: 0.5;}
+.panel-container {z-index:6; overflow:visible; visibility:hidden; position:absolute; width:auto; background-color:transparent;}
+.panel {z-index:1; overflow:hidden; visibility:hidden; position:relative; border-collapse:separate; left:0; top:0; border:2px solid #c63; padding:20px; background-color:#fff;}
+.panel .hd {overflow:hidden; font-weight:bold;}
+.panel .bd {overflow:hidden; padding:25px 0;}
+.panel .ft {overflow:hidden;}
+.panel .close {z-index:6; visibility:inherit; position:absolute; top:10px; right:10px; height:15px; width:15px; margin:0; padding:0; background:url(/WEBSCR-500-20080131-1/en_US/i/pui/core/optout_close.gif) no-repeat; cursor:pointer;}
+
+.button-group {text-align:right;}
+.button-group button {border:1px solid #999; margin:0 10px 0 0; padding:2px 5px; color:#333; background:#ccc; font-size:.9em; font-weight:normal !important; text-decoration:none;}
+.button-group button.default {background:#fbce5b;}
+div.betalink a {color:#fff; font:12px/normal Arial, Helvetica, sans-serif; text-decoration:underline;}
+
+div#header.mainHeader { 
+	margin: 0 auto 17px auto;
+	width: 700px;
+	text-align: left;
+	height:auto;
+}
+div#header.mainHeader  h1 {
+	margin: 0;
+	padding: 0;
+	height: 50px;
+	width: auto;
+	float: left;
+	overflow: hidden;
+}
+div#header.mainHeader:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+div#header.mainHeader div#navGlobal {
+	text-align: right;
+}
+div#header.mainHeader div#navGlobal ul {
+	margin: 17px 0 0 0;
+	padding: 0;
+	list-style-type: none;
+	font-size: 13px;
+	float: right;
+}
+
+div#header.mainHeader div#navGlobal ul li {
+	margin: 0;
+	padding: 0 .5em 0 .25em;
+	_padding: 0 .25em 0 .65em;
+	display: inline;
+	border-right: 1px solid #000;
+}
+div#header.mainHeader form { 
+	float: right;
+	width: 210px;
+}
+div#header.mainHeader form fieldset label,  div#header.mainHeader form fieldset legend {
+	display: none;
+}
+div#header.mainHeader form fieldset {
+	border: 1px solid #fff;
+	margin-top: 8px;
+	_margin-top: 10px;
+}
+div#header.mainHeader form label, div#header.mainHeader form input { 
+	margin: 0; 
+	padding: 0; 
+}
+div#header.mainHeader form #searchBox { 
+	margin: 0; 
+	width: 120px; 
+}
+div#header.mainHeader form fieldset input.button { 
+	margin: 0 0 0 .5em;
+}
+div#xptCardIcons ul {display:inline;margin:0;padding:0;}
+div#xptCardIcons ul li {display:inline; margin:0;}
+.alignMiddle {vertical-align: middle;}
+/* temp fix for header */
+#header.srd form#searchForm input#searchBox {width:95px; border:1px solid #999999;}
+#header.srd form#searchForm input.button {margin-left:2px;border:1px solid #bfbfbf; border-right-color:#908d8d; border-bottom-color:#908d8d; background:#e1e1e1 url(/WEBSCR-500-20080131-1/en_US/i/pui/core/btn_bg_default.gif) left center repeat-x; font-size:.9em;}

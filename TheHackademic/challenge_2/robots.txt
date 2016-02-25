@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /Test
+
+User-agent: *
+Disallow: /Important_Files

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo 7 - Create Image Slider Dynamically</title>
+    <link href="themes/7/js-image-slider.css" rel="stylesheet" type="text/css" />
+    <script src="themes/7/js-image-slider.js" type="text/javascript"></script>
+    <link href="generic.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        function populateSlider() {
+            //Note: If the slider container has been set as invisible(e.g. display:none;), make sure set it visible before reload the imageSlider
+            setSliderMarkup();
+            imageSlider.reload();
+        }
+        function setSliderMarkup() {
+            var sliderFrame = document.getElementById("sliderFrame");
+            sliderFrame.innerHTML = '<div id="slider"><img src="images/image-slider-1.jpg" />' +
+            '<img src="images/image-slider-2.jpg" /><img src="images/image-slider-3.jpg" alt="Pure Javascript. Non jQuery. Non flash." />' +
+            '<img src="images/image-slider-4.jpg" alt="#htmlcaption" /><img src="images/image-slider-5.jpg" /></div>';
+        }
+    </script>
+</head>
+<body>
+    <div class="div1"><h2>Demo 7 - Create Image Slider Dynamically</h2>
+        <p>Demos: <a href="demo1.html">1</a><a href="demo2.html">2</a><a href="demo3.html">3</a><a href="demo4.html">4</a>
+        <a href="demo5.html">5</a><a href="demo6.html">6</a><a href="demo7.html" class="current">7</a><a href="demo8.html">8</a></p>
+    </div>
+    <div id="sliderFrame"></div>
+    <div id="htmlcaption" style="display: none;">
+        <em>HTML</em> caption. Link to <a href="http://www.google.com/">Google</a>.
+    </div>
+
+    <div class="div2">
+        <input type="button" onclick="populateSlider()" value="Click to Populate Slider" />
+        <p>If your web page loads the slider markup dynamically (ajax, appendChild, etc.), or you want to update the slider items on the fly, you can use the slider's reload function:</p>
+        <code>imageSlider.reload();</code>
+        <p>&nbsp;</p>
+        The <span class="cn">reload</span> is the slider's built-in function that will help: 
+        <ul>
+            <li>Load on demand - Populate slider dynamically by client event or AJAX</li>
+            <li>Adding/Changing items on the fly to the slider</li>
+        </ul>
+        <p>View the source of this page for the sample code.</p>
+        <p>This demo contains no advanced features. It is free to use.</p>
+    </div>
+</body>
+</html>
