@@ -96,7 +96,7 @@ class Install:
         subprocess.call("docker rmi -f hackademic", stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT, shell=True)
         try:
-            subprocess.check_call("docker build -t hackademic .",
+            subprocess.check_call("docker build -t hackademic "+self.file_location,
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.STDOUT, shell=True)
 
