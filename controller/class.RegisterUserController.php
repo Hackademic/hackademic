@@ -41,11 +41,13 @@ class RegisterUserController extends HackademicController {
 	public $username;
 	public $name;
 	public $email;
+	public $x = array('username', 'full_name', 'password', 'confirmpassword', 'email');
 
 
 	public function go() {
 		$this->setViewTemplate('register_user.tpl');
 		if (isset($_POST['submit'])) {
+			$this->setEmptyIfNotExist();
 			$this->saveFormFields();
 			if ($_POST['username']=='') {
 				$this->addErrorMessage("Username should not be empty");
@@ -95,6 +97,14 @@ class RegisterUserController extends HackademicController {
 		$this->name = Utils::sanitizeInput($_POST['full_name']);
 		$this->email = $_POST['email'];
 		$this->addToView('cached', $this);
+	}
+
+	public function setEmptyIfNotExist(){
+		foreach ($this->x as $y) {
+			if (!isset($_POST[$y])){
+				$_POST[$y] = "";
+			}
+		}
 	}
 
 }
