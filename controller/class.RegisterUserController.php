@@ -41,7 +41,7 @@ class RegisterUserController extends HackademicController {
 	public $username;
 	public $name;
 	public $email;
-	public $x = array('username', 'full_name', 'password', 'confirmpassword', 'email');
+	public $form_fields = array('username', 'full_name', 'password', 'confirmpassword', 'email');
 
 
 	public function go() {
@@ -100,9 +100,9 @@ class RegisterUserController extends HackademicController {
 	}
 
 	public function setEmptyIfNotExist(){
-		foreach ($this->x as $y) {
-			if (!isset($_POST[$y])){
-				$_POST[$y] = "";
+		foreach ($this->form_fields as $field) {
+			if (!isset($_POST[$field])){
+				$_POST[$field] = "";
 			}
 		}
 	}
