@@ -16,8 +16,9 @@ __author__ = 'AnirudhAnand (a0xnirudh) <anirudh@init-labs.org>'
 
 class LoggingManager:
 
-    def __init__(self):
+    def __init__(self, dirname='hackademic-logs'):
         self.path = os.path.abspath(os.path.dirname(__file__))
+        self.dirname = dirname
         return
 
     def create_logger(self, name, filename):
@@ -34,8 +35,12 @@ class LoggingManager:
         logger = logging.getLogger(name)
         logger.setLevel(logging.DEBUG)
 
+        # create logging directory if not exists
+        if not os.path.exists(self.dirname):
+            os.makedirs(self.dirname)
+
         # create console handler and set level to debug
-        ch = logging.FileHandler(filename=self.path + '/hackademic-logs/'+filename)
+        ch = logging.FileHandler(filename="{}/{}/{}".format(self.path, self.dirname, filename))
         ch.setLevel(logging.DEBUG)
 
         # create formatter - Format in which message is saved
