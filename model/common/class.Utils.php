@@ -40,10 +40,10 @@ class Utils {
 	public static function defineConstants() {
 		if (!defined('HACKADEMIC_PATH')) {
 			define('HACKADEMIC_PATH', str_replace("\\",'/', dirname(dirname(dirname(__FILE__)))).'/');
-				define('GLOBAL_CLASS_ID',1);
-				define('DEFAULT_RULES_ID',1);
-				define('NO_RESULTS',false);
-				define('MICROSECS_IN_MINUTE',60);
+			define('GLOBAL_CLASS_ID',1);
+			define('DEFAULT_RULES_ID',1);
+			define('NO_RESULTS',false);
+			define('MICROSECS_IN_MINUTE',60);
 		}
     if(!defined('HACKADEMIC_PLUGIN_PATH')) {
       define('HACKADEMIC_PLUGIN_PATH', HACKADEMIC_PATH . 'user/plugins/');
@@ -74,7 +74,7 @@ class Utils {
 
 	public static function sanitizeInput($input) {
 		$input = str_replace( "\0", "", $input);
-    		$input = htmlspecialchars($input);
-    		return $input;
+		$input = htmlspecialchars($input);
+		return $input;
 	}
 }
