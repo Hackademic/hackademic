@@ -74,6 +74,7 @@ class LoginController extends HackademicController {
 					$username = $_POST['username'];
 					$this->addToView('username', $username);
 					$user=User::findByUsername($username);
+					$recaptcha_response = $_POST['g-recaptcha-response'];
 
 					if (!$user) {
 						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=username");
@@ -84,14 +85,10 @@ class LoginController extends HackademicController {
 					} elseif ($user->is_activated != 1){
 						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=activate");
 						die();
+					} elseif (!Utils::verifyReCaptcha($recaptcha_response)) {
+						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=recaptcha");
+						die();
 					} else {
-						// verify recaptcha
-						$recaptcha_response = $_POST['g-recaptcha-response'];
-						$recaptcha_verify = Utils::verifyReCaptcha($recaptcha_response);
-						if(!$recaptcha_verify) {
-							header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=recaptcha");
-							die();
-						}
 						// start the session
 						$session->completeLogin($user);
 						if($user->type){
