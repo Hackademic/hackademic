@@ -15,7 +15,7 @@ Note:
 
 3) Check for a new build called `hackademic` after the installation. Use the command `docker images` in a terminal and verify there is a new build.
 
-4) If you wanna test out the challenge (A simple phpinfo() as of now) run the command `docker run -d -p 1337:80 hackademic` and after this go to the URL `ip-address:1337/testchallenge1` and see if you are getting the output of phpinfo().
+4) If you wanna test out the challenge (A simple phpinfo() as of now) run the command `docker run -d -p 1337:80 hackademic` and after this go to the URL `ip-address:1337/samplechallenge` and see if you are getting the output of phpinfo().
 
 Creating Container:
 -------------------
