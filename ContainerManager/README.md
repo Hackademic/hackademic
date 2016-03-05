@@ -33,4 +33,11 @@ An always running python script which manages the whole container project. Immed
 2. List currently running containers
 3. Kill any containers if needed.
 
+Connecting to a Container Daemon:
+-----------------
+
+1. Run the `container_daemon.py` script. This will create an listening socket connection on port 5506.
+2. Connect to socket connection running on port 5506 using `nc localhost 5506`.
+3. Run the challenge by sending `create_connection:<challengename>` to the socket connection. This will return the web address of running challenge.
+
 A UI has to be added to provide this as an interface to the admin.
