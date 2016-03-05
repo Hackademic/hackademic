@@ -2,8 +2,6 @@ FROM phusion/baseimage:latest
 
 CMD ["/sbin/my_init"]
 
-RUN echo "Acquire::http { Proxy \"http://10.30.10.45:3142\"; };" > /etc/apt/apt.conf.d/02proxy
-
 RUN export LANG=C.UTF-8 && add-apt-repository -y ppa:ondrej/php5-5.6 && apt-get update && apt-get install -y apache2 php5 wget
 
 RUN mkdir /etc/service/apache2
