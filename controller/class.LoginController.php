@@ -59,7 +59,8 @@ class LoginController extends HackademicController {
 				die();
 			}
 			if (isset($_POST['submit']) && $_POST['submit']=='Login'
-					&& isset($_POST['username']) && isset($_POST['pwd']) ) {
+					&& isset($_POST['username']) && isset($_POST['pwd'])
+					&& isset($_POST['g-recaptcha-response']) ) {
 				if ($_POST['username']=='' || $_POST['pwd']=='') {
 					if ($_POST['username']=='') {
 						$this->addErrorMessage("Username must not be empty");
@@ -84,6 +85,13 @@ class LoginController extends HackademicController {
 						header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=activate");
 						die();
 					} else {
+						// verify recaptcha
+						$recaptcha_response = $_POST['g-recaptcha-response'];
+						$recaptcha_verify = Utils::verifyReCaptcha($recaptcha_response);
+						if(!$recaptcha_verify) {
+							header('Location:'.SOURCE_ROOT_PATH."?url=mainlogin&msg=recaptcha");
+							die();
+						}
 						// start the session
 						$session->completeLogin($user);
 						if($user->type){

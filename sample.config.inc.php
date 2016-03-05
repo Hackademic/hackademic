@@ -77,6 +77,10 @@ define('EXHIBITION_MODE',false);
 //the installation language
 define('LANG','EN');
 
+//Google recaptcha site_key and secret_key obtained from https://www.google.com/recaptcha/admin
+define('G_SITE_KEY', '#GOOGLE_RECAPTCHA_SITE_KEY');
+define('G_SECRET_KEY', '#GOOGLE_RECAPTCHA_SECRET_KEY');
+
 /* Unit Testing Variables*/
 define('TEST_USERNAME_ADMIN','#THE_USERNAME_FOR_TESTS');
 define('TEST_PASSWORD_ADMIN','#THE_PASSWORD_FOR_tESTS');
