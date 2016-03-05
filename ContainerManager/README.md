@@ -34,6 +34,7 @@ An always running python script which manages the whole container project. Immed
 3. Kill any containers if needed.
 
 Connecting to a Container Daemon:
+-----------------
 
 1. Run the `container_daemon.py` script. This will create an listening socket connection on port 5506.
 2. Connect to socket connection running on port 5506 using `nc localhost 5506`.
