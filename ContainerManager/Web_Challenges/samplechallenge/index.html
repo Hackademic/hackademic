@@ -1,110 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>ACE in Action</title>
-    <style type="text/css" media="screen">
-        #editor {
-            bottom: 0;
-            left: 0;
-            margin: 0 auto;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 63%;
-            height:50%;
-            font-size: 16px;
-        }
-        #submit {
-            margin-right: 19%;
-            position:absolute;
-            bottom:50%;
-            right: 0;
-        }
-        body {
-            background: grey none repeat scroll 0 0;
-            bottom: 0;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-        #filler{}
-        #container{bottom: 0;
-            height: 100%;
-            left: 0;
-            position: relative;
-            right: 0;
-            top: 0;
-            width: 100%;
-        }
-        #explanation{
-            width: 63%;
-            height: 30%;
-            margin: 0 auto;
-            background:white;
-            margin-bottom:2%;
-        }
-        header{
-            display: block;
-            margin: 2%;
-            text-align: center;
-        }
+    <head>
+        <title>ACE in Action</title>
+        <link rel="stylesheet" href="staticfiles/css/bootstrap.min.css">
+        <link rel="stylesheet" href="staticfiles/css/animate.css">
+        <link rel="stylesheet" href="staticfiles/css/font-awesome.min.css">
+        <link rel="stylesheet" href="staticfiles/style.css">
+        <style type="text/css" media="screen"></style>
+    </head>
 
-    </style>
-</head>
-<body>
-<header>SuperAwesome unit testing thingy</header>
+    <body>
 
-<div id="explanation">Here will be the explanation</div>
+        <div class="wrap">
+            <div class="row">
+                    <nav class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 animated bounceInDown">
+                        <ul class="menu">
+                            <li class="center"><a href="#"><div class="container-fluid">
+                                    <h1>SuperAwesome unit testing thingy</h1>
+                                </div></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </nav>
+            </div>
+        </div>
 
-<div id="container">
-<div id="editor">public function sanitize($user_input) {
-  $x = htmlspecialchars(trim($user_input));
-  return "&lt;span title='".$x."'&gt;User input added as span title &lt;/span&gt;";
+        <section class="panel col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 animated bounceInUp">
+
+            <div style="padding:4px;">
+                <header class="panel-heading col-md-12">
+                    <h2 class="panel-title"> <i class="fa fa-file-text-o fa-lg"></i> Explanation</h2>
+                </header>
+                <div class="panel-body">
+                        <div id="container" class="col-md-12 well">
+                                Here will be the explanation
+                        </div>
+                </div>
+            </div>
+
+			<header class="panel-heading col-md-12">
+				<h2 class="panel-title"><i class="fa fa-code fa-lg"></i> Code Editor</h2>
+			</header>
+			<div class="panel-body">
+                <div id="container" class="col-md-12 well" style="padding:4px;">
+                    <div id="editor">public function sanitize($user_input) {
+    $x = htmlspecialchars(trim($user_input));
+    return "&lt;span title='".$x."'&gt;User input added as span title &lt;/span&gt;";
 }
+                    </div>
+                </div>
+                <div id="submit col-md-12">
+                    <input type="submit" value="Submit" onclick="execute()" class="btn btn-default pull-right"/>
+                </div>
+			</div>
 
-    </div>
+		</section>
 
-    <div id="submit">
-        <input type="submit" value="Submit" onclick="execute()"
-               style="background-color: #bcc6ae;
-  border-top: 2px solid #5f6c4d;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-  border-left: 2px solid #5f6c4d;
-  width: 80px; height: 24px;
-  font-weight: bold;" />
-    </div>
-</div>
+        <script src="../editor/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("../editor/ace/theme/monokai");
+            editor.getSession().setMode("../editor/ace/mode/javascript");
+            editor.getSession().setUseWrapMode(true);
+            editor.setHighlightActiveLine(true);
+            editor.getSession().setTabSize(4);
+            document.getElementById('editor').style.fontSize='16px';
+            editor.resize();
 
-<script src="../editor/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("../editor/ace/theme/monokai");
-    editor.getSession().setMode("../editor/ace/mode/javascript");
-    editor.getSession().setUseWrapMode(true);
-    editor.setHighlightActiveLine(true);
-    editor.getSession().setTabSize(4);
-    document.getElementById('editor').style.fontSize='16px';
-    editor.resize();
+            function execute() {
+                var http = new XMLHttpRequest();
+                var response = '';
+                http.open("POST", "test.php", true);
+                http.responseType = "text";
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                http.onreadystatechange = function() {
+                    if (http.readyState == 4 && http.status == 200) {
+                        response = http.responseText;
+                        document.getElementById("explanation").innerHTML = response;
 
-    function execute() {
-        var http = new XMLHttpRequest();
-        var response = '';
-        http.open("POST", "test.php", true);
-        http.responseType = "text";
-        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        http.onreadystatechange = function() {
-            if (http.readyState == 4 && http.status == 200) {
-                response = http.responseText;
-                document.getElementById("explanation").innerHTML = response;
-
+                    }
+                };
+                http.send("function="+ editor.getValue());
             }
-        };
-        http.send("function="+ editor.getValue());
-    }
 
-</script>
+        </script>
 
-</body>
+        <script src="staticfiles/js/bootstrap.min.js"></script>
+        <script src="staticfiles/js/wow.min.js"></script>
+    </body>
 </html>

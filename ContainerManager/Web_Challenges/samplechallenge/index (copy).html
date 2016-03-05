@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ACE in Action</title>
+    <style type="text/css" media="screen">
+        #editor {
+            bottom: 0;
+            left: 0;
+            margin: 0 auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 63%;
+            height:50%;
+            font-size: 16px;
+        }
+        #submit {
+            margin-right: 19%;
+            position:absolute;
+            bottom:50%;
+            right: 0;
+        }
+        body {
+            background: grey none repeat scroll 0 0;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        #filler{}
+        #container{bottom: 0;
+            height: 100%;
+            left: 0;
+            position: relative;
+            right: 0;
+            top: 0;
+            width: 100%;
+        }
+        #explanation{
+            width: 63%;
+            height: 30%;
+            margin: 0 auto;
+            background:white;
+            margin-bottom:2%;
+        }
+        header{
+            display: block;
+            margin: 2%;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<header>SuperAwesome unit testing thingy</header>
+
+<div id="explanation">Here will be the explanation</div>
+
+<div id="container">
+<div id="editor">public function sanitize($user_input) {
+  $x = htmlspecialchars(trim($user_input));
+  return "&lt;span title='".$x."'&gt;User input added as span title &lt;/span&gt;";
+}
+
+    </div>
+
+    <div id="submit">
+        <input type="submit" value="Submit" onclick="execute()"
+               style="background-color: #bcc6ae;
+  border-top: 2px solid #5f6c4d;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  border-left: 2px solid #5f6c4d;
+  width: 80px; height: 24px;
+  font-weight: bold;" />
+    </div>
+</div>
+
+<script src="../editor/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("../editor/ace/theme/monokai");
+    editor.getSession().setMode("../editor/ace/mode/javascript");
+    editor.getSession().setUseWrapMode(true);
+    editor.setHighlightActiveLine(true);
+    editor.getSession().setTabSize(4);
+    document.getElementById('editor').style.fontSize='16px';
+    editor.resize();
+
+    function execute() {
+        var http = new XMLHttpRequest();
+        var response = '';
+        http.open("POST", "test.php", true);
+        http.responseType = "text";
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.onreadystatechange = function() {
+            if (http.readyState == 4 && http.status == 200) {
+                response = http.responseText;
+                document.getElementById("explanation").innerHTML = response;
+
+            }
+        };
+        http.send("function="+ editor.getValue());
+    }
+
+</script>
+
+</body>
+</html>
