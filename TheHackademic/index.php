@@ -36,14 +36,14 @@
 <img src='challogox.png' /></td>
 	</tr>
 	<tr>
-		<td class="style2" style="width: 123px"><a href="about.php">Sample</a></td>
+		<td class="style2" style="width: 123px"><a href="about.php">ReadFirst</a></td>
 		<td class="style8">
 		<h1 class="style6"><br/>OWASP Hackademic Challenges Sample</h1>
 		</td>
 	</tr>
 	<tr>
 		<td class="style2" style="width: 123px">Challenge_1 </td>
-		<td class="style2"><p> <br />A Friend of your's is a great football fan, he has newly created a website [ <a href="challenge_1/" target="_blank"> FootbalLovers</a> ] and has challenged you to find out the admin login credentials. All you have to do is find out the login credentials of the website.<br/><br /> Hint : Images can reveal way too much. <br /> Tag : Medium (Source code + steganography + Cryptography)</p> <br />
+		<td class="style2"><p> <br />A Friend of your's is a great football fan, he has newly created a website [ <a href="challenge_1/" target="_blank"> FootbalLovers</a> ] and has challenged you to get the admin privileges to the website by setting up a ctf type challenge. All you have to do is find out the login credentials of the website.<br/><br /> Hint : Images can reveal way too much. <br /></p> <br />
 	</tr>
 	<tr>
 	<tr>
@@ -52,11 +52,11 @@
 	</tr>
 	<tr>
 		<td class="style2" style="width: 123px"><span >Challenge_3 </span></td>
-		<td class="style2"><br />Your Best Friend has started a new e-commerce startup, and he has just launched up a new website <a href="challenge_3/" target="_blank">DeskTest.</a> He has asked you to find out some critical vulnerabilities on it.<br /><br />Tag : Easy (Post request) </p><br />
+		<td class="style2"><br />Your Best Friend has started a new e-commerce startup, and he has just launched up a new website <a href="challenge_3/" target="_blank">DeskTest.</a> He has asked you to find out some critical vulnerabilities on it.<br /><br /></p><br />
 	</tr>
 	<tr>
 		<td class="style2" style="width: 123px"><span >Challenge_4 </span></td>
-		<td class="style2"><p> <br />A Web Developer has made his best out to secure his website from various injection attacks by using various filters and even thinks that even the best hacker couldn't break into his site. Prove him wrong. Link : <a href="challenge_4/" target="_blank">SITE.</a> However, you have been just using the system which has a user already logged in. So, first you have to inject the website to get the admin credentials and then search for the admin login page [Hint : You wouldn't even find the admin page by using a search engine as search bots have been excluded]. Common give it a try, All the Best !! <br /> <br />Tag : Medium (GET Advanced sql injection : Robots.txt)</p><br /></td>
+		<td class="style2"><p> <br />A Web Developer has made his best out to secure his website from various injection attacks by using various filters and even thinks that even the best hacker couldn't break into his site. Prove him wrong. Link : <a href="challenge_4/" target="_blank">SITE.</a> However, you have been just using the system which has a user already logged in. So, first you have to inject the website to get the admin credentials and then search for the admin login page [Hint : You wouldn't even find the admin page by using a search engine as search bots have been excluded]. Common give it a try, All the Best !! <br /> <br />Hint : You're Logged in </p><br /></td>
 	</tr>
 	<tr>
 		<td class="style2" style="width: 123px"><span >Challenge_5 </span></td>
@@ -71,7 +71,7 @@
 	</tr>
 	<tr>
 		<td class="style2" style="width: 123px"><span >Challenge_7 </span></td>
-		<td class="style2"><br /><p>Government officials have discovered a paid website, which might have illegal activities covering under them, and they have hired you to get the admin login details of this <a href="challenge_7/" target="_blank">SITE</a>. However, they have solved this to an extent and have caught a regular user of the website. He has revealed his username and password { username : scrtusr & password : mint_cinnamon} however he is not revealing anything else and this bit of information wan't enough to inject into the website and get to the user's profile and to get admin login details . So, now you have to find out the admin credentials and hand it over to the government officials, so that they can carry out some security checks.<br />Hint : Wanna have a Cookie ??<br/><br />Tag : Hard (Sqli WAF + User agent Spoofing)</p><br />
+		<td class="style2"><br /><p>Government officials have discovered a paid website, which might have illegal activities covering under them, and they have hired you to get the admin login details of this <a href="challenge_7/" target="_blank">SITE</a>. However, they have solved this to an extent and have MITM'd a regular user to get the following credentials { username : scrtusr & password : mint_cinnamon} however this bit of information isn't enough to get to the user's profile or to inject into the website to get admin login details . So, now you have to find out the admin credentials and hand it over to the government officials, so that they can carry out some security checks.<br /><br/>Hint : Wanna have a Cookie ??<br/></p><br />
 		</td>
 	</tr>
 	<tr>

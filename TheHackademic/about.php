@@ -15,10 +15,12 @@
 
 <head>
 <title>OWASP Hackademic Challenges</title>
-<link rel="stylesheet" type="text/css" href="main.css" />
+<! -- <link rel="stylesheet" type="text/css" href="main.css" />
 </style>
 </head>
-
+<div>
+  <body background color="backback.jpg">
+<div/>
 
 <body>
 
@@ -26,18 +28,18 @@
 	<tr>
 		<td class="style9" style="width: 123px">&nbsp;</td>
 		<td class="style2">
-		<img src='challogox.png' /></td>
 	</tr>
 	<tr>
 		<td class="style2" style="width: 123px"><a href="index.php"> <- Go back...</a></td>
 		<td class="style8">
-		<h1 class="style6">About OWASP Hackademic Challenges Project<br><span class="style6"></span></h1>
+		<h1 class="style6">About OWASP Hackademic Challenges Project<br><br><br><span class="style6"></span></h1>
+		<br/><br/><br/><br/>
 		</td>
 	</tr>
 	<tr>
 		<td class="leftAlign" colspan="2">
-<p>The OWASP Hackademic Challenges is an open source project that can be used to test and improve one's knowledge of information system and web application security.<br /> <br /> The OWASP Hackademic Challenges implement realistic scenarios with known vulnerabilities in a safe, controllable environment. Users can attempt to discover and exploit these vulnerabilities in order to learn important concepts of information security through the attacker's perspective.<br /> <br /> Currently, there are 10 web application security scenarios available.</p>
-<p>You can choose to start from the one that you find most appealing,although we suggest to follow the order presented on the first page.We intend to expand the available challenges with additional scenarios that involve cryptography, and even vulnerable systems implemented in download-able virtual machines.<br /> <br /> Even though one can use OWASP Hackademic Challenges on one's own, their main purpose is to be used in a live classroom environment. Currently they are successfully used in the security courses of 3 Greek universities.<br /> <br /> The OWASP Hackademic Challenges project is supported by the <a href="http://www.owasp.org/index.php/Greece">OWASP Greek Chapter</a> and are part of the <a href="http://www.owasp.org/index.php/OWASP_Academies">OWASP Academies Project</a> which aims to introduce application security in the academic world and in university curricula.<br /> <br /> The OWASP Hackademic Challenges is an open source project and as such we would appreciate your suggestions, input or ideas for additional challenges.</p>
+<p><b><center><br/><a href="hints.php">Hints on Challenges</a><br/><br/> this is not the complete solution but just  a guide to start off, All the Best !!<center><br/><br/>Rules to be followed <b><br /> <br/> The OWASP Hackademic Challenges implement realistic scenarios with known vulnerabilities in a safe, controllable environment. Users can attempt to discover and exploit these vulnerabilities in order to learn important concepts of information security through the attacker's perspective.<br /> <br /> Currently, there are 10 web application security scenarios available.</p>
+<p>You can choose to start from the one that you find most appealing,although we suggest to follow the order presented on the first page.We intend to expand the available challenges with additional scenarios that involve cryptography, and even vulnerable systems implemented in download-able virtual machines.<br /> <br /> Even though one can use OWASP Hackademic Challenges on one's own, their main purpose is to be used in a live classroom environment. Currently they are successfully used in the security courses of 3 Greek universities.<br /> <br /><br/> The OWASP Hackademic Challenges project is supported by the <a href="http://www.owasp.org/index.php/Greece">OWASP Greek Chapter</a> and are part of the <a href="http://www.owasp.org/index.php/OWASP_Academies">OWASP Academies Project</a> which aims to introduce application security in the academic world and in university curricula.<br /> <br /> The OWASP Hackademic Challenges is an open source project and as such we would appreciate your suggestions, input or ideas for additional challenges.</p>
 <p><strong>The OWASP Hackademic Challenges Team:</strong></p>
 <h3><strong> <span style="text-decoration: underline;">Developers:</span></strong></h3>
 <ul>

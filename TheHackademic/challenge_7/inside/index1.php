@@ -170,9 +170,6 @@ else
 			echo '<br><font color= "#000000" font size="4">';	
 		//	echo "YOUR USER AGENT IS : ".$_SERVER['HTTP_USER_AGENT'];
 		//	echo "</font><br>";	
-			echo '<font color= "#000000" font size="4">';			
-			echo "</font>";			
-			echo '<font color= "#000000" font size = 4 >';
 			echo '<font color= "#000000" font size = 5 >';			
 			
 			$cookee = base64_decode($cookee);
@@ -217,7 +214,7 @@ else
 		    }
 		    else{
 		    	echo "<center><br/>You have logged in, but unfortunately you cannot access your profile without <b> OurBrowser<b> <center>";
-		    	echo "<br/><center>*If you are our user, you would have our paid browser and you would know how to<center>";
+		    	echo "<br/><center>*If you are our customer, you would have our paid browser and you would know how to continue<center>";
 		    	echo "<br/>";
 			echo '<center>';
 			echo "<br/><br/><br/>";

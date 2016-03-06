@@ -64,8 +64,9 @@ if(isset($_GET['id']))
 
 function blacklist($id)
 {
-	$id= preg_replace('/or/i',"", $id);		//strip out OR (non case sensitive)
-	$id= preg_replace('/and/i',"", $id);		//Strip out AND (non case sensitive)
+	//$id= preg_replace('/union/',"", $id)
+	//$id= preg_replace('/or/i',"", $id);		//strip out OR (non case sensitive)
+	//$id= preg_replace('/and/i',"", $id);		//Strip out AND (non case sensitive)
 	$id= preg_replace('/[\/\*]/',"", $id);		//strip out /*
 	$id= preg_replace('/[--]/',"", $id);		//Strip out --
 	$id= preg_replace('/[#]/',"", $id);		//Strip out #
