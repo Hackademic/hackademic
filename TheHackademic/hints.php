@@ -67,7 +67,7 @@
 	<tr>
 		<td class="style2" style="width: 123px"><span >Challenge_7 </span></td>
 		<td class="style2"><br /><br/>You have the credentials of a user, but his profile is not accessible due to some restrictions the website has setup'd. "You cannot have access to your profile without OurBrowser, *If you are our customer, you would have our paid browser and you would know how to continue". This does lead to something. Check out the http requests, and more importantly You're LOGGED in (atleast as a user).
-		     <br/><br/><a href = "http://sechow.com/bricks/docs/content-page-3.html">reference1    <a href = " ">reference2</a> <p><br/></p>
+		     <br/><br/><a href = "http://sechow.com/bricks/docs/content-page-3.html">reference1    <a href = " https://en.wikipedia.org/wiki/User_agent">reference2</a> <p><br/></p>
 		</td>
 	</tr>
 	<tr>
