@@ -2,69 +2,202 @@
 <html lang="en">
     <head>
         <title>ACE in Action</title>
-        <link rel="stylesheet" href="staticfiles/css/bootstrap.min.css">
-        <link rel="stylesheet" href="staticfiles/css/animate.css">
-        <link rel="stylesheet" href="staticfiles/css/font-awesome.min.css">
-        <link rel="stylesheet" href="staticfiles/style.css">
-        <style type="text/css" media="screen"></style>
-    </head>
+        <link rel="stylesheet" href="../staticfiles/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../staticfiles/css/animate.css">
+        <link rel="stylesheet" href="../staticfiles/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../staticfiles/css/style.css">
+        <link rel="stylesheet" href="../staticfiles/css/jquery-ui.css" />
+	    <script src="../staticfiles/js/jquery-2.1.3.js"></script>
+	    <script src="../staticfiles/js/jquery-ui.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Josefin+Sans|Bree+Serif|Righteous' rel='stylesheet' type='text/css'>
 
     <body>
+        <nav class="nav" id="nav">
+            <div class="container">
+                <div class="navbar-header animated bounceInLeft">
+                    <p class="nav-bar-name name">Hackademic</p>
+                </div>
 
-        <div class="wrap">
-            <div class="row">
-                    <nav class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 animated bounceInDown">
-                        <ul class="menu">
-                            <li class="center"><a href="#"><div class="container-fluid">
-                                    <h1>SuperAwesome unit testing thingy</h1>
-                                </div></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </nav>
+<!-- Edit the title below -->
+
+                <div class="title-main">
+                    <p>Challenge Title</p>
+                </div>
+
+<!-- Edit the title below -->
+
+            </div>
+        </nav>
+
+        <div class="output animated bounceInUp">
+            <div class="output-text">
+                <p id="explanation">SyntaxError: Unexpected token var</p>
             </div>
         </div>
 
-        <section class="panel col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1 animated bounceInUp">
+        <div class="container-fluid">
+            <div class="head">
+                <p> <i class="fa fa-file-text-o fa-lg"></i> Explanation</p>
+            </div>
+            <div class="head1" style="padding:0;">
+                <p><i class="fa fa-code fa-lg"></i> Code Editor</p>
+            </div>
 
-            <div style="padding:4px;">
-                <header class="panel-heading col-md-12">
-                    <h2 class="panel-title"> <i class="fa fa-file-text-o fa-lg"></i> Explanation</h2>
-                </header>
-                <div class="panel-body">
-                        <div id="container" class="col-md-12 well">
-                                Here will be the explanation
+
+<!-- Edit the text below -->
+
+
+            <div class="heading animated bounceInLeft">
+                <div class="text-one">
+
+                    <h3 id="head-title">Introduction</h3>
+
+                    <p id="head-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <p id="head-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                    <p id="head-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+
+                </div>
+
+                <div class="instructions">
+                    <p class="instructions-btn">Instructions</p>
+                    <div class="instructions-text">
+                        <p class="font2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        </p>
+                        <p class="font2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        </p>
+                        <p class="font2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+
+
+                        <div class="hint">
+                            <p class="hint-header">Stuck <i class="fa fa-question"></i> <span class="get">Get a hint!</span> <span class="hint-arrow"><i class="fa fa-chevron-down"></i></span></p>
+                        </div>
+
+
+                        <div class="hint-text">
+                            <p class="font" style="font-size:1em;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                            <p class="font blue">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                            <p class="font" style="font-size:1em;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                            <p class="font black">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- Edit the text above -->
+
+
+            <div class="text-area container-fluid"> </div>
+
+            <div class="color-change">
+                <div class="buttons">
+                        <div class="lesson-links">
+                            <p id="light" class="color_link">Light</p>
+                            <p id="dark" class="color_link">Dark</p>
                         </div>
                 </div>
             </div>
 
-			<header class="panel-heading col-md-12">
-				<h2 class="panel-title"><i class="fa fa-code fa-lg"></i> Code Editor</h2>
-			</header>
-			<div class="panel-body">
-                <div id="container" class="col-md-12 well" style="padding:4px;">
-                    <div id="editor">public function sanitize($user_input) {
-    $x = htmlspecialchars(trim($user_input));
-    return "&lt;span title='".$x."'&gt;User input added as span title &lt;/span&gt;";
-}
+<!--Editor window start-->
+
+            <div>
+                <div class="text-box">
+                    <div id="editor">function foo(items, nada) {
+    for (var i=0;i>items.length;i++) {
+        alert(items[i] + "juhu\n");
+    }	// Real Tab.
+}</div>
+                </div>
+                <div class="col-md-8  submit-button pull-right">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary submit-btn" onclick="execute()" id="save">  <span class="btn-text">Submit<span></button>
+                        <p class="btn btn-primary reset-btn" id="reset"> Reset Code</p>
+                        <p class="btn btn-default button lineno pull-right" id="gutter-change">Line number</p>
                     </div>
                 </div>
-                <div id="submit col-md-12">
-                    <input type="submit" value="Submit" onclick="execute()" class="btn btn-default pull-right"/>
-                </div>
-			</div>
+            </div>
 
-		</section>
+<!--Editor window end-->
+            <footer class="footer">
+                <div class="col-md-12 aside"></div>
+            </footer>
 
-        <script src="../editor/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+        </div>
+    </div>
+
+
+
+        <!-- Start of ace editor configuration -->
+        <script src="../staticfiles/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+
         <script>
-            var editor = ace.edit("editor");
-            editor.setTheme("../editor/ace/theme/monokai");
-            editor.getSession().setMode("../editor/ace/mode/javascript");
-            editor.getSession().setUseWrapMode(true);
-            editor.setHighlightActiveLine(true);
-            editor.getSession().setTabSize(4);
-            document.getElementById('editor').style.fontSize='16px';
-            editor.resize();
+
+            var editor = (function() {
+                var editor = ace.edit("editor");
+                editor.setTheme("ace/theme/ambiance");
+                editor.getSession().setTabSize(4);
+                document.getElementById('editor').style.fontSize='18px';
+                editor.getSession().setMode("ace/mode/javascript");
+                editor.setHighlightActiveLine(true);
+                editor.setShowPrintMargin(true);
+                $("#dark").addClass('color_link_active');
+                editor.getSession().setUseWrapMode(true);
+                editor.resize();
+                return editor;
+            })();
+
+            var gutter = false;
+            var date=editor.getValue();
+            $('#gutter-change').click(function (){
+                if(gutter) {
+                    editor.renderer.setShowGutter(true);
+                    gutter=false;
+                    $('#gutter-change').removeClass('reset-btn');
+                    $(this).addClass('lineno');
+
+                }
+                else {
+                    editor.renderer.setShowGutter(false);
+                    gutter=true;
+                    $('#gutter-change').removeClass('lineno');
+                    $(this).addClass('reset-btn');
+                }
+            });
+
+            data = editor.getValue();
+
+            $('#reset').click(function (){
+                editor.setValue(data);
+            });
+
+
+            $('#light').click(function (){
+                editor.setTheme("ace/theme/chrome");
+                $('#dark').removeClass('color_link_active');
+                $(this).addClass('color_link_active');
+            });
+            $('#dark').click(function (){
+                editor.setTheme("ace/theme/ambiance");
+                $('#light').removeClass('color_link_active');
+                $(this).addClass('color_link_active');
+            });
 
             function execute() {
                 var http = new XMLHttpRequest();
@@ -84,7 +217,34 @@
 
         </script>
 
-        <script src="staticfiles/js/bootstrap.min.js"></script>
-        <script src="staticfiles/js/wow.min.js"></script>
+        <!-- End of editor configuration-->
+
+        <script type="text/javascript">
+
+            $(".output").draggable();
+            $(".output-text").resizable({ handles: 'n, e, s, w, ne, sw, nw' });
+        </script>
+
+        <script src="../staticfiles/js/bootstrap.min.js"></script>
+        <script src="../staticfiles/js/wow.min.js"></script>
+
+        <script>
+            var hide = true;
+            $(document).ready(function(){
+                $(".hint").click(function(){
+                    if(hide) {
+                        $(".hint-text").hide(1000);
+                        hide = false;
+
+                    }
+                    else {
+                        $(".hint-text").show(1000);
+                        hide = true;
+                        window.scrollBy(0, 500);
+                    }
+                });
+
+            });
+        </script>
     </body>
 </html>
