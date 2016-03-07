@@ -247,7 +247,7 @@ body {
 	line-height: 20px;
 }
 
-#head-title {
+#introdution-title {
 	padding:0 0 3% 3%;
 	color:#424242;
 	font-size: 2em;
@@ -365,11 +365,19 @@ p {
 	padding-top: 10%;
 }
 
+.font-intro {
+	font-family: 'Josefin Sans', sans-serif;
+	padding-top: 10%;
+	font-size: 1.1em;
+	font-weight: 400;
+	padding-bottom:4%;
+}
+
 .font2 {
 	padding-top: 5%;
 }
 
-.text-one {
+.introdution-text {
 	padding-left: 5%;
 	padding-right: 5%;
 	padding-bottom: 8%;
@@ -459,4 +467,8 @@ label {
 
 label:hover {
   text-decoration:none;
+}
+
+.instruction-list {
+	padding: 3% 3% 0 0%;
 }

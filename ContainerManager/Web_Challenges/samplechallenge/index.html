@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>ACE in Action</title>
+        <title>Hackademic</title>
         <link rel="stylesheet" href="../staticfiles/css/bootstrap.min.css">
         <link rel="stylesheet" href="../staticfiles/css/animate.css">
         <link rel="stylesheet" href="../staticfiles/css/font-awesome.min.css">
@@ -48,18 +48,18 @@
 
 
             <div class="heading animated bounceInLeft">
-                <div class="text-one">
+                <div class="introdution-text">
 
-                    <h3 id="head-title">Introduction</h3>
+                    <h3 id="introdution-title">Introduction</h3>
 
                     <p id="head-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Intruction main para goes here.
                     </p>
                     <p id="head-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Intruction para 2 goes here.
                     </p>
                     <p id="head-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Intruction para 3 goes here.
                     </p>
 
                 </div>
@@ -68,14 +68,24 @@
                     <p class="instructions-btn">Instructions</p>
                     <div class="instructions-text">
                         <p class="font2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            This area shows the instructions to be followed.
                         </p>
-                        <p class="font2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        </p>
-                        <p class="font2">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
+                        <div class="instruction-list">
+                            <li class="font2">
+                                Instruction 1
+                            </li>
+                            <li class="font2">
+                                Instruction 2
+                            </li>
+                            <li class="font2">
+                                Instruction 3
+                            </li>
+                            <li class="font2">
+                                Instruction 4
+                            </li>
+                        </div>
+                    </div>
+
 
 
                         <div class="hint">
@@ -84,17 +94,23 @@
 
 
                         <div class="hint-text">
-                            <p class="font" style="font-size:1em;">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            <p class="font-intro" >
+                                Hint intro here.
                             </p>
                             <p class="font blue">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Important hint text goes here.
                             </p>
                             <p class="font" style="font-size:1em;">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                More hint info goes here.
                             </p>
                             <p class="font black">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                function sanitize($user_input) {
+                                    <br>
+                                    $x = htmlspecialchars(trim($user_input));
+                                    <br>
+                                    return $x;
+                                    <br>
+                                }
                             </p>
                         </div>
                     </div>
@@ -119,11 +135,17 @@
 
             <div>
                 <div class="text-box">
-                    <div id="editor">function foo(items, nada) {
-    for (var i=0;i>items.length;i++) {
-        alert(items[i] + "juhu\n");
-    }	// Real Tab.
+
+<!-- Change the code below -->
+
+                    <div id="editor">function sanitize($user_input) {
+    $x = htmlspecialchars(trim($user_input));
+    return "&lt;span title='".$x."'&gt;User input added as span title &lt;/span&gt;";
 }</div>
+
+
+<!-- End of editor code -->
+
                 </div>
                 <div class="col-md-8  submit-button pull-right">
                     <div class="container-fluid">
@@ -146,6 +168,7 @@
 
         <!-- Start of ace editor configuration -->
         <script src="../staticfiles/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../staticfiles/ace/src-min/mode-php.js"></script>
 
         <script>
 
@@ -154,7 +177,7 @@
                 editor.setTheme("ace/theme/ambiance");
                 editor.getSession().setTabSize(4);
                 document.getElementById('editor').style.fontSize='18px';
-                editor.getSession().setMode("ace/mode/javascript");
+                editor.getSession().setMode({path:"ace/mode/php", inline:true});
                 editor.setHighlightActiveLine(true);
                 editor.setShowPrintMargin(true);
                 $("#dark").addClass('color_link_active');
