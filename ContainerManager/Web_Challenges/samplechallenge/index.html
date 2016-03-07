@@ -1,110 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>ACE in Action</title>
-    <style type="text/css" media="screen">
-        #editor {
-            bottom: 0;
-            left: 0;
-            margin: 0 auto;
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 63%;
-            height:50%;
-            font-size: 16px;
-        }
-        #submit {
-            margin-right: 19%;
-            position:absolute;
-            bottom:50%;
-            right: 0;
-        }
-        body {
-            background: grey none repeat scroll 0 0;
-            bottom: 0;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-        #filler{}
-        #container{bottom: 0;
-            height: 100%;
-            left: 0;
-            position: relative;
-            right: 0;
-            top: 0;
-            width: 100%;
-        }
-        #explanation{
-            width: 63%;
-            height: 30%;
-            margin: 0 auto;
-            background:white;
-            margin-bottom:2%;
-        }
-        header{
-            display: block;
-            margin: 2%;
-            text-align: center;
-        }
+    <head>
+        <title>ACE in Action</title>
+        <link rel="stylesheet" href="../staticfiles/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../staticfiles/css/animate.css">
+        <link rel="stylesheet" href="../staticfiles/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../staticfiles/css/style.css">
+        <link rel="stylesheet" href="../staticfiles/css/jquery-ui.css" />
+	    <script src="../staticfiles/js/jquery-2.1.3.js"></script>
+	    <script src="../staticfiles/js/jquery-ui.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Josefin+Sans|Bree+Serif|Righteous' rel='stylesheet' type='text/css'>
 
-    </style>
-</head>
-<body>
-<header>SuperAwesome unit testing thingy</header>
+    <body>
+        <nav class="nav" id="nav">
+            <div class="container">
+                <div class="navbar-header animated bounceInLeft">
+                    <p class="nav-bar-name name">Hackademic</p>
+                </div>
 
-<div id="explanation">Here will be the explanation</div>
+<!-- Edit the title below -->
 
-<div id="container">
-<div id="editor">public function sanitize($user_input) {
-  $x = htmlspecialchars(trim($user_input));
-  return "&lt;span title='".$x."'&gt;User input added as span title &lt;/span&gt;";
-}
+                <div class="title-main">
+                    <p>Challenge Title</p>
+                </div>
 
+<!-- Edit the title below -->
+
+            </div>
+        </nav>
+
+        <div class="output animated bounceInUp">
+            <div class="output-text">
+                <p id="explanation">SyntaxError: Unexpected token var</p>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="head">
+                <p> <i class="fa fa-file-text-o fa-lg"></i> Explanation</p>
+            </div>
+            <div class="head1" style="padding:0;">
+                <p><i class="fa fa-code fa-lg"></i> Code Editor</p>
+            </div>
+
+
+<!-- Edit the text below -->
+
+
+            <div class="heading animated bounceInLeft">
+                <div class="text-one">
+
+                    <h3 id="head-title">Introduction</h3>
+
+                    <p id="head-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+                    <p id="head-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </p>
+                    <p id="head-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
+
+                </div>
+
+                <div class="instructions">
+                    <p class="instructions-btn">Instructions</p>
+                    <div class="instructions-text">
+                        <p class="font2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        </p>
+                        <p class="font2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        </p>
+                        <p class="font2">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+
+
+                        <div class="hint">
+                            <p class="hint-header">Stuck <i class="fa fa-question"></i> <span class="get">Get a hint!</span> <span class="hint-arrow"><i class="fa fa-chevron-down"></i></span></p>
+                        </div>
+
+
+                        <div class="hint-text">
+                            <p class="font" style="font-size:1em;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                            <p class="font blue">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                            <p class="font" style="font-size:1em;">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                            <p class="font black">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- Edit the text above -->
+
+
+            <div class="text-area container-fluid"> </div>
+
+            <div class="color-change">
+                <div class="buttons">
+                        <div class="lesson-links">
+                            <p id="light" class="color_link">Light</p>
+                            <p id="dark" class="color_link">Dark</p>
+                        </div>
+                </div>
+            </div>
+
+<!--Editor window start-->
+
+            <div>
+                <div class="text-box">
+                    <div id="editor">function foo(items, nada) {
+    for (var i=0;i>items.length;i++) {
+        alert(items[i] + "juhu\n");
+    }	// Real Tab.
+}</div>
+                </div>
+                <div class="col-md-8  submit-button pull-right">
+                    <div class="container-fluid">
+                        <button class="btn btn-primary submit-btn" onclick="execute()" id="save">  <span class="btn-text">Submit<span></button>
+                        <p class="btn btn-primary reset-btn" id="reset"> Reset Code</p>
+                        <p class="btn btn-default button lineno pull-right" id="gutter-change">Line number</p>
+                    </div>
+                </div>
+            </div>
+
+<!--Editor window end-->
+            <footer class="footer">
+                <div class="col-md-12 aside"></div>
+            </footer>
+
+        </div>
     </div>
 
-    <div id="submit">
-        <input type="submit" value="Submit" onclick="execute()"
-               style="background-color: #bcc6ae;
-  border-top: 2px solid #5f6c4d;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-  border-left: 2px solid #5f6c4d;
-  width: 80px; height: 24px;
-  font-weight: bold;" />
-    </div>
-</div>
 
-<script src="../editor/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var editor = ace.edit("editor");
-    editor.setTheme("../editor/ace/theme/monokai");
-    editor.getSession().setMode("../editor/ace/mode/javascript");
-    editor.getSession().setUseWrapMode(true);
-    editor.setHighlightActiveLine(true);
-    editor.getSession().setTabSize(4);
-    document.getElementById('editor').style.fontSize='16px';
-    editor.resize();
 
-    function execute() {
-        var http = new XMLHttpRequest();
-        var response = '';
-        http.open("POST", "test.php", true);
-        http.responseType = "text";
-        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        http.onreadystatechange = function() {
-            if (http.readyState == 4 && http.status == 200) {
-                response = http.responseText;
-                document.getElementById("explanation").innerHTML = response;
+        <!-- Start of ace editor configuration -->
+        <script src="../staticfiles/ace/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
 
+        <script>
+
+            var editor = (function() {
+                var editor = ace.edit("editor");
+                editor.setTheme("ace/theme/ambiance");
+                editor.getSession().setTabSize(4);
+                document.getElementById('editor').style.fontSize='18px';
+                editor.getSession().setMode("ace/mode/javascript");
+                editor.setHighlightActiveLine(true);
+                editor.setShowPrintMargin(true);
+                $("#dark").addClass('color_link_active');
+                editor.getSession().setUseWrapMode(true);
+                editor.resize();
+                return editor;
+            })();
+
+            var gutter = false;
+            var date=editor.getValue();
+            $('#gutter-change').click(function (){
+                if(gutter) {
+                    editor.renderer.setShowGutter(true);
+                    gutter=false;
+                    $('#gutter-change').removeClass('reset-btn');
+                    $(this).addClass('lineno');
+
+                }
+                else {
+                    editor.renderer.setShowGutter(false);
+                    gutter=true;
+                    $('#gutter-change').removeClass('lineno');
+                    $(this).addClass('reset-btn');
+                }
+            });
+
+            data = editor.getValue();
+
+            $('#reset').click(function (){
+                editor.setValue(data);
+            });
+
+
+            $('#light').click(function (){
+                editor.setTheme("ace/theme/chrome");
+                $('#dark').removeClass('color_link_active');
+                $(this).addClass('color_link_active');
+            });
+            $('#dark').click(function (){
+                editor.setTheme("ace/theme/ambiance");
+                $('#light').removeClass('color_link_active');
+                $(this).addClass('color_link_active');
+            });
+
+            function execute() {
+                var http = new XMLHttpRequest();
+                var response = '';
+                http.open("POST", "test.php", true);
+                http.responseType = "text";
+                http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                http.onreadystatechange = function() {
+                    if (http.readyState == 4 && http.status == 200) {
+                        response = http.responseText;
+                        document.getElementById("explanation").innerHTML = response;
+
+                    }
+                };
+                http.send("function="+ editor.getValue());
             }
-        };
-        http.send("function="+ editor.getValue());
-    }
 
-</script>
+        </script>
 
-</body>
+        <!-- End of editor configuration-->
+
+        <script type="text/javascript">
+
+            $(".output").draggable();
+            $(".output-text").resizable({ handles: 'n, e, s, w, ne, sw, nw' });
+        </script>
+
+        <script src="../staticfiles/js/bootstrap.min.js"></script>
+        <script src="../staticfiles/js/wow.min.js"></script>
+
+        <script>
+            var hide = true;
+            $(document).ready(function(){
+                $(".hint").click(function(){
+                    if(hide) {
+                        $(".hint-text").hide(1000);
+                        hide = false;
+
+                    }
+                    else {
+                        $(".hint-text").show(1000);
+                        hide = true;
+                        window.scrollBy(0, 500);
+                    }
+                });
+
+            });
+        </script>
+    </body>
 </html>
