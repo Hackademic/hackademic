@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+		<title>Buffer Overflow 1</title>
+		<author>
+			Punit Dhoot
+		</author>
+		<category>Binary</category>
+		<description>
+			<![CDATA[
+				Our agents have dicovered a strange binary running on the drug mafia's server. But they need your help to get past the authentication checks. Can you do it?
+			]]>  
+		</description>
+		<level>
+			1
+		</level>
+	 <sandbox>
+		<type>Vagrant</type>
+	 </sandbox>
+</challenge>
