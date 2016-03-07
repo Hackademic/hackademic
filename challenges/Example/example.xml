@@ -4,21 +4,17 @@
     <author>
 	Name or email or both
     </author>
-    <category>In what category does your challenge belong?(web? crypto? networks?)</category>
+    <category>In what category does your challenge belong?(web? crypto? networks?) Category can be arbitrary</category>
     <description>
-	Insert some text describing the scenario of the challenge(what the users are supposed to do and if there is any fictional story)
+	Insert some text describing the scenario of the challenge(what the users are supposed to do and if there is any fictional story, fictional stories are cool)
     </description>
     <level>
-	Either an interger from 1  to 10 with 1 being the easiest , or one of beginner, intermediate, advanced , hide_yo_wife
-	The level will be the max points a user can get.
-	beginner:	2pts	
-	intermediate	4pts
-	advanced	6pts
-	hide_yo_wife	8pts
-	b4d1d3a		10pts
+	Either an interger from 1  to 10 with 1 being the easiest
     </level>
-	<duration>
-	The duration after which a user is disqualified.
-	The timer starts when a username starts a challenge for first time.
-	</duration>
+   <sandbox>
+   	<type>
+   	the type of sandbox you need to run the challenge (presently one of "Docker" or "Vagrant")
+   	note that if you select Docker your Dockerfile must be in the same folder as this file, same for your Vagrantfile
+   	</type>
+   </sandbox>
 </challenge>
