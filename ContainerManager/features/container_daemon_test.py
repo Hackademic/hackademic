@@ -1,5 +1,6 @@
 import socket
 import os
+import re
 import sys
 import time
 from lettuce import world, steps
@@ -27,7 +28,8 @@ class ContainerDaemonTest(object):
 
     def check(self, step, text):
         '''I receive "(.*)"'''
-        assert "samplechallenge" in self.data
+        match = re.search(text, self.data)
+        assert match is not None
 
     def run_container(self, step):
         '''I run the Container Daemon'''

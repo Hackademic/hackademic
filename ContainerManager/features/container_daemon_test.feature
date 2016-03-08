@@ -8,4 +8,4 @@ Feature: Test Container Daemon
   Scenario: Testing GET /challenge
     Given I run the Container Daemon
     When I send "create_container:samplechallenge"
-    Then I receive "http://localhost:*/samplechallenge"
+    Then I receive "http://localhost:(\d+)/samplechallenge"
