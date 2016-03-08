@@ -21,7 +21,6 @@ class ContainerDaemonTest(object):
 
     def send(self, step, text):
         '''I send "(.*)"'''
-        print("text is :::::::::::::::", text)
         self.s.send(text)
         self.data = self.s.recv(512)
         self.s.close()

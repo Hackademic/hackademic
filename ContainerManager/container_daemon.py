@@ -4,8 +4,6 @@ import os
 import re
 import sys
 import json
-import time
-import signal
 import socket
 import thread
 import random
@@ -93,7 +91,6 @@ class ContainerDaemon():
 
             if 'create_container' in str(data):
                 challenge = str(data).split(':')[1]
-                print(challenge)
                 containers = self.create_container(challenge)
                 conn.sendall(containers)
                 if test: break
