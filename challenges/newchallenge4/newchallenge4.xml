@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>New Challenge 3</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        Government officials have discovered a paid website, which might have illegal activities covering under them, and they have hired you to get the admin login details of this <a href="challenge_7/" target="_blank">SITE</a>. However, they have solved this to an extent and have MITM'd a regular user to get the following credentials { username : scrtusr & password : mint_cinnamon} however this bit of information isn't enough to get to the user's profile or to inject into the website to get admin login details . So, now you have to find out the admin credentials and hand it over to the government officials, so that they can carry out some security checks. Login as admin.<br /><br/>Hint : Wanna have a Cookie ??<br/></p>
+        ]]>
+    </description>
+</challenge>

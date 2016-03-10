@@ -1,11 +1,3 @@
-<html 
-<div>
-
-<center><font size = 5><a href="../TheHackademic">New_Challenges</a><center><font/>
-
-<div/>
-<html>
-
 <?php
 
 /**
