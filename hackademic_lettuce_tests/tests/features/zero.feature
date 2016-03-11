@@ -21,4 +21,3 @@ Feature: Test if Hackademic loaded
         I should not see "Menu Manager"
         I should not see "Options"
         I should not see "Admin Dashboard"
-        I press "menu-item"
