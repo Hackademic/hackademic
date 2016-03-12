@@ -21,3 +21,18 @@ Feature: Test if Hackademic loaded
         I should not see "Menu Manager"
         I should not see "Options"
         I should not see "Admin Dashboard"
+
+    Scenario: Validate scoring for challenge 3
+        Given I click Challenge 3
+        I click "Try it!" on Challenge
+        I should see "Try to XSS me using the straight forward way..."
+        I input value "<script>alert("XSS!");</script>" and click "try_xss"
+        I should see "Congratulations!"
+        I close the Challenge
+
+    Scenario: Validate scoring for challenge 4
+        Given I click Challenge 4
+        I click "Try it!" on Challenge
+        I should see "Try to XSS me...Again!"
+        I input value "<script>alert(String.fromCharCode(88,83,83,33));</script>" and click "try_xss"
+        I should see "Congratulations!"
