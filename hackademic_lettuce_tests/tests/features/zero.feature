@@ -36,3 +36,13 @@ Feature: Test if Hackademic loaded
         I should see "Try to XSS me...Again!"
         I input value "<script>alert(String.fromCharCode(88,83,83,33));</script>" and click "try_xss"
         I should see "Congratulations!"
+        I close the Challenge
+
+    Scenario: Validate scoring for challenge 5
+        Given I click Challenge 5
+        I click "Try it!" on Challenge
+        I should see "Unfortunately, you cannot access the contents of this site..."
+        I set user agent as "p0wnBrowser"
+        I reload the site
+        I should see "Congratulations!"
+        I close the Challenge

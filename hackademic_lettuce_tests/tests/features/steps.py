@@ -2,6 +2,7 @@ from lettuce import *
 from lxml import html
 from selenium import webdriver
 import lettuce_webdriver.webdriver
+import time
 
 baseurl = "http://localhost/hackademic/"
 
@@ -35,5 +36,18 @@ class HackademicLoadingtest(object):
         '''I close the Challenge'''
         world.browser.close()
         world.browser.switch_to_window(world.browser.window_handles[0])
+
+    def i_reload_the_site(self, step):
+        '''I reload the site'''
+        world.browser.get(self.current_url)
+
+    def i_set_user_agent_as(self, step, browser):
+        '''I set user agent as "([^"]*)"'''
+        self.current_url = world.browser.current_url
+        world.browser.close()
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("general.useragent.override", browser)
+        world.browser = webdriver.Firefox(profile)
+
 
 HackademicLoadingtest(world)
