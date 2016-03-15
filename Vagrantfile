@@ -28,10 +28,12 @@ Vagrant.configure(2) do |config|
       inline: "sudo rm -rf /var/www/html" 
    config.vm.provision "shell",
       inline: "sudo ln -s /vagrant /var/www/html"
+  config.vm.provision "shell",
+      inline: "sudo chmod -R 777 /var/www/html"    
    config.vm.provision "shell",
-      inline: "sudo chmod -R 777 /var/www/html"
-         config.vm.provision "shell",
-      inline: "sudo chmod -R 777 /var/www/html"
+      inline: "cd /var/www/html"
+   config.vm.provision "shell",
+      inline: "sudo chmod 777 ."
    config.vm.provision "shell",
       inline: "sudo service apache2 start && sudo mysqld_safe --skip-grant-tables" 
 
