@@ -41,6 +41,12 @@
 					</p>
 				</div>
 			</div>
+
+'<!--
+		<div>
+			<?php print_r($_SERVER); ?>
+		</div>
+-->
 <?php
 //including the Mysql connect parameters.
 	include("../sql-connections/sql-connect.php");

@@ -24,7 +24,7 @@ Welcome Coders&nbsp;&nbsp;&nbsp;
 
 <?php
 
-include("../sql-connections/db-creds.inc");
+include("db-creds.inc");
 echo "<center>";
 
 
