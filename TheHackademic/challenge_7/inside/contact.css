@@ -1,0 +1,637 @@
+html {
+	font-family: 'Gentium Book Basic', serif;
+	height:100%;
+	background-color: #FFF;
+	font-size: 100%;
+}
+
+body{
+	height: 100%;
+	margin: 0px;
+	min-width: 350px;
+	width: 100%;	
+}
+
+#sideCarNav{
+	position: fixed;
+	width: 260px;
+	z-index: -1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	height: 100%;
+	line-height: 1em;
+	text-align: left;
+	overflow: auto;
+	visibility: hidden;
+	background-color: #FFF;
+	box-sizing:border-box;
+	transition:height 0s linear 0.14s, visibility 0s linear 0.14s;
+}
+
+.clearfix:after{
+	clear: both;
+}
+
+.clearfix:before, .clearfix:after{
+	content: " ";
+	display: table;
+}
+
+#siteWrapper{
+	background-color:#FFF;
+	position: relative;
+	padding: 0px;
+	box-sizing:border-box;
+	font-size: 1.125em;
+	line-height: 1.6em;
+	letter-spacing: 0;
+	font-weight: 400;
+	font-style: normal;
+	color: rgba(26, 26, 26, 0.6);
+
+}
+
+#header {
+	background-color: transparent;
+	position: absolute;
+	width: 100%;
+	padding: 0px 1.0256%;
+	box-sizing:border-box;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	line-height: 1em; /* inherited from #siteWrapper was 1.6em; */
+}
+
+header, nav, figure, main, #content, #prefooter, footer {
+	display: block;
+}
+
+.inner-header{
+	padding: 20px 0px;
+	display: table;
+	width: 100%;
+	box-sizing:border-box;
+	/*animation:1s ease-in-out 0s normal none 1 running header-anim;*/ /*keyframes part missing */
+}
+
+.inner-header {
+	margin: auto;
+}
+
+
+#header #logoWrapper, #header #headernav{
+	box-sizing:border-box;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#header #logoWrapper, #header #logoImage {
+	width: 140px;
+}
+
+#logoImage {
+	margin: 0;
+	max-width: 100%;
+}
+
+h1:first-child, h2:first-child, h3:first-child, .entry-title:first-child{
+	margin-top: 0px;
+}
+
+h1, h2, h3, .entry-title {
+	margin: 1em 0 0.5em;
+}
+
+.nav-wrapper nav > div {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0px;
+}
+
+#headernav nav .active > a {
+	color: #FFF;
+}
+
+#headernav nav a{
+	display: inline-block;
+	position: relative;
+	font-family: 'Gentium Book Basic', serif;
+	font-size: 0.7em;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 2px;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1em;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-wrapper nav > div a {
+	display: block;
+	padding: 0.75em 1em;
+	-moz-transition:color 0.1s ease-in-out 0s;
+	-webkit-transition:color 0.1s ease-in-out 0s;
+}
+
+.nav-wrapper nav > div a:hover {
+	color: rgba(255, 255, 255, 1);
+}
+
+
+h1, .entry-title {
+	color: rgba(26, 26, 26, 0.9);
+}
+
+h1, .entry-title{
+	line-height: 1.2em;
+	font-family: 'Gentium Book Basic', serif;
+	text-transform: none;
+	letter-spacing: 0;
+	font-weight: 400;
+	font-style: normal;
+}
+
+h1, h2, h3 {
+	text-rendering:optimizelegibility;
+}
+
+#logoImage a {
+	display: block;
+}
+
+#header a{
+	text-decoration: none;
+}
+
+a {
+	text-decoration: none;
+	color: rgba(26, 26, 26, 0.6);
+	background: none repeat scroll 0% 0% transparent;
+}
+
+#header #headernav {
+	text-align: right;
+}
+
+#headernav {
+	vertical-align: top !important;
+	white-space: nowrap;
+}
+
+#header #mainNavWrapper {
+	position: relative;
+	z-index: 1000;
+}
+#mainNavWrapper{
+	margin-top: 24px;
+}
+
+#headernav nav > div:last-child a {
+	background-color: transparent;
+	border: 2px solid #FFF;
+	color:#FFF;
+}
+
+#headernav nav > div:last-child a {
+	font-family: 'Gentium Book Basic', serif;
+	text-transform: uppercase;
+	text-decoration: none;
+	letter-spacing: 2px;
+	font-weight: 400;
+	font-style: normal;
+	margin-left: 1em;
+	padding: 1em 1.5em !important;
+	display: block;
+	-moz-transition: background-color 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+	-webkit-transition: background-color 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+}
+
+#headernav nav > div:last-child a:hover {
+	background-color: #FFF;
+	color: #575757;
+}
+
+.banner-thumbnail-wrapper {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 99;
+	background: url("images/bg23.jpg") no-repeat center center fixed;
+	-webkit-background-size:cover;
+	background-size: cover;
+}
+
+#thumbnail {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	animation:0.6s ease-in-out 0s normal none 1 running feature-bg-anim;
+}
+
+
+.banner-thumbnail-wrapper{
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	min-height: 0;
+	padding: 155px 0;
+}
+
+figure {
+	margin: 0;
+}
+
+img {
+	
+}
+
+.desc-wrapper{
+	text-rendering:optimizelegibility;
+	text-align: center;
+	padding: 32px;
+	margin: 0 auto;
+	box-sizing:border-box;
+	max-width: 956px;
+	width: 100%;
+	position: relative;
+	z-index: 100;
+	animation:0.75s ease-in-out 0s normal none 1 running feature-text-anim;
+}
+
+.desc-wrapper p{
+	line-height: 1.5em;
+	font-family: 'Gentium Book Basic', serif;
+	font-size: 24px;
+	text-transform: none;
+	letter-spacing: 1px;
+	font-weight: 400;
+	font-style: italic;
+	color: #FFF;
+	margin: 20px auto;
+}
+
+.desc-wrapper p:first-child {
+	/*visibility: hidden;*/
+}
+.desc-wrapper p > strong {
+	display: block;
+	line-height: 1em;
+	font-family: 'Gentium Book Basic', serif;
+	font-size: 3em;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-style: normal;
+	color: #FFF;
+}
+
+.desc-wrapper p a{
+	color: #FFF;
+	border-bottom: 1px solid #FFF;
+}
+
+.desc-wrapper p:last-child > a{
+	box-sizing:border-box;
+	font-family: 'Gentium Book Basic', serif;
+	font-size: 15px; /*change*/
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	padding: 1em 1.75em;
+	background: #FFF;
+	display: inline-block;
+	line-height: 1em;
+	margin: 10px 0px;
+	color: #FFF;
+	border: medium none;
+	-moz-transition:background-color 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+	-webkit-transition:background-color 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+}
+
+.desc-wrapper p:last-child > a:hover {
+	background-color: #FFF;
+	color: #575757;
+}
+
+.desc-wrapper p:last-child > a{
+	background-color: transparent;
+	border: 2px solid #FFF !important;
+	color: #FFF;
+}
+
+
+
+
+/* grid starts*/
+.image-grid-container{
+	width: 100%;
+	max-width: 1500px;
+	text-align: center;
+	margin: 0 auto;
+}
+.row {
+	width: 100%;
+}
+.row:before, .row:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+[class*='col-'] {
+	float: left;
+	min-height: 1px;	
+	display: block;
+	padding: auto;
+	overflow: hidden;
+	margin: 0;
+	text-align: center;
+}
+
+.col-3 {
+	width: 33.33%;
+}
+.col-100{
+	width: 100%;
+}
+.col-40{
+    width: 40%;
+}
+.col-60{
+    width: 60%;
+}
+/* grid ends*/
+
+
+
+/*button css starts*/
+.button-wrapper{
+	padding: 17px 0px;
+	margin: 0;
+}
+
+.button {
+	text-align: center;
+}
+
+.button-element{
+	display: inline-block;
+	width: 50%;
+	height: auto;
+	padding: 13px 16px;
+	text-align: center;
+	line-height: normal;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 600;
+	font-family: 'Gentium Book Basic', serif;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: #272727;
+	border: 2px solid;
+	background-color: transparent;
+	transition: background-color 0.1s linear 0s, color 0.1s linear 0s;
+
+}
+
+.button a:hover{
+	background-color: #272727;
+	color: #FFF;
+}
+/*button css ends*/
+
+
+
+
+/* ruleblock start*/
+.ruleblock {
+	clear: both;
+	position: relative;
+	height: auto;
+	padding: 10px 0px; 
+	margin: 0;
+}
+hr{
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px dotted #1A1A1A;
+	opacity: 0.25;
+
+}
+/*ruleblock ends*/
+
+
+
+
+#page{
+	box-sizing:border-box;
+	width: 100%;
+	margin: auto;
+	max-width: 1020px;
+	padding: 96px 32px; /* change */
+}
+
+#content{
+	margin: auto;
+	width: 100%;
+}
+
+.center-align{
+	text-align: center;
+}
+#contactform{
+	width: 80%;
+	margin: 0 auto;
+}
+.input-block-level {
+	min-height: 30px;
+	width: 100%;
+	display: block;
+	box-sizing:border-box;
+	margin-bottom: 20px;
+	font-family: 'Gentium Book Basic', serif;
+}
+.input-block-level{
+	padding: 8px 6px 4px 15px;
+	margin: 0;
+	font-size: 17px;
+	letter-spacing: normal;
+	background-color: transparent;
+	border: 1px solid #CCC;
+	color: #000;
+	margin-bottom: 20px;
+	height: 50px;
+	vertical-align: middle;
+	border-radius: 0px;
+	display: inline-block;
+	padding-left: 4px 6px;
+	line-height: 20px;
+}
+
+.input-block-level:focus{
+	border: 1px solid black;
+}
+
+
+
+
+
+/*footer*/
+/*
+#footer{
+	width: 100%;
+	background-color: #333;
+	margin:0;
+	padding: 0 0 25px 0;
+	border-top:4px solid gray;
+	color:#FFFFFF;
+	font-weight: 600;
+	font-family: 'Gentium Book Basic', serif;
+}
+
+.inner-footer{
+	width: 100%;
+	margin:0 auto;
+	max-width: 1500px;
+}
+
+.inner-footer .module h4{
+	font-weight: 500;
+	font-size: 1.125em;
+	letter-spacing: 3px;
+	line-height: 1.4375em;
+	margin-bottom: 0 0 30px 0;
+}
+#user-form{
+	background-color: #1f1f1f;
+	width: 75%;
+	margin: 20px auto;
+}
+#user-form .user-email {
+	background: none;
+	font-size: 1em;
+	color:#ffffff;
+	font-weight: 300;
+	width: 68.6%;
+	float:left;
+	border:0;
+	margin: 0;
+	padding: 10px 15px 10px 25px;
+}
+.emailupdates p, .legal p{
+	font-size: 15px;
+	line-height: 18px;
+	margin-bottom: 15px;
+	color: #bbbbbb;
+}
+#user-form .user-submit {
+	margin-top: 10px;
+}
+#icons{
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+#icons a{
+	top:0;
+}
+#icons img:hover{
+	cursor: pointer;
+}
+.footer-bottom{
+	width: 100%;
+	background-color: #1f1f1f;
+	margin: 0;
+	padding: 0;
+}
+.footer-bottom-inner{
+	width: 53.7%;
+	margin: 0 auto;
+	color: #FFFFFF;
+	border-top: 8px solid #1f1f1f;
+	display: table;
+}
+.footer-bottom-inner .bottom-logo, .footer-bottom-inner .bottom-desc{
+	box-sizing:border-box;
+	display: table-cell;
+	vertical-align: middle;
+}
+.footer-bottom-inner .bottom-desc{
+	white-space: nowrap;
+	position: relative;
+	text-align: center;
+}
+.footer-bottom-inner .bottom-desc-text{
+	display: block;
+	text-align: right;
+}
+*/
+/*new footer*/
+
+footer{
+    background-color: white;
+    color: #10C1FA;
+    font-size: 0.85em;
+    border-top: 1px solid #ECE5E5;
+}
+footer .social{
+    margin: 5px 20px;
+}
+footer .social img{
+    margin: 12px auto;
+    border: 1px solid #F8F6F6;
+    border-radius: 4px;
+    padding: 2px;
+}
+footer a:hover{
+    text-decoration: underline;
+}
+footer a:visited{
+    text-decoration: none;
+}
+footer ul{
+    vertical-align: baseline;
+    height: 42px;
+    margin: 10px auto;
+    list-style: none;
+}
+footer li {
+    display: inline-block;
+}
+footer li:not(.copyli){
+    padding: 0 10px;
+    border-right: 2px solid #F8F6F6;
+}
+footer ul .contactli {
+    color: red;
+}
+footer ul .copyli{
+    color: black;
+}
+
+
+/*adding effect to navbar*/
+.collection a:after{
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	width: 100%;
+	background: none repeat scroll 0% 0% #FFFFFF;
+	content: "";
+	opacity: 0;
+	transition:height 0.3s ease 0s, opacity 0.3s ease 0s, transform 0.3s, ease 0s;
+	height: 1px;
+	/*transform:translateY(-10px);*/
+}
+
+.collection a:hover:after, .collection a:focus:after{
+	opacity: 1;
+	/*transform:translateY(0px);*/
+	height: 2px;
+
+}

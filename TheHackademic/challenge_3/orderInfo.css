@@ -1,0 +1,742 @@
+
+div#main form {
+   margin-top: 0 !important;
+}
+div#shopping-cart div#purchase-detail p.price-error {
+	color: #c60000;
+	font-size: 12px;
+	margin: 10px 0 0 0;
+   padding-left: 0;
+}
+table#cart {
+	width: 720px;
+	border: none;
+	text-align: right;
+	
+margin-top:10px;
+
+}
+table#cart thead th {
+	font-weight: normal;
+	font-size: 11px;
+	color: #666;
+	text-align: right;
+}
+table#cart th, table#cart tbody td {
+	vertical-align: top;
+	padding-right: 0;
+	border-bottom: 1px solid #ddd;
+padding:0  5px;
+}
+table#cart th.item-total, table#cart tbody td.item-total {
+	padding-right: 0;
+	padding-left: 20px;
+}
+table#cart td input {
+	border: 1px solid #83a8cc;
+	height: 16px;
+	text-align: right;
+	padding-right: 2px;
+}
+table#cart td input#item_name {
+	width: auto;
+	text-align: left;
+	padding-right: 0;
+	padding-left: 2px;
+}
+table#cart td input#amount {
+	width: 52px;
+	margin-left: 4px;
+}
+table#cart .item-name {
+	width: 400px;
+	text-align: left;
+}
+table#cart tbody td, table#cart td.item-name {
+	padding-top: 8px;
+	padding-bottom: 4px;
+}
+table#cart .item-name p.item-option {
+	font-size: 11px;
+	color: #666;
+   padding: 2px 0 0 0;
+   margin: 0;
+   text-align: left;
+}
+table#cart .item-total {
+	padding-right: 5px;
+}
+table#cart .item-action {
+	font-size: 11px;
+	padding-right: 0;
+}
+table#cart tfoot td.totals-currency {
+	text-align: left;
+	padding: 3px 0 0 10px;
+	margin: 0;
+}
+table#cart tfoot td {
+   padding-top: 3px;
+}
+table#cart  td dl.quick-faq dt .note, table#cart td dl.quick-faq dt a  {
+	padding: 0;
+	font-size: 11px;
+/* for PPSCR00590135	vertical-align: 15%;
+	_vertical-align: 2.5%;*/
+}
+table#cart td#notes {
+	padding-top: 12px;
+}
+table#cart td#notes div {
+	position: relative;
+	text-align: left;
+}
+table#cart td#notes div a#seller-notes-toggle {
+	font-size: 11px;
+	background: url(icon_add_instructions_11x11.gif) center left no-repeat;
+	padding-left: 14px;
+}
+table#cart td#notes div a#seller-notes-toggle.opened {
+	background: none;
+	text-decoration: none;
+	font-weight: bold;
+	padding-left: 0;
+	color: #000;
+	cursor: default;
+}
+table#cart td#notes div textarea {
+	width: 300px;
+	height: 60px;
+	border: 1px solid #83a8cc;
+	margin-top: 3px;
+	display: block;
+	position: absolute;
+	top: 14px;
+	left: 0;
+}
+table#cart tfoot td {
+   margin-right: 0 !important;
+   padding-right: 0 !important;
+}
+
+table#cart td#notes td {
+	border-bottom: none;
+	padding-right: 17px !important; 
+	padding-top: 0;
+}
+table#cart td#notes td.totals-value {
+	padding-right: 10px !important;
+}
+table#cart td#notes td.totals-action {
+	padding-right: 12px !important;
+}
+
+/* COLLAPSED */
+div.collapsed div.toggle {
+	bottom: -15px;
+}
+div.collapsed div.toggle a {
+	background: url(scr_idetails_billing_closed_760_16.gif) no-repeat 0 0;
+	_bottom: 0;
+      /* 16555 */
+	/* position: absolute;
+	left: 0;
+      bottom: -6px; 
+      width: 760px; */
+       /* 16555 */
+}
+div.collapsed div.toggle a:hover {
+	background: url(scr_idetails_billing_closed_hi_760x16.gif) no-repeat 0 0;
+}
+
+/*
+
+div.collapsed div#purchase-summary {
+	display: block;
+	_visibility: visible;
+	_margin-bottom: 0;
+	margin-bottom: 25px;
+}
+
+*/
+
+/* 16555 start */
+
+div.collapsed div#purchase-summary {
+	display: block;
+	_visibility: visible;
+	_margin-bottom: 0;
+	margin-bottom: 0px;
+}
+
+/* 16555 end */
+
+div.collapsed div#cover {
+	height: 0;
+	overflow: hidden;
+}
+/* END OF COLLAPSED */
+
+div#shopping-cart {
+	padding: 0 0 5px 0; 
+	margin: 0;
+	position: relative;
+	top: -24px;
+	width: 760px;
+}
+/* The following rule is for  COWP [only on Billing and Login pages] */
+div#cowp-wrapper div#shopping-cart.cowp-setting {
+	top: -11px;
+}
+div#purchase-detail {
+	margin: 0;
+	padding: 2px 0px 0px 0px; 
+	_padding-bottom: 0 !important;
+	background: #fff url(scr_idetails_bg_1x350.gif) repeat-x left bottom;
+	border-top: 1px solid #83a8cc;
+	border-right: 1px solid #83a8cc;
+	border-bottom: 0px solid #83a8cc;
+	border-left: 1px solid #83a8cc; 
+	position: relative;
+	z-index: 100;
+	top: 0;
+}
+
+div#purchase-summary {
+	display: none;
+
+	_visibility: hidden; 
+	_display: none;
+	_margin-bottom: -1.5em;
+	margin-top: 8px;
+	font-weight: normal;
+	_height: 100%;
+
+margin:0  8px;
+}
+div#purchase-summary p {
+	margin: 0;
+	font-weight: bold;
+	float: left;
+}
+div#purchase-summary p.summary-total {
+	float: right;
+	width:auto;
+	text-align: right;
+}
+div#purchase-summary span {
+	font-weight: bold;
+	padding-right: 10px;
+}
+div#purchase-summary span.price-total {
+	padding-left: 10px;
+}
+div#purchase-summary span.price-currency {
+	font-weight: normal;
+	padding-left: 0;
+	padding-right: 0;
+	font-weight: bold;  /* Added the following code for the bug: PPSCR00534564 */
+}
+
+div#payment-for {
+	margin: 0;
+	/*padding: 7px 18px 13px 18px;*/
+	background: #fff url(scr_idetails_bg_1x350.gif) repeat-x left bottom;
+	border-top: 1px solid #83a8cc;
+	border-right: 1px solid #83a8cc;
+	/*border-bottom: 10px solid #83a8cc;*/
+	border-left: 1px solid #83a8cc; 
+	position: relative;
+	z-index: 100;
+	top: 0;
+}
+
+div.toggle {
+	/*position: absolute;
+	_position: relative;
+	bottom: -9px;
+	left: 0;*/
+	width: 100%;
+	clear: both;
+}
+div.toggle a {
+	background: url(scr_idetails_billing_opened_760x16.gif) no-repeat top left;
+	display: block;
+	text-indent: -12345px;
+	outline: none;
+	height: 15px;
+	cursor: pointer;
+	/*_position: absolute;
+	_width: 758px;
+	_left: -18px;
+	_bottom: -9px;*/
+}
+div.toggle a:hover {
+	background: url(scr_idetails_billing_opened_hi_760x16.gif) no-repeat top left;
+}
+div#cover {
+	height: 110%;
+}
+/* END OF NOTE */
+div#purchase-detail table#cart {
+	width: 100%;
+}
+table#cart div.buttonrow {
+	width: auto;
+	margin-top: 0;
+	padding-top: 0;
+}
+table#cart div.buttonrow input.done {
+	height: 22px;
+	display: block;
+	float: right;
+	margin-top: 6px;
+	margin-right: 0;
+	text-align: center;
+}
+
+
+body#review div#cover table#cart {
+   width: 760px;
+	margin-top: 0;
+}
+body#review div#order-summary {
+	margin: 17px 0 25px 0;
+}
+body#review div#order-summary div#purchase-summary, body#review div#order-summary div.toggle {
+	display: none;
+}
+/* End of Styles overwritten for Review page for the Website Payment Standard flows */
+/* Styles overwritten for Review page for the Express Checkout flow */
+body#review div#shopping-cart div#purchase-summary {
+   display: block;
+	margin-bottom: 20px;
+	_visibility: visible;
+}
+body#review div#shopping-cart div.toggle a#expander {
+   background: none;
+}
+/* End of Styles overwritten for Review page for the Express Checkout flow */
+
+/* Gift Certificate styles that had to be overwritten */
+div#gift-certificate {
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+	float: none;
+	text-align: right;
+	width: auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+div#gift-certificate div {
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+	float: none;
+	text-align: right;
+	width: auto;
+}
+div#gift-certificate div.edit {
+	border: none;
+	padding: 0;
+	margin: 0;
+	top: 0;
+}
+div#gift-certificate div.open {
+    display: block;
+}
+div#gift-certificate input.transparentButton {
+    border: none;
+}
+div#gift-certificate fieldset#insert-gift-certificate {
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+	float: none;
+}
+div#gift-certificate div span.gc-entry-label {
+	font-weight: bold;
+	font-size: 11px;
+	margin: 0 5px 0 0;
+}
+div#gift-certificate div a {
+	margin: 0 0 0 5px;
+	font-size: 11px;
+}
+div#gift-certificate div span.gc-amount {
+	margin: 0 0 0 22px;
+	_margin: 0 0 0 24px;
+}
+div#gift-certificate label {
+	display: inline;
+	font-weight: bold;
+	font-size: 11px;
+}
+div#gift-certificate div#payment-method {
+	margin-bottom: 10px;
+}
+div#gift-certificate div#payment-method a {
+	font-size: 11px;
+}
+div#gift-certificate fieldset span.note {
+	margin: 0 0 0 10px;
+}
+div#gift-certificate div.fieldrow.payment-method div.edit fieldset#insert-gift-certificate div.fieldrow.gift-certificate input#gift-certificate-input {
+	width: 120px !important;
+	text-align: left;
+}
+div#gift-certificate div.edit div.gift-certificate label {
+	float: none;
+	width: auto;
+	margin: 0;
+	padding: 0;
+}
+div#gift-certificate div.buttonrow input {
+	width: auto;
+	height: 22px;
+	float: right;
+	margin-top: 7px !important;
+	margin-right: 0;
+	margin-bottom: 8px;
+}
+div#gift-certificate div.buttonrow input.done {
+	margin-right: 5px;
+}
+div#gift-certificate div.fieldrow input#gift-certificate-input {
+	margin: 0 0 0 5px;
+}
+
+
+
+/*  spec 16555 - start */
+
+.clearBoth
+{
+  clear:both;
+}
+
+
+div#col_inside-us{
+	display:none;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+
+div#col_outside-us{
+	display:none;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#exp_inside-us{
+	display:none;
+	font-size: 11px;
+	font-weight: normal;
+	width:446px;
+	margin-left:220px;
+	_ margin-left:0px;
+}
+
+div#exp_outside-us {
+	display:none;
+	font-size: 11px;
+	font-weight: normal;
+      width:638px;
+     margin-left:80px;
+     _ margin-left:0px;
+}
+
+
+.qtyone-calculate-shipping{
+      width: 600px;
+}
+
+
+div#col_calculate-shipping span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#col_inside-us span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#col_outside-us span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+
+div#col_calculate-shipping-nj span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#col_inside-us-nj span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#col_outside-us-nj span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#exp_calculate-shipping span{
+	padding-left:10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+
+div#exp_inside-us span{
+	padding-left:10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#exp_outside-us span{
+	padding-left:10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+/* bug PPSCR00526116 */
+
+*:first-child+html div#exp_outside-us span{
+	float: left;
+}
+
+*:first-child+html div#exp_outside-us span:first-child{
+	padding-top: 10px;
+}
+
+*:first-child+html div#exp_outside-us span:last-child{
+	padding-top: 10px;
+}
+
+div#exp_calculate-shipping-nj span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#exp_inside-us-nj span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+div#exp_outside-us-nj span{
+	padding-right: 10px;
+	font-size: 11px;
+	font-weight: normal;
+}
+
+a#col_calculate-total-link, a#col_outside-us-link, a#col_inside-us-link {
+	display: none; 
+}
+
+a#exp_calculate-total-link, a#exp_outside-us-link, a#exp_inside-us-link, a#exp_zip-change-link{
+	display: none;
+}
+
+
+div#shipping-handling span.label{
+      text-align:right;
+      font-size: 11px;
+	font-weight: normal;
+}
+
+div#shipping-handling span.value{ 
+      margin-left:10px;
+      position:absolute;
+      font-size: 11px;
+	font-weight: normal;
+}
+
+
+span.button input.done{
+	background: #afc8f1 url(secondary_1x50.gif) repeat-x top left;
+	border: 1px solid #85a7ca;
+	font-size: 11px;
+	padding: 2px 10px;
+	_padding: 2px 10px 0 10px;
+	width: 55px;
+}
+
+#exp_inside-us .button .done, #exp_outside-us .button .done{
+      height: 20px;
+      margin: 0;
+      padding: 0;
+      padding-right:8px!important;
+}
+
+
+
+div#exp-shipping-info.shippinginfo
+{  
+	width:650px;
+	text-align:right; 
+}
+
+
+div#totals table td
+{
+	text-align:right;
+	font-size: 11px;
+	font-weight: normal;
+     	padding: 3px 3px 3px 5px;
+}
+
+div#totals td.value
+{
+    /*  width:40px; */
+}
+
+tr#exp_shipping-and-handling select{
+	width:auto;
+}
+
+.notesWidth
+{
+	width:205px!important;
+}
+
+
+.summary-total-normal
+{
+	font-weight:normal!important;
+	font-size:11px!important;
+	font-family:Arial!important;
+}
+
+.sub-total
+{
+	padding-left:10px;
+	padding-right:39px!important;
+}
+
+.tax-value
+{
+	text-align:left!important; 
+	padding-left:22px!important;
+}
+
+.shipping-qty-more
+{
+	text-align:left!important; 
+	width:40px!important; 
+	padding-left:16px!important;
+}
+
+.shipping-qty-one
+{
+	text-align:right!important; 
+	width:15px!important; 
+	padding-left:16px!important;
+}
+
+.total-text
+{
+	font-weight:bold!important; 
+	font-size:13px!important;
+}
+.total-text-cart
+ {
+  	font-weight:bold!important; 
+  	font-size:12px!important;
+  	padding-right:0px!important;
+} 
+
+.total-value
+{
+	font-weight:bold!important; 
+	font-size:13px!important;
+	text-align:left!important; 
+	padding-left:9px;
+}
+.total-value-cart
+{
+ 	font-weight:bold!important; 
+ 	font-size:12px!important;
+ 	text-align:right!important; 
+ 	padding-right:5px!important;
+ 	padding-left:0px!important;
+}
+
+.cart-shipping
+{
+	text-align:left!important; 
+	width:70px!important; 
+	padding-left:22px!important;
+}
+
+/* spec 16555 - end */
+div#donation-total{
+float:right;
+}
+/* bug PPSCR00524760 */
+
+div#purchase-summary div#purchase-many{
+	float: left;
+	width: auto;
+}
+
+div#purchase-summary div p#multi-item{
+	text-align: right;
+	width: 75px;
+}
+
+div#purchase-summary p span#purchase-mulitiple-items{
+	padding-left: 15px;
+}
+
+/* bug PPSCR00535297 */
+
+.total-text-multi-item{
+	padding-left: 0px!important;
+	font-size: 12px!important;
+	font-weight:bold!important;
+	width: 114px;
+
+}
+
+.total-text-item{
+	font-weight:bold!important;
+	padding-left: 0px!important;
+	font-size: 12px!important;
+	width: 122px;
+}
+
+.total-value-multi-item{
+	padding-left: 21px;
+	font-size: 12px!important;
+	font-weight:bold!important;
+	width: 75px;
+}
+
+.total-value-item{
+	padding-left: 0px!important;
+	padding-right:5px!important;
+	text-align:right!important;
+	font-size:12px!important;
+	width: 81px;
+	font-weight:bold!important;
+}
+
+.error {color: #f00!important;}
+
+.purchase-items {width: 480px;}

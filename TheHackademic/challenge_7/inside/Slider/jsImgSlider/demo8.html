@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Demo 8 - Image Slider with Thumbnail Preview</title>
+    <link href="themes/8/js-image-slider.css" rel="stylesheet" type="text/css" />
+    <script src="themes/8/js-image-slider.js" type="text/javascript"></script>
+    <link href="themes/8/tooltip.css" rel="stylesheet" type="text/css" />
+    <script src="themes/8/tooltip.js" type="text/javascript"></script>
+    <link href="generic.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        imageSlider.thumbnailPreview(function (thumbIndex) { return "<img src='images/thumb" + (thumbIndex + 1) + ".jpg' style='width:100px;height:60px;' />"; });
+    </script>
+</head>
+<body>
+    <div class="div1">
+        <h2>Demo 8 - Thumbnail Preview</h2> 
+        <p>
+            Demos: <a href="demo1.html">1</a><a href="demo2.html">2</a><a href="demo3.html">3</a><a href="demo4.html">4</a>
+            <a href="demo5.html">5</a><a href="demo6.html">6</a><a href="demo7.html">7</a><a href="demo8.html" class="current">8</a>
+        </p>
+    </div>
+    <div id="sliderFrame">
+        <div id="slider">
+            <a href="http://www.menucool.com/javascript-image-slider" target="_blank">
+                <img src="images/image-slider-1.jpg" alt="#cap1" />
+            </a>
+            <img src="images/image-slider-2.jpg" alt="Lorem ipsum dolor sit amet" />
+            <img src="images/image-slider-3.jpg" alt="Pure Javascript. No jQuery. No flash." />
+            <img src="images/image-slider-4.jpg" alt="#cap2" />
+            <img src="images/image-slider-5.jpg" alt="Excepteur sint occaecat cupidatat" />
+        </div>
+        <div style="display: none;">
+            <div id="cap1">
+                Welcome to <a href="http://www.menucool.com/">Menucool.com</a>.
+            </div>
+            <div id="cap2">
+                <em>HTML</em> caption. Link to <a href="http://www.google.com/">Google</a>.
+            </div>
+        </div>
+    </div>
+    <div class="div2">
+        <p>You'll see thumbnail previews when hovering on pagination bullets in the demo. The thumbnail previews are created by the
+        slider's built-in function, <span class="cn">thumbnailPreview</span>, with the assistance of the
+        <a href="http://www.menucool.com/tooltip/javascript-tooltip" target="_blank">Menucool Tooltip</a> widget.</p>
+        <p>Please visit <a href="http://www.menucool.com/slider/thumbnail-preview">http://www.menucool.com/slider/thumbnail-preview</a> for detailed instructions.</p>
+        <p>This demo has not used the slider's advanced features, hence it does not require slider license. However, a Tooltip license is required for using the tooltip widget to preview thumbnails.
+        <br /><em>If you have also included slider's advanced features, slider license is also required.</em></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<style type="text/css">
+.style1 {
+	text-align: center;
+}
+.style2 {
+	text-align: center;
+	color: #00FF00;
+	border-style: solid;
+	border-width: 1px;
+}
+.style3 {
+	font-size: x-small;
+}
+.style4 {
+	font-size: x-small;
+	color: #00FF00;
+}
+.style5 {
+	color: #00FF00;
+}
+.style6 {
+	text-align: center;
+	color: #FFFF00;
+}
+.style7 {
+	border-width: 0px;
+}
+.style8 {
+	border-style: solid;
+	border-width: 1px;
+}
+.style9 {
+	color: #00FF00;
+	border-style: solid;
+	border-width: 1px;
+}
+
+body {
+    background-image: url("anony.jpg");
+}
+
+.leftAlign {
+	text-align: left;
+}
+
+.owaspSupport {
+	color: #00FF00;
+	text-align: center;
+}
+
+a:link {
+	color: cyan; text-decoration: underline; 
+}
+
+a:visited {
+	color: #008000; text-decoration: underline; 
+}
+</style>
