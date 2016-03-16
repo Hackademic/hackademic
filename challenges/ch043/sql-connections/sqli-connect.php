@@ -1,7 +1,7 @@
 <?php
 
 
-include("db-creds.inc");
+include("../sql-connections/db-creds.inc");
 error_reporting(0);
 
 $con1 = mysqli_connect($host,$dbuser,$dbpass);
