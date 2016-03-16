@@ -91,7 +91,7 @@ $sql="INSERT INTO `messier_db`.`emails` (id, email_id) VALUES ('1', 'TheGaminAdd
 
 
 //including the Challenges DB creation file.
-include("../sql-connections/setup-db-challenge.php");
+include("setup-db-challenge.php");
 ?>
 
 

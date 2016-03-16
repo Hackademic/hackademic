@@ -21,7 +21,7 @@ Welcome&nbsp;&nbsp;&nbsp;
 
 <?php
 //including the Mysql connect parameters.
-include("../sql-connections/db-creds.inc");
+include("db-creds.inc");
 echo "<center>";
 
 
@@ -94,7 +94,7 @@ $sql="INSERT INTO `waymessier_db`.`emails` (id, email_id) VALUES ('1', 'TheGamin
 
 
 //including the Challenges DB creation file.
-include("../sql-connections/setup-db-challenge.php");
+include("setup-db-challenge.php");
 ?>
 
 <font color = #FFFFFF>

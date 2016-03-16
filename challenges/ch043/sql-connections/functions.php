@@ -1,7 +1,7 @@
 <?php
 //including the Mysql connect parameters.
-include("../sql-connections/db-creds.inc");
-include("../sql-connections/sql-connect-1.php");
+include("db-creds.inc");
+include("sql-connect-1.php");
 
 
 function num_gen($string_length, $characters)
@@ -14,7 +14,7 @@ function num_gen($string_length, $characters)
 	return $string;
 }
 
-$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';   /
+$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; 
 
 $table = num_gen(10, $characters) ;
 
@@ -24,8 +24,8 @@ $secret_key = "secret_".num_gen(4, $characters);
 
 function table_name()
 {
-	include '../sql-connections/db-creds.inc';
-	include '../sql-connections/sql-connect-1.php';
+	include 'db-creds.inc';
+	include 'sql-connect-1.php';
 	$sql="SELECT table_name FROM information_schema.tables WHERE table_schema='$dbname1'";
 	$result=mysql_query($sql) or die("error in function table_name()".mysql_error());
 	$row = mysql_fetch_array($result);

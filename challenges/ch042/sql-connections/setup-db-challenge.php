@@ -7,7 +7,7 @@
 <font color = #FFFFFF>
 <?php
 //including the Mysql connect parameters
-include '../sql-connections/db-creds.inc';
+include 'db-creds.inc';
 echo "<center>";
 @error_reporting(0);
 if(isset($_GET['id']))
@@ -39,7 +39,7 @@ if (!$con)
 	else 
 		{echo "Error creating database: " . mysql_error();echo "<br><br>\n";}
 
-include '../sql-connections/functions.php';
+include 'functions.php';
 
 
 

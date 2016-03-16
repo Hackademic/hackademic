@@ -3,7 +3,7 @@
 </head>
 <body bgcolor="#000000">
 <?php
-include '../sql-connections/db-creds.inc';
+include 'db-creds.inc';
 echo "<center>";
 @error_reporting(0);
 if(isset($_GET['id']))
@@ -26,7 +26,7 @@ if (!$con)
 	else 
 		{echo "Error creating database: " . mysql_error();echo "<br><br>\n";}
 
-include '../sql-connections/functions.php';
+include 'functions.php';
  
 $sql="CREATE TABLE IF NOT EXISTS $dbname1.$table
 		(
