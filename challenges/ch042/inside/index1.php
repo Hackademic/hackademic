@@ -41,16 +41,15 @@
 					</p>
 				</div>
 			</div>
-<!--
+
+'<!--
 		<div>
 			<?php print_r($_SERVER); ?>
-		</div>	
-	
+		</div>
 -->
-
 <?php
 //including the Mysql connect parameters.
- 	include("../sql-connections/sql-connect.php");
+	include("../sql-connections/sql-connect.php");
 if(!isset($_COOKIE['uname']))
 	{
 	//including the Mysql connect parameters.

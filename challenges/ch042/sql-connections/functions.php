@@ -1,7 +1,7 @@
 <?php
 //including the Mysql connect parameters.
-include("db-creds.inc");
-include("sql-connect-1.php");
+include("../sql-connections/db-creds.inc");
+include("../sql-connections/sql-connect-1.php");
 
 
 function num_gen($string_length, $characters)
@@ -14,7 +14,7 @@ function num_gen($string_length, $characters)
 	return $string;
 }
 
-$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';  
+$characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';   /
 
 $table = num_gen(10, $characters) ;
 
