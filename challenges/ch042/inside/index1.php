@@ -42,11 +42,6 @@
 				</div>
 			</div>
 
-'<!--
-		<div>
-			<?php print_r($_SERVER); ?>
-		</div>
--->
 <?php
 //including the Mysql connect parameters.
 	include("../sql-connections/sql-connect.php");
@@ -128,7 +123,6 @@ function check_input($value)
 				echo '<font color= "#000000" font size = 3 >';
 				setcookie('uname', base64_encode($row1['username']), time()+3600);	
 				header ('Location: index1.php');
-				echo "I LOVE YOU COOKIES";
 				echo "</font>";
 				echo '<font color= "#000000" font size = 3 >';			
 				
@@ -136,7 +130,7 @@ function check_input($value)
 				echo "<br>";
 				print_r(mysql_error());			
 				echo "<br><br>";
-				echo "test";
+			//	echo "test";
 				echo "<br>";
 				}
 			else
