@@ -91,7 +91,7 @@ class ContainerDaemon():
                 containers = self.create_container(challenge)
                 conn.sendall(containers)
 
-            if data == 'list_containers':
+            if 'list_containers' in str(data):
                 containers = self.list_containers()
                 conn.sendall(containers)
 
