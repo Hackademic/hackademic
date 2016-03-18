@@ -116,8 +116,8 @@ class Install:
 
 def main():
     docker = Install()
-    docker.docker_image()
     docker.install_docker()
+    docker.docker_image()
     docker.build_docker()
     docker.install_pip_tools()
     docker.install_finish()
