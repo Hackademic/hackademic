@@ -1,0 +1,7 @@
+# behat.yml
+default:
+    extensions:
+        Behat\MinkExtension:
+            base_url: 'http://localhost/Hackademic/'
+            goutte: ~
+            selenium2: ~
