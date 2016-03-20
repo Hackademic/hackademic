@@ -96,7 +96,20 @@ class FeatureContext extends MinkContext
         $this->pressButton($arg1);
     }
 
+    /**
+     * @Then  I store the current user's information
+     */
+    public function iStoreCurrentInformation() {
+        $url = $this->getSession()->getCurrentUrl();
+        $this->currentStudentInfo = explode("?", $url)[1];
+    }
 
+    /**
+     * @Then I solve Challenge 2
+     */
+    public function iSolveChallenge2() {
+        $this->visit("/challenges/ch002/index.php?Result=enter%20a%20coin%20to%20play&".$this->currentStudentInfo);
+    }
 
 
 

@@ -34,4 +34,9 @@ Feature: Increase my points
         And I solve Challenge 2
        Then I should see "Congratulations"
        Then I go to "/pages/ranking.php"
-        And I should have more points
+        And I should have more points 
+    Scenario: Student can access Progress Report Page
+        Given I am logged in as a student with username "student" and password "manipal"
+          And I click "Progress Report" link
+         Then I should be on "/pages/progress.php"
+          And should see text matching "Progress Report"
