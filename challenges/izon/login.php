@@ -3,7 +3,7 @@
    config.inc.php contains the credentials for the temporary mysql
    connection that allows the injections to be done */
 session_start();
-include_once dirname(__FILE__).'/../../init.php';		
+//include_once dirname(__FILE__).'/../../init.php';		
 include_once 'config.inc.php';
 //require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 
