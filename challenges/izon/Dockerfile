@@ -6,7 +6,7 @@ FROM tutum/lamp:latest
 RUN apt-get -y install subversion
 
 #get files from the challenge
-RUN rm -fr /app && svn export https://github.com/bere13/hackademic.git/branches/next/challenges/izon app
+RUN rm -fr /app && svn export https://github.com/Hackademic/hackademic/trunk/next-dev/challenges/izon app
 
 EXPOSE 80 3306
 CMD ["/run.sh"]
