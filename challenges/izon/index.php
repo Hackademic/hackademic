@@ -1,6 +1,6 @@
 <?php
 		/* Necessary includes and session starting */
-		include_once dirname(__FILE__).'/../../init.php';		
+		//include_once dirname(__FILE__).'/../../init.php';		
         session_start();
 		/* Reset the session if the one hour time limit has passed */
 		if (isset($_SESSION['init_timer'])) {
@@ -14,14 +14,15 @@
 			$_SESSION['init_timer'] = time();
 		}
 
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+        //require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 		
 		/* $_GET['user'] is set only when user comes through the hackademic page (where user clicks on 'try it' button) */
-		if (isset($_GET['user']) && !(isset($_SESSION['init_timer']))) {
-			$monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
+		//if (isset($_GET['user']) && !(isset($_SESSION['init_timer']))) {
+		//	$monitor->update(CHALLENGE_INIT,$_GET['user'],$_GET['id'],$_GET['token']);
 		/* If the user refreshed the page (keeping the GET vars), or came through the challenge page,
 		   just reset the session */
-		} else if (isset($_GET['user']) && (isset($_SESSION['init_timer']))){
+		//} 
+		if (isset($_GET['user']) && (isset($_SESSION['init_timer']))){
 			unsetSession();
 		}
 		/* If he's not logged in to hackademic (session's not set), send him back to do so */
@@ -355,7 +356,7 @@ if ($_SESSION['ch04'] == 1) {
 				window.close();
 			});
 			</script>";
-			$monitor->update(CHALLENGE_SUCCESS);
+			//$monitor->update(CHALLENGE_SUCCESS);
 		}
 ?>
 <script>
