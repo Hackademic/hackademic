@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<basebox>ubuntu/trusty64</basebox>
+	<files>
+		<file type="dir" src="/code" dest="/home/VPTR" />
+		<file type="file" src="/flag.txt" dest="/home/VPTR/flag.txt" />
+	</files>
+	<scripts>
+		<script>script/init.sh</script>
+	</scripts>
+</root>
