@@ -1,0 +1,11 @@
+		'&'  => ''
+		'('  => ''
+		')'  => ''
+		'| ' => ''
+		'_'  => ''
+		'$'  => ''
+		'; ' => ''
+		'`'  => ''
+		'||' => '' 
+
+   Grab out the mistake, notice very carefully, 've made it a bit easier !
