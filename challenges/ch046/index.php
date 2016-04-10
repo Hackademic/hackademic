@@ -19,7 +19,7 @@
     //echo $_GET['string'];
     $a = $_GET['string'];
     if(strpos($a, ')') !== false || strpos($a, '|') !== false || strpos($a, '&') !== false || strpos($a, ';') !== false || strpos($a, '(') !== false) {
-    header("Location: test/index.php");
+    header("Location: inside/index.php");
     }
     ?>
     <br /><br />
