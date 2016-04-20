@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>New Challenge 6</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+	    Rajat Moury
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        You have just started to work on an under construction site, which provides hashing the entered text into sha512 for encryption. However, the developer who was working before is out of station for a month, you have the information that while he was working with input sanitization or filtering input's, he left out a critical severe vulnerability which could lead to remote code execution on the web-server system. You have to find that vulnerability, get into the system look for a file called EPL.txt and crack the custom encryption from challenge no. 40 and submit that flag on the admin login page present on the main website. However, you have been also provided the task to secure the web application after successfully completion of the challenge.</p><br/><br/>
+
+Hints /Tips & Rules :
+Play with inputs, notice the changes carefully,  Intercept the requests and responses passed between browser and web-server. You are not allowed  to see the php files before cracking the challenge. <a href = "http://insecurety.net/?p=403">reference1</a><br/> <a href = "https://www.owasp.org/index.php/Reviewing_Code_for_OS_Injection">reference2</a><br/>
+]]>
+
+    </description>
+</challenge>

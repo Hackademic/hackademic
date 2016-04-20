@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /inside/ad_min.php
+
+User-agent: *
+Disallow: /Important_Files
