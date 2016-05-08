@@ -5,7 +5,7 @@
  *
  * Hackademic Utils Class
  * Generic, common and utility methods
- *
+ * 
  * Copyright (c) 2012 OWASP
  *
  * LICENSE:

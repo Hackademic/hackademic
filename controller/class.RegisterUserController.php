@@ -43,7 +43,7 @@ class RegisterUserController extends HackademicController {
 	public $email;
 	public $form_fields = array('username', 'full_name', 'password', 'confirmpassword', 'email');
 
-  private static $action_type = 'register_user';
+  private static $_action_type = 'register_user';
 
 	public function go() {
 		$this->setViewTemplate('register_user.tpl');

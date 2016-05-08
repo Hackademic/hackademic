@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<ruleset name="PSR2Extended">
+    <description>The extended PSR-2 coding standard by Frenck</description>
+
+    <!-- Include the whole PSR-2 standard -->
+    <rule ref="PSR2"/>
+
+    <!-- Extra exclude patterns -->
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>*.htm</exclude-pattern>
+    <exclude-pattern>*.html</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*.twig</exclude-pattern>
+    <exclude-pattern>*.xml</exclude-pattern>
+    <exclude-pattern>*.yml</exclude-pattern>
+
+    <!-- Comments & PHPDocs -->
+    <rule ref="Generic.Commenting.Todo" />
+    <rule ref="Generic.Commenting.Fixme" />
+    <rule ref="Squiz.Commenting.BlockComment" />
+    <rule ref="Squiz.Commenting.DocCommentAlignment" />
+    <rule ref="Squiz.Commenting.EmptyCatchComment" />
+    <rule ref="Pear.Commenting.FunctionComment" />
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+    <rule ref="Squiz.Commenting.PostStatementComment" />
+    <rule ref="Pear.Commenting.InlineComment" />
+
+    <!-- Code Formatting -->
+    <rule ref="Generic.Formatting.SpaceAfterCast" />
+    <rule ref="Pear.Formatting.MultiLineAssignment" />
+    <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag" />
+    <rule ref="Generic.Strings.UnnecessaryStringConcat" />
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing" />
+    <rule ref="Pear.WhiteSpace.ScopeClosingBrace" />
+    <rule ref="Squiz.Formatting.OperatorBracket" />
+    <rule ref="Squiz.PHP.DisallowMultipleAssignments" />
+    <rule ref="Squiz.Strings.DoubleQuoteUsage" />
+
+    <!-- Classes -->
+    <rule ref="Generic.Classes.DuplicateClassName" />
+    <rule ref="Generic.Files.OneClassPerFile" />
+    <rule ref="Generic.Files.OneInterfacePerFile" />
+    <rule ref="Squiz.Classes.ClassFileName" />
+
+    <!-- Class Methods, Members & Functions -->
+    <rule ref="Generic.NamingConventions.ConstructorName" />
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier" />
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter" />
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod" />
+    <rule ref="Generic.Functions.CallTimePassByReference" />
+    <rule ref="Generic.Metrics.CyclomaticComplexity">
+        <properties>
+            <property name="complexity" value="15" />
+        </properties>
+    </rule>
+    <rule ref="Generic.Metrics.NestingLevel" />
+    <rule ref="Squiz.Functions.FunctionDuplicateArgument" />
+    <rule ref="Squiz.Scope.MemberVarScope" />
+    <rule ref="Squiz.Scope.MethodScope" />
+    <rule ref="Squiz.Classes.SelfMemberReference" />
+
+    <!-- Control structures  -->
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop" />
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer" />
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement" />
+    <rule ref="Generic.ControlStructures.InlineControlStructure" />
+    <rule ref="Squiz.PHP.DisallowInlineIf" />
+    <rule ref="Generic.CodeAnalysis.EmptyStatement" />
+
+    <!-- Operators -->
+    <rule ref="Squiz.Operators.ComparisonOperatorUsage" />
+    <rule ref="Squiz.Operators.IncrementDecrementUsage" />
+    <rule ref="Squiz.Operators.ValidLogicalOperators" />
+    <rule ref="Squiz.PHP.DisallowComparisonAssignment" />
+
+    <!-- Other -->
+    <rule ref="Generic.PHP.DeprecatedFunctions" />
+    <rule ref="Pear.Files.IncludingFile" />
+    <rule ref="Squiz.PHP.CommentedOutCode" />
+    <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops" />
+    <rule ref="Squiz.PHP.DiscouragedFunctions" />
+    <rule ref="Squiz.PHP.Eval" />
+    <rule ref="Squiz.PHP.GlobalKeyword" />
+    <rule ref="Squiz.PHP.Heredoc" />
+    <rule ref="Squiz.PHP.InnerFunctions" />
+    <rule ref="Squiz.PHP.LowercasePHPFunctions" />
+    <rule ref="Squiz.PHP.NonExecutableCode" />
+    <rule ref="Squiz.Scope.StaticThisUsage" />
+    <rule ref="Squiz.Strings.EchoedStrings" />
+
+</ruleset>

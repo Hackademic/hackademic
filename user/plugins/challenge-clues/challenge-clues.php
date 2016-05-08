@@ -3,44 +3,57 @@
  * Plugin Name: Challenge's clues
  * Plugin URI: http://github.com/pchaigno/hackademic/challenge-clues
  * Description: This plugin gives the possibility for the teachers to add and unlock clues. A penalty can be associated to each clue. The student won't have the penalty unless he reads the clue.
- * Version: 1.0
+ *
+ * PHP Version 5.
+ *
+ * Version 1.0
  * Author: Paul Chaignon
- * License: GPL2
+ * License: GPL2 www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
-require_once('class.Clue.php');
-require_once('class.UserCluesModel.php');
-require_once(HACKADEMIC_PATH . "model/common/class.Session.php");
-require_once(HACKADEMIC_PATH."model/common/class.UserScore.php");
+require_once 'class.Clue.php';
+require_once 'class.UserCluesModel.php';
+require_once HACKADEMIC_PATH . "model/common/class.Session.php";
+require_once HACKADEMIC_PATH."model/common/class.UserScore.php";
 
 /**
  * Sets a custom made template for the specific page.
- * @param $new_path the path about to be set
+ *
+ * @param string $new_path the path about to be set
+ *
  * @return string the new template
  */
-function challenge_clues_set_admin_view_template($new_path) {
-  if(string_contains('admin/view/editchallenge.tpl', $new_path)) {
+function challenge_clues_set_admin_view_template($new_path)
+{
+  if (string_contains('admin/view/editchallenge.tpl', $new_path)) {
     return 'user/plugins/challenge-clues/editchallenge.tpl';
-  } else if(string_contains('admin/view/addchallenge.tpl', $new_path)) {
+  } else if (string_contains('admin/view/addchallenge.tpl', $new_path)) {
     return 'user/plugins/challenge-clues/addchallenge.tpl';
   }
 }
 
 /**
  * Sets a custom made template for the specific page.
- * @param $new_path the path about to be set
+ *
+ * @param string $new_path the path about to be set
+ *
  * @return string the new template
  */
-function challenge_clues_set_view_template($new_path) {
-  if(string_contains('view/showChallenge.tpl', $new_path)) {
+function challenge_clues_set_view_template($new_path)
+{
+  if (string_contains ('view/showChallenge.tpl', $new_path)) {
     return 'user/plugins/challenge-clues/showChallenge.tpl';
   }
 }
 
 /**
  * Retrieves the clues of a challenge to display them on the edit page.
- * @param $smarty the smarty object
+ *
+ * @param Smarty $smarty the smarty object
+ *
+ * @return Nothing.
  */
-function challenge_clues_show_edit_challenge($smarty) {
+function challenge_clues_show_edit_challenge($smarty)
+{
   $challenge_id = $smarty->tpl_vars['challenge']->value->id;
   $clues = Clue::getClues($challenge_id);
   $smarty->assign('clues', $clues);
@@ -48,15 +61,19 @@ function challenge_clues_show_edit_challenge($smarty) {
 
 /**
  * Retrieves the clues of a challenge to display them for the student.
- * @param $smarty the smarty object
+ *
+ * @param Smarty $smarty the smarty object
+ *
+ * @return Nothing.
  */
-function challenge_clues_show_challenge($smarty) {
+function challenge_clues_show_challenge($smarty)
+{
   $user_id = Session::getLoggedInUserId();
 
-  if(isset($_POST['clue']) && is_numeric($_POST['clue'])) {
+  if (isset($_POST['clue']) && is_numeric($_POST['clue'])) {
   // The student asked to see a clue.
     $openedClue = Clue::getEnabledClue($_POST['clue']);
-    if($openedClue != null) {
+    if ($openedClue != null) {
       UserCluesModel::addClue($user_id, $openedClue);
     }
   }
@@ -69,11 +86,16 @@ function challenge_clues_show_challenge($smarty) {
 
 /**
  * Adds the clues if any to the clue table.
- * @param $challenge_id the id of the challenge
- * @param $params the params to the query
+ *
+ * @param id     $challenge_id the id of the challenge
+ * @param params $params       the params to the query
+ *
+ * @return Nothing.
+ *
  */
-function challenge_clues_after_create_challenge($challenge_id, $params) {
-  for($i=0; $i<$_POST['nb_clues']; $i++) {
+function challenge_clues_after_create_challenge($challenge_id, $params)
+{
+  for ($i=0; $i<$_POST['nb_clues']; $i++) {
     $clue = new Clue();
     $clue->id = $_POST['id'];
     $clue->clue_text = $_POST['clue_text'];
@@ -86,15 +108,19 @@ function challenge_clues_after_create_challenge($challenge_id, $params) {
 
 /**
  * Adds the penalty to the student's score.
- * @param $score_id the id of the score
- * @param $params the params to the query
+ *
+ * @param id     $score_id the id of the score
+ * @param params $params   the params to the query
+ *
+ * @return Nothing.
  */
-function challenge_clues_after_create_user_score($score_id, $params) {
+function challenge_clues_after_create_user_score($score_id, $params)
+{
   $score = UserScore::get_user_score($score_id);
   $clues = Clue::getClues($score->challenge_id);
   UserCluesModel::markOpenedClues($score->user_id, $clues);
   foreach ($clues as $clue) {
-    if($clue->opened && strpos($score->penalties_bonuses, 'clue'.$clue->id) === false) {
+    if ($clue->opened && strpos($score->penalties_bonuses, 'clue'.$clue->id) === false) {
       $score->points -= $clue->penalty;
       $score->penalties_bonuses .= 'clue'.$clue->id.',';
     }
@@ -104,29 +130,37 @@ function challenge_clues_after_create_user_score($score_id, $params) {
 
 /**
  * Adds the penalty to the student's score.
- * @param $params the params to the query
+ *
+ * @param params $params the params to the query
+ *
+ * @return Nothing.
  */
-function challenge_clues_after_update_user_score($params) {
+function challenge_clues_after_update_user_score($params)
+{
   challenge_clues_after_create_user_score($params[':id'], $params);
 }
 
 /**
  * Updates the clues of the challenge.
- * @param $params the params to the query
+ *
+ * @param params $params the params to the query
+ *
+ * @return Nothing.
  */
-function challenge_clues_after_update_challenge($params) {
+function challenge_clues_after_update_challenge($params)
+{
   // Id of the clues still present (not deleted by the user).
   $cluesId = array();
   $allClues = Clue::getCluesId($params[':id']);
 
-  for($i=0; $i<$_POST['nb_clues']; $i++) {
+  for ($i=0; $i<$_POST['nb_clues']; $i++) {
     $clue = new Clue();
     $clue->clue_text = $_POST['clue'.$i.'_text'];
     $clue->penalty = $_POST['clue'.$i.'_penalty'];
     $clue->enabled = $_POST['clue'.$i.'_state'] == 'enabled';
     $clue->challenge = $params[':id'];
 
-    if(isset($_POST['clue'.$i.'_id']) && $_POST['clue'.$i.'_id']!='') {
+    if (isset($_POST['clue'.$i.'_id']) && $_POST['clue'.$i.'_id']!='') {
     // Updates the clue:
       $clue->id = $_POST['clue'.$i.'_id'];
       Clue::updateClue($clue);
@@ -139,7 +173,7 @@ function challenge_clues_after_update_challenge($params) {
 
   // Deletes the clues deleted by the user from the database:
   $deletedClues = array_diff($allClues, $cluesId);
-  foreach($deletedClues as $id) {
+  foreach ($deletedClues as $id) {
     Clue::deleteClue($id);
   }
 }
@@ -149,10 +183,14 @@ function challenge_clues_after_update_challenge($params) {
  * then deletes the clues from the clue table.
  * This must be done before the challenge is
  * deleted to preserve the foreign key constraint.
- * @param $sql the base sql query
- * @param $params the params to the query
+ *
+ * @param sql    $sql    the base sql query
+ * @param params $params the params to the query
+ *
+ * @return Nothing.
  */
-function challenge_clues_before_delete_challenge($sql, $params) {
+function challenge_clues_before_delete_challenge($sql, $params)
+{
   UserCluesModel::deleteClue($params[':id']);
   Clue::deleteClue($params[':id']);
 }
@@ -160,19 +198,27 @@ function challenge_clues_before_delete_challenge($sql, $params) {
 /**
  * Deletes the user from the user-clues table before the user table
  * to make sure the foreign key constraint is not broken.
- * @param $sql the base sql query
- * @param $params the params to the query
+ *
+ * @param sql    $sql    the base sql query
+ * @param params $params the params to the query
+ *
+ * @return Nothing.
  */
-function challenge_clues_before_delete_user($sql, $params) {
+function challenge_clues_before_delete_user($sql, $params)
+{
   UserCluesModel::deleteUser($params[':id']);
 }
 
 /**
  * Creates two tables when this plugin is enabled.
- * @param $plugin the plugin that was enabled
+ *
+ * @param plugin $plugin the plugin that was enabled
+ *
+ * @return Nothing.
  */
-function challenge_clues_enable_plugin($plugin) {
-  if($plugin == 'challenge-clues/challenge-clues.php') {
+function challenge_clues_enable_plugin($plugin)
+{
+  if ($plugin == 'challenge-clues/challenge-clues.php') {
     $host = DB_HOST;
     $dbname = DB_NAME;
     $user = DB_USER;
@@ -213,11 +259,13 @@ Plugin::add_filter('set_view_template', 'challenge_clues_set_view_template', 10,
 /**
  * Checks to see if the sub string is part of the original string
  *
- * @param $substring the substring you wish to look for
- * @param $string the string to search for the sub string in
+ * @param string $substring the substring you wish to look for
+ * @param string $string    the string to search for the sub string in
+ *
  * @return true if $substring is found, otherwise false
  */
-function string_contains($substring, $string) {
+function string_contains($substring, $string)
+{
   $pos = strpos($string, $substring);
   return $pos > -1 ? true : false;
 }

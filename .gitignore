@@ -1,7 +1,6 @@
 __MACOSX/*
 .project/
 *.patch
-config.inc.php
 view/compiled_view/
 pages/test/
 *.swp

@@ -1,6 +1,7 @@
 {
 	"require-dev": {
 		"phpunit/phpunit": "*",
-		"facebook/webdriver": "dev-master"
+		"facebook/webdriver": "dev-master",
+		"squizlabs/PHP_CodeSniffer": "~2.0"
 	}
 }

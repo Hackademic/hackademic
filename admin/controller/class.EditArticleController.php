@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Hackademic-CMS/admin/controller/class.EditArticleController.php
  *
  * Hackademic Edit Article Controller
@@ -10,85 +9,96 @@
  *
  * LICENSE:
  *
- * This file is part of Hackademic CMS (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
+ * This file is part of Hackademic CMS
+ * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
  *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation, either version 2 of the License, or (at your option) any
- * later version.
+ * Hackademic CMS is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 2 of the License, or (at your option) any later
+ * version.
  *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
+ * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with Hackademic CMS.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
  *
+ * PHP Version 5.
  *
- * @author Pragya Gupta <pragya18nsit[at]gmail[dot]com>
- * @author Konstantinos Papapanagiotou <conpap[at]gmail[dot]com>
- * @license http://www.gnu.org/licenses/gpl.html
+ * @author    Pragya Gupta <pragya18nsit@gmail.com>
+ * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
  * @copyright 2012 OWASP
- *
+ * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
  */
-require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
-require_once(HACKADEMIC_PATH."admin/model/class.ArticleBackend.php");
-require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
-require_once(HACKADEMIC_PATH."/model/common/class.Utils.php");
-require_once(HACKADEMIC_PATH."/model/common/class.Article.php");
+require_once HACKADEMIC_PATH."model/common/class.HackademicDB.php";
+require_once HACKADEMIC_PATH."admin/model/class.ArticleBackend.php";
+require_once HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php";
+require_once HACKADEMIC_PATH."/model/common/class.Utils.php";
+require_once HACKADEMIC_PATH."/model/common/class.Article.php";
 
-class EditArticleController extends HackademicBackendController {
-	public $title;
-	public $publish;
-	public $article;
+class EditArticleController extends HackademicBackendController
+{
+    public $title;
+    public $publish;
+    public $article;
 
-  private static $action_type = 'edit_article';
+    private static $_action_type = 'edit_article';
 
-	public function go() {
-		$this->saveFormFields();
-		if (isset($_GET['id'])) {
-			$id=$_GET['id'];
-		}
-		if (isset($_GET['source']) && $_GET['source']=="new") {
-			$this->addSuccessMessage("Article has been added succesfully");
-		}
-		if(isset($_POST['submit'])) {
-			if ($_POST['title']=='') {
-				$this->addErrorMessage("Title of the article should not be empty");
-			} elseif (!isset($_POST['is_published'])) {
-				$this->addErrorMessage("Please tell if the article has been published successfully?");
-			} elseif ($_POST['content']=='') {
-				$this->addErrorMessage("Article post should not be empty");
-			} else {
-				$article = new Article();
-				$article->id = $id;
-				$article->title = Utils::sanitizeInput($this->title);
-				$article->is_published = $_POST['is_published'];
-				$article->content = $_POST['content'];//TODO somehow we must check if this is malicious
-				$article->last_modified = date("Y-m-d H-i-s");
-				$article->last_modified_by = Session::getLoggedInUser();
-				ArticleBackend::updateArticle($article);
-				$this->addSuccessMessage("Article has been updated succesfully");
-			}
-		}
-		$article=Article::getArticle($id);
-		$this->setViewTemplate('editarticle.tpl');
-		$this->addToView('article', $article);
-		if(isset($_POST['deletesubmit'])) {
-			ArticleBackend::deleteArticle($id);
-			header('Location:'.SOURCE_ROOT_PATH."?url=admin/articlemanager");
-			die();
-		}
-		$this->generateView(self::$action_type);
+    public function go()
+    {
+        $this->saveFormFields();
+        if (isset($_GET['id'])) {
+            $id=$_GET['id'];
+        }
+        if (isset($_GET['source']) && $_GET['source']=="new") {
+            $this->addSuccessMessage("Article has been added succesfully");
+        }
+        if (isset($_POST['submit'])) {
+            if ($_POST['title']=='') {
+                $this->addErrorMessage("Title of the article should not be empty");
+            } elseif (!isset($_POST['is_published'])) {
+                $this->addErrorMessage(
+                    "Please tell if the article has been published successfully?"
+                );
+            } elseif ($_POST['content']=='') {
+                $this->addErrorMessage("Article post should not be empty");
+            } else {
+                $article = new Article();
+                $article->id = $id;
+                $article->title = Utils::sanitizeInput($this->title);
+                $article->is_published = $_POST['is_published'];
+                //TODO somehow we must check if this is malicious
+                $article->content = $_POST['content'];
+                $article->last_modified = date("Y-m-d H-i-s");
+                $article->last_modified_by = Session::getLoggedInUser();
+                ArticleBackend::updateArticle($article);
+                $this->addSuccessMessage("Article has been updated succesfully");
+            }
+        }
+        $article=Article::getArticle($id);
+        $this->setViewTemplate('editarticle.tpl');
+        $this->addToView('article', $article);
+        if (isset($_POST['deletesubmit'])) {
+            ArticleBackend::deleteArticle($id);
+            header('Location:'.SOURCE_ROOT_PATH."?url=admin/articlemanager");
+            die();
+        }
+        $this->generateView(self::$_action_type);
 
-	}
-	public function saveFormFields(){
-		if(isset($_POST['title']))
-			$this->title =Utils::sanitizeInput($_POST['title']);
-		if(isset($_POST['is_published']))
-			$this->publish=$_POST['is_published'];
-		if(isset($_POST['content']))
-			$this->article = $_POST['content'];
+    }
+    public function saveFormFields()
+    {
+        if (isset($_POST['title'])) {
+            $this->title =Utils::sanitizeInput($_POST['title']);
+        }
+        if (isset($_POST['is_published'])) {
+            $this->publish=$_POST['is_published'];
+        }
+        if (isset($_POST['content'])) {
+            $this->article = $_POST['content'];
+        }
 
-		$this->addToView('cached', $this);
-	}
+        $this->addToView('cached', $this);
+    }
 }
