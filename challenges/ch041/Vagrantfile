@@ -1,0 +1,12 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = "ubuntu/trusty32"
+
+  config.vm.network "private_network", ip: "10.0.2.14" #random ip address
+
+  config.vm.provision "shell",
+    inline: "sudo apt-get install socat; cd /vagrant; make clean; make; nohup socat TCP-LISTEN:2323,reuseaddr,fork EXEC:./vektor &"
+  config.vm.network "forwarded_port", guest: 2323, host: 2323
+end
