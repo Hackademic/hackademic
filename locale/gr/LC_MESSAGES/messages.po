@@ -1,0 +1,478 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+#: admin/view/classchallenges.tpl:5
+msgid "Class Membership - Challenges"
+msgstr "Συνδρομή τάξης - Challenges"
+
+#: admin/view/classchallenges.tpl:14
+msgid "Add challenge to class: "
+msgstr "Προσθήκη challenge στην τάξη: "
+
+#: admin/view/classchallenges.tpl:31 admin/view/classmanager.tpl:65
+#: admin/view/classmembership.tpl:31
+msgid "Class name"
+msgstr "Όνομα τάξης"
+
+#: admin/view/classchallenges.tpl:32 admin/view/classchallenges.tpl:37
+#: admin/view/classmembership.tpl:32 admin/view/classmembership.tpl:37
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: admin/view/classmanager.tpl:6 admin/view/usermanager.tpl:31
+msgid "Class Manager"
+msgstr "Διαχειριστής τάξης"
+
+#: admin/view/classmanager.tpl:15 admin/view/usermanager.tpl:23
+msgid "Add Class"
+msgstr "Προσθήκη τάξης"
+
+#: admin/view/classmanager.tpl:33
+msgid "Class Name"
+msgstr "Όνομα Τάξης"
+
+#: admin/view/classmanager.tpl:36 admin/view/usermanager.tpl:54
+msgid "Show:"
+msgstr "Εμφάιση :"
+
+#: admin/view/classmanager.tpl:39
+msgid "Results per Page"
+msgstr "Αποτελέσματα ανά Σελίδα"
+
+#: admin/view/classmanager.tpl:66
+msgid "Date created"
+msgstr "Ημερομηνία δημιουργίας"
+
+#: admin/view/classmanager.tpl:67
+msgid "Archive?"
+msgstr "Αρχειοθέτηση;"
+
+#: admin/view/classmanager.tpl:68
+msgid "Delete?"
+msgstr "Διαγραφή;"
+
+#: admin/view/classmanager.tpl:76
+msgid "Click to archive class!"
+msgstr "Πατήστε για να αρχειοθετηθεί η τάξη!"
+
+#: admin/view/classmanager.tpl:78
+msgid "Click to unarchive class!"
+msgstr "Πατήστε για την επαναφορά της τάξης!"
+
+#: admin/view/classmanager.tpl:82
+msgid "Click to delete class!"
+msgstr "Πατήστε για να διαγράψετε την τάξη!"
+
+#: admin/view/classmembership.tpl:5
+msgid "Class Membership - Users "
+msgstr "Συνδρομή Τάξης - Χρήστες "
+
+#: admin/view/classmembership.tpl:14
+msgid "Add user to class: "
+msgstr "Προσθήκη χρήστη σε τάξη: "
+
+#: admin/view/dashboard.tpl:5
+msgid "Dashboard"
+msgstr "Πίνακας Ελέγχου"
+
+#: admin/view/dashboard.tpl:14 admin/view/editor.tpl:42
+msgid "Add New Article"
+msgstr "Προσθήκη Νέου Άρθρου"
+
+#: admin/view/dashboard.tpl:22
+msgid "Article Manager"
+msgstr "Διαχειριστής Άρθρων"
+
+#: admin/view/dashboard.tpl:30 admin/view/usermanager.tpl:6
+msgid "User Manager"
+msgstr "Διαχειρηστής Χρηστών"
+
+#: admin/view/dashboard.tpl:40
+msgid "Add New Challenge"
+msgstr "Προσθήκη νέου Challenge"
+
+#: admin/view/dashboard.tpl:48
+msgid "Challenge Manager"
+msgstr "Διαχειριστής Challenge"
+
+#: admin/view/editarticle.tpl:42
+msgid "Edit Article"
+msgstr "Επεξεργασία Άρθρου"
+
+#: admin/view/editarticle.tpl:55 admin/view/editor.tpl:55
+msgid "Publish Article"
+msgstr "Δημοσίευση Άρθρου"
+
+#: admin/view/editarticle.tpl:58 admin/view/editarticle.tpl:61
+#: admin/view/editor.tpl:57 admin/view/edituser.tpl:37
+#: admin/view/edituser.tpl:40 admin/view/usermanager.tpl:102
+msgid "Yes"
+msgstr "Ναι"
+
+#: admin/view/editarticle.tpl:59 admin/view/editarticle.tpl:62
+#: admin/view/editor.tpl:58 admin/view/edituser.tpl:38
+#: admin/view/edituser.tpl:41 admin/view/usermanager.tpl:102
+msgid "No"
+msgstr "Όχι"
+
+#: admin/view/editarticle.tpl:69 admin/view/editor.tpl:62
+msgid "Write your Article"
+msgstr "Συγγραφή δικού σας Άρθρου"
+
+#: admin/view/editchallenge.tpl:42
+msgid "Edit Challenge"
+msgstr "Επεξεργασία Challenge"
+
+#: admin/view/editchallenge.tpl:50
+msgid "Edit Code"
+msgstr "Επεξεργασία Κώδικα"
+
+#: admin/view/editchallenge.tpl:57
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: admin/view/editchallenge.tpl:67
+msgid "Visibility"
+msgstr "Ορατότητα"
+
+#: admin/view/editchallenge.tpl:70 admin/view/editchallenge.tpl:74
+#: admin/view/editchallenge.tpl:82 admin/view/editchallenge.tpl:86
+#: admin/view/editchallenge.tpl:99
+msgid "Public"
+msgstr "Δημόσιο"
+
+#: admin/view/editchallenge.tpl:71 admin/view/editchallenge.tpl:73
+#: admin/view/editchallenge.tpl:83 admin/view/editchallenge.tpl:85
+msgid "Private"
+msgstr "Ιδιωτικό"
+
+#: admin/view/editchallenge.tpl:79
+msgid "Availability"
+msgstr "Διαθεσιμότητα"
+
+#: admin/view/editchallenge.tpl:92
+msgid "Published"
+msgstr "Δημοσιευμένο"
+
+#: admin/view/editchallenge.tpl:95
+msgid "Not published"
+msgstr "Μη δημοσιευμένο"
+
+#: admin/view/editchallenge.tpl:96 admin/view/editchallenge.tpl:98
+msgid "Publish"
+msgstr "Δημοσίευση"
+
+#: admin/view/editchallenge.tpl:104
+msgid "Level"
+msgstr "Επίπεδο"
+
+#: admin/view/editchallenge.tpl:108
+msgid "Duration(minutes)"
+msgstr "Διάρκεια (λεπτά)"
+
+#: admin/view/editcode.tpl:4
+msgid "Edit Code - "
+msgstr "Επεξεργασία Κώδικα - "
+
+#: admin/view/editcode.tpl:14
+msgid "EDIT_INSTRUCTIONS_CHALLENGE"
+msgstr "Αυτό το κομμάτι σου επιτρέπει να επεξεργαστείς μόνο το αρχείο index.php του challenge.\n"
++"Για να επεξεργαστείς άλλα μέρη του challenge, είναι προτιμότερο να κατεβάσεις το challenge,"
++"και να το ξανα ανεβάσεις αφού έχεις κάνει τις απαραίτητες αλλαγές."
+
+#: admin/view/editcode.tpl:31
+msgid "Download Challange"
+msgstr "Κατεβάστε το challenge"
+
+#: admin/view/editor.tpl:51 view/progressreport.tpl:28
+msgid "Title"
+msgstr "Τίτλος"
+
+#: admin/view/edituser.tpl:5
+msgid "Edit User"
+msgstr "Επεξεργασία Χρήστη"
+
+#: admin/view/edituser.tpl:14 admin/view/showclass.tpl:44
+#: admin/view/usermanager.tpl:49 admin/view/usermanager.tpl:83
+#: view/rankings.tpl:31 view/register_user.tpl:12 view/user_login.tpl:6
+msgid "Username"
+msgstr "Όνομα Χρήστη"
+
+#: admin/view/edituser.tpl:19 admin/view/usermanager.tpl:50
+#: admin/view/usermanager.tpl:84 view/register_user.tpl:17
+msgid "Full Name"
+msgstr "Πλήρες Όνομα"
+
+#: admin/view/edituser.tpl:24 admin/view/usermanager.tpl:51
+#: admin/view/usermanager.tpl:85 view/register_user.tpl:22
+msgid "Email"
+msgstr "Email"
+
+#: admin/view/edituser.tpl:29 view/register_user.tpl:27 view/user_login.tpl:8
+msgid "Password"
+msgstr "Συνθηματικό"
+
+#: admin/view/edituser.tpl:34
+msgid "Activate User"
+msgstr "Ενεργοποίηση Χρήστη"
+
+#: admin/view/edituser.tpl:47
+msgid "Select the type of user"
+msgstr "Επιλέξτ τον τύπο του χρήστη"
+
+#: admin/view/edituser.tpl:50 admin/view/edituser.tpl:56
+#: admin/view/edituser.tpl:60 admin/view/usermanager.tpl:103
+msgid "Student"
+msgstr "Μαθητής"
+
+#: admin/view/edituser.tpl:51 admin/view/edituser.tpl:55
+#: admin/view/edituser.tpl:58 admin/view/usermanager.tpl:103
+msgid "Admin"
+msgstr "Διαχειριστής"
+
+#: admin/view/edituser.tpl:52 admin/view/edituser.tpl:54
+#: admin/view/edituser.tpl:59 admin/view/usermanager.tpl:103
+msgid "Teacher"
+msgstr "Καθηγητής"
+
+#: admin/view/menumanager.tpl:7
+msgid "Menu Manager"
+msgstr "Διαχειριστής Μενού"
+
+#: admin/view/options.tpl:5
+msgid "Options"
+msgstr "Επιλογές"
+
+#: admin/view/options.tpl:11
+msgid "Plugins"
+msgstr "Πρόσθετα"
+
+#: admin/view/options.tpl:22
+msgid " Plugin URI: "
+msgstr " URI προσθέτου: "
+
+#: admin/view/options.tpl:26 admin/view/options.tpl:67
+msgid "Author:"
+msgstr "Συγγραφέας :"
+
+#: admin/view/options.tpl:30 admin/view/options.tpl:71
+msgid "Author URI: "
+msgstr "URI Συγγραφέα : "
+
+#: admin/view/options.tpl:41
+msgid "No plugins installed at the moment. You can add plugins by droping the plugin files in the plugins folder."
+msgstr "Δεν υπάρχουν εγκατεστημένα πρόσθετα αυτή την στιγμή. Μπορείτε να προσθέσετε πρόσθετα τοποθετόντας τα αρχεία του πρόσθετου στον φάκελο plugins"
+
+#: admin/view/options.tpl:44
+msgid "User themes"
+msgstr "Θέματα χρήστη"
+
+#: admin/view/options.tpl:47
+msgid "System"
+msgstr "Σύστημα"
+
+#: admin/view/options.tpl:48
+msgid "The default system theme."
+msgstr "Προεπιλεγμένο θέμα συστήματος."
+
+#: admin/view/options.tpl:63
+msgid "Theme URI:"
+msgstr "URI θέματος:"
+
+#: admin/view/scoringrules.tpl:5
+msgid "Scoring Rules For: "
+msgstr "Κανόνες Απόδοσης Πόντων για: "
+
+#: admin/view/scoringrules.tpl:5
+msgid "Challenge: "
+msgstr "Challenge : "
+
+#: admin/view/scoringrules.tpl:11
+msgid "Rule Name"
+msgstr "Όνομα κανόνα"
+
+#: admin/view/scoringrules.tpl:12
+msgid "Value"
+msgstr "Αξία"
+
+#: admin/view/showclass.tpl:5
+msgid "Class Memberships"
+msgstr "Συνδρομές τάξης"
+
+#: admin/view/showclass.tpl:13
+msgid "Name:  "
+msgstr "Όνομα :  "
+
+#: admin/view/showclass.tpl:25
+msgid "Add challenges"
+msgstr "Προσθήκη challenges"
+
+#: admin/view/showclass.tpl:36
+msgid "Add users"
+msgstr "Προσθήκη χρηστών"
+
+#: admin/view/showclass.tpl:45 admin/view/showclass.tpl:50
+#: admin/view/showclass.tpl:58 admin/view/showclass.tpl:64
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#: admin/view/showclass.tpl:57
+msgid "Challenge"
+msgstr "Challenge"
+
+#: admin/view/showclass.tpl:59
+msgid "Edit Scoring Rules"
+msgstr "Επεξεργασία Κανόνων Απόδοσης Πόντων"
+
+#: admin/view/showclass.tpl:65 admin/view/usermanager.tpl:98
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: admin/view/usermanager.tpl:15
+msgid "Add User"
+msgstr "Προσθήκη Χρήστη"
+
+#: admin/view/usermanager.tpl:46
+msgid "Sort By:"
+msgstr "Ταξινόμηση κατά :"
+
+#: admin/view/usermanager.tpl:57
+msgid "Results Per Page"
+msgstr "Αποτελέσματα ανά σελίδα"
+
+#: admin/view/usermanager.tpl:86
+msgid "Classes"
+msgstr "Τάξεις"
+
+#: admin/view/usermanager.tpl:87
+msgid "Joined"
+msgstr "Εγγραφή"
+
+#: admin/view/usermanager.tpl:88
+msgid "Last Visit"
+msgstr "Τελευταία Επίσκεψη"
+
+#: admin/view/usermanager.tpl:89
+msgid "Activated"
+msgstr "Ενεργοποίηση"
+
+#: admin/view/usermanager.tpl:90
+msgid "Type Of User"
+msgstr "Τύπος Χρήστης"
+
+#: admin/view/usermanager.tpl:101
+msgid "Never"
+msgstr "Ποτέ"
+
+#: view/challenge_list.tpl:4
+msgid "Challenges"
+msgstr "Challenges"
+
+#: view/forgotpw.tpl:4
+msgid "Forgot Your Password?"
+msgstr "Ξέχασες τον κωδικό σου;"
+
+#: view/forgotpw.tpl:11
+msgid "Enter Your Username:"
+msgstr "Εισαγωγή Username"
+
+#: view/landingpage.tpl:11
+msgid "Read More"
+msgstr "Διαβάστε Περισσότερα"
+
+#: view/_pagination_frontend.tpl:7 view/_pagination_frontend.tpl:12
+msgid "Previous"
+msgstr "Προηγούμενο"
+
+#: view/_pagination_frontend.tpl:125 view/_pagination_frontend.tpl:127
+#: view/_pagination_frontend.tpl:130
+msgid "Next"
+msgstr "Επόμενο"
+
+#: view/progressreport.tpl:4
+msgid "Progress Report"
+msgstr "Αναφορά Προόδου"
+
+#: view/progressreport.tpl:13
+msgid "Enter a name to search:"
+msgstr "Ειδάγετε ένα όνομα για αναζήτηση:"
+
+#: view/progressreport.tpl:29
+msgid "No. Of Attempts"
+msgstr "Αριθμός Προσπαθειών"
+
+#: view/progressreport.tpl:30 view/progressreport.tpl:37
+msgid "Cleared"
+msgstr "Ολοκληρώθηκε"
+
+#: view/progressreport.tpl:31
+msgid "Cleared On"
+msgstr "Ολοκληρώθηκε στις"
+
+#: view/progressreport.tpl:36
+msgid "Unattempted"
+msgstr "Δεν έχει γίνει προσπάθεια"
+
+#: view/progressreport.tpl:37 view/progressreport.tpl:38
+msgid "Not Cleared"
+msgstr "Δεν έχει Ολοκληρωθεί"
+
+#: view/rankings.tpl:4
+msgid "Rankings"
+msgstr "Βαθμολογίες"
+
+#: view/rankings.tpl:13
+msgid "Select Class:"
+msgstr "Επιλογή Τάξης:"
+
+#: view/rankings.tpl:32
+msgid "Challenges Cleared"
+msgstr "Ολοκληρωμένα Challenges"
+
+#: view/rankings.tpl:33
+msgid "Rank"
+msgstr "Κατάταξη"
+
+#: view/rankings.tpl:34
+msgid "Total Points"
+msgstr "Σύνολο Πόντων"
+
+#: view/register_user.tpl:5
+msgid "Register User"
+msgstr "Εγγραφή Χρήστη"
+
+#: view/register_user.tpl:32
+msgid "Confirm Password"
+msgstr "Επιβεβαίωση Συνθηματικού"
+
+#: view/resetpw.tpl:4
+msgid "Reset Your Password?"
+msgstr "Επανάκτηση Κωδικού;"
+
+#: view/resetpw.tpl:11
+msgid "Enter New Password:"
+msgstr "Εισαγωγή Νέου Συνθηματικού :"
+
+#: view/resetpw.tpl:16
+msgid "Confirm Password:"
+msgstr "Επιβεβαίωση Συνθηματικού :"
+
+#: view/showChallenge.tpl:13
+msgid "Try it!"
+msgstr "Δοκιμή !"
+
+#: view/user_login.tpl:1
+msgid "HELLO_WORLD"
+msgstr "Hello World!"
+
+#: view/user_login.tpl:5
+msgid "Login Details"
+msgstr "Λεπτομέρειες εισόδου"
+
+#: view/user_login.tpl:11
+msgid "Forgot your password"
+msgstr "Ξέχασες τον κωδικό σου"
+
+#: view/user_login.tpl:12
+msgid "Create an account"
+msgstr "Δημιουργία Λογαριασμού"
