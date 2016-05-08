@@ -1,0 +1,97 @@
+#narrowBySizeWidthColor{display:none}
+#narrowBySizeWidthColor .col{float:none!important}
+body.resultsPage #multi-select{width:780px;clear:both}
+body.resultsPage #multi-select a:focus{outline:none}
+body.resultsPage #multi-select h2{margin:0;padding:0}
+body.resultsPage #selections{font:11px/27px Tahoma,Arial,Helvetica,sans-serif;overflow:auto}
+body.resultsPage #selections .selected-list{display:inline;float:left;width:650px;color:#9a5c84}
+body.resultsPage #selections .selected-list .gender{font-weight:700;text-transform:uppercase;margin:0 10px 0 0;display:inline;float:left}
+body.resultsPage #selections .selected-list a.remove{color:#9a5c84;text-decoration:none;margin:0 10px 0 0;padding:0 0 0 13px;background:url(select-remove.png) no-repeat left center;display:inline;float:left}
+body.resultsPage #selections .selected-list a.remove:hover{text-decoration:line-through}
+body.resultsPage #selections .selected-found,#ResultZone3_wrapper .selected-found{color:#878787;display:inline;float:right;margin:0 10px 0 0}
+#ResultZone3_wrapper .selected-found{font:11px/27px Tahoma,Arial,Helvetica,sans-serif}
+body.resultsPage ul.colors li a{display:block;width:11px;height:11px;border:1px solid #fff;padding:0;background:url(swatches.png) 0 0 no-repeat;text-indent:-9999px}
+body.resultsPage ul.colors li a:hover{border:1px solid #dfdee0}
+body.resultsPage ul.colors li.sel a:hover{border:1px solid #fff}
+body.resultsPage ul.colors .dim{display:none}
+body.resultsPage ul.colors .swatch-beige a{background-position:0 0}
+body.resultsPage ul.colors .swatch-black a{background-position:0 -11px}
+body.resultsPage ul.colors .swatch-blue a{background-position:0 -22px}
+body.resultsPage ul.colors .swatch-bone a{background-position:0 -33px}
+body.resultsPage ul.colors .swatch-bronze a{background-position:0 -44px}
+body.resultsPage ul.colors .swatch-brown a{background-position:0 -55px}
+body.resultsPage ul.colors .swatch-burgundy a{background-position:0 -66px}
+body.resultsPage ul.colors .swatch-clear a{background-position:0 -77px}
+body.resultsPage ul.colors .swatch-gold a{background-position:0 -88px}
+body.resultsPage ul.colors .swatch-green a{background-position:0 -99px}
+body.resultsPage ul.colors .swatch-grey a{background-position:0 -110px}
+body.resultsPage ul.colors .swatch-metallic a{background-position:0 -121px}
+body.resultsPage ul.colors .swatch-multi a{background-position:0 -132px}
+body.resultsPage ul.colors .swatch-natural a{background-position:0 -143px}
+body.resultsPage ul.colors .swatch-navy a{background-position:0 -154px}
+body.resultsPage ul.colors .swatch-orange a{background-position:0 -165px}
+body.resultsPage ul.colors .swatch-pink a{background-position:0 -176px}
+body.resultsPage ul.colors .swatch-purple a{background-position:0 -187px}
+body.resultsPage ul.colors .swatch-red a{background-position:0 -198px}
+body.resultsPage ul.colors .swatch-silver a{background-position:0 -209px}
+body.resultsPage ul.colors .swatch-tan a{background-position:0 -220px}
+body.resultsPage ul.colors .swatch-taupe a{background-position:0 -231px}
+body.resultsPage ul.colors .swatch-white a{background-position:0 -242px}
+body.resultsPage .colors .swatch-yellow a{background-position:0 -253px}
+body.resultsPage .select-widths ul{list-style:none;padding:0 0 0 3px;margin:0}
+body.resultsPage .select-widths li{margin:0;padding:0}
+body.resultsPage .select-widths a{font:10px Verdana,Arial,Helvetica,sans-serif;color:#57575b;text-decoration:none;padding:0 0 0 20px}
+body.resultsPage .select-widths .dim{display:none}
+body.resultsPage .select-widths .off a:hover{text-decoration:underline}
+body.resultsPage .select-widths .sel a:hover{text-decoration:line-through}
+body.resultsPage .select-widths .dim a:hover{text-decoration:none}
+body.resultsPage .select-widths .off a{background:url(checkbox-off.png) no-repeat left center}
+body.resultsPage .select-widths .sel a{background:url(checkbox-sel.png) no-repeat left center}
+body.resultsPage .select-widths .dim a{background:url(checkbox-dim.png) no-repeat left center;color:#a6a8ab;cursor:default}
+body.resultsPage #narrow{border-top:1px solid #ecebea;background:url(styles-found-bg.png) no-repeat 700px 0}
+body.resultsPage #narrow h3{background-position:-70px 0;width:92px;height:59px;text-indent:-9999px;margin:34px 0 0 10px;display:inline;float:left}
+body.resultsPage #narrow .col{display:inline;float:left;border-right:1px solid #ecebea;padding:20px 12px 10px}
+body.resultsPage #narrow .col h4{margin:0 0 6px;text-indent:-9999px;height:11px}
+body.resultsPage #narrow .size-infant h4{background-position:0 -503px;width:145px;height:11px}
+body.resultsPage #narrow .size-kids h4{background-position:-304px -483px;width:72px;height:11px}
+body.resultsPage #narrow .size-men h4{background-position:0 -448px;width:85px;height:11px}
+body.resultsPage #narrow .size-women h4{background-position:-278px -461px;width:106px;height:11px}
+body.resultsPage #narrow .select-widths h4{background-position:-90px -420px;width:50px;height:11px}
+body.resultsPage #narrow .select-colors h4{background-position:-85px -448px;width:43px;height:11px}
+body.resultsPage #narrow ul.size{list-style:none;margin:0;padding:0;width:185px;display:block;overflow:auto}
+body.resultsPage #narrow ul.size li{display:inline;width:28px;height:24px;margin:2px 2px 0 0;padding:0;float:left}
+body.resultsPage #narrow ul.size a{color:#5e2607;display:block;width:24px;text-align:center;width:auto;text-decoration:none;background:#d9d7d5;height:18px!important;width:24px!important;padding:3px 2px;font:9px/18px Arial,Helvetica,sans-serif;font-size:9px;margin:0}
+body.resultsPage #narrow ul.size .off a{color:#5e2607;background:#d9d7d5}
+body.resultsPage #narrow ul.size .off a:hover{color:#5e2607;background:#9a5c84}
+body.resultsPage #narrow ul.size .sel a{color:#fff;background:#9a5c84}
+body.resultsPage #narrow ul.size .sel a:hover{text-decoration:line-through}
+body.resultsPage #narrow ul.size .dim a{color:#dadada;background:#ebebeb;cursor:default}
+body.resultsPage #narrow .select-colors{border:none}
+body.resultsPage #narrow ul.colors{list-style:none;width:140px;margin:0;padding:0;display:block;overflow:hidden}
+body.resultsPage #narrow ul.colors li{float:left;width:13px;height:13px;line-height:10px;margin:3px;padding:1px;background:#a6a8ab;border:1px solid #fff;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px}
+body.resultsPage #narrow ul.colors li.sel{border:2px solid #9a5c84;padding:0}
+body.resultsPage #content-nav .select-colors,body.resultsPage #content-nav .select-widths,body.resultsPage #content-nav #ctl00_cphPageLeft_ResultsZoneLeftNav_ResultsLeftNav_ctl06_sizesKids{width:170px}
+body.resultsPage #content-nav h3.nav-toggle-open,body.resultsPage #content-nav h3.nav-toggle-closed{margin:0!important}
+body.resultsPage #content-nav .nav-refine-size .nav-toggle-section-element h3{color:#999;background:#f1efed;font-size:13px}
+body.resultsPage #content-nav .select-colors h3.nav-toggle-open{background:url(refine-color.png) no-repeat;height:44px}
+body.resultsPage #content-nav .select-colors h3.nav-toggle-closed{background:url(refine-color-closed.png) no-repeat;height:44px}
+body.resultsPage #content-nav .select-widths h3.nav-toggle-open{background:url(refine-width.png) no-repeat;height:44px}
+body.resultsPage #content-nav .select-widths h3.nav-toggle-closed{background:url(refine-width-closed.png) no-repeat;height:44px}
+body.resultsPage #content-nav .size-adult h3.nav-toggle-open,body.resultsPage #content-nav .size-infant h3.nav-toggle-open{background:url(refine-size.png) no-repeat;height:44px}
+body.resultsPage #content-nav .size-adult h3.nav-toggle-closed,body.resultsPage #content-nav .size-infant h3.nav-toggle-closed{background:url(refine-size-closed.png) no-repeat;height:44px}
+body.resultsPage #content-nav .size-kids h3{background:#f1efed url(h4-kids.png) 10px no-repeat;display:block;width:160px;height:15px;text-indent:-9999px;padding:10px 10px 10px 0}
+body.resultsPage #content-nav h3.infantToddlerSizes{background:#f1efed url(h4-infants.png) 10px no-repeat;display:block;width:125px;height:15px;text-indent:-9999px;padding:10px 0 0}
+body.resultsPage #content-nav .nav-refine-size .nav-toggle-section-element .size-infant h4{background:#f1efed url(h4-infants.png) 10px no-repeat;display:block;width:160px;height:15px;text-indent:-9999px;padding:10px 10px 10px 0}
+body.resultsPage #content-nav .select-colors ul.colors{list-style:none;margin:0;padding:10px;width:140px;display:block;overflow:auto}
+body.resultsPage #content-nav .select-colors ul.colors li{display:inline;width:13px;height:13px;margin:3px;padding:1px;float:left;background:#a6a8ab;border:1px solid #fff;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px}
+body.resultsPage #content-nav .select-colors ul.colors li.sel{border:2px solid #9a5c84;padding:0}
+body.resultsPage #content-nav .size-kids,body.resultsPage #content-nav .size-infants{float:left;width:170px}
+body.resultsPage #content-nav ul.size{background:none repeat scroll 0 0 #F1EFED;display:block;list-style:none outside none;margin:0;overflow:auto;padding:10px;width:150px}
+body.resultsPage #content-nav ul.size li{display:inline;width:28px;height:24px;margin:2px 2px 0 0;padding:0;float:left}
+body.resultsPage #content-nav ul.size a{color:#333;display:block;width:24px;text-align:center;width:auto;text-decoration:none;height:18px!important;width:24px!important;padding:2px;font:9px/18px Arial,Helvetica,sans-serif;font-size:9px;margin:0}
+body.resultsPage #content-nav ul.size .off a{background:#D8D2CC;color:#333}
+body.resultsPage #content-nav ul.size .off a:hover{color:#5e2607;background:#9a5c84}
+body.resultsPage #content-nav ul.size .sel a{color:#fff;background:#9a5c84}
+body.resultsPage #content-nav ul.size .sel a:hover{text-decoration:line-through}
+body.resultsPage #content-nav ul.size .dim a{color:#dadada;background:#F7F6F5;cursor:default}
+body.resultsPage #content-nav .select-widths ul{padding:0 0 10px 16px !important}

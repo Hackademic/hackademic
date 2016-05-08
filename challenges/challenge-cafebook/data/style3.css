@@ -1,0 +1,22 @@
+.login_page #loginform{clear:left;margin:auto;padding:15px 0;text-align:left;width:380px}
+.login_page #loginform p{line-height:16px;margin:10px 0;text-align:left}
+.login_page #loginform p.reset_password{margin-bottom:0;padding-bottom:0}
+.login_page #email{direction:ltr}
+div.login_page_interstitial{margin-bottom:0;width:640px}
+.login_page .localeSelectorList{margin:0 auto 40px;width:640px}
+.form_row{padding:0 0 8px;text-align:left}
+.form_row .login_form_label{display:block;float:left;padding:3px 0;width:100px}
+.form_row input{margin:0}
+.form_row .inputtext,.inputpassword{width:175px}
+.persistent{padding:3px 0 3px 100px}
+#login_button_inline{float:left;margin-bottom:5px;margin-right:5px}
+#register_link{margin-top:5px;float:left}
+#buttons{padding:5px 0 0 100px;text-align:left}
+#buttons .uiButton{margin-right:2px}
+#buttons label{float:none;width:auto}
+.reset_password{padding-left:100px}
+.login_error_box{margin-top:10px}
+.uiInterstitial{border-radius:4px;margin-left:auto;margin-right:auto}
+.uiInterstitialLarge{width:555px}
+.uiInterstitial .interstitialHeader{border-color:#ccc;padding-bottom:.5em}
+.uiInterstitialContent{margin-bottom:15px}

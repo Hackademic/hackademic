@@ -1,0 +1,8 @@
+body #prefootertext p,body #prefootertext h1,body #prefootertext h2,body #prefootertext ul li,body #prefootertext strong,body #prefootertext em{color:#95979b;font-family:Arial,Helvetica,sans-serif}
+body #prefootertext strong,body #prefootertext em{font-weight:400}
+body #prefootertext a{color:#7b7b7b;font-size:12px;text-decoration:underline}
+body #prefootertext a:hover{text-decoration:none;color:#D80E6E}
+body #prefootertext p,body #prefootertext h2,body #prefootertext ul li{font-size:12px}
+body #prefootertext h1{font-size:14px}
+body #prefootertext ul{margin:0;padding:0}
+body #prefootertext ul li{list-style:none;float:left;margin-right:18px}

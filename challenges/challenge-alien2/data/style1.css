@@ -1,0 +1,24 @@
+[class^="icon-"],[class*=" icon-"]{font-family:FontAwesome-webfont;font-weight:400;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em}
+[class^="icon-"]:before,[class*=" icon-"]:before{text-decoration:inherit;display:inline-block;speak:none}
+.icon-large:before{vertical-align:-10%;font-size:1.3333333333333em}
+a [class^="icon-"],a [class*=" icon-"]{display:inline}
+[class^="icon-"].icon-fixed-width,[class*=" icon-"].icon-fixed-width{display:inline-block;width:1.1428571428571em;text-align:right;padding-right:.28571428571429em}
+[class^="icon-"].icon-fixed-width.icon-large,[class*=" icon-"].icon-fixed-width.icon-large{width:1.4285714285714em}
+.icon-2x{font-size:2em}
+[class^="icon-"],[class*=" icon-"]{display:inline;width:auto;height:auto;line-height:normal;vertical-align:baseline;background-image:none;background-position:0 0;background-repeat:repeat;margin-top:0}
+.icon-cog:before{content:"\f013"}
+.icon-flag:before{content:"\f024"}
+.icon-bookmark:before{content:"\f02e"}
+.icon-arrow-up:before{content:"\f062"}
+.icon-leaf:before{content:"\f06c"}
+.icon-fire:before{content:"\f06d"}
+.icon-calendar:before{content:"\f073"}
+.icon-comments:before{content:"\f086"}
+.icon-signin:before{content:"\f090"}
+.icon-group:before{content:"\f0c0"}
+.icon-envelope:before{content:"\f0e0"}
+.icon-dashboard:before{content:"\f0e4"}
+.icon-cloud-upload:before{content:"\f0ee"}
+.icon-beer:before{content:"\f0fc"}
+.icon-frown:before{content:"\f119"}
+.icon-fire-extinguisher:before{content:"\f134"}
