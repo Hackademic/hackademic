@@ -8,9 +8,8 @@
 *
 * Dependecy: PHP-CS-Fixer (https://github.com/fabpot/PHP-CS-Fixer)
 *
-* @author  Mardix  http://github.com/mardix
-* @since   Sept 4 2012
-*
+* @author Mardix  http://github.com/mardix
+* @since  Sept 4 2012
 */
 
 /**
@@ -18,7 +17,7 @@
 */
 exec('find . ! -path "*/vendor/*"  ! -path "*/esapi/*" ! -path "*/extlib/*" -type f -name "*.php"', $output);
 
-  foreach ($output as $file) {
+foreach ($output as $file) {
     $fileName = $file;
     /**
     * Only PHP file
@@ -32,15 +31,15 @@ exec('find . ! -path "*/vendor/*"  ! -path "*/esapi/*" ! -path "*/extlib/*" -typ
 
     if ($return === 0) {
 
-      exec("./vendor/squizlabs/php_codesniffer/scripts/phpcs {$fileName} --level=all",$fix_output,$ret_val);
-      if (0 !== $ret_val) {
-        var_dump($fix_output);
-        exit(1);
-      }
+        exec("./vendor/squizlabs/php_codesniffer/scripts/phpcs --colors {$fileName} ", $fix_output, $ret_val);
+        if (0 !== $ret_val) {
+            var_dump($fix_output);
+            exit(1);
+        }
     } else {
-      echo implode("\n", $lint_output), "\n";
-      exit(1);
+        echo implode("\n", $lint_output), "\n";
+        exit(1);
     }
-  }
+}
 
   exit(0);
