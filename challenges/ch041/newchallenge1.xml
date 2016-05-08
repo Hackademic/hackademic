@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>New Challenge 1</title>
+    <author>
+        Andreas Venieris,
+        Konstantinos Papapanagiotou,
+        Anastasios Stasinopoulos,
+        Vasilios Vlachos,
+        Alexandros Papanikolaou
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        A Friend of your's is a great football freak, he has newly created a website [ <a href="challenge_1/" target="_blank"> FootbalLovers</a> ] and has challenged you to get the admin privileges to the website by setting up a ctf type challenge. All you have to do is find out the login credentials of the website and login as admin.<br/><br />
+        ]]>
+Hints and tips :	
+First thing you will notice is, that this admin page has right click disabled on it (or rather both the clicks). This is a little annoying thing, but some web developers use it to hide their source code and maybe some private images. You would have to bypass this and get your way around to the credentials, maybe hidden or encrypted. There are some more hints as you proceed through the challenge. Here's one : "Images can reveal way too much". All the Best, don't lose hope !!<br/><br/><a href = "https://en.wikipedia.org/wiki/Steganography">reference_1</a><br/>
+
+    </description>
+</challenge>
