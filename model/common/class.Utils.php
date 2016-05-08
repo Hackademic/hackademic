@@ -61,7 +61,7 @@ class Utils {
 
 	public static function hash($password){
 		$hash = password_hash($password);
-		if (FALSE === $hash)){
+		if (FALSE === $hash){
 			throw new Exception('Password could not be hashed');
 			return false;
 		}
@@ -76,5 +76,30 @@ class Utils {
 		$input = str_replace( "\0", "", $input);
     		$input = htmlspecialchars($input);
     		return $input;
+	}
+
+	public static function verifyReCaptcha($input) {
+		$url = 'https://www.google.com/recaptcha/api/siteverify';
+		$payload = array(
+			'response' => $input,
+			'secret' => G_SECRET_KEY
+			);
+
+		$response = Utils::sendPostRequest($url, $payload);
+		$json_response = json_decode($response, true);
+		return $json_response['success'];
+	}
+
+	public static function sendPostRequest($url, $payload) {
+		$ch = curl_init($url);
+
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		return $response;
 	}
 }
