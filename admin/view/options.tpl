@@ -1,6 +1,7 @@
 {include file="_header.tpl"}
 
 <div class="main_content">
+    <div id="usermessage">{include file="_usermessage.tpl"}</div>
     <div class="header_bar">
         <div class="page_title"><h3 class="left"> Options </h3></div>
     </div>
