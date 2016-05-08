@@ -1,0 +1,29 @@
+body{background-color:#202428;color:#909498}
+a:hover{color:#fff}
+a{color:#c0c4c8}
+.H3{color:#c0e8d0;font-size:.9em;font-weight:500}
+a.H3:hover{color:#fff}
+input[type="submit"]{background:#303438;border:2px #505458 solid;color:#d0d4d8}
+input[type="submit"]:hover{background:#000;border:2px #606468 solid;color:#e0e4e8}
+.homeicon{opacity:.7}
+.blacktopmenu{height:45px;width:100%;position:relative;margin:0;z-index:9999;border-top:2px #282d30 solid;border-bottom:2px #000 solid;background:#181d20}
+.blacktopmenu li{color:#b0c8b4}
+.blacktopmenu li:hover{background:#404448;color:#fff}
+.submenu ul{background:#111315;border-bottom:1px #1d1f21 solid}
+.submenu li{color:#809884}
+.submenu ul a{color:#809884}
+.submenu li:hover{color:#fff}
+#resbody{background:#282c30}
+.colorC{background:#80D090}
+.col2{border-top:2px #1f1f1f solid}
+.colad{color:#393b3d}
+.board{border-top:3px #282a2c solid;border-bottom:3px #282a2c solid;background:#404448}
+.tabOff{color:#90c0a0}
+.tabOff:hover{color:#fff}
+i:hover{color:#fff}
+.tabBtn{background:#181c20;border:1px #404850 solid}
+.tabBtn:hover{border:2px #808890 solid;background:#000}
+.rsinfo2{color:#80d090}
+.rsinfo3,.rsinfo4,.rsinfo6,.rsinfo8{color:#909894}
+.rsbold{color:#999b9d}
+.textform{background-color:#383c40;color:#a0a4a8;border:2px #606468 solid}

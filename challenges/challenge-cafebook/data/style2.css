@@ -1,0 +1,10 @@
+body{overflow-y:scroll}
+#content{margin:0;outline:none;padding:0;width:auto}
+.UIFullPage_Container{width:940px;padding:20px 12px 0;margin:0 auto}
+#blueBar{background-color:#3b5998;border-bottom:1px solid #133783;min-width:981px;position:relative;z-index:300}
+#blueBar.aboveSidebar{z-index:301}
+._2gsf #blueBar{height:42px}
+._2gsf #blueBar{background-repeat:repeat-x;background-size:auto;background-position:0 0;background-color:#4c66a4;border:0;box-shadow:none;position:relative}
+._2gsf #blueBar:after{background-repeat:repeat-x;background-size:auto;background-position:0 0;bottom:-4px;content:'';height:4px;left:0;position:absolute;right:0}
+._2gsg #blueBarHolder,._2gsg #blueBarHolder #blueBar{height:auto}
+._2gsg #pagelet_bluebar{padding-bottom:1px}

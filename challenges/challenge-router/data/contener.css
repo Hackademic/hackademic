@@ -1,0 +1,20 @@
+#contener{font-size:12px;margin:2px 0 10px}
+#contener table.contener{width:550px;border-collapse:collapse;margin:0;padding:0}
+#contener td.topleft{background:url(topleft.png) no-repeat left top;margin:0;padding:0;width:9px;height:8px}
+#contener td.top{background:url(top.png) repeat-x top;margin:0;padding:0;height:8px}
+#contener td.topright{background:url(topright.png) no-repeat right top;margin:0;padding:0;width:10px;height:8px}
+#contener td.content{padding:5px}
+#contener td.left{background:url(left.png) repeat-y left;margin:0;padding:0;width:9px}
+#contener td.right{background:url(right.png) repeat-y right;margin:0;padding:0;width:10px;height:9px}
+#contener td.bottomleft{background:url(bottomleft.png) no-repeat left bottom;margin:0;padding:0;width:9px;height:12px}
+#contener td.bottom{background:url(bottom.png) repeat-x bottom;margin:0;padding:0;height:12px}
+#contener td.bottomright{background:url(bottomright.png) no-repeat right bottom;margin:0;padding:0;width:10px;height:12px}
+#menu div.info_accueil{width:190px;margin:0}
+#menu div.info_accueil img{vertical-align:middle;margin:0;margin-right:10px}
+#menu table.info_accueil{width:190px;margin:0;padding:0}
+#menu table.info_accueil td.info_pref{padding:0;padding-left:10px;font-weight:700;color:#000}
+td.info_label{padding:0;padding-right:10px;color:#009856;font-weight:700;text-align:right}
+#menu table.info_accueil td.info_field{padding:0;padding-right:10px;padding-bottom:15px;text-align:right}
+#menu table.info_accueil input.login{width:120px}
+#menu table.info_accueil input.password{width:120px}
+#menu table.info_accueil td.info_statusnok{padding:0px 0px 0px 10px;color:#F00;font-weight:bold;text-align:left;}

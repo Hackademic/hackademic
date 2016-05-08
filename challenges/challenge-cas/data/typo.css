@@ -1,0 +1,37 @@
+@media screen,projection {
+	html{font-size:100.01%}
+	body{font-size:.75em;line-height:1.5;color:#252525;background:#f5f6f7}
+	body,input,textarea,select{font-family:Tahoma,Helvetica,Arial,"Trebuchet MS",Verdana,sans-serif}
+	code,kbd,pre,tt{font-family:"andale mono","lucida console",monospace;font-size:.917em}
+	address{margin:0 0 1.5em;font-style:italic}
+	blockquote{margin-bottom:1.5em;padding:8px;font-style:italic;color:#888;border:solid 1px #e5e5e5;background:#fdfdfd}
+	dd{margin-left:1.5em}
+	dl{margin:0 0 1.5em}
+	dt{font-weight:700}
+	h1,h2,h3,h4,h5,h6{font-weight:700;line-height:1;color:#222}
+	h1{font-size:2em;margin-bottom:.5em}
+	h2{font-size:1.75em;margin-bottom:.75em}
+	h3{font-size:1.5em;margin-bottom:1em}
+	h4{font-size:1.25em;margin-bottom:1.25em}
+	h5{font-size:1em;margin-bottom:1.5em}
+	h6{font-size:1em;margin-bottom:1.5em}
+	hr{clear:both;margin:10px 0;border:0 #e5e5e5 solid;border-top-width:1px;height:0}
+	ol{margin:0 1.5em 1.5em;list-style-type:decimal}
+	p{margin:0 0 1.5em}
+	pre{margin:1.5em 0;line-height:1.5}
+	ul{margin:0 1.5em 1.5em;list-style-type:disc}
+	a:focus,a:hover{text-decoration:underline}
+	a{text-decoration:none;color:#08c;background:transparent}
+	a:visited{color:#999}
+	abbr,acronym{text-transform:uppercase;font-variant:small-caps;cursor:help;border-bottom:1px dotted #e5e5e5}
+	dfn{text-transform:uppercase;border:none;font-style:italic;font-weight:700}
+	em{font-style:italic}
+	img{margin:0 0 1.5em}
+	kbd{padding:2px 3px 1px;color:#888;border:1px dotted #e5e5e5;background:#fdfdfd}
+	strong{font-weight:700}
+	sub,sup{font-size:.75em}
+	sub{vertical-align:text-bottom}
+	sup{vertical-align:text-top}
+	del{text-decoration:line-through;color:#999;background:inherit}
+	ins{text-decoration:none}
+}

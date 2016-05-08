@@ -1,0 +1,11 @@
+body{color:#000;background:#fff}
+div.flc-screenNavigator-view-container{width:526px;margin:100px 0 0 200px;padding:0;overflow:hidden}
+div.flc-screenNavigator-view-container div#header{height:120px;background:transparent url(background-header.png) no-repeat top left}
+div.flc-screenNavigator-view-container div#header h1{position:absolute;left:-2000px;top:-2000px}
+div.flc-screenNavigator-view-container div#content{padding:10px 0 0;text-align:center;color:#fff;background:#587f8e url(background-content.png) no-repeat top left}
+div.flc-screenNavigator-view-container div#content strong{color:#f39400}
+div.flc-screenNavigator-view-container div#content div.box.fl-panel div.row{text-align:center;margin-bottom:1.5em}
+div.flc-screenNavigator-view-container div#content div.box.fl-panel div.row.fl-controls-left label,div.flc-screenNavigator-view-container div#content div.box.fl-panel div.row.fl-controls-left label{display:inline-block;margin-right:30px;margin-bottom:4px;text-align:right;width:100px;cursor:pointer}
+div.flc-screenNavigator-view-container div#content div.box.fl-panel div.row.btn-row input.btn-submit{color:#FFF;border:none;background-color:#f39400;text-align:center}
+div.flc-screenNavigator-view-container div#content div.box.fl-panel div.row.btn-row input.btn-reset{color:#587F8E;border:none;background-color:#FFF;text-align:center}
+div.flc-screenNavigator-view-container div#footer{height:10px;background:transparent no-repeat top left}

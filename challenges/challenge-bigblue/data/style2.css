@@ -1,0 +1,53 @@
+h1,h2,h3,h4,h5,h6,p,ul,ol,blockquote{padding-top:.5em;padding-bottom:.5em}
+h1{font-size:3em}
+h2{font-size:2em}
+h3{font-size:1.75em}
+h4{font-size:1.5em}
+h5{font-size:1.33em}
+h6,.tag-home{font-size:1.1667em}
+small{font-size:.9167em}
+@media only screen and (max-width: 29.5em) {
+	.tag-home{font-size:.9167em}
+}
+.body--home,.site-wrapper--home{background:#f7f7f7}
+.site-wrapper--home{height:100%}
+.site-wrapper--home:before{display:none!important}
+.header-wrap--home{padding-top:16px;position:absolute;top:0;left:0;right:0;width:100%;z-index:5}
+.content-wrap--home{position:absolute;margin:auto;width:100%;top:24%;left:0;right:0;z-index:2}
+.logo-wrap--home{display:block;max-width:300px;margin:auto;margin-bottom:.8em;margin-top:-1.25em}
+@media only screen and (max-width: 29.5em) {
+	.logo-wrap--home{margin-bottom:1.25em;margin-top:0}
+}
+@media only screen and (max-height: 26.55em) and (max-width: 44em),only screen and (max-height: 25.075em) {
+	.logo-wrap--home{margin-bottom:0;margin-top:0}
+}
+.search-wrap--home{-webkit-transition:all .3s ease-in-out;-webkit-transition-delay:0;-moz-transition:all .3s ease-in-out 0;-o-transition:all .3s ease-in-out 0;transition:all .3s ease-in-out 0;padding:1.3em .8em 1em;max-width:44em;margin-left:auto;margin-right:auto;display:block;float:none;width:70%}
+@media only screen and (max-width: 44em) {
+	.search-wrap--home{width:80%}
+}
+@media only screen and (max-width: 29.5em) {
+	.search-wrap--home{width:auto}
+}
+.tag-home{padding:.5em 0;text-align:center;color:#9a9a9a}
+@media only screen and (max-height: 25.075em) and (min-width: 60em) {
+	.content-wrap--home{margin-bottom:3em;text-align:center}
+	.content--home{padding-bottom:2em;display:inline-table}
+	.content--home .cw--c{display:table-row}
+	.logo-wrap--home,.search-wrap--home{display:table-cell;vertical-align:middle}
+	.search-wrap--home{text-align:left}
+	.search--home{margin-left:1em;margin-top:-.25em}
+	.logo_homepage{margin-left:-22px;margin-right:-22px}
+	.tag-home{display:none}
+}
+@media only screen and (max-height: 44em) {
+	.content-wrap--home{top:20%}
+}
+@media only screen and (max-height: 35.4em) and (min-width: 44em) {
+	.content-wrap--home{position:relative;top:0;padding-top:7em;padding-bottom:2em;margin-bottom:0}
+}
+@media only screen and (max-height: 22.125em) and (min-width: 44em) {
+	.content-wrap--home{padding-top:4em}
+}
+@media only screen and (max-height: 19.175em) and (min-width: 44em) {
+	.content-wrap--home{position:absolute;padding-top:0;top:30%}
+}

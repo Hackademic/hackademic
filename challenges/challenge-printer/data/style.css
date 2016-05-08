@@ -1,0 +1,118 @@
+html {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	margin: 0px;
+}
+
+#sidebar {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	width: 300px;
+	float: left;
+	overflow: auto;
+	overflow-x: hidden;
+	border-right: solid grey 1px;
+}
+
+#sidebar li {
+	list-style-type: none;
+	padding: 10px;
+}
+
+header {
+	position: absolute;
+	top: 0px;
+	left: 300px;
+	right: 0px;
+	border-bottom: solid grey 1px;
+	color: grey;
+	padding-left: 20px;
+	padding-bottom: 30px;
+	z-index: 1;
+}
+
+#main {
+	position: absolute;
+	top: 150px;
+	left: 300px;
+	right: 0px;
+	bottom: 0px;
+	padding: 20px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+#subnavbar ul {
+	padding-left: 0px;
+	margin-top: 0px;
+}
+
+#subnavbar li {
+	display: inline;
+}
+
+a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:visited {
+	color: blue;
+}
+
+#logo {
+	width: 140px;
+	margin-left: 80px;
+}
+
+.status-ok {
+	background-color: #90ee90;
+	width: 100px;
+}
+
+#color-status, #consumables {
+	margin-top: 20px;
+	border: solid grey 1px;
+	width: 700px;
+}
+
+th {
+	text-align: left;
+}
+
+#refresh {
+	font-weight: normal;
+	font-size: normal;
+	color: blue;
+	cursor: pointer;
+}
+
+label {
+	width: 180px;
+	float: left;
+	font-weight: bold;
+}
+
+input, label {
+	margin-bottom: 10px;
+}
+
+#information {
+	float: left;
+	width: 400px;
+}
+
+#status {
+	margin-top: 20px;
+	float: left;
+}
+
+#status-image {
+	width: 250px;
+	border: solid grey 1px;
+}
