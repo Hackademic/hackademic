@@ -1,0 +1,12 @@
+
+You are given the auth details of a normal user. You need to break into admin user.
+
+Hint : the admin logs in to his account oftenly.
+
+To run this challenge you need docker
+
+To build the image
+docker build -t chall1 .
+
+To Run the container
+docker run -d -p 0.0.0.0:8001:8000 chall1
