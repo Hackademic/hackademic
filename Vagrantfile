@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024
   end
-
+#TODO add an ansible provisioner or install and setup services correctly
   config.vm.provision "shell",
       inline: "sudo rm -rf /var/www/html"
    config.vm.provision "shell",
