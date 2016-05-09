@@ -179,3 +179,7 @@ errors. To run it
 	```
 	chmod a+x .git/hooks/pre-commit
 	```
+How to make Git to ignore file permission changes:
+-------------------------------------------------
+
+git config core.fileMode false
