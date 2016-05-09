@@ -181,5 +181,6 @@ errors. To run it
 	```
 How to make Git to ignore file permission changes:
 -------------------------------------------------
-
+```
 git config core.fileMode false
+```
