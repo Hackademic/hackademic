@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container">
+		<center style="margin-top: 20%">
+			<h1>Koogle</h1>
+			<form>
+	      <input class="search-box" placeholder="Enter your query" id="query" type="text" name="q">
+	      <input class="button-primary" value="Search" type="submit">
+      </form>
+      {% if q %}
+      <p><i>No results found for<i>: <b>{{q | safe}}</b></p>
+      {% endif %}
+		</center>
+	</div>
+{% endblock %}

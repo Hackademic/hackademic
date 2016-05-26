@@ -1,0 +1,23 @@
+/*
+Demo 1
+*/
+.output {
+	color:green;
+}
+
+.search-box {
+	width: 75%;
+}
+
+/*
+Demo 2
+*/
+.you {
+	font-weight:bold;
+	color:blue;
+}
+
+.stranger {
+	font-weight: bold;
+	color: red;
+}

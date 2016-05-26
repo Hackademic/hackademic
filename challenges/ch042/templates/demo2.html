@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="margin-top: 5%">
+	<h5>Chatbook</h5>
+		<button class="button-primary" onclick="delete_cookie('chats')">Clear History</button>
+	<div class="chat">
+		<p><span class="stranger">Stranger: </span>Hello! i'm Grood.</p>
+		{% for message in msg %}
+		<p><span class="you">You: </span>{{message | safe}}</p>
+		{% endfor %}
+	</div>
+	<form action=>
+		<div class="row">
+			<div class="nine columns">
+				<input class="u-full-width" placeholder="Share your views.." name="msg" type="text"></input>
+			</div>
+			<div class="three columns">
+				<input class="button-primary" value="Share" type="submit"></input>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+	var delete_cookie = function(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+</script>
+{% endblock %}
