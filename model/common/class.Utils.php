@@ -61,7 +61,7 @@ class Utils {
 
 	public static function hash($password){
 		$hash = password_hash($password);
-		if (FALSE === $hash)){
+		if (FALSE === $hash){
 			throw new Exception('Password could not be hashed');
 			return false;
 		}

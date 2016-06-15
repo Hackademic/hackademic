@@ -47,7 +47,7 @@ class Utils {
 	}
 
 	public static function hash($password){
-		return password_hash($password);
+		return password_hash($password, PASSWORD_DEFAULT);
 	}
 
 	public static function check($input, $hash){
