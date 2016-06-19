@@ -1,36 +1,5 @@
 <?php
-/**
- * Hackademic-CMS/controller/class.ChallengeMonitorController.php
- *
- * Hackademic User Menu Controller
- * Class for creating the frontend Main Menu
- *
- * Copyright (c) 2012 OWASP
- *
- * LICENSE:
- *
- * This file is part of Hackademic CMS
- * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
- *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 2 of the License, or (at your option) any later
- * version.
- *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
- *
- * PHP Version 5.
- *
- * @author    Pragya Gupta <pragya18nsit@gmail.com>
- * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
- * @copyright 2012 OWASP
- * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
- */
+
 require_once HACKADEMIC_PATH."model/common/class.Challenge.php";
 require_once HACKADEMIC_PATH."model/common/class.User.php";
 require_once HACKADEMIC_PATH."model/common/class.Session.php";
@@ -108,26 +77,22 @@ class ChallengeMonitorController
             $_SESSION['class_id'] = $class_id;
         }
 
-        self::_checkValues($user_id, $chid, $class_id, $token);        
+        self::_checkValues($user_id, $chid, $class_id, $token);
     }
-    
+
     private function _invalidChallenge()
     {
         $_SESION = array();
         unset($_SESSION);
-        error_log(
-            "HACKADEMIC::ChallengeMonitorController::RIGHT token WRONG CHALLENGE it's
-			".$pkg_name.' it should be '.$_SESSION['pkg_name']
-        );
         header("Location: ".SITE_ROOT_PATH);
-        die();            
+        die();
     }
     private function _checkValues($user_id = null, $chid = null, $class_id = null, $token = null)
     {
-    
+
         //TODO full of ugly hacks needs refactoring start by putting an else with
         //redirect after the if $pair
-        
+
         if ($user_id === null) {
             $user_id = $_SESSION['user_id'];
         }
@@ -149,7 +114,7 @@ class ChallengeMonitorController
          * rest of the values
          */
         if ($_SESSION['token'] == $token && $token != null) {
-            
+
             // User changed challenge
             if (($pkg_name != $_SESSION['pkg_name'] && $pkg_name != null)
                 || ($_SESSION['chid'] != $chid && $chid != null)
@@ -184,21 +149,20 @@ class ChallengeMonitorController
             } else {
                 error_log("Token provided: ". $token."</br>Token on session ".$_SESSION['token']. "</br>Token for user/class");
                 header("Location:".SITE_ROOT_PATH); die();
-            } 
-        }    
+            }
+        }
     }
-    public function update($status, $request)
+    public function update($status, $request='')
     {
-
         if (!empty($request) ) {
             $user_id = $request['user_id'];
             $chid = $request['id'];
             $class_id = $request['class_id'];
             $token = $request['token'];
+            $this->start($status, $user_id, $chid, $class_id, $token);
         }
-        
-        $this->start($user_id, $chid, $class_id, $token, $status);
-        /*
+      error_log("sTATUS in update is ".$status);
+       /*
         * if status == init we only need to update the SESSION var which we do in start
         */
         if ($status == CHALLENGE_INIT) {
@@ -216,7 +180,6 @@ class ChallengeMonitorController
         if ($class_id == null) {
             $class_id = $_SESSION['class_id'];
         }
-        //echo"update";var_dump($status);die();
         $this->calcScore($status, $user_id, $chid, $class_id);
 
         $username = $user_id;
@@ -249,7 +212,6 @@ class ChallengeMonitorController
             if ($rule === false) {
                 $rule = ScoringRule::getScoringRule(DEFAULT_RULES_ID);
             }
-
             /* Add the rules to the session */
             $_SESSION['rules'] =  (array)$rule;
         }
@@ -275,10 +237,11 @@ class ChallengeMonitorController
         $first_try_limit = $_SESSION['rules']['first_try_solves'];
         $fts_penalty = $_SESSION['rules']['penalty_for_many_first_try_solves'];
 
-        $current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
+        $current_score = UserScore::getScoresForUserClassChallenge($user_id, $class_id, $challenge_id);
+
         if ($current_score === false && $status != CHALLENGE_INIT) {
             self::calcScore(CHALLENGE_INIT, $user_id, $challenge_id, $class_id);
-            $current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
+            $current_score = UserScore::getScoresForUserClassChallenge($user_id, $class_id, $challenge_id);
             $_SESSION['current_score'] = (array)$current_score;
         }
         if ($status == CHALLENGE_INIT) {
@@ -294,8 +257,8 @@ class ChallengeMonitorController
                 $current_score->challenge_id = $challenge_id;
                 $current_score->points = 0;
                 $current_score->penalties_bonuses = '';
-                UserScore::add_user_score($current_score);
-                $current_score = UserScore::get_scores_for_user_class_challenge($user_id, $class_id, $challenge_id);
+                UserScore::addUserScore($current_score);
+                $current_score = UserScore::getScoresForUserClassChallenge($user_id, $class_id, $challenge_id);
             }
             $_SESSION['f_atempt'] = date("Y-m-d H:i:s");
             $_SESSION['last_attempt'] = date("Y-m-d H:i:s");

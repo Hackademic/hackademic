@@ -56,6 +56,7 @@ class ChallengeValidatorController
      */
     public function startChallenge()
     {
+        error_log("initing challenge ");
         $this->_monitor->update(CHALLENGE_INIT, $_GET);
     }
 
@@ -74,10 +75,11 @@ class ChallengeValidatorController
             $valid = $this->_solution == $answer;
         }
 
-        if ($valid) {
-            $this->_monitor->update(CHALLENGE_SUCCESS);
+        if ($valid) {  error_log("validate sending".CHALLENGE_SUCCESS);
+            $this->_monitor->update(CHALLENGE_SUCCESS,$_GET);
         } else {
-            $this->_monitor->update(CHALLENGE_FAILURE);
+          error_log("f");
+            $this->_monitor->update(CHALLENGE_FAILURE,$_GET);
         }
 
         return $valid;
@@ -88,6 +90,6 @@ class ChallengeValidatorController
      */
     public function failChallenge()
     {
-        $this->_monitor->update(CHALLENGE_FAILURE);
+        $this->_monitor->update(CHALLENGE_FAILURE,$_GET);
     }
 }

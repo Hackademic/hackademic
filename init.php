@@ -34,7 +34,7 @@ require_once "config.inc.php";
 require_once "model/common/class.Loader.php";
 require_once "model/common/class.HackademicDB.php";
 
-if (defined('ENVIRONMENT') && ENVIRONMENT == "dev") {
+if (defined('ENVIRONMENT') && ENVIRONMENT === "dev") {
     ini_set('display_errors', true);
 } else {
     ini_set('display_errors', false);
@@ -68,4 +68,3 @@ function removeDirectory($path)
 if (file_exists(HACKADEMIC_PATH."/installation") && defined('ENVIRONMENT') && ENVIRONMENT != "dev") {
     removeDirectory(HACKADEMIC_PATH."/installation");
 }
-?>

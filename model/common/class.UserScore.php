@@ -100,8 +100,8 @@ class UserScore
     public static function update_user_score($score)
     {
         global $db;
-        if (self::get_scores_for_user_class_challenge($score->user_id, $score->class_id, $score->challenge_id) === false) {
-            return self::add_user_score($score);
+        if (self::getScoresForUserClassChallenge($score->user_id, $score->class_id, $score->challenge_id) === false) {
+            return self::addUserScore($score);
         }
         $params = array(':user_id' => $score->user_id, ':challenge_id' => $score->challenge_id,
          ':class_id' => $score->class_id, ':points' => $score->points,

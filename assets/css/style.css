@@ -12,17 +12,17 @@ img {border:none;}
 }
 
 #topMenuHeader {
-  margin-left: -30px; 
+  margin-left: -30px;
   display: block;
 }
 
 #topMenu ul {
-  list-style:none; 
-  font-family: 'Cuprum', arial, serif; 
+  list-style:none;
+  font-family: 'Cuprum', arial, serif;
 }
 
-#topMenu li { 
-  display: inline; 
+#topMenu li {
+  display: inline;
   border-right:1px solid #dcddde;
   position: relative;
 }
@@ -173,10 +173,6 @@ img {border:none;}
     margin-bottom: 0.5em;
 }
 #login a { font-size: 0.7em; text-decoration: none; color:black; line-height: 1.7em; display: inline-block;}
-#login a:before{
-    color: #3d7ca7;
-    content: '◊';
-}
 #login a:hover{
     text-decoration: underline;
 }

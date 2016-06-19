@@ -276,36 +276,24 @@ class Installer
 		$count = 0;
 		$errors_count = 0;
 
-# Loop if we have any
-		if(count($SQL))
-		{
-# Start the count
-
-			$errors = array();
-			foreach ($SQL as $query)
-			{
-				$result = $link->query($query);
-				if ($link->errno)
-				{	$errors[] = sprintf($this->lang['L-08'], htmlspecialchars($link->error));
-					$errors_count++;
-					continue;
-				}
-
-# Increase it
-				$count++;
-			}
+		$query = implode('',$SQL);
+		if ($link->multi_query($query)) {
+			$i = 0;
+			do {
+				$i++;
+				$result = $link->next_result();
+			} while ($result);
 		}
-
 		$error_string = '';
 
 # Did we had any errors?
-		if(count($errors))
+		if($link->errno)
 		{
-			$error_string = "<br /><br />".sprintf($this->lang['I-14'], implode("<br /><br />", $errors));
+			$error_string = "<br /><br />".sprintf($this->lang['I-14'], implode("<br /><br />", $link->error));
 		}
 
 # Redirect
-		$this->view->vars = array('message' => sprintf($this->lang['L-09'], $count, $errors_count, $error_string), 'button' => $error_string ? $this->lang['I-16'] : $this->lang['I-03']);
+		$this->view->vars = array('message' => sprintf($this->lang['L-09'], 10, $errors_count, $error_string), 'button' => $error_string ? $this->lang['I-16'] : $this->lang['I-03']);
 		$this->view->render('dbdone');
 
 		//And finally, close the link.
