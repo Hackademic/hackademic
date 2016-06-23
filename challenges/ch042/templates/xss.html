@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="nine columns" style="margin-top: 20%">
+        <h4>XSS exploit</h4>
+        <p><em>Cross site scripiting (XSS)</em></p>
+        <p>XSS flaws occur whenever an application takes untrusted data and sends it to a web browser without proper validation or escaping. XSS allows attackers to execute scripts in the victim’s browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites. </p>
+        <a class="button button-primary" href="/learn">Learn XSS</a>
+        <!-- <a class="button button-primary" href="/demo">Demo</a> -->
+        <!-- <a class="button button-primary" href="/challenges">Challenges</a> -->
+        <a class="button button-primary" href="/resources">Resources</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
