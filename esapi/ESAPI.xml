@@ -131,7 +131,7 @@
     <!--
         Logging level values are ALL, DEBUG, INFO, WARN, ERROR, FATAL and OFF.
          -->
-    <LogLevel>ALL</LogLevel>
+    <LogLevel>OFF</LogLevel>
     <!--
         If you expect logs to contain HTML or hostile input, set this to true
         -->

@@ -1,4 +1,23 @@
-SHOW WARNINGS;
+-- Drop tables first
+
+DROP TABLE IF EXISTS articles;
+DROP TABLE IF EXISTS  challenges;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS challenge_attempt_count;
+DROP TABLE IF EXISTS  challenge_attempts;
+DROP TABLE IF EXISTS  challenges;
+DROP TABLE IF EXISTS  class_challenges;
+DROP TABLE IF EXISTS class_memberships;
+DROP TABLE IF EXISTS  classes;
+DROP TABLE IF EXISTS  menu_items;
+DROP TABLE IF EXISTS  menus;
+DROP TABLE IF EXISTS  options;
+DROP TABLE IF EXISTS  pages;
+DROP TABLE IF EXISTS  scoring_rule;
+DROP TABLE IF EXISTS  user_has_challenge_token;
+DROP TABLE IF EXISTS  user_score;
+DROP TABLE IF EXISTS  users;
+
 --
 -- Table structure for table `articles`
 --

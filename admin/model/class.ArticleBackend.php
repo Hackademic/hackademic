@@ -69,13 +69,12 @@ class ArticleBackend extends Article
      *
      * @return True if it was successfully updated.
      */
-    public static function updateArticle($article)
+    public static function updateArticle(Article $article)
     {
         global $db;
         $params = array(':id' => $article->id, ':title' => $article->title, ':content' => $article->content,
-        ':date_modified' => $article->date_modified, ':last_modified_by' => $article->last_modified_by);
-        $sql = "UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, ";
-        $sql .= "last_modified_by = :last_modified_by WHERE id = :id";
+        ':date_modified' => $article->last_modified, ':last_modified_by' => $article->last_modified_by);
+        $sql = "UPDATE articles SET title = :title, content = :content, last_modified = :date_modified, last_modified_by = :last_modified_by WHERE id = :id";
         $query = $db->update($sql, $params, self::$action_type);
         if ($db->affectedRows($query)) {
             return true;

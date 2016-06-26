@@ -45,10 +45,14 @@ class ChallengeManagerController extends HackademicBackendController
         if (isset($_GET["action"]) && ($_GET["action"]=="del")) {
             $id=$_GET['id'];
             $challenge=ChallengeBackend::getChallenge($id);
-            $pkg_name = $challenge->pkg_name;
-            self::_rrmdir(HACKADEMIC_PATH."challenges/".$pkg_name);
-            ChallengeBackend::deleteChallenge($id);
-            $this->addSuccessMessage("Challenge has been deleted succesfully");
+            if(false !== $challenge) {
+                $pkg_name = $challenge->pkg_name;
+                self::_rrmdir(HACKADEMIC_PATH . "challenges/" . $pkg_name);
+                ChallengeBackend::deleteChallenge($id);
+                $this->addSuccessMessage("Challenge has been deleted succesfully");
+            }else{
+                error_log("Challenge with id $id doesn't exists");
+            }
         } else if (isset($_GET['action']) && $_GET['action'] == "add") {
             $this->addSuccessMessage(
                 "Challenge has been added succesfully. You can enable the challenge now."

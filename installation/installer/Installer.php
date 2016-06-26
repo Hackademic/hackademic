@@ -244,7 +244,7 @@ class Installer
 		if(!$link || $link->connect_errno) {
 			$this->view->error($this->lang['L-04']);
 		}
-		
+
 
 		$db = $this->_options['dbname'];
 # Create the DB and Select it.
@@ -255,7 +255,7 @@ class Installer
 		}
 		if ($create == "yes") {
 			$result = $link->query("CREATE DATABASE IF NOT EXISTS " . $db);
-		} 
+		}
 		if ($link->errno)
 		{
 			$this->view->error(sprintf($this->lang['L-06'], $this->_options['dbname'], htmlspecialchars($link->error . "(" . $link->errno . ")")));
@@ -275,13 +275,17 @@ class Installer
 
 		$count = 0;
 		$errors_count = 0;
-
 		$query = implode('',$SQL);
+
 		if ($link->multi_query($query)) {
 			$i = 0;
 			do {
+				$result = false;
+				if($link->more_results()){
 				$i++;
-				$result = $link->next_result();
+				mysqli_free_result($link->store_result());
+					$result = $link->next_result();
+				}
 			} while ($result);
 		}
 		$error_string = '';
@@ -289,7 +293,8 @@ class Installer
 # Did we had any errors?
 		if($link->errno)
 		{
-			$error_string = "<br /><br />".sprintf($this->lang['I-14'], implode("<br /><br />", $link->error));
+			error_log($link->error);
+			$error_string = "<h4/>Those are the errors:</h4>".$link->error;
 		}
 
 # Redirect
@@ -363,11 +368,10 @@ class Installer
 		if($count == 0)
 			$this->addErrorMessage("db name not set");
 		if(FALSE === file_put_contents($path, $sample)){
-			$errmsg= "Could not put the contents please create a file named config.inc.php and put the appropriate contents as dictated by the sample";
-			$errmsg .= $sample;
-			//var_dump($sample);
-			$errmsg .= "to file";
-			$errmsg .= $path;
+			$errmsg= "It seems you webserver's file permissions are not correct.
+					  Could not put the contents in the config file please create a file named <b>config.inc.php</b>and copy paste the information bellow.
+					  <i>Please note that the directories view/compiled_view and challenges/ need to be writable by the webserver</i>";
+			$errmsg .= "<pre style='background:lightgrey;overflow: scroll;padding: 2%; word-wrap: break-word;'>".htmlentities($sample)."</pre>";
 			$this->addErrorMessage($errmsg);
 			$this->view->vars = array('config'=>$sample,'cpath'=>$path);
 		}

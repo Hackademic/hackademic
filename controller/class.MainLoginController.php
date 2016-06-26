@@ -45,11 +45,11 @@ class MainLoginController extends HackademicController
     {
         $this->setViewTemplate('mainlogin.tpl');
         if (isset($_GET["msg"])) {
-            if ($_GET["msg"]=="invalid") {
+            if ($_GET["msg"]==="invalid") {
                 $this->addErrorMessage("The username and/or password you entered is incorrect");
-            } elseif ($_GET["msg"]=="challenge") {
+            } elseif ($_GET["msg"]==="challenge") {
                 $this->addErrorMessage("You must be logged in to try a challenge");
-            } elseif ($_GET["msg"]=="activate") {
+            } elseif ($_GET["msg"]==="activate") {
                 $this->addErrorMessage("Your account is not activated, please contact the admin to activate your account");
             }
         }

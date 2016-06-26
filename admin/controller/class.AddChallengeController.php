@@ -230,27 +230,32 @@ class AddChallengeController extends HackademicBackendController
                 $this->addErrorMessage("Please choose a zip file!");
                 return $this->generateView(self::$_action_type);
             }
+            if (!file_exists($target)) {
+                mkdir($target);
+                $saved_file_location = $target . $filename;
 
-            mkdir($target);
-            $saved_file_location = $target . $filename;
-
-            if (move_uploaded_file($source, $target . $filename)) {
-                $data = $this->installChallenge($saved_file_location, $target, $name[0]);
-                if ($data == true) {
-                    $pkg_name = $name[0];
-                    $challenge = new Challenge();
-                    $challenge->title = $data['title'];
-                    $challenge->pkg_name = $pkg_name;
-                    $challenge->description = $data['description'];
-                    $challenge->author = $data['author'];
-                    $challenge->category = $data['category'];
-                    $challenge->date_posted = date("Y-m-d H-i-s");
-                    $challenge->level = $data['level'];
-                    $challenge->duration = $data['duration'];
-                    ChallengeBackend::addChallenge($challenge);
-                    header('Location: '.SOURCE_ROOT_PATH."?url=admin/challengemanager&action=add");
-                    die();
+                if (move_uploaded_file($source, $target . $filename)) {
+                    $data = $this->installChallenge($saved_file_location, $target, $name[0]);
+                    if ($data == true) {
+                        $pkg_name = $name[0];
+                        $challenge = new Challenge();
+                        $challenge->title = $data['title'];
+                        $challenge->pkg_name = $pkg_name;
+                        $challenge->description = $data['description'];
+                        $challenge->author = $data['author'];
+                        $challenge->category = $data['category'];
+                        $challenge->date_posted = date("Y-m-d H-i-s");
+                        $challenge->level = $data['level'];
+                        $challenge->duration = $data['duration'];
+                        ChallengeBackend::addChallenge($challenge);
+                        header('Location: ' . SOURCE_ROOT_PATH . "?url=admin/challengemanager&action=add");
+                        die();
+                    }
+                } else {
+                    error_log("Couldn't move $source to $target check destination permissions");
                 }
+            } else {
+                $this->addErrorMessage("Directory " . htmlentities($target) . "exists");
             }
         }
         $this->addToView('type', $add_type);
