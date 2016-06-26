@@ -1,36 +1,5 @@
 <?php
-/**
- * Hackademic-CMS/admin/controller/class.ScoringRulesController.php
- *
- * Hackademic Class Scoring Rules Controller
- * Class for the Class Memberships page in Backend
- *
- * Copyright (c) 2012 OWASP
- *
- * LICENSE:
- *
- * This file is part of Hackademic CMS
- * (https://www.owasp.org/index.php/OWASP_Hackademic_Challenges_Project).
- *
- * Hackademic CMS is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 2 of the License, or (at your option) any later
- * version.
- *
- * Hackademic CMS is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * Hackademic CMS.  If not, see <http://www.gnu.org/licenses/>.
- *
- * PHP Version 5.
- *
- * @author    Spyros Gasteratos
- * @author    Konstantinos Papapanagiotou <conpap@gmail.com>
- * @copyright 2012 OWASP
- * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
- */
+
 require_once HACKADEMIC_PATH."admin/model/class.ClassMemberships.php";
 require_once HACKADEMIC_PATH."admin/model/class.ClassChallenges.php";
 require_once HACKADEMIC_PATH."admin/model/class.Classes.php";
@@ -67,7 +36,7 @@ class ScoringRulesController extends HackademicBackendController
                     $rule = ScoringRule::getScoringRuleByChallengeClassId($challenge_id, $class_id);
 
                     if ($rule == NO_RESULTS ) {
-                        ScoringRuleBackend::add_scoring_rule(
+                        ScoringRuleBackend::addScoringRule(
                             $_POST['challenge_id'],
                             $_POST['class_id'],
                             $_POST['attempt_cap'],
@@ -86,7 +55,7 @@ class ScoringRulesController extends HackademicBackendController
                             $_POST['penalty_for_many_first_try_solves']
                         );
                     } else {
-                        ScoringRuleBackend::update_scoring_rule(
+                        ScoringRuleBackend:updateScoringRule(
                             $rule->id,
                             $_POST['challenge_id'],
                             $_POST['class_id'],
@@ -98,7 +67,7 @@ class ScoringRulesController extends HackademicBackendController
                             $_POST['request_frequency_per_minute'],
                             $_POST['request_frequency_penalty'],
                             $_POST['experimentation_bonus'],
-                            $_POST['multiple_solution_bonus'],
+                                $_POST['multiple_solution_bonus'],
                             $_POST['banned_user_agents'],
                             $_POST['base_score'],
                             $_POST['banned_user_agents_penalty'],
@@ -123,7 +92,7 @@ class ScoringRulesController extends HackademicBackendController
         if (isset($_POST['deleterule']) && $_POST['deleterule'] == "Delete Rule") {
             $rule = ScoringRule::getScoringRuleByChallengeClassId($challenge_id, $class_id);
             if ($rule != false && ScoringRule::isDefaultRule($rule) == false ) {
-                ScoringRuleBackend::delete_scoring_rule($rule->id);
+                ScoringRuleBackend::deleteScoringRule($rule->id);
                 $this->addErrorMessage("Scoring rule has been deleted succesfully");
             }
         }

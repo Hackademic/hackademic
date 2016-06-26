@@ -32,9 +32,9 @@
  * @copyright 2012 OWASP
  * @license   GNU General Public License http://www.gnu.org/licenses/gpl.html
  */
-require_once HACKADEMIC_PATH."admin/model/class.ChallengeBackend.php";
-require_once HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php";
-require_once HACKADEMIC_PATH."model/common/class.Utils.php";
+require_once HACKADEMIC_PATH . "admin/model/class.ChallengeBackend.php";
+require_once HACKADEMIC_PATH . "admin/controller/class.HackademicBackendController.php";
+require_once HACKADEMIC_PATH . "model/common/class.Utils.php";
 
 /**
  * Class to handle necessary things associated with adding a challenge.
@@ -71,11 +71,11 @@ class AddChallengeController extends HackademicBackendController
     /**
      * Function to install the challenge.
      * @param filename $file_to_open Name of the File to be opened.
-     * @param target   $target       Name of target file.
-     * @param name     $name         Name.
+     * @param target $target Name of target file.
+     * @param name $name Name.
      * @return Nothing.
      */
-    public function installChallenge($file_to_open,$target,$name)
+    public function installChallenge($file_to_open, $target, $name)
     {
         $zip = new ZipArchive();
         $x = $zip->open($file_to_open);
@@ -90,21 +90,21 @@ class AddChallengeController extends HackademicBackendController
             if (isset($_GET['type']) && $_GET['type'] == "code") {
                 $xml_exists = 1;
             } else {
-                $xml_exists = file_exists($target.$name.".xml");
+                $xml_exists = file_exists($target . $name . ".xml");
             }
-
-            if (!file_exists($target."index.php") || !$xml_exists) {
-                if (!file_exists($target."index.php")) {
-                    $this->addErrorMessage("Not a valid challenge! Index.php file doesn't exist");
+            error_log("$target");
+            if (!file_exists($target . "index.php") || !$xml_exists) {
+                if (!file_exists($target . "index.php")) {
+                    $this->addErrorMessage("Not a valid challenge! index.php file doesn't exist");
                     if (isset($_GET['type']) && $_GET['type'] == "code") {
                         $this->addToView('step', 'step2');
                     }
                 } else {
-                    if (!file_exists($target.$name.".xml") ) {
+                    if (!file_exists($target . $name . ".xml")) {
                         $this->addErrorMessage("Zip's filename must be the same with the xml file within <br /> (case-sensitive).");
                     }
                 }
-                self::_rrmdir(HACKADEMIC_PATH."challenges/".$name);
+                self::_rrmdir(HACKADEMIC_PATH . "challenges/" . $name);
                 return false;
             }
 
@@ -113,23 +113,23 @@ class AddChallengeController extends HackademicBackendController
                 return $_SESSION['challenge_arr'];
             }
 
-            $xml = simplexml_load_file($target.$name.".xml");
+            $xml = simplexml_load_file($target . $name . ".xml");
 
-            if (!isset($xml->title) || !isset($xml->author)|| !isset($xml->description)|| !isset($xml->category) ) {
+            if (!isset($xml->title) || !isset($xml->author) || !isset($xml->description) || !isset($xml->category)) {
                 $this->addErrorMessage("The XML file is not valid.");
-                self::_rrmdir(HACKADEMIC_PATH."challenges/".$name);
+                self::_rrmdir(HACKADEMIC_PATH . "challenges/" . $name);
                 return false;
             }
 
             $a = array(
-            'title' => Utils::sanitizeInput($xml->title),
-            'author' => Utils::sanitizeInput($xml->author),
-            //Todo make sure its only html here and no javascript or other possibly
-            //malicious stuff
-            'description' => $xml->description,
-            'category' => Utils::sanitizeInput($xml->category),
-            'level' => Utils::sanitizeInput($xml->level),
-            'duration' => Utils::sanitizeInput($xml->duration)
+                'title' => Utils::sanitizeInput($xml->title),
+                'author' => Utils::sanitizeInput($xml->author),
+                //Todo make sure its only html here and no javascript or other possibly
+                //malicious stuff
+                'description' => $xml->description,
+                'category' => Utils::sanitizeInput($xml->category),
+                'level' => Utils::sanitizeInput($xml->level),
+                'duration' => Utils::sanitizeInput($xml->duration)
             );
             return $a;
         } else {
@@ -150,32 +150,32 @@ class AddChallengeController extends HackademicBackendController
 
         if (isset($_POST['continue'])) {
             $this->cacheValues();
-            if ($_POST['title']=='') {
+            if ($_POST['title'] == '') {
                 $e_msg = "Title of the challenge should not be empty";
                 $error = true;
-            } elseif ($_POST['description']=='') {
+            } elseif ($_POST['description'] == '') {
                 $e_msg = "Description should not be empty";
                 $error = true;
-            } elseif ($_POST['authors']=='') {
+            } elseif ($_POST['authors'] == '') {
                 $e_msg = "Authors field should not be empty";
                 $error = true;
-            } elseif ($_POST['category']=='') {
+            } elseif ($_POST['category'] == '') {
                 $e_msg = "Category field should not be empty";
                 $error = true;
-            } elseif ($_POST['level']=='') {
+            } elseif ($_POST['level'] == '') {
                 $e_msg = "Level field should not be empty";
                 $error = true;
-            } elseif ($_POST['duration']=='') {
+            } elseif ($_POST['duration'] == '') {
                 $e_msg = "Duration field should not be empty";
                 $error = true;
             } else {
-                $array = array (
-                'title' => Utils::sanitizeInput($_POST['title']),
-                'description' => $_POST['description'],
-                'authors' => Utils::sanitizeInput($_POST['authors']),
-                'category' => Utils::sanitizeInput($_POST['category']),
-                'level' => Utils::sanitizeInput($_POST['level']),
-                'duration' => Utils::sanitizeInput($_POST['duration'])
+                $array = array(
+                    'title' => Utils::sanitizeInput($_POST['title']),
+                    'description' => $_POST['description'],
+                    'authors' => Utils::sanitizeInput($_POST['authors']),
+                    'category' => Utils::sanitizeInput($_POST['category']),
+                    'level' => Utils::sanitizeInput($_POST['level']),
+                    'duration' => Utils::sanitizeInput($_POST['duration'])
                 );
                 $_SESSION['challenge_arr'] = $array;
                 $this->addSuccessMessage("Now Please upload the challenge code");
@@ -185,9 +185,9 @@ class AddChallengeController extends HackademicBackendController
             $new_msg = $e_msg;
             if ($error) {
                 if (defined('EXAMPLE_CHALLENGE') && EXAMPLE_CHALLENGE != "") {
-                    $path = SOURCE_ROOT_PATH.EXAMPLE_CHALLENGE;
-                    $new_msg = "<em>".$e_msg."</em> <p>For an example on how to build
-						challenges please consult <a href=\" ".$path."\">The Example
+                    $path = SOURCE_ROOT_PATH . EXAMPLE_CHALLENGE;
+                    $new_msg = "<em>" . $e_msg . "</em> <p>For an example on how to build
+						challenges please consult <a href=\" " . $path . "\">The Example
 						Challenge</a></p>";
                 }
             }
@@ -199,7 +199,7 @@ class AddChallengeController extends HackademicBackendController
             $source = $_FILES['fupload']['tmp_name'];
             $type = $_FILES['fupload']['type'];
             $name = explode('.', $filename);
-            $target = HACKADEMIC_PATH."challenges/". $name[0] . '/';
+            $target = HACKADEMIC_PATH . "challenges/" . $name[0] . '/';
 
             if (!isset($name[1])) {
                 $this->addErrorMessage("Please select a file");
@@ -208,13 +208,13 @@ class AddChallengeController extends HackademicBackendController
 
             if (isset($name[0])) {
                 $challenge = ChallengeBackend::doesChallengeExist($name[0]);
-                if ($challenge==true) {
+                if ($challenge == true) {
                     if (isset($_SESSION['challenge_arr'])) {
                         $this->addToView('step', 'step2');
                     } else {
                         $this->addToView('type', $add_type);
                     }
-                    $this->addErrorMessage("This file already exists!!");
+                    $this->addErrorMessage("This file already exists!");
                     return $this->generateView(self::$_action_type);
                 }
             }

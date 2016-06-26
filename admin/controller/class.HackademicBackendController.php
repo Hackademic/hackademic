@@ -49,6 +49,7 @@ class HackademicBackendController extends HackademicController
         if (isset($_POST['submit']) ) {
             try {
                 //this is only for post requests and for testing purposes
+             //   var_dump($_POST);
                 NoCSRF::check('csrf_token', $_POST, true, 60*10, true);
             }
             catch ( Exception $e ) {

@@ -88,14 +88,14 @@ class ScoringRuleBackend extends ScoringRule
      *
      * @return If done return true, else return false.
      */
-    public static function update_scoring_rule($id, $challenge_id, $class_id,
-        $attempt_cap, $attempt_cap_penalty,
-        $time_between_first_and_last_attempt,
-        $time_penalty, $time_reset_limit_seconds,
-        $request_frequency_per_minute, $request_frequency_penalty,
-        $experimentation_bonus, $multiple_solution_bonus,
-        $banned_user_agents, $base_score,$banned_user_agents_penalty,
-        $first_try_solves, $penalty_for_many_first_try_solves
+    public static function updateScoringRule($id, $challenge_id, $class_id,
+                                             $attempt_cap, $attempt_cap_penalty,
+                                             $time_between_first_and_last_attempt,
+                                             $time_penalty, $time_reset_limit_seconds,
+                                             $request_frequency_per_minute, $request_frequency_penalty,
+                                             $experimentation_bonus, $multiple_solution_bonus,
+                                             $banned_user_agents, $base_score, $banned_user_agents_penalty,
+                                             $first_try_solves, $penalty_for_many_first_try_solves
     ) {
         global $db;
         $params=array(':id'=>$id,
@@ -147,7 +147,7 @@ class ScoringRuleBackend extends ScoringRule
     /**
      * Deletes the default scoring rule
      */
-    public static function delete_scoring_rule($id)
+    public static function deleteScoringRule($id)
     {
         global $db;
         $params = array(':id'=>$id);

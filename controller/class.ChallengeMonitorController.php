@@ -280,7 +280,7 @@ class ChallengeMonitorController
                     $current_score->penalties_bonuses .= EXPERIMENTATION_BONUS_ID;
                     $current_score->penalties_bonuses .= ",";
                 }
-                UserScore::update_user_score($current_score);
+                UserScore::updateUserScore($current_score);
                 return;
             }
             if ($_SESSION['total_attempt_count'] > $attempt_cap) {
@@ -410,6 +410,6 @@ class ChallengeMonitorController
                 }
             }
         }
-        UserScore::update_user_score($current_score);
+        UserScore::updateUserScore($current_score);
     }
 }

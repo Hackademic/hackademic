@@ -13,7 +13,7 @@
 require_once 'class.Clue.php';
 require_once 'class.UserCluesModel.php';
 require_once HACKADEMIC_PATH . "model/common/class.Session.php";
-require_once HACKADEMIC_PATH."model/common/class.UserScore.php";
+require_once HACKADEMIC_PATH . "model/common/class.UserScore.php";
 
 /**
  * Sets a custom made template for the specific page.
@@ -24,11 +24,11 @@ require_once HACKADEMIC_PATH."model/common/class.UserScore.php";
  */
 function challenge_clues_set_admin_view_template($new_path)
 {
-  if (string_contains('admin/view/editchallenge.tpl', $new_path)) {
-    return 'user/plugins/challenge-clues/editchallenge.tpl';
-  } else if (string_contains('admin/view/addchallenge.tpl', $new_path)) {
-    return 'user/plugins/challenge-clues/addchallenge.tpl';
-  }
+    if (string_contains('admin/view/editchallenge.tpl', $new_path)) {
+        return 'user/plugins/challenge-clues/editchallenge.tpl';
+    } else if (string_contains('admin/view/addchallenge.tpl', $new_path)) {
+        return 'user/plugins/challenge-clues/addchallenge.tpl';
+    }
 }
 
 /**
@@ -40,9 +40,9 @@ function challenge_clues_set_admin_view_template($new_path)
  */
 function challenge_clues_set_view_template($new_path)
 {
-  if (string_contains ('view/showChallenge.tpl', $new_path)) {
-    return 'user/plugins/challenge-clues/showChallenge.tpl';
-  }
+    if (string_contains('view/showChallenge.tpl', $new_path)) {
+        return 'user/plugins/challenge-clues/showChallenge.tpl';
+    }
 }
 
 /**
@@ -54,9 +54,9 @@ function challenge_clues_set_view_template($new_path)
  */
 function challenge_clues_show_edit_challenge($smarty)
 {
-  $challenge_id = $smarty->tpl_vars['challenge']->value->id;
-  $clues = Clue::getClues($challenge_id);
-  $smarty->assign('clues', $clues);
+    $challenge_id = $smarty->tpl_vars['challenge']->value->id;
+    $clues = Clue::getClues($challenge_id);
+    $smarty->assign('clues', $clues);
 }
 
 /**
@@ -68,64 +68,71 @@ function challenge_clues_show_edit_challenge($smarty)
  */
 function challenge_clues_show_challenge($smarty)
 {
-  $user_id = Session::getLoggedInUserId();
+    $user_id = Session::getLoggedInUserId();
 
-  if (isset($_POST['clue']) && is_numeric($_POST['clue'])) {
-  // The student asked to see a clue.
-    $openedClue = Clue::getEnabledClue($_POST['clue']);
-    if ($openedClue != null) {
-      UserCluesModel::addClue($user_id, $openedClue);
+    if (isset($_POST['clue']) && is_numeric($_POST['clue'])) {
+        // The student asked to see a clue.
+        $openedClue = Clue::getEnabledClue($_POST['clue']);
+        if ($openedClue != null) {
+            UserCluesModel::addClue($user_id, $openedClue);
+        }
     }
-  }
 
-  $challenge_id = $smarty->tpl_vars['challenge']->value->id;
-  $clues = Clue::getEnabledClues($challenge_id);
-  UserCluesModel::markOpenedClues($user_id, $clues);
-  $smarty->assign('clues', $clues);
+    $challenge_id = $smarty->tpl_vars['challenge']->value->id;
+    $clues = Clue::getEnabledClues($challenge_id);
+    UserCluesModel::markOpenedClues($user_id, $clues);
+    $smarty->assign('clues', $clues);
 }
 
 /**
  * Adds the clues if any to the clue table.
  *
- * @param id     $challenge_id the id of the challenge
- * @param params $params       the params to the query
+ * @param id $challenge_id the id of the challenge
+ * @param params $params the params to the query
  *
  * @return Nothing.
  *
  */
 function challenge_clues_after_create_challenge($challenge_id, $params)
 {
-  for ($i=0; $i<$_POST['nb_clues']; $i++) {
-    $clue = new Clue();
-    $clue->id = $_POST['id'];
-    $clue->clue_text = $_POST['clue_text'];
-    $clue->penalty = $_POST['penalty'];
-    $clue->enabled = isset($_POST['enabled']) && $_POST['enabled'];
-    $clue->challenge = $challenge_id;
-    Clue::addClue($clue);
-  }
+    for ($i = 0; $i < $_POST['nb_clues']; $i++) {
+        $clue = new Clue();
+        $clue->id = $_POST['id'];
+        $clue->clue_text = $_POST['clue_text'];
+        $clue->penalty = $_POST['penalty'];
+        $clue->enabled = isset($_POST['enabled']) && $_POST['enabled'];
+        $clue->challenge = $challenge_id;
+        Clue::addClue($clue);
+    }
 }
 
 /**
  * Adds the penalty to the student's score.
  *
- * @param id     $score_id the id of the score
- * @param params $params   the params to the query
+ * @param id $score_id the id of the score
+ * @param params $params the params to the query
  *
  * @return Nothing.
  */
-function challenge_clues_after_create_user_score($score_id, $params)
+function challenge_clues_after_create_user_score($score_id, $params=array())
 {
-  $score = UserScore::get_user_score($score_id);
-  $clues = Clue::getClues($score->challenge_id);
-  UserCluesModel::markOpenedClues($score->user_id, $clues);
-  foreach ($clues as $clue) {
-    if ($clue->opened && strpos($score->penalties_bonuses, 'clue'.$clue->id) === false) {
-      $score->points -= $clue->penalty;
-      $score->penalties_bonuses .= 'clue'.$clue->id.',';
+
+    $t = json_encode(debug_backtrace());
+    if(strpos($t,'challenge-clues'))return; //was calling itself in an endless loop and overflowing the stack;
+    $score = UserScore::getUserScore($score_id);
+    if (false !== $score) {
+        $clues = Clue::getClues($score->challenge_id);
+        UserCluesModel::markOpenedClues($score->user_id, $clues);
+        foreach ($clues as $clue) {
+            if ($clue->opened && strpos($score->penalties_bonuses, 'clue' . $clue->id) === false) {
+                $score->points -= $clue->penalty;
+                $score->penalties_bonuses .= 'clue' . $clue->id . ',';
+            }
+        }
+        UserScore::updateUserScore($score);
+    } else {
+        error_log("Score is false this usually means that score id doesn't exist");
     }
-  }
-  UserScore::update_user_score($score->id, $score->user_id, $score->challenge_id, $score->class_id, $score->points, $score->penalties_bonuses);
 }
 
 /**
@@ -137,7 +144,7 @@ function challenge_clues_after_create_user_score($score_id, $params)
  */
 function challenge_clues_after_update_user_score($params)
 {
-  challenge_clues_after_create_user_score($params[':id'], $params);
+    challenge_clues_after_create_user_score($params[':id'], $params);
 }
 
 /**
@@ -149,33 +156,33 @@ function challenge_clues_after_update_user_score($params)
  */
 function challenge_clues_after_update_challenge($params)
 {
-  // Id of the clues still present (not deleted by the user).
-  $cluesId = array();
-  $allClues = Clue::getCluesId($params[':id']);
+    // Id of the clues still present (not deleted by the user).
+    $cluesId = array();
+    $allClues = Clue::getCluesId($params[':id']);
 
-  for ($i=0; $i<$_POST['nb_clues']; $i++) {
-    $clue = new Clue();
-    $clue->clue_text = $_POST['clue'.$i.'_text'];
-    $clue->penalty = $_POST['clue'.$i.'_penalty'];
-    $clue->enabled = $_POST['clue'.$i.'_state'] == 'enabled';
-    $clue->challenge = $params[':id'];
+    for ($i = 0; $i < $_POST['nb_clues']; $i++) {
+        $clue = new Clue();
+        $clue->clue_text = $_POST['clue' . $i . '_text'];
+        $clue->penalty = $_POST['clue' . $i . '_penalty'];
+        $clue->enabled = $_POST['clue' . $i . '_state'] == 'enabled';
+        $clue->challenge = $params[':id'];
 
-    if (isset($_POST['clue'.$i.'_id']) && $_POST['clue'.$i.'_id']!='') {
-    // Updates the clue:
-      $clue->id = $_POST['clue'.$i.'_id'];
-      Clue::updateClue($clue);
-      $cluesId[] = $clue->id;
-    } else {
-    // Adds the new clue:
-      Clue::addClue($clue);
+        if (isset($_POST['clue' . $i . '_id']) && $_POST['clue' . $i . '_id'] != '') {
+            // Updates the clue:
+            $clue->id = $_POST['clue' . $i . '_id'];
+            Clue::updateClue($clue);
+            $cluesId[] = $clue->id;
+        } else {
+            // Adds the new clue:
+            Clue::addClue($clue);
+        }
     }
-  }
 
-  // Deletes the clues deleted by the user from the database:
-  $deletedClues = array_diff($allClues, $cluesId);
-  foreach ($deletedClues as $id) {
-    Clue::deleteClue($id);
-  }
+    // Deletes the clues deleted by the user from the database:
+    $deletedClues = array_diff($allClues, $cluesId);
+    foreach ($deletedClues as $id) {
+        Clue::deleteClue($id);
+    }
 }
 
 /**
@@ -184,29 +191,29 @@ function challenge_clues_after_update_challenge($params)
  * This must be done before the challenge is
  * deleted to preserve the foreign key constraint.
  *
- * @param sql    $sql    the base sql query
+ * @param sql $sql the base sql query
  * @param params $params the params to the query
  *
  * @return Nothing.
  */
 function challenge_clues_before_delete_challenge($sql, $params)
 {
-  UserCluesModel::deleteClue($params[':id']);
-  Clue::deleteClue($params[':id']);
+    UserCluesModel::deleteClue($params[':id']);
+    Clue::deleteClue($params[':id']);
 }
 
 /**
  * Deletes the user from the user-clues table before the user table
  * to make sure the foreign key constraint is not broken.
  *
- * @param sql    $sql    the base sql query
+ * @param sql $sql the base sql query
  * @param params $params the params to the query
  *
  * @return Nothing.
  */
 function challenge_clues_before_delete_user($sql, $params)
 {
-  UserCluesModel::deleteUser($params[':id']);
+    UserCluesModel::deleteUser($params[':id']);
 }
 
 /**
@@ -218,23 +225,23 @@ function challenge_clues_before_delete_user($sql, $params)
  */
 function challenge_clues_enable_plugin($plugin)
 {
-  if ($plugin == 'challenge-clues/challenge-clues.php') {
-    $host = DB_HOST;
-    $dbname = DB_NAME;
-    $user = DB_USER;
-    $pass = DB_PASSWORD;
-    try {
-      $connection = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    } catch(PDOException $e) {
-      echo $e->getMessage();
-      die();
-    }
-    $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if ($plugin == 'challenge-clues/challenge-clues.php') {
+        $host = DB_HOST;
+        $dbname = DB_NAME;
+        $user = DB_USER;
+        $pass = DB_PASSWORD;
+        try {
+            $connection = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            die();
+        }
+        $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sqlQueries = file_get_contents('user/plugins/challenge-clues/install-plugin.sql');
-    $connection->exec($sqlQueries);
-  }
+        $sqlQueries = file_get_contents('user/plugins/challenge-clues/install-plugin.sql');
+        $connection->exec($sqlQueries);
+    }
 }
 
 // Adds 'show' actions
@@ -260,12 +267,12 @@ Plugin::add_filter('set_view_template', 'challenge_clues_set_view_template', 10,
  * Checks to see if the sub string is part of the original string
  *
  * @param string $substring the substring you wish to look for
- * @param string $string    the string to search for the sub string in
+ * @param string $string the string to search for the sub string in
  *
  * @return true if $substring is found, otherwise false
  */
 function string_contains($substring, $string)
 {
-  $pos = strpos($string, $substring);
-  return $pos > -1 ? true : false;
+    $pos = strpos($string, $substring);
+    return $pos > -1 ? true : false;
 }

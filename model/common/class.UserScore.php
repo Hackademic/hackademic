@@ -97,7 +97,7 @@ class UserScore
      *
      * @return True on success and false otherwise.
      */
-    public static function update_user_score($score)
+    public static function updateUserScore($score)
     {
         global $db;
         if (self::getScoresForUserClassChallenge($score->user_id, $score->class_id, $score->challenge_id) === false) {
@@ -123,7 +123,7 @@ class UserScore
      *
      * @return the score with id $id
      */
-    public static function get_user_score($id)
+    public static function getUserScore($id)
     {
         global $db;
         $params = array(':id' => $id);
