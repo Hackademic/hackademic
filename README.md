@@ -3,48 +3,46 @@
 OWASP Hackademic Challenges project
 ===================================
 
-The **OWASP Hackademic Challenge** project helps you test your knowledge on web application security. You can use it to actually attack web applications in a realistic but also controllable and safe environment.
+The **OWASP Hackademic Challenge** project helps you test your knowledge on web application security. You can use it to actually attack web applications in a realistic but also controlled and safe environment.
 
-The latest stable version is in `next` branch, the development version is in `next-dev`.
+The latest stable version is in the `next` branch, the development version is in `next-dev`.
 
 
 Description
 -----------
 
-The Hackademic challenges implement realistic scenarios with known vulnerabilities in a safe, controllable environment. Users can attempt to discover and exploit these vulnerabilities in order to learn important concepts of information security through the attacker's perspective.
+The Hackademic challenges implement realistic scenarios with known vulnerabilities in a safe, controlled environment. Users can discover and exploit the vulnerabilities presented in the challenges and learn important concepts of information security through the perspective of an attacker.
 
 Currently, there are 10 scenarios available.
 
-You can choose to start from the one that you find most appealing, although we suggest to follow the order presented on the first page. We intend to expand the available challenges with additional scenarios that involve cryptography and even vulnerable systems implemented in downloadable virtual machines.
-
-
+You can choose to start from the one that you find most appealing, although we suggest you follow the order presented on the first page. We intend to expand the available challenges with additional scenarios that involve cryptography and even vulnerable systems presented as downloadable virtual machines.
 
 
 Deployment
 ----------
 
-Dependencies of Hackademic involve a web server (Apache, nginx) with PHP and Mysql/MariaDB connected with it. Make sure you have installed these before you start deploying Hackademic. We recommand to use Apache with MySQL. See [Digital Ocean's website](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu) for a good tutorial under Ubunt. See [WampServer](http://www.wampserver.com/en/) to set up the environnement under Windows.
+Dependencies for Hackademic involve a web server (Apache, nginx) with PHP and Mysql/MariaDB connected to it. Make sure you have these installed before you start deploying Hackademic. We recommend to use Apache with MySQL. See [Digital Ocean's website](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu) for a good tutorial under Ubuntu. See [WampServer](http://www.wampserver.com/en/) to set up the environment under Windows.
 
-Clone Hackademic project,
+To clone Hackademic,
 
 `git clone https://github.com/Hackademic/hackademic.git`
 
-After successful cloning of the Hackademic project, copy the contents into `/var/www`
-We need to change the permissions of the file now,
+After successful cloning, copy the folder into `/var/www`.
+Next change the permissions of the folder with
 
 `sudo chmod -R 765 hackademic`
 
-Ensure that the Apache is started and SQL connection is also active. Point your browser towards `http://127.0.0.1/`
-You will be prompted with Hackademic page. In case you have many sub-directories in `/var/www/`, the browser would throw up all the directories.
-Choose hackademic from that.
+Ensure that Apache is started and that the SQL connection is also active. Point your browser towards `http://127.0.0.1/`
+You will be prompted with the Hackademic page. In case you have many sub-directories in `/var/www/`, the browser would list all the directories available.
+Choose hackademic from those.
 
-Now you will be prompted to Hackademic installation page.
+Now you will be prompted with the Hackademic installation page.
 Be sure to fill out all the fields.
 
 1. Administrator Details
 
 	Fill any email id, username and password. 
-	You will using this username and password, later to log in to hackademic.
+	You will be using this username and password, later on to log in to hackademic.
 
 2. Database Settings
 	
@@ -60,12 +58,11 @@ Be sure to fill out all the fields.
 	You should be able to log in.
 
 
-After finish stage if you got a error
+After the finish stage if you got an error
 
 *Parse error: syntax error, unexpected '[' in /var/www/hackademic/model/common/class.ChallengeAttempts.php on line 363']'*
 
 update the version of PHP you are using. Hackademic uses 5.4+. 
-
 
 
 Road Map and Getting Involved
@@ -77,12 +74,12 @@ For a list of features we would like implemented you can see either the issues p
 
 Involvement in the development and promotion of the Hackademic Challenges is actively encouraged!
 You do not have to be a security expert in order to contribute.
-Some of the ways you can help:
+Some of the ways you can help are:
 
 * Write Documentation
 * Write Unit tests
 * Develop themes and plugins
-* Write Challenges or Articles or contribute security courses
+* Write Challenges, Articles or contribute security courses
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for installation guidelines and other developer-oriented explanations.
 
