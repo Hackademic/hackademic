@@ -8,10 +8,6 @@ class Utils {
 		return preg_match($pattern, $email);
 	}
 
-	public static function getPassUtil(){
-		return $util = new PasswordHash(8, true);
-	}
-
 	public static function hash($password){
 		$hash = password_hash($password, PASSWORD_DEFAULT);
 		if (FALSE === $hash || NULL === $hash){
