@@ -42,6 +42,7 @@ class ContainerDaemon():
                                             str(exception))
             exit("Check logs for more details")
 
+        print "[*] Container Created: " + cli.get("Id")
         return "http://localhost:" + str(port) + "/" + str(challenge)
 
     def generate_port(self):
@@ -57,16 +58,41 @@ class ContainerDaemon():
 
     def kill_container(self, containerid):
         self.client.kill(containerid)
+        print "[*] Container Killed: " + containerid
 
     def auto_container_killer(self):
+        print "[*] Auto Container Killer Started"
+        # Store the network activity for all the containers
+        # Key: Container ID
+        # Value: Number of recieved packets (can be changed below, see 'rx_packets')
+        containers_network_activity = {}
         while True:
-            sleep(300)
+            print "[*] Auto Container Killer Sleeping..."
+            # Poll every 10 minutes
+            sleep(600)
+            print "[*] Checking for Containers with no recieved packets since last check..."
             container_list = self.client.containers()
             for i in range(0, len(container_list)):
-                temp = container_list[i].get("Status")
-                flag = re.findall(self.timer, temp)
-                if flag:
-                    self.kill_container(container_list[i].get("Id"))
+                container_id = container_list[i].get("Id")
+                stats = self.client.stats(container_id, True)
+                current_network_activity = 0
+
+                # 'stats' is a generator object
+                for stat in stats:
+                    # Reading number of recieved packets in the docker container
+                    current_network_activity = stat['networks']['eth0']['rx_packets']
+                    break
+                try:
+                    # If previous network activity is same as the current one then kill the container
+                    if current_network_activity <= containers_network_activity[container_id]:
+                        self.kill_container(container_id)
+                    else:
+                        # Update the network activity for the container in the dictionary
+                        containers_network_activity[container_id] = current_network_activity
+                # If the container is newly created add an entry for it in the dictionary
+                except KeyError as err:
+                    containers_network_activity[container_id] = current_network_activity
+
 
     def create_socket(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -78,6 +104,7 @@ class ContainerDaemon():
             + msg[1]
             sys.exit(1)
         s.listen(10)
+        print "[*] Docker Daemon started at: " + self.HOST + ":" + str(self.PORT)
         while True:
             conn, addr = s.accept()
             thread.start_new_thread(self.client_thread, (conn,))
