@@ -10,3 +10,4 @@ test
 nbproject/
 composer.lock
 vendor/
+.idea/
