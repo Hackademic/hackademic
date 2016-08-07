@@ -33,3 +33,17 @@ define('DB_TYPE', 'mysql');
 define('DB_USER', '#YOUR_DBUSER#');
 define('DB_PASSWORD', '#YOUR_DBPASS#');
 define('DB_NAME', '#YOUR_DBNAME#');
+
+
+/*********************************************/
+/** 	Various Config			*****/
+/********************************************/
+
+//default max challenge size
+define('MAX_CHALLENGE_SIZE','2097152');
+
+/*	DEV DEBUG MESSAGE SELECTION */
+
+//Debug message selection
+define('SHOW_SQL_QUERIES', '#TRUE OR FALSE');
+define("SHOW_EMPTY_VAR_ERRORS", '#TRUE OR FALSE');
