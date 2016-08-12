@@ -3,16 +3,16 @@
 
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">Class Manager</h3></div>
+	<div class="page_title"><h3 class="left"> Class Manager </h3></div>
 	<div id="" class="right action_button">
 	    
 	<table>
 		<tr class="center">
 		    <td>
 			<div class="submenu_btn">
-			    <a href="{$site_root_path}admin/pages/addclass.php">
+			    <a href="{$site_root_path}?url=admin/addclass">
 				<img class="action_image" src="{$site_root_path}admin/assets/images/addclass.png"/><br/>
-				<span class="caption">Add Class</span>
+				<span class="caption"> Add Class </span>
 			    </a>
 			</div>
 		    </td>
@@ -23,19 +23,20 @@
 	
     <div id="input_form">
 	<form method ="get">
+    <input type="hidden" name="url" value="{$smarty.get.url}">
 	    <table class="add_form center">
 		<tr>
 		    <td class="width_40">Search: <input placeholder="Class name to search" class="width_90" type="text" name="search" id="search" value="{if isset($search_string)}{$search_string}{/if}"/></td>
 			<td class="width_10">Sort By:</td>
 		    <td class="width_25">
 			 <select name="category" class="width_90">
-			    <option value="name">Class Name</option> 
+			    <option value="name"> Class Name </option> 
 			</select>
 		    </td>
-		    <td class="width_10">Show:</td>
+		    <td class="width_10"> Show: </td>
 		    <td class="width_25">
 		     	<select name="limit" class="width_90">
-	               <option value="">Results per Page</option>
+	               <option value=""> Results per Page </option>
                    <option value="5">5</option>
 			       <option value="10">10</option>
 			       <option value="15">15</option>
@@ -61,24 +62,24 @@
     
     <table class="manager_table">
 	<thead> 
-	    <th align = "left">Class name</th>
-	    <th align = "left">Date created</th>
-	    <th align = "left">Archive?</th>
-	    <th align = "left">Delete?</th>
+	    <th align = "left"> Class name </th>
+	    <th align = "left"> Date created </th>
+	    <th align = "left"> Archive? </th>
+	    <th align = "left"> Delete? </th>
 	</thead>
 	{foreach from=$classes item=class}
-	    <tr>
-		<td><a href="{$site_root_path}admin/pages/showclass.php?id={$class->id}">{$class->name}</a></td>
+	    <tr id="{$class->name}">
+		<td><a href="{$site_root_path}?url=admin/showclass&id={$class->id}">{$class->name}</a></td>
 		<td>{$class->date_created|date_format}</td>
 		<td>   
 		{if $class->archive == 0}
-		    <a href="{$site_root_path}admin/pages/manageclass.php?id={$class->id}&source=arch">Click to archive class!</a>
+		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=arch"> Click to archive class! </a>
 		{else}	
-		    <a href="{$site_root_path}admin/pages/manageclass.php?id={$class->id}&source=unarch">Click to unarchive class!</a>
+		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=unarch"> Click to unarchive class! </a>
 		{/if}	
 		</td>
 		<td>   
-		    <a href="{$site_root_path}admin/pages/manageclass.php?id={$class->id}&source=del">Click to delete class!</a>
+		    <a href="{$site_root_path}?url=admin/manageclass&id={$class->id}&source=del"> Click to delete class! </a>
 		</td>		
 	    </tr>
 	{/foreach}

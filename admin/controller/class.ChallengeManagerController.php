@@ -35,12 +35,14 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class ChallengeManagerController extends HackademicBackendController {
 
+  private static $action_type = 'challenge_manager';
+
 	public function go() {
 
 		if (isset($_GET["action"]) && ($_GET["action"]=="del")) {
 			$id=$_GET['id'];
 			$challenge=ChallengeBackend::getChallenge($id);
-			$pkg_name=$challenge[0]->pkg_name;
+			$pkg_name = $challenge->pkg_name;
 			self::rrmdir(HACKADEMIC_PATH."challenges/".$pkg_name);
 			ChallengeBackend::deleteChallenge($id);
 			$this->addSuccessMessage("Challenge has been deleted succesfully");
@@ -58,7 +60,7 @@ class ChallengeManagerController extends HackademicBackendController {
 		}
 
 		$total_pages = ChallengeBackend::getNumberOfChallenges();
-		$targetpage = SOURCE_ROOT_PATH."admin/pages/challengemanager.php";
+		$targetpage = SOURCE_ROOT_PATH."?url=admin/challengemanager";
 		$stages = 3;
 		$page=0;
 		if(isset($_GET['page'])) {
@@ -94,17 +96,18 @@ class ChallengeManagerController extends HackademicBackendController {
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('challengemanager.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 
 	private static function rrmdir($dir) {
 		foreach(glob($dir . '/*') as $file) {
-				       if(is_dir($file)) {
-				       self::rrmdir($file);
-				       } else {
-				       unlink($file);
-				       }
-				       }
-				       rmdir($dir);
-				       }
-				       }
+      if(is_dir($file)) {
+        self::rrmdir($file);
+      } else {
+        unlink($file);
+      }
+    }
+    rmdir($dir);
+  }
+
+}

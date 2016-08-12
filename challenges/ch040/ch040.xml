@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 40</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+        Your friend wants to take help from a third party service provider to improve his own website's security and search engine visibility.He asked you to view that website and certify it to be completely secure.If you find some loophole in the website's security, use it to log in as the admin.
+        ]]>
+    </description>
+</challenge>

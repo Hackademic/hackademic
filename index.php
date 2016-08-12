@@ -36,10 +36,18 @@ if ($version[0] < 5) {
 }
 if (!file_exists('config.inc.php')) {
     header("Location: ./installation/install.php");
-    die();
+	error_log("Couldn't find config file, installing");
+    die("No config");
 }
 require_once('init.php');
-require_once(HACKADEMIC_PATH."controller/class.LandingPageController.php");
 
-$controller = new LandingPageController();
-echo $controller->go();
+$url = isset($_GET['url']) ? $_GET['url'] : '';
+if($url != '') {
+  require_once(HACKADEMIC_PATH . "model/common/class.Page.php");
+  $path = Page::getFile($url);
+  require_once(HACKADEMIC_PATH . $path['file']);
+} else { 
+  require_once(HACKADEMIC_PATH . "controller/class.LandingPageController.php");
+  $controller = new LandingPageController();
+  echo $controller->go();
+}

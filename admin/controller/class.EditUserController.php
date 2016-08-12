@@ -35,10 +35,25 @@ require_once(HACKADEMIC_PATH."model/common/class.HackademicDB.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController.php");
 class EditUserController extends HackademicBackendController {
 
+  private static $action_type = 'edit_user';
+
 	public function go() {
 		if (isset($_GET['id'])) {
-			$id=$_GET['id'];
+			$id = $_GET['id'];
 		}
+
+	if(isset($_GET['activate'])){
+		$user=User::getUser($id);
+		User::updateUser($id,$user->username,$user->full_name,$user->email,$user->password,1,$user->type);	
+		header('Location: ' . "?url=admin/usermanager&source=activate");
+	}
+
+    if(isset($_POST['deletesubmit'])) {
+      User::deleteUser($id);
+      $this->addSuccessMessage("User has been deleted succesfully");
+      header('Location:' . SOURCE_ROOT_PATH . "?url=admin/usermanager&source=del");
+      die();
+    }
 		if(isset($_POST['submit'])) {
 			if ($_POST['username']=='') {
 				$this->addErrorMessage("Name of the user should not be empty");
@@ -65,11 +80,6 @@ class EditUserController extends HackademicBackendController {
 		$users=User::getUser($id);
 		$this->setViewTemplate('edituser.tpl');
 		$this->addToView('user', $users);
-		$this->generateView();
-		if(isset($_POST['deletesubmit'])) {
-			User::deleteUser($id);
-			$this->addSuccessMessage("User has been deleted succesfully");
-			header('Location:'.SOURCE_ROOT_PATH."admin/pages/usermanager.php?source=del");
-		}
+		$this->generateView(self::$action_type);
 	}
 }

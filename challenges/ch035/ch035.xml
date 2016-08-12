@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+    <title>Challenge 35</title>
+    <author>
+    Bhanudev Chaluvadi
+    Spyros Gasteratos
+    </author>
+    <category>web</category>
+    <description>
+        <![CDATA[
+       The following website has intense protection from CSRF attacks.It allows only those requests originating from http://example.com . But you need immediate access to the website.How do you achieve it?
+        ]]>
+    </description>
+</challenge>

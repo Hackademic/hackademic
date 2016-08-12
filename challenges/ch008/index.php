@@ -33,7 +33,7 @@
 
 <?php
 error_reporting(0);
-$com=$_POST["command"];
+$com= htmlspecialchars($_POST["command"]);
 $root=$_POST["username"];
 $password=$_POST["password"];
 
@@ -56,23 +56,22 @@ if (isset($com))
 		echo "<p>bash: ".htmlentities($com).": command not found";
 	}
 }
-if(isset($root,$password))
-{
-			include_once dirname(__FILE__).'/../../init.php';
-        session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET);
+if(isset($root,$password)) {
+	include_once dirname(__FILE__).'/../../init.php';
+	session_start();
+	require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
 
-	if ($root=="root" && $password=="g0tr00t")
-	{
+	$solution = 'root#g0tr00t';
+	$validator = new ChallengeValidatorController($solution);
+	$validator->startChallenge();
+
+	$answer = $root.'#'.$password;
+	$valid = $validator->validateSolution($answer);
+	if ($valid) {
 		echo "<p><font color=red>uid=0(root) gid=0(root) groups=0(root)</font>";
 		echo "<center><p><h3><font color=green>Congratulations!</font></h3>";
-		$monitor->update(CHALLENGE_SUCCESS);
-	}
-	else
-	{
+	} else {
 		echo "incorrect username or password";
-		$monitor->update(CHALLENGE_FAILURE);
 	}
 }
 else

@@ -14,6 +14,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <?php
+include_once dirname(__FILE__).'/../../init.php';
+require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
 
 $root=$_POST["username"];
 $password=$_POST["password"];
@@ -33,10 +35,12 @@ if(isset($root,$password))
 	if (strtolower($root)=="admin" && $password=="teh_n1nj4_pwn3r")
 	{
 		echo "<hr><p><big><big><font color=Green>Access Granted!!! <p>Congratulations!</font>";		
+		$monitor->update(CHALLENGE_SUCCESS);
 	}
 	else 
 	{
 		echo "<hr><p><big><big><font color=RED>Access Denied!</font>";
+			        $monitor->update(CHALLENGE_FAILURE);
 	}
 }
 else

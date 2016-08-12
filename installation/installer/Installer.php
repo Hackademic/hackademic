@@ -241,7 +241,7 @@ class Installer
 			returns a connection error. Since we will CREATE IF NOT EXISTS, and then USE the database we don't provide
 			a dbname here*/
 		$link = new mysqli($this->_options['dbhost'], $this->_options['dbuser'], $this->_options['dbpass']);
-		if(!$link) {
+		if(!$link || $link->connect_errno) {
 			$this->view->error($this->lang['L-04']);
 		}
 		
@@ -385,6 +385,7 @@ class Installer
 		}
 		$this->view->vars = array("login_path" => '<a href="'.$_POST['source_root_path'].'">'.$_POST['source_root_path'].'</a>');
 		$this->view->render('finish');
+		$_SESSION = array();
 		unset($_SESSION);
 	}
 
@@ -427,7 +428,7 @@ class Installer
 		$files = array();
 		foreach($dirs as $file)
 		{
-			if ($file == '.' || $file == '..')
+			if ($file == '.' || $file == '..'|| $file == "index.php")
 			{
 				continue;
 			}

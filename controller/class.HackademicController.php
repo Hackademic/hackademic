@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * Hackademic-CMS/controller/class.HackademicController.php
@@ -30,193 +31,194 @@
  * @copyright 2012 OWASP
  *
  */
-require_once(HACKADEMIC_PATH."model/common/class.SmartyHackademic.php");
-require_once(HACKADEMIC_PATH."model/common/class.Session.php");
-require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
-require_once(HACKADEMIC_PATH."controller/class.ChallengeMenuController.php");
-require_once(HACKADEMIC_PATH."controller/class.UserMenuController.php");
-require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
+require_once(HACKADEMIC_PATH . "model/common/class.SmartyHackademic.php");
+require_once(HACKADEMIC_PATH . "model/common/class.Session.php");
+//require_once(HACKADEMIC_PATH."controller/class.FrontendMenuController.php");
+require_once(HACKADEMIC_PATH . "controller/class.ChallengeMenuController.php");
+require_once(HACKADEMIC_PATH . "controller/class.UserMenuController.php");
+require_once(HACKADEMIC_PATH . "/esapi/class.Esapi_Utils.php");
 
 abstract class HackademicController {
 
-	/**
-	 * @var Smarty Object
-	 */
-	protected $smarty;
+    /**
+     * @var Smarty Object
+     */
+    protected $smarty;
 
-	/**
-	 * @var template path
-	 */
-	protected $tmpl;
+    /**
+     * @var template path
+     */
+    protected $tmpl;
 
-	/**
-	 * @var view template
-	 */
-	protected $view_template;
+    /**
+     * @var view template
+     */
+    protected $view_template;
 
-	/**
-	 * @var array
-	 */
-	protected $header_scripts = array ();
+    /**
+     * @var array
+     */
+    protected $header_scripts = array();
 
-	/**
-	 * @var session_exists
-	 */
-	private static $session_exists;
+    /**
+     * @var session_exists
+     */
+    private static $session_exists;
 
-	/**
-	 * @var app_session
-	 */
-	private $app_session;
+    /**
+     * @var app_session
+     */
+    private $app_session;
 
-	/**
-	 * Constructor to initialize the Main Controller
-	 */
-	public function __construct() {
-		if (!self::$session_exists) {
-			self::$session_exists = 1;
-			Session::start(SESS_EXP_ABS);
-			//var_dump("no session");
-			//die("no session");
-		}
-		/*
-		if(!isset($_GET['token']) && isset($_SESSION['hackademic_user'])){
-			//die("not token but session");
-			error_log("HACKADEMIC:: not token but session", 0);
-			header('Location:'.SOURCE_ROOT_PATH."pages/mainlogin.php");
+    /**
+     * Constructor to initialize the Main Controller
+     */
+    public function __construct() {
+        if (!self::$session_exists) {
+            self::$session_exists = 1;
+            Session::start(SESS_EXP_ABS);
+            //var_dump("no session");
+            //die("no session");
+        }
+        if (isset($_SESSION['hackademic_user']) && !Session::isValid()) {
+            //die(" session but not valid");
+            //error_log("session but not valid", 0);
+            Session::logout();
+            header('Location:' . SOURCE_ROOT_PATH . "?url=home");
+            die();
+        }
+        //var_dump($_SESSION);
+        $this->smarty = new SmartyHackademic();
+        $this->app_session = new Session();
+        if (self::isLoggedIn()) {
+            $this->addToView('is_logged_in', true);
+            $this->addToView('logged_in_user', self::getLoggedInUser());
+        }
+        if (self::isAdmin()) {
+            $this->addToView('user_type', true);
+        }
+        /* 			$menu=FrontendMenuController::go();
+          $this->addToView('main_menu',$menu); */
 
-		}*/
-		if(isset($_SESSION['hackademic_user']) && !Session::isValid()){
-			//die(" session but not valid");
-			//error_log("session but not valid", 0);
-			Session::logout();
-			header('Location:'.SOURCE_ROOT_PATH."pages/home.php");
+        $challenge_menu = ChallengeMenuController::go();
+        $this->addToView('challenge_menu', $challenge_menu);
 
-		}
-			//var_dump($_SESSION);
-			$this->smarty = new SmartyHackademic();
-			$this->app_session = new Session();
-			if ($this->isLoggedIn()) {
-				$this->addToView('is_logged_in', true);
-				$this->addToView('logged_in_user', $this->getLoggedInUser());
-			}
-			if ($this->isAdmin()) {
-				$this->addToView('user_type', true);
-			}
-			$menu=FrontendMenuController::go();
-			$this->addToView('main_menu',$menu);
+        if (self::isLoggedIn()) {
+            $usermenu = UserMenuController::go();
+            $this->addToView('user_menu', $usermenu);
+        }
+    }
 
-			$challenge_menu=ChallengeMenuController::go();
-			$this->addToView('challenge_menu',$challenge_menu);
-			if($this->isLoggedIn()){
-				$usermenu=UserMenuController::go();
-				$this->addToView('user_menu',$usermenu);
-			}
-	}
+    /**
+     * Add javascript to header
+     *
+     * @param str javascript path
+     */
+    public function addHeaderJavaScript($script) {
+        array_push($this->header_scripts, $script);
+    }
 
-	/**
-	 * Add javascript to header
-	 *
-	 * @param str javascript path
-	 */
-	public function addHeaderJavaScript($script) {
-		array_push($this->header_scripts, $script);
-	}
+    /**
+     * Set Page Title
+     * @param $title str Page Title
+     */
+    public function addPageTitle($title) {
+        $this->addToView('controller_title', $title);
+    }
 
-	/**
-	 * Set Page Title
-	 * @param $title str Page Title
-	 */
-	public function addPageTitle($title) {
-		self::addToView('controller_title', $title);
-	}
+    /**
+     * Function to set view template
+     * @param $tmpl str Template name
+     */
+    public function setViewTemplate($tmpl) {
+        $path = $this->smarty->user_theme_path . $tmpl;
+        $new_path = Plugin::apply_filters_ref_array('set_view_template', array($path));
+        if ($new_path != '') {
+            $path = $new_path;
+        }
+        $this->view_template = HACKADEMIC_PATH . $path;
+    }
 
-	/**
-	 * Function to set view template
-	 * @param $tmpl str Template name
-	 */
-	public function setViewTemplate($tmpl) {
-		$this->view_template = HACKADEMIC_PATH.'view/'.$tmpl;
+    /**
+     * Generate View In Smarty
+     * @param string $type the type of view that is being generated. The type is used to trigger
+     * an action of the form 'show_[type]' i.e. 'show_article_manager'
+     */
+    public function generateView($type = 'view') {
+        $view_path = $this->view_template;
+        $this->addToView('header_scripts', $this->header_scripts);
+        Plugin::do_action_ref_array('show_' . $type, array($this->smarty));
+        return $this->smarty->display($view_path);
+    }
 
-	}
+    /**
+     * Add error message to view
+     * @param str $msg
+     */
+    public function addErrorMessage($msg) {
+        $this->disableCaching();
+        $this->addToView('errormsg', $msg);
+    }
 
-	/**
-	 * Generate View In Smarty
-	 */
-	public function generateView() {
-		$view_path = $this->view_template;
-		$this->addToView('header_scripts', $this->header_scripts);
-		return $this->smarty->display($view_path);
-	}
+    /**
+     * Add success message to view
+     * @param str $msg
+     */
+    public function addSuccessMessage($msg) {
+        $this->disableCaching();
+        $this->addToView('successmsg', $msg);
+    }
 
-	/**
-	 * Add error message to view
-	 * @param str $msg
-	 */
-	public function addErrorMessage($msg) {
-		$this->disableCaching();
-		$this->addToView('errormsg', $msg );
-	}
+    /**
+     * Disable Caching
+     */
+    protected function disableCaching() {
+        $this->smarty->disableCaching();
+    }
 
-	/**
-	 * Add success message to view
-	 * @param str $msg
-	 */
-	public function addSuccessMessage($msg) {
-		$this->disableCaching();
-		$this->addToView('successmsg', $msg );
-	}
+    /**
+     * Returns whether or not Hackademic user is logged in
+     *
+     * @return bool whether or not user is logged in
+     */
+    protected static function isLoggedIn() {
+        return Session::isLoggedIn();
+    }
 
+    /**
+     * Function to add data to Smarty Template
+     * @param $key str Variable name in Smarty
+     * @param $value str Variable value in Smarty
+     */
+    public function addToView($key, $value) {
+        $this->smarty->assign($key, $value);
+    }
 
-	/**
-	 * Disable Caching
-	 */
-	protected function disableCaching() {
-		$this->smarty->disableCaching();
-	}
+    /**
+     * Returns whether or not a logged-in Hackademic user is an admin
+     *
+     * @return bool whether or not logged-in user is an admin
+     */
+    protected static function isAdmin() {
+        return Session::isAdmin();
+    }
 
-	/**
-	 * Returns whether or not Hackademic user is logged in
-	 *
-	 * @return bool whether or not user is logged in
-	 */
-	protected function isLoggedIn() {
-		return Session::isLoggedIn();
-	}
+    /**
+     * Returns whether or not a logged-in Hackademic user is a teacher
+     *
+     * @return bool whether or not logged-in user is an admin
+     */
+    protected static function isTeacher() {
+        return Session::isTeacher();
+    }
 
-	/**
-	 * Function to add data to Smarty Template
-	 * @param $key str Variable name in Smarty
-	 * @param $value str Variable value in Smarty
-	 */
-	public function addToView($key,$value) {
-		$this->smarty->assign($key, $value);
-	}
+    /**
+     * Return username of logged-in user
+     *
+     * @return str username
+     */
+    public static function getLoggedInUser() {
+        return Session::getLoggedInUser();
+    }
 
-	/**
-	 * Returns whether or not a logged-in Hackademic user is an admin
-	 *
-	 * @return bool whether or not logged-in user is an admin
-	 */
-	protected function isAdmin() {
-		return Session::isAdmin();
-	}
-
-	/**
-	 * Returns whether or not a logged-in Hackademic user is a teacher
-	 *
-	 * @return bool whether or not logged-in user is an admin
-	 */
-	protected function isTeacher() {
-		return Session::isTeacher();
-	}
-
-	/**
-	 * Return username of logged-in user
-	 *
-	 * @return str username
-	 */
-	public function getLoggedInUser() {
-		return Session::getLoggedInUser();
-	}
 }

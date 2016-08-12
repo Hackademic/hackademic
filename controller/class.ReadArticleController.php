@@ -33,12 +33,14 @@
 require_once(HACKADEMIC_PATH."/model/common/class.Article.php");
 require_once(HACKADEMIC_PATH."/controller/class.HackademicController.php");
 class ReadArticleController extends HackademicController{
-	public function go() {
 
-		$id=$_GET['id'];
-		$article=Article::getArticle($id);
+  private static $action_type = 'read_article';
+
+	public function go() {
+		$id = $_GET['id'];
+		$article = Article::getArticle($id);
 		$this->addToView('article', $article);
 		$this->setViewTemplate('readarticle.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

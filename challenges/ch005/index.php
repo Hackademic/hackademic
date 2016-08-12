@@ -31,24 +31,22 @@
 <font color="green">
 
 </head>
-
-
 <?php
-		include_once dirname(__FILE__).'/../../init.php';
-        session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET);
+include_once dirname(__FILE__).'/../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
 
-if (preg_match("/^p0wnBrowser/",$_SERVER['HTTP_USER_AGENT']))
-{
-			echo "<H1>Congratulations!</H1>";
-			$monitor->update(CHALLENGE_SUCCESS);
-}
-else
-{
-	$monitor->update(CHALLENGE_FAILURE);
+$solution = new RegexSolution('^p0wnBrowser');
+$validator = new ChallengeValidatorController($solution);
+$validator->startChallenge();
+
+$answer = $_SERVER['HTTP_USER_AGENT'];
+$valid = $validator->validateSolution($answer);
+if ($valid) {
+	echo "<h1>Congratulations!</h1>";
+} else {
 	echo "<h2><br><br>Unfortunately, you cannot access the contents of this site...<br>
-In order to do this, you must buy p0wnBrowser. It only costs 3500 euros.";
+	In order to do this, you must buy p0wnBrowser. It only costs 3500 euros.";
 }
 ?>
 

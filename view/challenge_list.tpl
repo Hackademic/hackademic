@@ -1,7 +1,7 @@
 {include file="_header_frontend.tpl"}
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">Challenges</h3></div>
+	<div class="page_title"><h3 class="left"> Challenges </h3></div>
     </div><br/>
     <ul style="list-style: none;">
         {foreach from=$list key=class_name item=class_challenges}
@@ -11,7 +11,7 @@
 						{foreach from=$class_challenges item=foo}
             <li style="margin-top: 10px; margin-bottom: 10px;">
             {if $foo['availability'] == public || $foo['class'] == true}
-                <a class="width100" href="{$site_root_path}pages/showchallenges.php?id={$foo['id']}&class_id={$foo['class_id']}">
+                <a class="width100" href="{$site_root_path}?url=showchallenges&id={$foo['id']}&class_id={$foo['class_id']}">
             {/if}
                     <span class="padding_menu">{$foo['title']}</span>
                 </a>

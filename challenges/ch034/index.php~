@@ -1,0 +1,43 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html>
+<head>
+<title>Challenge 14</title>
+<center>
+<body bgcolor="white" style="margin-left:35px">
+<img src="save_planet.png">
+</center>
+<font color="green">
+</head>
+<body>
+
+<h2>
+<hr>
+<?php
+
+include_once dirname(__FILE__).'/../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
+$monitor->update(CHALLENGE_INIT, $_GET);
+$_SESSION['init'] = true;
+			$connect=mysqli_connect(DB_HOST,"Hackademic_MYSQL",DB_PASSWORD,DB_NAME);
+	
+		$query="SELECT * FROM MobiStore_Mobiles WHERE Company='".$_GET['com_pass']."';";
+		$result= mysqli_query($connect,$query);
+		echo $query;
+		print_r($result);
+		while( $row=mysqli_fetch_array($result))
+		{
+			echo "<br />".$row[1]." ".$row[2]."<br />";
+		}
+		echo mysqli_error($connect);
+		if($result->num_rows>0)
+		{
+			echo "<h2>Welcome Commander</h2><br /> Mission to destroy planet in progress<br/> 
+				<a href='qsazlkd.php?abort=1'>Abort Mission</a>";
+		}
+		
+?>
+
+
+</body>
+</html>

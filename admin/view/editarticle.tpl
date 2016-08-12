@@ -39,33 +39,34 @@ tinyMCE.init({
 </script>
 <div class="main_content">
     <div class="header_bar">
-        <div class="page_title"><h3 class="left">Edit Article</h3></div>
+        <div class="page_title"><h3 class="left"> Edit Article </h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
 
     <div id="input_form">
-    <form method="post" action="{$site_root_path}admin/pages/editarticle.php?id={$article->id}">
+    <form method="post" action="{$site_root_path}?url=admin/editarticle&id={$article->id}">
+	<input type="hidden" name="csrf_token" value="{$token}">
         <table class="article_main">
             <tr>
                 <td class="bottom"><label>Title</label></td>
                 <td class="bottom"><input type="text"name="title" value="{$article->title}"/></td>
             </tr>
             <tr>
-                <td><label>Publish Article</label></td>
+                <td><label> Publish Article </label></td>
                 <td class="radio">
                     {if $article->is_published}
-                        <input type="radio" name="is_published" value="1" checked="true" /> yes
-                        <input type="radio" name="is_published" value="0" /> no
+                        <input type="radio" name="is_published" value="1" checked="true" />  Yes 
+                        <input type="radio" name="is_published" value="0" />  No 
                     {else}
-                        <input type="radio" name="is_published" value="1"  /> yes
-                        <input type="radio" name="is_published" value="0" checked="true" /> no
+                        <input type="radio" name="is_published" value="1"  />  Yes 
+                        <input type="radio" name="is_published" value="0" checked="true" />  No 
                     {/if}
                 </td>
             </tr>
             <tr><td><label> Delete Article?</label></td>
             <td><input type="checkbox" name="deletesubmit" value="Delete Article"/></td></tr>
             <tr>
-                <td colspan=2"><label>Write your Article</label></td>
+                <td colspan=2"><label> Write your Article </label></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -74,7 +75,7 @@ tinyMCE.init({
             </tr>
             <tr>
                 <td colspan="2">
-                    <p class="submit">
+                    <p id="submit" class="submit">
                         <input type="submit" name="submit" value="submit"/>
                     </p>
                 </td>

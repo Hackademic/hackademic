@@ -41,9 +41,12 @@ require_once(HACKADEMIC_PATH."/model/common/class.UserScore.php");
 require_once(HACKADEMIC_PATH."/model/common/class.Debug.php");
 
 class ProgressReportController extends HackademicController{
+
+  private static $action_type = 'progress_report';
+
 	public function go() {
 		$this->setViewTemplate('progressreport.tpl');
-		if ($this->isAdmin() || $this->isTeacher()) {
+		if (self::isAdmin() || self::isTeacher()) {
 			$this->addToView('search_box', true);
 			if (isset($_GET['username'])) {
 				$username = $_GET['username'];
@@ -55,17 +58,17 @@ class ProgressReportController extends HackademicController{
 			$user = User::findByUserName($username);
 			if (!$user) {
 				$this->addErrorMessage("You provided an invalid username");
-				return $this->generateView();
+                return $this->generateView(self::$action_type);
 			} elseif ($user->type) {
 				$this->addErrorMessage("Please select a student!");
-				return $this->generateView();
+				return $this->generateView(self::$action_type);
 			}
-			//$challenges_of_user = UserChallenges::getChallengesOfUser($user->id);
+
 			$data = array();
 			$class_ids = array();
 			$class_scores = array();
 			$classes_of_user = ClassMemberships::getMembershipsOfUserObjects($user->id);
-
+			//var_dump(UserChallenges::getChallengesOfUser($user->id));
 			foreach($classes_of_user as $class){
 				$progress = ChallengeAttempts::getUserProgress($user->id, $class->id);
 				$user_scores = UserScore::get_scores_for_user_class($user->id, $class->id);
@@ -74,14 +77,15 @@ class ProgressReportController extends HackademicController{
 				$class_scores[$class->name] = $data;
 				$class_ids[$class->name] = $class->id;
 			}
-
+			//echo'</p>';var_dump($class_scores);
+			//echo'</p>';var_dump($class_scores);
 			$this->addToView('data', $class_scores);
 			$this->addToView('ids', $class_ids);
 		} else {
 			$this->addErrorMessage("Please select a student to see his progress");
 		}
 
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 	private function build_scoring_info($class_challenges, $progress_arr, $user_scores){
 
@@ -106,23 +110,27 @@ class ProgressReportController extends HackademicController{
 			foreach($progress_arr as $chal_prog){
 				if($challenge['challenge_id'] == $chal_prog->challenge_id){ /* Find its progress*/
 					$attempts = $chal_prog->tries;/*so we know the attempt count and if and when its cleared*/
-					if( 1 === $chal_prog->status){
-						$cleared = true;
-						$cleared_on = $chal_prog->time;
-						break;
+						if( 1 === $chal_prog->status){
+							$cleared = true;
+							$cleared_on = $chal_prog->time;
+							//unset($progress[$chal_prog]);
+							break;
+						}
 					}
 				}
-			}
-			$arr = array(
+				$arr = array(
 				'id' => $challenge['challenge_id'],
-				'title' => $challenge['challenge_id'],
-				'attempts' => $attempts,
-				'cleared' => $cleared,
+				'title' => $challenge['title'],
+					'attempts' => $attempts,
+					'cleared' => $cleared,
 				'cleared_on' => $cleared_on,
 				'points' => $pts
-			);
-			array_push($data, $arr);
-		}
+				);
+				//echo'</p>';var_dump($arr);
+				array_push($data, $arr);
+
+			}
+			//var_dump($cleared_challenges);
 		return $data;
 	}
 }

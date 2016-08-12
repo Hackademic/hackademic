@@ -32,6 +32,7 @@
  */
 require_once(HACKADEMIC_PATH."/model/common/class.User.php");
 require_once(HACKADEMIC_PATH."/esapi/class.Esapi_Utils.php");
+require_once(HACKADEMIC_PATH."extlib/NoCSRF/nocsrf.php");
 class Session {
 	
 	/*
@@ -40,7 +41,7 @@ class Session {
 	 * To be used only with the excibition mode
 	 * */
 	public static function loginGuest(){
-		if(!defined('EXCIBITION_MODE') || EXCIBITION_MODE != true)
+		if(!defined('EXHIBITION_MODE') || EXHIBITION_MODE != true)
 			die("loginGuest called even though we're not in excibition mode, this is most likely a bug please report it");
 		self::init(7200);
 		//setup session vars
@@ -74,6 +75,7 @@ class Session {
 		User::updateLastVisit($owner->username);
 		self::init(SESS_EXP_INACTIVE);
 		//setup session vars
+		$_SESSION['token'] = NoCSRF::generate( 'csrf_token' );
 		$_SESSION['hackademic_user'] = $owner->username;
 		$_SESSION['hackademic_user_id'] = $owner->id;
 		$_SESSION['hackademic_user_type'] = $owner->type;
@@ -160,6 +162,7 @@ class Session {
 					$ESAPI_utils = new Esapi_Utils();
 				}
 				session_id($ESAPI_utils->getHttpUtilities()->getCSRFToken());
+				ini_set( 'session.cookie_httponly', 1 );
 				session_start();
 				//error_log(session_id(),0);
 				$_SESSION['TOKEN'] = $ESAPI_utils->getHttpUtilities()->getCSRFToken();
@@ -187,6 +190,7 @@ class Session {
 			error_log("HACKADEMIC:: Regenerating session id possible bug detected", 0);
 			self::regenerateSession();
 		}else{
+			ini_set( 'session.cookie_httponly', 1 );
 			session_start();
 
 			/*If this is a guest session (init hasn't been called first)*/
@@ -195,7 +199,7 @@ class Session {
 			}
 			// Reset the expiration time upon page load
 			if (isset($_COOKIE[SESS_NAME])){
-				setcookie(SESS_NAME, session_id(), time() + $limit, $path);
+				setcookie(SESS_NAME, session_id(), time() + $limit, $path, null, null, true);
 			}
 		}
 		//currently we are only checking the session for logged in users
@@ -220,7 +224,10 @@ class Session {
 	 */
 	public static function isValid($token = null){
 
-		//return true;
+		//security bypas
+		// in case of exhibition mode there are no individual users
+		if(defined('EXHIBITION_MODE') && EXHIBITION_MODE === true)
+			return true;
 
 		if( isset($_SESSION['OBSOLETE']) && (!isset($_SESSION['EXPIRES']) || !isset($_SESSION['LAST_ACCESS'])) ){
 			error_log("HACKADEMIC:: Session validation: OBSOLETE session detected", 0);
@@ -293,7 +300,10 @@ class Session {
 
 		// Set session ID to the new one, and start it back up again
 		session_id($newSession);
+		ini_set( 'session.cookie_httponly', 1 );
 		session_start();
+
+		$_SESSION['token'] = NoCSRF::generate( 'csrf_token' );
 
 		// Now we unset the obsolete and expiration values for the session we want to keep
 		unset($_SESSION['OBSOLETE']);

@@ -38,6 +38,7 @@ class LogoutController extends HackademicController{
 	public function go() {
 		Session::logout();
 		header('Location:'.SOURCE_ROOT_PATH);
+		die();
 		}
 
 }

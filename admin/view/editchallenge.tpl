@@ -39,21 +39,22 @@ tinyMCE.init({
 </script>
 <div class="main_content">
     <div class="header_bar">
-        <div class="page_title"><h3 class="left">Edit Challenge</h3></div>
+        <div class="page_title"><h3 class="left"> Edit Challenge </h3></div>
     </div><br/>
 	 <div id="usermessage">{include file="_usermessage.tpl"}</div>
 	  <div id="input_form">
     <form id="form" name="form" method="post">
+	<input type="hidden" name="csrf_token" value="{$token}">
 	<table class="article_main">
 	<tr><td>
-		   	<p class="submit left" id="try_me"><a href="{$site_root_path}admin/pages/editcode.php?id={$challenge->id}" name="submit">Edit Code</a></p></td>
+		   	<p class="submit left" id="try_me"><a href="{$site_root_path}?url=admin/editcode&id={$challenge->id}" name="submit"> Edit Code </a></p></td>
 		</tr>
 	    <tr>
 		<td><label for="name">Title</label></td>
 		<td><input type="text" name="title" value="{$challenge->title}"/></td>
 	    </tr>
 	    <tr>
-		<td><label for="name">Description</label></td>
+		<td><label for="name"> Description </label></td>
 	    </tr>
 	    <tr>
                 <td colspan="2">
@@ -63,48 +64,48 @@ tinyMCE.init({
 		
 		
 		<tr>
-		<td><label for="visibility">Visibility</label></td>
+		<td><label for="visibility"> Visibility </label></td>
 		<td><select name="visibility">
 			    {if $challenge->visibility=="public"}
-               <option value="public" selected="selected">Public</option>
-			   <option value="private" >Private</option>
+               <option value="public" selected="selected"> Public </option>
+			   <option value="private" > Private </option>
 			   {else $challenge->visibility=="private"}
-               <option value="private" selected="selected">Private</option>
-			   <option value="public" >Public</option>
+               <option value="private" selected="selected"> Private </option>
+			   <option value="public" > Public </option>
 			   {/if}
 			   </select></td>
 		</tr>
 		<tr>
-		<td><label for="visibility">Availability</label></td>
+		<td><label for="visibility"> Availability </label></td>
 		<td><select name="availability">
 			    {if $challenge->availability=="public"}
-               <option value="public" selected="selected">Public</option>
-			   <option value="private" >Private</option>
+               <option value="public" selected="selected"> Public </option>
+			   <option value="private" > Private </option>
 			   {else $challenge->availability=="private"}
-               <option value="private" selected="selected">Private</option>
-			   <option value="public" >Public</option>
+               <option value="private" selected="selected"> Private </option>
+			   <option value="public" > Public </option>
 			   {/if}
 			   </select></td>
 		
 		</tr>
 		<tr>
-		<td><label for="publish">Published</label></td>
+		<td><label for="publish"> Published </label></td>
 		<td><select name="publish">
 			    {if $challenge->publish==0}
-               <option value="0" selected="selected">Not published</option>
-			   <option value="1" >Publish</option>
+               <option value="0" selected="selected"> Not published </option>
+			   <option value="1" > Publish </option>
 			   {else}
-               <option value="1" selected="selected">Publish</option>
-			   <option value="0" >Public</option>
+               <option value="1" selected="selected"> Publish </option>
+			   <option value="0" > Public </option>
 			   {/if}
 			   </select></td>
 		</tr>
 		 <tr>
-		<td><label for="name">Level</label></td>
+		<td><label for="name"> Level </label></td>
 		<td><input type="text" name="level" value="{$challenge->level}"/></td>
 		</tr>
 		 <tr>
-		<td><label for="name">Duration(minutes)</label></td>
+		<td><label for="name"> Duration(minutes) </label></td>
 		<td><input type="text" name="duration" value="{$challenge->duration}"/></td>
 		</tr>
 		<tr>

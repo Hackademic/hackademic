@@ -2,16 +2,17 @@
 <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/pagination.css"/>
 <div class="main_content">
     <div class="header_bar">
-	<div class="page_title"><h3 class="left">Scoring Rules For: <span style="color:black">{$class_name}</span> Challenge: <span style="color:black">{$challenge_name}</span></h3></div>
+	<div class="page_title"><h3 class="left"> Scoring Rules For:  <span style="color:black">{$class_name}</span> Challenge:  <span style="color:black">{$challenge_name}</span></h3></div>
     </div><br/>
     <div id="usermessage">{include file="_usermessage.tpl"}</div>
     <br/><br/>
     <table class="manager_table">
 	<thead>
-	    <th>Rule Name</th>
-	    <th>Value</th>
+	    <th> Rule Name </th>
+	    <th> Value </th>
 	</thead>
 	<form method=POST>
+	<input type="hidden" name="csrf_token" value="{$token}">
 	{foreach from=$rules key=name item=rule}
 	    <tr>
 		<td>{$rule_names[$name]}</td>

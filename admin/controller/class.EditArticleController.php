@@ -41,6 +41,8 @@ class EditArticleController extends HackademicBackendController {
 	public $publish;
 	public $article;
 
+  private static $action_type = 'edit_article';
+
 	public function go() {
 		$this->saveFormFields();
 		if (isset($_GET['id'])) {
@@ -57,12 +59,14 @@ class EditArticleController extends HackademicBackendController {
 			} elseif ($_POST['content']=='') {
 				$this->addErrorMessage("Article post should not be empty");
 			} else {
-				$this->title = Utils::sanitizeInput($this->title);
-				$this->is_published=$_POST['is_published'];
-				$this->content = $_POST['content'];//TODO somehow we must check if this is malicious
-				$this->last_modified=date("Y-m-d H-i-s");
-				$this->last_modified_by=Session::getLoggedInUser();
-				ArticleBackend::updateArticle($id,$this->title,$this->content,$this->last_modified,$this->last_modified_by);
+				$article = new Article();
+				$article->id = $id;
+				$article->title = Utils::sanitizeInput($this->title);
+				$article->is_published = $_POST['is_published'];
+				$article->content = $_POST['content'];//TODO somehow we must check if this is malicious
+				$article->last_modified = date("Y-m-d H-i-s");
+				$article->last_modified_by = Session::getLoggedInUser();
+				ArticleBackend::updateArticle($article);
 				$this->addSuccessMessage("Article has been updated succesfully");
 			}
 		}
@@ -71,9 +75,10 @@ class EditArticleController extends HackademicBackendController {
 		$this->addToView('article', $article);
 		if(isset($_POST['deletesubmit'])) {
 			ArticleBackend::deleteArticle($id);
-			header('Location:'.SOURCE_ROOT_PATH."admin/pages/articlemanager.php");
+			header('Location:'.SOURCE_ROOT_PATH."?url=admin/articlemanager");
+			die();
 		}
-		$this->generateView();
+		$this->generateView(self::$action_type);
 
 	}
 	public function saveFormFields(){

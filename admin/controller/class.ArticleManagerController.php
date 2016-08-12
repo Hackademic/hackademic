@@ -35,6 +35,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class ArticleManagerController extends HackademicBackendController {
 
+  private static $action_type = 'article_manager';
+
 	public function go() {
 		if (isset($_GET['source']) && $_GET['source']=="del") {
 			$this->addSuccessMessage("Article has been deleted succesfully");
@@ -45,7 +47,8 @@ class ArticleManagerController extends HackademicBackendController {
 		} else {
 			$total_pages = ArticleBackend::getNumberOfArticles();
 		}
-		$targetpage = SOURCE_ROOT_PATH."admin/pages/articlemanager.php";
+
+		$targetpage = SOURCE_ROOT_PATH."?url=admin/articlemanager";
 		$stages = 5;
 		$page=0;
 
@@ -73,15 +76,16 @@ class ArticleManagerController extends HackademicBackendController {
 		$LastPagem1 = $lastpage - 1;					
 
 		$pagination = array (
-				'lastpage' => $lastpage,
-				'page' => $page,
-				'targetpage' => $targetpage,
-				'prev' => $prev,
-				'next' => $next,
-				'stages' => $stages,
-				'last_page_m1' => $LastPagem1
-				);
-		if (isset($_GET['search']) && isset($_GET['category']) && $_GET['search']!='' && $_GET['category']!='') {
+      'lastpage' => $lastpage,
+      'page' => $page,
+	    'targetpage' => $targetpage,
+			'prev' => $prev,
+			'next' => $next,
+			'stages' => $stages,
+			'last_page_m1' => $LastPagem1
+		);
+
+    if (isset($_GET['search']) && isset($_GET['category']) && $_GET['search']!='' && $_GET['category']!='') {
 			$articles = ArticleBackend::getNArticles($start,$limit,$_GET['search'],$_GET['category']);
 		} else {
 			$articles = ArticleBackend::getNarticles($start,$limit);
@@ -90,6 +94,6 @@ class ArticleManagerController extends HackademicBackendController {
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('articlemanager.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

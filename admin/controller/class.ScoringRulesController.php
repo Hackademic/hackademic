@@ -46,6 +46,7 @@ class ScoringRulesController extends HackademicBackendController {
 
 		if (!isset($_GET['class_id'])) {
 			header('Location: '.SOURCE_ROOT_PATH."admin/pages/manageclass.php");
+			die();
 		}
 		$_POST['class_id'] = $class_id = $_GET['class_id'];
 		$_POST['challenge_id'] = $challenge_id = $_GET['cid'];
@@ -55,6 +56,7 @@ class ScoringRulesController extends HackademicBackendController {
 		if(isset($_POST['updaterule'])) {
 				if ($_POST['updaterule']=='') {
 					header('Location: '.SOURCE_ROOT_PATH."admin/pages/scoringrules.php?id=$class_id&action=editerror");
+					die();
 				}
 				elseif($_POST['updaterule'] == 'Edit Rule') {
 					$newRule = $this->request_to_rule_object($_POST);

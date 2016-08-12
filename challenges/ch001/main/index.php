@@ -11,12 +11,18 @@
 ?>
 <?php
 
+include_once dirname(__FILE__).'/../../../init.php';
+session_start();
+require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
+
+$solution = 'Friday13@JasonLives.com';
+$validator = new ChallengeValidatorController($solution);
 
 $name1 = $_POST["name1"];
 $name2 = $_POST["name2"];
 
-if ($name1==='white' and $name2==='rabbit' ){
-	//$monitor->update(CHALLENGE_SUCCESS);
+if ($name1==='white' and $name2==='rabbit') {
+
 ?>
 
 <html>
@@ -43,11 +49,12 @@ if ($name1==='white' and $name2==='rabbit' ){
 	</html>
 
 
-<?php  	
-}
-else  
-{	//session_start();
-	//$monitor->update(CHALLENGE_FAILURE);
+<?php
+
+} else {
+	// That's a failure.
+	$validator->failChallenge();
+
 ?>
 <head>
 <meta http-equiv="Content-Language" content="en-us">
@@ -70,8 +77,6 @@ else
 <h1>Wrong Code or Password!</h1>
 
 </html>
-
-
 <?php 
 }
 ?>

@@ -1,31 +1,31 @@
 <?php
 
-/**
+/** 
  *    ----------------------------------------------------------------
  *    OWASP Hackademic Challenges Project
  *    ----------------------------------------------------------------
- *    Copyright (C) 2010-2011
+ *    Copyright (C) 2010-2011 
  *   	  Andreas Venieris [venieris@owasp.gr]
  *   	  Anastasios Stasinopoulos [anast@owasp.gr]
  *    ----------------------------------------------------------------
  */
-
+ 
 ?>
 <?php
-		include_once dirname(__FILE__).'/../../init.php';
-        session_start();
-        require_once(HACKADEMIC_PATH."pages/challenge_monitor.php");
-        $monitor->update(CHALLENGE_INIT,$_GET);
-        $_SESSION['init'] = true;
+include_once dirname(__FILE__).'/../../init.php';		
+session_start();
+require_once(HACKADEMIC_PATH."controller/class.ChallengeValidatorController.php");
+
+$solution = 'enter a coin to play';
+$validator = new ChallengeValidatorController($solution);
+$validator->startChallenge();
+$_SESSION['init'] = true;
 
 if(isset($_GET['Result'])){
-	$result =  $_GET['Result'];
-	if ($result === 'enter a coin to play'){
+	$answer = $_GET['Result'];
+	$valid = $validator->validateSolution($answer);
+	if ($valid){
 		echo "<h1><br><center>Congratulations!</br></cetner></h1>";
-		$monitor->update(CHALLENGE_SUCCESS,$_GET);
-	}
-	else{
-		$monitor->update(CHALLENGE_FAILURE,$_GET);
 	}
 }
 ?>
@@ -69,7 +69,7 @@ if(isset($_GET['Result'])){
 <div id="top_nav">
 	<h1 style="BORDER-BOTTOM: medium none; TEXT-ALIGN: center; BORDER-LEFT: medium none; PADDING-BOTTOM: 0cm; PADDING-LEFT: 0cm; PADDING-RIGHT: 0cm; BORDER-TOP: medium none; BORDER-RIGHT: medium none; PADDING-TOP: 0cm; mso-border-bottom-alt: solid windowtext .5pt; mso-padding-alt: 0cm 0cm 1.0pt 0cm" align="center">
 	<span style="FONT-SIZE: 8pt; mso-ansi-language: EN-US" lang="EN-US" class="style2">
-	UNAUTHORISED ENTRY IS PROHIBITED AND OFFENDERS WILL BE PROSECUTED
+	UNAUTHORISED ENTRY IS PROHIBITED AND OFFENDERS WILL BE PROSECUTED 
 <o:p></o:p></span></h1>
 </div>
 <div id="page_content" class="style3">
@@ -83,44 +83,44 @@ if(isset($_GET['Result'])){
 </div>
 <div id="footer" class="style1">
 	<a href="http://www.free-images.org.uk"><img src="http://www.free-images.org.uk/military/sherman-m4a1e8.jpg" alt="Image: free-images.org.uk" text="Image: free-images.org.uk" width="200" height="199"></a>
-
+	
 	<a href="http://www.free-images.org.uk"><img src="http://www.free-images.org.uk/military/mg42.jpg" alt="Image: free-images.org.uk" width="235" height="200"></a>
 
 </div>
 
 </body>
 <script language="javascript">
-
+		
 	function GetPassInfo(){
         var madhouuuuuuuseeee = "givesacountinatoap lary"
-
+                                
 
 	var a = madhouuuuuuuseeee.charAt(0);  var d = madhouuuuuuuseeee.charAt(3);   var r = madhouuuuuuuseeee.charAt(16);
-	var b = madhouuuuuuuseeee.charAt(1);  var e = madhouuuuuuuseeee.charAt(4);   var j = madhouuuuuuuseeee.charAt(9);
-	var c = madhouuuuuuuseeee.charAt(2);  var f = madhouuuuuuuseeee.charAt(5);   var g = madhouuuuuuuseeee.charAt(4);
-	var j = madhouuuuuuuseeee.charAt(9);  var h = madhouuuuuuuseeee.charAt(6);   var l = madhouuuuuuuseeee.charAt(11);
-	var g = madhouuuuuuuseeee.charAt(4);  var i = madhouuuuuuuseeee.charAt(7);   var x = madhouuuuuuuseeee.charAt(21);
-	var l = madhouuuuuuuseeee.charAt(11); var p = madhouuuuuuuseeee.charAt(4);   var m = madhouuuuuuuseeee.charAt(4);
-	var s = madhouuuuuuuseeee.charAt(17); var k = madhouuuuuuuseeee.charAt(10);  var d = madhouuuuuuuseeee.charAt(3);
-	var t = madhouuuuuuuseeee.charAt(18); var n = madhouuuuuuuseeee.charAt(12);  var e = madhouuuuuuuseeee.charAt(4);
-	var a = madhouuuuuuuseeee.charAt(0);  var o = madhouuuuuuuseeee.charAt(13);  var f = madhouuuuuuuseeee.charAt(5);
-	var b = madhouuuuuuuseeee.charAt(1);  var q = madhouuuuuuuseeee.charAt(15);  var h = madhouuuuuuuseeee.charAt(6);
-	var c = madhouuuuuuuseeee.charAt(2);  var h = madhouuuuuuuseeee.charAt(6);   var i = madhouuuuuuuseeee.charAt(7);
-	var j = madhouuuuuuuseeee.charAt(9);  var i = madhouuuuuuuseeee.charAt(7);   var y = madhouuuuuuuseeee.charAt(22);
-	var g = madhouuuuuuuseeee.charAt(4);  var p = madhouuuuuuuseeee.charAt(4);
-	var l = madhouuuuuuuseeee.charAt(11); var k = madhouuuuuuuseeee.charAt(10);
-	var q = madhouuuuuuuseeee.charAt(19); var n = madhouuuuuuuseeee.charAt(12);
-	var m = madhouuuuuuuseeee.charAt(4);  var o = madhouuuuuuuseeee.charAt(13);
-
+	var b = madhouuuuuuuseeee.charAt(1);  var e = madhouuuuuuuseeee.charAt(4);   var j = madhouuuuuuuseeee.charAt(9);     
+	var c = madhouuuuuuuseeee.charAt(2);  var f = madhouuuuuuuseeee.charAt(5);   var g = madhouuuuuuuseeee.charAt(4);     
+	var j = madhouuuuuuuseeee.charAt(9);  var h = madhouuuuuuuseeee.charAt(6);   var l = madhouuuuuuuseeee.charAt(11);    
+	var g = madhouuuuuuuseeee.charAt(4);  var i = madhouuuuuuuseeee.charAt(7);   var x = madhouuuuuuuseeee.charAt(21);    
+	var l = madhouuuuuuuseeee.charAt(11); var p = madhouuuuuuuseeee.charAt(4);   var m = madhouuuuuuuseeee.charAt(4);      
+	var s = madhouuuuuuuseeee.charAt(17); var k = madhouuuuuuuseeee.charAt(10);  var d = madhouuuuuuuseeee.charAt(3);      
+	var t = madhouuuuuuuseeee.charAt(18); var n = madhouuuuuuuseeee.charAt(12);  var e = madhouuuuuuuseeee.charAt(4);      
+	var a = madhouuuuuuuseeee.charAt(0);  var o = madhouuuuuuuseeee.charAt(13);  var f = madhouuuuuuuseeee.charAt(5);      
+	var b = madhouuuuuuuseeee.charAt(1);  var q = madhouuuuuuuseeee.charAt(15);  var h = madhouuuuuuuseeee.charAt(6);      
+	var c = madhouuuuuuuseeee.charAt(2);  var h = madhouuuuuuuseeee.charAt(6);   var i = madhouuuuuuuseeee.charAt(7);      
+	var j = madhouuuuuuuseeee.charAt(9);  var i = madhouuuuuuuseeee.charAt(7);   var y = madhouuuuuuuseeee.charAt(22);          
+	var g = madhouuuuuuuseeee.charAt(4);  var p = madhouuuuuuuseeee.charAt(4);        
+	var l = madhouuuuuuuseeee.charAt(11); var k = madhouuuuuuuseeee.charAt(10);       
+	var q = madhouuuuuuuseeee.charAt(19); var n = madhouuuuuuuseeee.charAt(12);       
+	var m = madhouuuuuuuseeee.charAt(4);  var o = madhouuuuuuuseeee.charAt(13);       
+	
 	var p = madhouuuuuuuseeee.charAt(4)
 	var Wrong = (d+""+j+""+k+""+d+""+x+""+t+""+o+""+t+""+h+""+i+""+l+""+j+""+t+""+k+""+i+""+t+""+s+""+q+""+f+""+y)
-
+	
 	/*if (document.forms[0].Password1.value == Wrong)
 		location.href="index.php?Result=" + Wrong;
 	*/
 	location.href="index.php?Result=" + document.forms[0].Password1.value;
 	}
-
+	
 
 </script>
 

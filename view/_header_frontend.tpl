@@ -7,6 +7,18 @@
     <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/style.css" />
     <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/pagination.css" />
     <link rel="stylesheet" type="text/css" href="{$site_root_path}assets/css/base.css" />
+    {literal}
+    <style id="antiClickjack">body{display:none !important;}</style>
+
+    <script type="text/javascript">
+   	if (self === top) {
+       		var antiClickjack = document.getElementById("antiClickjack");
+       		antiClickjack.parentNode.removeChild(antiClickjack);
+   	} else {
+       		top.location = self.location;
+   	}
+    </script>
+    {/literal}
 </head>
 <body>
     <div id="main">
@@ -31,28 +43,27 @@
 		<div id="topMenuHeader"> 
 		    <ul id="topMenu">
 			    <em id="username">Hi {$logged_in_user},</em><!--<br/>-->
-			{foreach from=$user_menu item=foo}
-			    <li>
-				<a href="{$site_root_path}{$foo['url']}">{$foo['title']}</a>
-			    </li>
-			{/foreach}
+  		    {foreach from=$user_menu['parents'][0] item=itemId}
+            <li class="menu-item">
+              <a href="{$site_root_path}?url={$user_menu['items'][$itemId]['url']}">{$user_menu['items'][$itemId]['label']}</a>
+              {if isset($user_menu['parents'][$itemId])}
+                <ul class="sub-menu">
+                {foreach from=$user_menu['parents'][$itemId] item=subItemId}
+                  <li>
+                    <a href="{$site_root_path}?url={$user_menu['items'][$subItemId]['url']}">{$user_menu['items'][$subItemId]['label']}</a>
+                  </li>
+                {/foreach}
+                </ul>
+              {/if}
+            </li>
+  		    {/foreach}
 		    </ul>
 		</div>
 	    {/if}
 	    <table id="mainTable">
 		<tr>
 		    <td id="left_bar" valign="top">			
-			{if isset($main_menu)}
-			<!-- Main Menu -->
-			<div id="menuHeader" class="menubg flt"> 
-			    <ul id="mainMenu" class="menu flt">
-				{foreach from=$main_menu item=foo}
-				<li>
-				<a class="width100" href="{if !isset($foo['external'])}{$site_root_path}{/if}{$foo['url']}"><span class="padding_menu">{$foo['title']}</span></a></li>
-				{/foreach}
-			    </ul>
-			</div>
-			<br/>{/if}<br/>
+			    <br/>
 		    </td>
 		    <td id="main_content" valign="top">
 			<div id="usermessage">{include file="_usermessage.tpl"}</div>

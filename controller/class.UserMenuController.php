@@ -30,10 +30,11 @@
  * @copyright 2012 OWASP
  *
  */
+require_once(HACKADEMIC_PATH . 'model/common/class.Menu.php');
 
 class UserMenuController{
 
-	public function go() {
+	public static function go() {
 		$menu = self::createMainMenu();
 		return $menu;
 	}
@@ -41,77 +42,16 @@ class UserMenuController{
 	/**
 	 * Create Main Menu
 	 */
-	protected function createMainMenu() {
+	protected static function createMainMenu() {
 		if(Session::isAdmin()){
-			$link0 = array ('title'=>'Home', 'url'=>'admin/');
-			$link1 = array ('title'=>'Add New Articles', 'url'=>'admin/pages/addarticle.php');
-			$link2 = array ('title'=>'Article Manager', 'url'=>'admin/pages/articlemanager.php');
-			$link3 = array ('title'=>'Users/Classes', 'url'=>'admin/pages/usermanager.php');
-			$link4 = array ('title'=>'Add New Challenge', 'url'=>'admin/pages/addchallenge.php?type=code');
-			$link5 = array ('title'=>'Challenge Manager', 'url'=>'admin/pages/challengemanager.php');
-			$link6 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
-
-			$menu = array(
-					$link0,
-					$link1,
-					$link2,
-					$link3,
-					$link4,
-					$link5,
-					$link6
-				     );
+			$menu = Menu::getMenu(Menu::ADMIN_MENU)->items;
 		} elseif(Session::isTeacher()) {
-			/*$link1 = array ('title'=>'Admin Dashboard', 'url'=>'admin');
-			$link2 = array ('title'=>'Article Manager', 'url'=>'admin/pages/articlemanager.php');
-			$link3 = array ('title'=>'User Manager', 'url'=>'admin/pages/usermanager.php');
-			$link4 = array ('title'=>'Create Class', 'url'=>'admin/pages/manageclass.php');
-			$link5 = array ('title'=>'Add Challenge', 'url'=>'admin/pages/addchallenge.php');
-			$link6 = array ('title'=>'Monitor Students', 'url'=>'pages/progress.php');
-			$link7 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
-
-			$menu = array(
-					$link1,
-					$link2,
-					$link3,
-					$link4,
-					$link5,
-					$link6,
-					$link7
-				     );*//*TODO make both admin and teacher menus more sensible*/
-			$link0 = array ('title'=>'Admin Dashboard', 'url'=>'admin/');
-			$link1 = array ('title'=>'Add New Articles', 'url'=>'admin/pages/addarticle.php');
-			$link2 = array ('title'=>'Article Manager', 'url'=>'admin/pages/articlemanager.php');
-			$link3 = array ('title'=>'Users/Classes', 'url'=>'admin/pages/usermanager.php');
-			$link4 = array ('title'=>'Add New Challenge', 'url'=>'admin/pages/addchallenge.php?type=code');
-			$link5 = array ('title'=>'Challenge Manager', 'url'=>'admin/pages/challengemanager.php');
-			$link6 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
-
-			$menu = array(
-					$link0,
-					$link1,
-					$link2,
-					$link3,
-					$link4,
-					$link5,
-					$link6
-				     );
-		} else {$link0 = array ('title'=>'Home', 'url'=>'index.php');
-			$link1 = array ('title'=>'Progress Report', 'url'=>'pages/progress.php');
-			$link2 = array ('title'=>'Ranking', 'url'=>'pages/ranking.php');
-			$link3 = array ('title'=>'Logout', 'url'=>'pages/logout.php');
-			$link4 = array ('title'=>'Challenges', 'url'=>'pages/challengelist.php');
-			/*$link5 = array ('title'=>'Global Rankings', 'url'=>'pages/ranking.php');*/
-			$menu = array(
-					$link0,
-					$link1,
-					$link2,
-					$link4,
-					/*$link5,*/
-					$link3
-
-				     );
+			$menu = Menu::getMenu(Menu::TEACHER_MENU)->items;
+		} else { 
+			$menu = Menu::getMenu(Menu::STUDENT_MENU)->items;        
 		}
 		return $menu;
 	}
+  
 }
 

@@ -33,24 +33,42 @@
 require_once(HACKADEMIC_PATH."model/common/class.Session.php");
 require_once(HACKADEMIC_PATH."admin/controller/class.MenuController.php");
 require_once(HACKADEMIC_PATH."controller/class.HackademicController.php");
+require_once(HACKADEMIC_PATH."extlib/NoCSRF/nocsrf.php");
 
 class HackademicBackendController extends HackademicController {
 
 	public function __construct() {
 		HackademicController::__construct();
+
+		$token = $_SESSION['token'];
+		$this->addToView('token', $token);
+
+		if ( isset($_POST['submit']) ) {		
+			try {
+				//this is only for post requests and for testing purposes
+				NoCSRF::check( 'csrf_token', $_POST, true, 60*10, true );
+			}
+			catch ( Exception $e ) {
+				// CSRF attack detected
+				die('Invalid CSRF token');
+			}
+		}
+
 		// Login Controller, do nothing
-		if (get_class($this) == 'LoginController');
-		elseif (!$this->isLoggedIn()) {
-			// Else if not logged in, go to login page
-			//error_log("HACKADEMIC:: admin dashboard FAILURE", 0);
-			header('Location: '.SOURCE_ROOT_PATH."admin/pages/login.php");
-		} elseif ($this->isLoggedIn()) {
-			// Else if is logged in
-		 	if (($this->isAdmin() || ($this->isTeacher()))) {
+		if (get_class($this) == 'LoginController')
+			return;
+		if (!self::isLoggedIn()) {
+			header('Location: '.SOURCE_ROOT_PATH."?url=admin/login");
+			die();
+		} elseif (self::isLoggedIn()) {
+		 	if ((self::isAdmin() || (self::isTeacher()))) {
 				// If is Admin or Teacher, go to Admin Dashboard
 				$menu=MenuController::go();
 				$this->addToView("main_menu_admin",$menu);
-			} else header('Location: '.SOURCE_ROOT_PATH);
+			} else{
+				 header('Location: '.SOURCE_ROOT_PATH);
+				 die();
+			}
 				// Else go to main site
 		}
 	}
@@ -61,6 +79,12 @@ class HackademicBackendController extends HackademicController {
 	 * @param $tmpl str Template name
 	 */
 	public function setViewTemplate($tmp1) {
-		$this->view_template=HACKADEMIC_PATH.'admin/view/'.$tmp1;
+    $admin_path = $this->smarty->admin_theme_path . $tmp1;
+    $path = Plugin::apply_filters_ref_array('set_admin_view_template', array($admin_path));
+    if($path == "") {
+        $path = $admin_path;
+    }
+		$this->view_template = HACKADEMIC_PATH . $path;
 	}
+  
 }

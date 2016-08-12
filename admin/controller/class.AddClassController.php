@@ -37,6 +37,8 @@ require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class AddClassController extends HackademicBackendController {
 
+  private static $action_type = 'add_class';
+
 	public function go() {
 		$this->setViewTemplate('addclass.tpl');
 		if(isset($_POST['submit'])) {
@@ -51,10 +53,10 @@ class AddClassController extends HackademicBackendController {
 				}
 				else{
 				Classes::addClass($classname,$date_created);
-				header('Location: '.SOURCE_ROOT_PATH."admin/pages/manageclass.php?source=addclass");
+				header('Location: '.SOURCE_ROOT_PATH."?url=admin/manageclass&source=addclass");
 			    }
 			}
 		}
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 } 

@@ -37,13 +37,13 @@ require_once(HACKADEMIC_PATH."model/common/class.User.php");
 
 class MainLoginController extends HackademicController {
 
+  private static $action_type = 'main_login';
+
 	public function go() {
 		$this->setViewTemplate('mainlogin.tpl');
 		if(isset($_GET["msg"])){
-			if($_GET["msg"]=="username"){
-				$this->addErrorMessage("The username or password you entered is incorrect");
-			} elseif($_GET["msg"]=="password"){
-				$this->addErrorMessage("The username or password you entered is incorrect");
+			if($_GET["msg"]=="invalid"){
+				$this->addErrorMessage("The username and/or password you entered is incorrect");
 			} elseif($_GET["msg"]=="challenge"){
 				$this->addErrorMessage("You must be logged in to try a challenge");
 			} elseif($_GET["msg"]=="activate"){
@@ -51,6 +51,6 @@ class MainLoginController extends HackademicController {
 			}
 		}
 		$this->addPageTitle('Log in');
-		return $this->generateView();
+		return $this->generateView(self::$action_type);
 	}
 }

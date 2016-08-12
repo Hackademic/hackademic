@@ -35,6 +35,8 @@ require_once(HACKADEMIC_PATH."admin/controller/class.HackademicBackendController
 
 class UserManagerController extends HackademicBackendController {
 
+  private static $action_type = 'user_manager';
+
 	public function go() {
 		if (isset($_GET['source']) && $_GET['source']=="del") {
 			$this->addSuccessMessage("User has been deleted succesfully");
@@ -44,7 +46,9 @@ class UserManagerController extends HackademicBackendController {
 			$this->addSuccessMessage("Class has been added succesfully");
 		} elseif (isset($_GET['source']) && $_GET['source']=="addtoclass") {
 			$this->addSuccessMessage("User has been added to the class succesfully");
-		} 
+		} elseif (isset($_GET['source']) && $_GET['source']=="activate") {
+			$this->addSuccessMessage("User has been activated succesfully");
+		}  
 		if (isset($_GET['search']) && isset($_GET['category']) && $_GET['search']!='' && $_GET['category']!='') {
 			$total_pages = User::getNumberofUsers($_GET['search'], $_GET['category']);
 		} else {
@@ -56,7 +60,7 @@ class UserManagerController extends HackademicBackendController {
 		else {
 			$limit=25;
 		}
-		$targetpage = SOURCE_ROOT_PATH."admin/pages/usermanager.php";
+		$targetpage = SOURCE_ROOT_PATH."?url=admin/usermanager";
 		$stages = 3;
 		$page=0;
 		if(isset($_GET['page'])) {
@@ -93,6 +97,6 @@ class UserManagerController extends HackademicBackendController {
 		$this->addToView('total_pages', $total_pages);
 		$this->addToView('pagination', $pagination);
 		$this->setViewTemplate('usermanager.tpl');
-		$this->generateView();
+		$this->generateView(self::$action_type);
 	}
 }

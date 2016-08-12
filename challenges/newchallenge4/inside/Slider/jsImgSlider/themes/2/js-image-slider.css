@@ -1,0 +1,137 @@
+/* http://www.menucool.com */
+
+/*slider frame*/
+
+#sliderFrame, #sliderFrame div {
+    box-sizing: content-box;
+}
+
+#sliderFrame 
+{
+    box-sizing: content-box;
+    width:920px;
+    margin:0 auto; /*center-aligned*/
+    padding:20px;
+    box-shadow: 0 0 5px #BBB;border:1px solid #CCC; background-color:#FFF;
+}
+
+#slider, #slider div.sliderInner {
+    width:680px;height:306px;/* Must be the same size as the slider images */
+}
+
+#slider {
+    float:left;
+	background:#fff url(loading.gif) no-repeat 50% 50%;
+	position:relative;
+    transform: translate3d(0,0,0);
+}
+
+/* the link style (if an image is wrapped in a link) */
+#slider a.imgLink, #slider .video {
+	z-index:2;
+	position:absolute;
+	top:0px;left:0px;border:0;padding:0;margin:0;
+	width:100%;height:100%;
+}
+#slider .video {
+	background:transparent url(video.png) no-repeat 50% 50%;
+}
+
+/* Caption styles */
+#slider div.mc-caption-bg, #slider div.mc-caption-bg2 {
+	position:absolute;
+	width:400px;
+	height:auto;
+	padding:10px 0;/* 10px will increase height.*/
+	left:120px; /*if the caption needs to be aligned from right, specify by right instead of left. i.e. right:20px;*/
+	bottom:10px;/*if the caption needs to be aligned from top, specify by top instead of bottom. i.e. top:150px;*/
+	z-index:3;
+	overflow:hidden;
+	font-size:0;
+}
+#slider div.mc-caption-bg {
+    /* NOTE: Its opacity is to be set through the sliderOptions.captionOpacity setting in the js-image-slider.js file.*/
+	background:#DDD;/* or any other colors such as Black, or: background:none; */
+	border:1px solid white;
+	border-radius: 5px;
+}
+#slider div.mc-caption-bg2 {
+    background:none;
+}
+#slider div.mc-caption {
+	font:bold 13px/16px Arial;
+	color:#069;
+	z-index:4;
+	text-align:center;
+    background:none;
+}
+#slider div.mc-caption a { 
+	color:#060;
+}
+
+
+/* ------ built-in navigation bullets wrapper that is relative to the #slider ------*/
+#slider div.navBulletsWrapper  {
+	display:none;
+}
+
+/* --------- Others ------- */
+
+#slider div.loading 
+{
+    width:100%; height:100%;
+    background:transparent url(loading.gif) no-repeat 50% 50%;
+    filter: alpha(opacity=60);
+    opacity:0.6;
+    position:absolute;
+    left:0;
+    top:0; 
+    z-index:9;
+}
+
+#slider img, #slider>b, #slider a>b {
+	position:absolute; border:none; display:none;
+}
+
+#slider div.sliderInner {
+	overflow:hidden; 
+	-webkit-transform: rotate(0.000001deg);/* fixed the Chrome not crop border-radius bug*/
+	position:absolute; top:0; left:0;
+}
+
+#slider>a, #slider video, #slider audio {display:none;}
+#slider div {-webkit-transform: translate3d(0,0,0);transform: translate3d(0,0,0);}
+
+
+
+/* -- thumbnails -- */
+#thumbs 
+{
+    float:left;
+    margin-left:10px;
+    width:230px;
+    font:normal 11px/13px Arial;
+    border-top:1px solid #CCC;
+    color:#666;
+}
+#thumbs .thumb 
+{
+    border:1px solid #CCC;
+    border-top:1px solid #FFF;
+    padding:11px 8px;
+    background:#EEE;
+}
+#thumbs .thumb-on 
+{
+    background:#FFF;
+}
+
+#thumbs img{border:1px solid #DDD; cursor:pointer; width:70px; height:44px;}
+
+#thumbs .frame {float:left;padding:2px;border:1px solid #CCC;background:white;border-radius:3px;box-shadow:0 0 3px #BBB;font-size:0;line-height:0;}
+#thumbs .thumb-content {float:left;width:110px;padding-left:18px;}
+
+/* Captions in #thumbs .thumb-content */
+#thumbs .thumb-content p {font-weight:bold; color:#BF5D9B; margin:0 0 3px;padding:0;}
+#thumbs .thumb-on .thumb-content p {color:#BB0000;}
+
