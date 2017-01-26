@@ -1,0 +1,15 @@
+body {
+width: 600px;
+ background-image: url("/images/football2.jpg");
+padding:30px;
+font-size: 9pt;
+font-family: fixedsys, LucidaTerminal, monospace;
+color: #FFFFFF;
+text-align: left;
+overflow:auto;
+border: 5px solid #FFFFFF;
+margin-left:200px;
+margin-top:50px;
+margin-bottom:50px;
+}
+h1 {margin-bottom:-10px;margin-top:-10px;}
