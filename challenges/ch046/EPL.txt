@@ -1,3 +1,0 @@
-flag is : thenew_flag
-
-//have to encrypt this later...
