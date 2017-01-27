@@ -1,0 +1,61 @@
+Challenge 048 : Medium CTF Challenge
+
+Welcome to CTF.
+Looks like a simple page with simple source, usually simple pages have most things hidden in them.
+Complete White Background Suspicious 
+
+CTRL + A page and scroll down u notice a hint there hidden.. shows "robots.txt"
+OR you can also scroll down the source page and get that hint.
+
+User-agent: *
+Disallow: /dir/indexX.php			//suspiciuos page
+
+User-agent: *
+Disallow: /inside/submit.php			//submit flag page
+
+/inside/submit.php : checking this directory out nothing here, this page is to submit the flag 
+/dir/     directory too, nthing here except
+/dir/indexX.php : says protected area, enter  the site :
+asks for username and password saying : Protected Area !!
+admin:admin admin:pass doesnt works so surely, it's not made for guessing
+
+this page heads to /dir/secret/  okay.. but we dont have the username and password for it.
+
+This authentication might be of .htaccess file so let's use curl to check out request methods allowed and use different http methods to this /secret dir. 
+
+curl -X OPTIONS -v http://locahost:8008/dir/secret : we can see all methods are allowed
+let's use GET for checking and it gives 200 OK !! WOhhhhh Bypassed !!!
+
+So, the fault in .htaccess file is that.. it just limits and authenticates on POST http method request. 
+
+so if u just type or reload url : http://localhost:8008/dir/secret/    you will be able to access the page :D
+ 
+Good one Wats Next.. It's not as easy as it looks 0_0
+
+(White Background always makes me suspicious)
+CTRAL + A --> gives me that "It's not as easy as it looks" is an image okay, 
+let's check out the susp image directory
+http://localhost:8008/dir/secret/images/its.jpg
+
+there's another file in images/  : image.jpeg
+which contains "errors" so let's check out these "errors" save this file first.
+
+image.jpeg
+view contents using "strings image.jpeg" or cat or gedit.. it shows.. some random strings.. n also s string name "sec.wav" might be an audio file
+using "file image.jpeg" u'll see that it gives zip archive, kk so this a zip file
+
+rename "image.jpeg" --> "image.zip"
+extract it : u'll get a wav audio file.. named sec.wav let's check this out 
+audio is kind of random, might have something hidden inside it, steganography.
+Google out Steganography if u've never heard of this term.
+
+let's figure this audio using Sonic Visualiser
+looks like a simple audio file.. let's add sprectrogram filter and there you go --> PIKACHU 
+
+so, this was an image file that was rendered blue and then converted to audio file :D
+
+so the flag is : PIKACHU
+
+Successful !!!
+
+Hope You Learned Some new things and Enjoyed this Challenge !!!

