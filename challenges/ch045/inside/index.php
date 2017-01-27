@@ -12,8 +12,8 @@
     <div id="templatemo_header_section">
         <div id="search_box">
             <form method="post" action="index.php">
-                <input type="text" name="searchfield" id="search_field" title="searchfield" />
-                <input type="submit" name="search" value="" alt="Search" id="search_button" title="Search" />
+                <input type="text" name="searchfield" id="search_field" title="searchfield"/>
+                <input type="submit" name="search" value="enter ip to ping" alt="Search" id="" title="Search" />
             </form>
         </div>
     </div> <!-- end of header -->

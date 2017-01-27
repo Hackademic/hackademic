@@ -18,7 +18,6 @@ else {
 
 $dbname ="waymessier_db";
 $host = 'localhost';
-$dbname1 = "challenges";
 
 ?>
 

@@ -43,11 +43,11 @@
 			</div>
 <?php
 //including the Mysql connect parameters.
- 	include("../sql-connections/sql-connect.php");
+ 	include("../setup_db/sql-connect.php");
 if(!isset($_COOKIE['uname']))
 	{
 	//including the Mysql connect parameters.
-	include("../sql-connections/sql-connect.php");
+	include("../setup_db/sql-connect.php");
 
 	echo "<br/>";
 	echo "<div style=' margin-top:20px;color:#000000; font-size:24px; text-align:center'> Welcome to the Login Page &nbsp;&nbsp;&nbsp;<font color='#FF0000'> </font><br></div>";
@@ -119,6 +119,11 @@ function check_input($value)
 		$row1 = mysql_fetch_array($result1);
 			if($row1)
 				{
+				if($row1['username'] == "admin"){
+			  		echo "<br/><br/><font size = 6 color=green><b>CONGRATS, YOU NAILED IT !<b/><font/>";
+			  		echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
+			  		die();
+			  	}
 				echo '<font color= "#000000" font size = 3 >';
 				setcookie('uname', base64_encode($row1['username']), time()+3600);	
 				header ('Location: index1.php');
@@ -160,9 +165,17 @@ else
 			echo "<br/>";
 			if ( ($_SERVER['HTTP_USER_AGENT'] === 'OurBrowser' ) ) 
 			{
+
 			$cookee = $_COOKIE['uname'];
 			$format = 'D d M Y - H:i:s';
 			$timestamp = time() + 3600;
+			
+			if($row['username'] == "admin" && $row['password'] == 'TheAdminPassw0rd'){
+			  		echo "<br/><br/><font size = 6 color=green><b>CONGRATS, YOU NAILED IT !<b/><font/>";
+			  		echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
+			  		die();
+			  	}
+
 			echo "<center>";
 			echo "<br><br><br>";
 			echo "<br><br>";
@@ -172,9 +185,9 @@ else
 			echo '<font color= "#000000" font size = 5 >';			
 			
 			$cookee = base64_decode($cookee);
-			$cookee1 = '"'. $cookee. '"';
+			//$cookee1 = '"'. $cookee.'"';
 			echo "</font>";
-			$sql="SELECT * FROM users WHERE username=$cookee1 LIMIT 0,1";
+			$sql="SELECT * FROM users WHERE username=('$cookee') LIMIT 0,1";
 			$result=mysql_query($sql);
 			if (!$result)
   				{
@@ -183,31 +196,59 @@ else
 			$row = mysql_fetch_array($result);
 			if($row)
 				{
-			  	echo '<font color= "black" font size="5">';	
-			  	echo "You now have access to your Profile<br/><br/>";
-			  	echo '<b>You are logged in as : </b>'. $row['username'];
-			  	echo "<br>";
-			  	if($row['username'] == "admin"){
-			  		echo "<br/><br/><font size = 6 color=green><b>CONGRATS, YOU NAILED IT !<b/><font/>";
-			  		echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
-			  		die();
-			  	}
-				echo '<font color= "grey" font size="5">';  	
-			  	echo "</font></b>";
-				echo "<br>";
-				echo 'Your CALL ID is : ' .$row['id'];
+				 	if($row['username'] == "admin")
+				  	{
+				  		echo "<br/><br/>";
+				  		echo "Nice Try :P";
+				  		echo "<br/><br/>";
+				  	}
+				  	else
+				  	{
+
+				  	echo '<font color= "black" font size="5">';	
+				  	echo "You now have access to your Profile<br/><br/>";
+				  	echo '<b>You are logged in as : </b>'. $row['username'];
+				  	echo "<br>";
+				  	// if($row['username'] == "admin")
+				  	// {
+				  	// 	echo "<br/><br/>";
+				  	// 	echo "Nice Try :P";
+				  	// 	echo "<br/><br/>";
+				  	// }
+				  	// if($row['username'] == "admin" && $row['password'] == 'TheAdminPassw0rd'){
+				  	// 	echo "<br/><br/><font size = 6 color=green><b>CONGRATS, YOU NAILED IT !<b/><font/>";
+				  	// 	echo "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>";
+				  	// 	die();
+				  	// }
+					echo '<font color= "grey" font size="5">';  	
+				  	echo "</font></b>";
+					echo "<br>";
+					echo 'Your CALL ID is : ' .$row['id'];
+					}
 			  	}
 			else	
 				{
+
 				echo "<center><br/>";
 				echo "You almost got it";
-				echo '<br><br><br>';
-				echo "<br><br><b>";
+				echo "<pre>";
+				echo "$row";
+				echo "</pre>";
+				// echo '<br><br><br>';
+				// echo "<br><br><b>";
+				// echo '<font color= "black" font size="5">';	
+			 //  	echo "You now have access to your Profile<br/><br/>";
+			 //  	echo '<b>You are logged in as : </b>'. $row['username'];
+			 //  	echo "<br>";
+		  // 		echo '<font color= "grey" font size="5">';  	
+			 //  	echo "</font></b>";
+				// echo "<br>";
+				// echo 'Your CALL ID is : ' .$row['id'];
 				}
 			echo '<center>';
 			echo "<br/><br/><br/>";
 			echo '<form action="" method="post">';
-			echo '<input  type="submit" name="submit" value="Delete Your Cookie!" />';
+			echo '<input  type="submit" name="submit" value="Log Out" />';
 			echo '</form>';
 			echo '</center>';
 		    }
@@ -218,7 +259,7 @@ else
 			echo '<center>';
 			echo "<br/><br/><br/>";
 			echo '<form action="" method="post">';
-			echo '<input  type="submit" name="submit" value="Delete Your Cookie!" />';
+			echo '<input  type="submit" name="submit" value="Log Out !!" />';
 			echo '</form>';
 			echo '</center>';
 		    }

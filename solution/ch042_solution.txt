@@ -1,0 +1,58 @@
+Challenge 042 : Medium Spy Admin Challenge
+
+Welcome to this interesting challenge.
+login form --> let's try sql injection various methods : neither of them works
+there might be a reason you've been given a user credentials 
+It looks like a simple website.. let's login with the given username and password.
+
+Looks suspicious..
+"Our Customer" "Paid Browser" --> "OurBrowser"
+
+The Customers have been secretised to used some specific paid browser
+Let's check out by changing our UserAgent to "OurBrowser"
+u can create this using User Agent addon or tamper request using tamper data or burpsuite 
+
+Now u have access to ur profile
+it shows username and some call id.
+
+which might be coming from database.
+lets try injecting some queries into different injection fields.. such as along with user agent.
+lets check out our cookies
+
+the content looks something like c2NydHVzcg%3D%3D  %3D = "="
+c2NydHVzcg== 
+
+this sure is base64 encoded.. let's decode this : scrtusr
+this is the username we have logged in as
+OKAY !!  the cookie has content as username which is being encoded as base64
+so let's try base64 encoded (admin).. might work :)
+
+admin : YWRtaW4=  
+Nice Try :P
+
+so let's try something else :
+let's try to inject this field as : base64[scrtusr'] : c2NydHVzcic=
+save the cookie 
+wow.. it gives : you almost got it.. so surely this part is injectable.. let's try another queries as scrtusr' or scrtusr"  with base64 encoding
+and with some time u'll come to know that the query is balanced using ')
+
+') order by 4-- - : gives unknown column 4 
+so no. of columns is 3
+
+let's base 64 encode this : ') union all select 1,2,3 -- - and inject in our cookie
+
+so we  get the vulnerable column i.e. 2 
+so let's inject this completely using error sql injection 
+
+') union all select 1,group_concat(table_name),3 from information_schema.tables where table_schema=database() -- -
+JykgdW5pb24gYWxsIHNlbGVjdCAxLGdyb3VwX2NvbmNhdCh0YWJsZV9uYW1lKSwzIGZyb20gaW5mb3JtYXRpb25fc2NoZW1hLnRhYmxlcyB3aGVyZSB0YWJsZV9zY2hlbWE9ZGF0YWJhc2UoKSAtLSAt
+
+gives tables : emails and users
+ 
+inject into table and get the username and password for admin
+
+admin : TheAdminPassw0rd
+
+Congratulations You Tried Your Best (y) 
+
+Hope you enjoyed this challenge and Learned some new Things about WebApp Security !!!

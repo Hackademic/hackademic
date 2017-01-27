@@ -6,7 +6,7 @@ SO TRY HARDER   -->
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>DeskTest : Funrally Axis Cube Black Base</title>
 <div>
-  <body background="sad.jpg"><center/>
+  <body background="sad.jpeg"><center/>
   <div/>
 <?php 
 
@@ -15,7 +15,7 @@ SO TRY HARDER   -->
 
 	if ($usr==='admin' and $pass==='@dm!n!$4R@40R') {
      
-		echo "<br/><br/><br/><br/><center><font size = 7 color=Green><b>Congratulations :D<br/><br/>You NAILED IT !<b/></font>";
+		echo "<br/><br/><br/><br/><center><font size = 5 color=Green><b>Congratulations :D<br/><br/>You NAILED IT !<b/></font>";
 		
 		die();
 	}
@@ -23,7 +23,7 @@ SO TRY HARDER   -->
 	else
 	{
 
-	echo "<br/><br/><br/><br/><center><font size = 7 color=Red><b>Nice Try.. <br/><br/> Invalid Username/Password. Try Again !!<b/></font>"; 
+	echo "<br/><br/><br/><br/><center><font size = 5 color=Red><b>Nice Try.. <br/><br/> Invalid Username/Password. Try Again !!<b/></font>"; 
 
 		die();
     }

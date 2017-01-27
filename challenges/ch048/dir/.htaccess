@@ -1,0 +1,8 @@
+AuthType Basic
+AuthName "Protected Area !!"
+AuthUserFile /etc/apache2/.htpasswd1
+
+<Limit POST>
+Require user admin
+</Limit>
+

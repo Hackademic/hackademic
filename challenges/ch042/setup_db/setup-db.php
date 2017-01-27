@@ -91,10 +91,6 @@ $sql="INSERT INTO `waymessier_db`.`emails` (id, email_id) VALUES ('1', 'TheGamin
 	else 
 		{echo "Error inserting data: " . mysql_error();echo "<br><br>\n";}
 
-
-
-//including the Challenges DB creation file.
-include("setup-db-challenge.php");
 ?>
 
 <font color = #FFFFFF>

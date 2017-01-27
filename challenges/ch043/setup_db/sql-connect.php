@@ -9,17 +9,7 @@ if (!$con)
     echo "Failed to connect to MySQL: " . mysql_error();
 }
 
-
-    @mysql_select_db($dbname1,$con) or die ( "Unable to connect to the database: $dbname1".mysql_error());
-
-
-
-
-
-
-$sql_connect_1 = "SQL Connect included";
-
-
+@mysql_select_db($dbname,$con) or die ( "Unable to connect to the database: $dbname");
 
 ?>
 

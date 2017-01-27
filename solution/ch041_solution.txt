@@ -1,0 +1,38 @@
+Challenge 041 : Easy CTF Login challenge
+
+The first thing one would notice is, right click is disabled on this admin page, one can either use the shortcut to veiw soirce, or some extenstions or tools like web developer etc. 
+
+once you view the source, it shows "<!-- This website has both Source code and Right Click disabled -->"
+
+Right click has been disabled which you've gone through. 
+If you look carefully, you will notice that the view source page is quite lengthy
+So scroll your way down towards the end. there's the source code. 
+These tricks are commonly used by some web developers to hide source code.
+
+Everything looks normal on the code, normal post login form.. 
+"action=pwd.php"
+let's check this out --> invalid username password, ok so this is not the vulnerability.
+
+In style.css file u get "images/football2.jpg"
+but images/ dir is protected
+
+Try going through all the files in source code, precisely more suspicious file..
+If you get a closer look at it,
+there's this image.jpg file wen you view that, you notice that it's not used anywhere else so far in our site 
+so this might be of some help.
+
+Looks like a normal image, but is it?
+Everything that shines is not Gold.
+
+Lets save this image and check the type of file, this is correct : jpeg file 
+lets view the contents of file using hexeditor or strings 
+
+When one views it, you 'll notice something like this " YWRtaW4= : QGRtIW4hJDRSQDQwUg==" 
+towards end.. which pretty much looks like username:password
+
+This sure looks encoded, one would get that from experience that it's one of the most common encrypted format i.e. Base64 encoded
+Hence decode both strings and login with the credentials
+
+Successful !!!
+
+Hope You Learned Some new things and Enjoyed this Challenge !!!

@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+   config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -33,14 +33,14 @@ Vagrant.configure(2) do |config|
    config.vm.provision "shell",
       inline: "sudo service mysql start"
    config.vm.provision "shell",
-      inline: "sudo php /var/www/html/sql-connections/setup-db.php"  
+      inline: "sudo php /var/www/html/setup_db/setup-db.php"  
  #config.vm.provision "shell", 
    #   inline: "sudo /usr/bin/mysql -uroot -pnewpassword -e 'SELECT CURDATE();' || /usr/bin/mysqladmin -u root password 'newpassword'"
    config.vm.provision "shell",
       inline: "sudo service apache2 start && sudo service mysql restart" 
    #print "almost done\n";
    #config.vm.provision "shell",
-    #  inline: "sudo php /var/www/html/sql-connections/setup-db.php"
+    #  inline: "sudo php /var/www/html/db_setup/setup-db.php"
    #config.vm.provision "shell",
     #  inline: "sudo service apache2 restart && sudo service mysql restart"
 

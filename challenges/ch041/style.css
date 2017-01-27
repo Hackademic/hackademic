@@ -1,6 +1,6 @@
 body {
 width: 600px;
- background-image: url("football2.jpg");
+ background-image: url("/images/football2.jpg");
 padding:30px;
 font-size: 9pt;
 font-family: fixedsys, LucidaTerminal, monospace;

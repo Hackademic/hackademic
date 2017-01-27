@@ -20,7 +20,7 @@
 
 <?php
 
-include("../sql-connections/sql-connect.php");
+include("../setup_db/sql-connect.php");
 
 
 if(isset($_GET['id']))

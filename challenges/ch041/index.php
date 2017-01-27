@@ -23112,7 +23112,7 @@
 
 
 
-<!-- Fianlly ! -->
+<!-- Finally ! -->
 
 
 
@@ -23124,16 +23124,12 @@
 <meta name="robots" content="noindex">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>Sample 1</title>
-<!-- images images everywhere :P -->
 <LINK REL="stylesheet" HREF="style.css" TYPE="text/css">
 </head>
-<body bg="images/images.jpg">
-<!-- Another hint : there is no passphrase -->
+<body bg="image.jpg">
 <h1>Admin </h1>
-<!-- All you need is the admin credentials-->
 <p></p>
 <br><br>
-<!-- Login page -->
 <h1>Login page</h1>
 <br><br>
 <!-- This pece of code disables clicks on the html page -->
