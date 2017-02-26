@@ -46,8 +46,6 @@ def xmlparser(xmlfile):
 			print(Error)										#prints the line no. on which error occured
 	except FileNotFoundError:
 		print("File Not Found.")
-	except ET.ParseError as Error:
-		print(Error)
 		
 if __name__=="__main__" :                                    #code to execute if called from command-line
 	a = input("Enter File name relative to this file.\n")     #Taking file name input 
