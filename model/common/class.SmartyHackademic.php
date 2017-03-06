@@ -31,7 +31,7 @@
  *
  */
 require_once(HACKADEMIC_PATH."config.inc.php");
-require_once(HACKADEMIC_PATH."extlib/Smarty-3.1.8/libs/Smarty.class.php");
+require_once(HACKADEMIC_PATH."extlib/Smarty-3.1.21/libs/Smarty.class.php");
 require_once(HACKADEMIC_PATH."model/common/class.Utils.php");
 
 class SmartyHackademic extends Smarty {
