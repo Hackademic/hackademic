@@ -92,7 +92,7 @@ class Base64Codec extends Codec
      * 
      * @return string the base64 encoded character
      */
-    public function encodeCharacter($input)
+    public function encodeCharacter($input, $c = '')
     {
         $detectedCharacterEncoding = Codec::detectEncoding($input);
         $c = mb_substr(
