@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+		<title>BVirtual Pointer Overflow </title>
+		<author>
+			Punit Dhoot
+		</author>
+		<category>Binary</category>
+		<description>
+			<![CDATA[
+				This challenge tests whether you know how does function calling take place in Object Oriented Programming. Can you get the shell?
+			]]>  
+		</description>
+		<level>
+			1
+		</level>
+	 <sandbox>
+		<type>Vagrant</type>
+	 </sandbox>
+</challenge>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<basebox>ubuntu/trusty64</basebox>
+	<files>
+		<file type="dir" src="/files/overflow2" dest="/home/vagrant/overflow2" />
+	</files>
+	<puppet>manifests/default.pp</puppet>
+</root>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<challenge>
+		<title>Buffer Overflow 1</title>
+		<author>
+			Punit Dhoot
+		</author>
+		<category>Binary</category>
+		<description>
+			<![CDATA[
+				A weird game is being run in this binary. No matter how good you play, you are gonna lose, unless, if you are a hacker!
+			]]>  
+		</description>
+		<level>
+			2
+		</level>
+	 <sandbox>
+		<type>Vagrant</type>
+	 </sandbox>
+</challenge>
