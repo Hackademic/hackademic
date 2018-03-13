@@ -4,7 +4,6 @@ import os
 import re
 import sys
 import json
-import signal
 import socket
 import thread
 import random
@@ -68,7 +67,7 @@ class ContainerDaemon():
                 if flag:
                     self.kill_container(container_list[i].get("Id"))
 
-    def create_socket(self):
+    def create_socket(self, test=False):
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         try:
@@ -78,11 +77,15 @@ class ContainerDaemon():
             + msg[1]
             sys.exit(1)
         s.listen(10)
+        if test:
+            conn, addr = s.accept()
+            self.client_thread(conn, test)
+            return
         while True:
             conn, addr = s.accept()
             thread.start_new_thread(self.client_thread, (conn,))
 
-    def client_thread(self, conn):
+    def client_thread(self, conn, test=False):
         while True:
             data = conn.recv(1024)
 
@@ -90,6 +93,7 @@ class ContainerDaemon():
                 challenge = str(data).split(':')[1]
                 containers = self.create_container(challenge)
                 conn.sendall(containers)
+                if test: break
 
             if 'list_containers' in str(data):
                 containers = self.list_containers()
