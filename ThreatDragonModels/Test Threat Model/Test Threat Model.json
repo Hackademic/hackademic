@@ -5,7 +5,17 @@
     "description": "test"
   },
   "detail": {
-    "contributors": [],
-    "diagrams": []
+    "contributors": [
+      {
+        "name": "foo"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "foobar",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "id": 0
+      }
+    ]
   }
 }
